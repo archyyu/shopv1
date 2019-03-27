@@ -8,7 +8,7 @@ create table ims_shopv1_shop(
 	phone varchar(20) default '' comment '联系电话',
 	logo varchar(200) default '' comment 'logo',
 	address varchar(200) default '' comment '',
-	
+	defaultstoreid int(11) comment '默认仓库',
 	primary key(id)
 )engine=InnoDB default charset=utf8;
 
@@ -26,6 +26,8 @@ drop table if exists ims_shopv1_product;
 create table ims_shopv1_product(
 	id int(11) auto_increment,
 	productname varchar(20) default '',
+    typeid int(11) comment '商品类型id',
+    producttype int(11) default 0 comment '类型 -1:虚拟商品  0:成品, 1：自制 2:原料  ',
 	normalprice int(11) default 0 comment '正常价格',
 	memberprice int(11) default 0 comment '会员价',
 	userget int(11) default 0 comment '员工收益',
@@ -35,6 +37,14 @@ create table ims_shopv1_product(
 	deleteflag int(11) default 0,
 	primary key(id)
 )ENGINE=InnoDB default charset=utf8;
+
+drop table if exists ims_shopv1_productrelation(
+    id int(11) auto_increment,
+    productid int(11) comment '自制商品id',
+    materialid int(11) comment '原料id',
+    num int(11) default 0 comment '所需数量',
+    primary key(id)
+)engine=InnoDB default charset=utf8;
 
 drop table if exists ims_shopv1_store;
 create table ims_shopv1_store(
@@ -59,6 +69,7 @@ drop table if exists ims_shopv1_inventorylog;
 create table ims_shopv1_inventorylog(
 	id int(11) auto_increment,
 	uniacid int(11) default 0,
+    shopid int(11),
 	productid int(11) default 0,
 	storeid int(11) default 0,
 	num int(11) default 0 comment '变更数量',

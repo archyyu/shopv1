@@ -15,6 +15,16 @@ namespace service;
  */
 class OrderService extends Service{
     
+    public function addOrder(){
+        
+    }
     
+    public function payOrder(){
+        
+    }
+    
+    public function cancelOrder(){
+        
+    }
     
 }
