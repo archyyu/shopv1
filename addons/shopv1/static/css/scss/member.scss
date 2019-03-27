@@ -1,0 +1,42 @@
+
+
+// member list
+.member-list{
+  .form-inline {
+    .form-group{
+      margin-bottom: 10px;
+    }
+    button{
+      vertical-align: top;
+    }
+    .muti-input{
+      width: 220px;
+    }
+  }
+  .sum-info{
+    display: inline-block;
+    line-height: 1.2;
+    vertical-align: middle;
+    margin-left: 8px;
+    ul{
+      margin-bottom: 0;
+      padding-left: 0;
+      list-style: none;
+      li{
+        display: inline-block;
+        margin-right: 5px;
+      }
+    }
+  }
+}
+
+// online list
+.online-list {
+  .online-date-input {
+    width: 220px;
+  }
+
+  .online-info {
+    padding: 6px
+  }
+}

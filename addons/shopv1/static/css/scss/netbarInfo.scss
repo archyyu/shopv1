@@ -1,0 +1,322 @@
+
+/* 
+ * netbar list
+ */
+
+.add-shop{
+  margin-bottom: 15px;
+}
+.add-shop-modal{
+  .bar-name{
+    margin-bottom: 15px;
+  }
+  .control-label{
+    padding-right: 0;
+  }
+}
+
+
+/* 
+ * rate setting
+ */
+ 
+/* 基础设置*/
+.rate-base-setting{
+  margin-bottom: 20px;
+}
+.bar-select{
+  margin-bottom: 15px;
+}
+
+/* 区域列表 */
+.rate-setting{
+  display: flex;
+  .area{
+    width: 160px;
+    min-width: 160px;
+    margin-right: 20px;
+    h5{
+      padding-bottom: 4px;
+      border-bottom: 2px solid #409eff;
+      position: relative;
+      padding-left: 5px;
+    }
+    .area-list{
+      position: relative;
+      >.area-list-item{
+        display: block;
+        padding: 0 15px 0 30px;
+        height: 40px;
+        box-sizing: border-box;
+        line-height: 40px;
+        font-size: 14px;
+        font-weight: 500;
+        color: #303133;
+        cursor: pointer;
+        position: relative;
+        &.active{
+          color: #409eff;
+          &::before{
+            content: '';
+            position: absolute;
+            top: 13px;
+            left: 10px;
+            height: 12px;
+            width: 12px;
+            border: 2px solid #409eff;
+            border-radius: 50%;
+          }
+          &::after{
+            content: '';
+            position: absolute;
+            left: 14px;
+            top: 17px;
+            height: 4px;
+            width: 4px;
+            background-color: #409eff;
+            border-radius: 50%;
+          }
+        }
+      }
+    }
+  }
+
+  .rate-section{
+    flex: 1;
+    h5{
+      padding-bottom: 4px;
+      border-bottom: 2px solid #409eff;
+      position: relative;
+      padding-left: 5px;
+    }
+    .member-level{
+      background-color: #f5f7fa;
+      border-bottom: 1px solid #dcdfe6;
+      padding: 0;
+      position: relative;
+      margin: 0 0 15px;
+      .member-level-item{
+        border-bottom: 1px solid transparent;
+        border-left: 1px solid #dcdfe6;
+        transition: color .3s cubic-bezier(.645,.045,.355,1),padding .3s cubic-bezier(.645,.045,.355,1);
+        cursor: pointer;
+        &.active{
+          color: #409eff;
+          background-color: #fff;
+        }
+      }
+    }
+    .member-level-nav{
+      overflow: hidden;
+      margin-bottom: -1px;
+      position: relative;
+    }
+    .member-level-wrap{
+      border: 1px solid #dcdfe6;
+      border-bottom: none;
+      border-radius: 4px 4px 0 0;
+      box-sizing: border-box;
+      white-space: nowrap;
+      position: relative;
+      transition: transform .3s;
+      float: left;
+    }
+    .member-level-item{
+      padding: 0 20px;
+      height: 40px;
+      box-sizing: border-box;
+      line-height: 40px;
+      display: inline-block;
+      list-style: none;
+      font-size: 14px;
+      font-weight: 500;
+      color: #909399;
+      position: relative;
+      float: left;
+      &:first-child{
+        border-left: none;
+      }
+    }
+  }
+}
+
+/* 费率设置 */
+.normal-rate th{
+  text-align: center;
+} 
+.normal-rate td {
+  background-color: rgba(64, 158, 255, .1);
+  color: #409EFF;
+  border: 1px solid rgba(64, 158, 255, .2);
+  text-align: center;
+}
+
+.normal-rate td.seled {
+  background-color: rgba(103,194,58,.1);
+  color: #67c23a;
+  border: 1px solid rgba(103,194,58,.2);
+}
+
+.rate-setting-card{
+  width: 300px;
+  display: none;
+  position: absolute;
+  .card-body{
+    .rate-input{
+      width: 110px;
+    }
+  }
+}
+
+
+/* 
+ * extra fee
+ */
+
+.add-extra{
+  margin-bottom: 15px;
+}
+.add-extra-modal{
+  .modal-sm{
+    width: 400px;
+  }
+  .form-group>label{
+    padding-right: 0;
+  }
+}
+
+/* 
+ * period
+ */
+.period-setting{
+  display: block;
+}
+.add-period{
+  margin-bottom: 15px;
+}
+
+
+/* 
+ * area setting
+ */
+.area-setting{
+  table{
+    &.table-border{
+      border: 1px solid #ebeef5;
+    }
+    >thead>tr>th{
+      border: 1px solid #ebeef5;
+      background: #f5f7fa;
+      font-weight: normal;
+    }
+    >tbody>tr>td{
+      border: 1px solid #ebeef5;
+    }
+    td{
+      position: relative;
+      &.text-left{
+        text-align: left;
+      }
+      &.area-list{
+        text-align: left;
+        ul{
+          margin-top: 15px;
+          padding: 0;
+          list-style: none;
+          max-height: 400px;
+          overflow-x: hidden;
+          overflow-y: auto;
+          li{
+            padding: 4px;
+            padding-left: 30px;
+            position: relative;
+            cursor: pointer;
+            &:hover{
+              color: #409eff;
+            }
+            &.active{
+              color: #409eff;
+              &::before{
+                content: '';
+                position: absolute;
+                top: 8px;
+                left: 10px;
+                height: 12px;
+                width: 12px;
+                border: 2px solid #409eff;
+                border-radius: 50%;
+              }
+              &::after{
+                content: '';
+                position: absolute;
+                left: 14px;
+                top: 12px;
+                height: 4px;
+                width: 4px;
+                background-color: #409eff;
+                border-radius: 50%;
+              }
+            }
+          }
+        }
+      }
+      &.doble-choose{
+        vertical-align: middle;
+        >div:not(:last-child){
+          margin-bottom: 8px;
+        }
+        button{
+          width: 34px;
+          height: 34px;
+          border-radius: 50%;
+          padding: 0;
+          margin: 0 auto;
+          line-height: 32px;
+        }
+      }
+      &.member-select{
+        vertical-align: middle;
+        >div{
+          display: inline-block;
+        }
+      }
+      .search-pc{
+        margin-bottom: 15px;
+        margin-top: 5px;
+      }
+      .pc-list{
+        margin-bottom: 5px;
+        >select{
+          min-height: 200px;
+          >option{
+            appearance: none;
+            padding: 4px;
+          }
+        }
+      }
+    }
+  }
+}
+.area-setting-card{
+  display: none;
+  position: absolute;
+  top: 32px;
+  z-index: 2;
+  &.add{
+    left:36px;
+  }
+  &.edit{
+    left:90px;
+  }
+}
+
+// member level setting
+.member-level-setting{
+  .add-member-levle{
+    margin-bottom: 15px;
+  }
+  legend{
+    font-size: 15px;
+    margin-bottom: 15px;
+  }
+}
