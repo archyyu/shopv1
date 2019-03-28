@@ -13,6 +13,7 @@ use model\ShopProduct;
 use model\ShopProductrelation;
 use model\ShopProductInventory;
 use model\ShopInventorylog;
+use model\ShopProductType;
 use common\ProductType;
 
 
@@ -25,6 +26,8 @@ class ProductService extends Service{
     //put your code here
     
     private $productModel;
+    
+    private $productTypeModel;
     
     private $productInventoryModel;
     
@@ -41,6 +44,55 @@ class ProductService extends Service{
         $this->productInventoryModel = new ShopProductInventory();
         $this->inventorylogModel = new ShopInventorylog();
         $this->productrelationModel = new ShopProductrelation();
+        $this->productTypeModel = new ShopProductType();
+    }
+    
+    public function getProductTypeList($unacid){
+        $list = $this->productTypeModel->getProductTypeList($unacid);
+        $list;
+    }
+    
+    public function getProductList($shopid,$typeid){
+        $shop = $this->shopModel->findShopById($shopid);
+        $list = $this->productModel->findProductByType($typeid);
+        
+        foreach($list as $key=>$product){
+            $list[$key]['inventory'] = $this->calculateTheInventory($shop,$product);
+        }
+        
+        return $list;
+        
+    }
+    
+    private function calculateTheInventory($shop,$product){
+        if($product['producttype'] == ProductType::VirtualProduct){
+            return 10000;
+        }
+        
+        if($product['producttype'] == ProductType::FinishProduct){
+            return $product['inventory'];
+        }
+        
+        if($product['producttype'] == ProductType::SelfMadeProduct){
+            //如果是自制，则计算能制作多少
+            $maxcnt = 100;
+            $productMaterialList = $this->productrelationModel->getRelationList($product['id']);
+            foreach($productMaterialList as $key=>$value){
+                
+                $inventory = $this->findInventoryBy($shop['id'], $value['materialid'], $shop['defaultstoreid']);
+                
+                if($value['num'] == 0){
+                    continue;
+                }
+                
+                if($inventory['inventory']/$value['num'] < $maxcnt){
+                    $maxcnt = $inventory['inventory']/$value['num'];
+                }   
+            }   
+            return $maxcnt;
+        }   
+        
+        return 0;
     }
     
     public function addProductSale($productId,$productNum){

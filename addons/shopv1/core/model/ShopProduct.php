@@ -18,6 +18,11 @@ class ShopProduct extends Model{
     
     protected $table = "shopv1_product";
     
+    public function findProductByType($typeid){
+        $list = $this->getList('*',['typeid'=>$typeid]);
+        return $list;
+    }
+    
     public function findProdudctById($productId){
         return $this->getOne("*",['id'=>$productId]);
     }

@@ -18,7 +18,8 @@ create table ims_shopv1_producttype(
 	typename varchar(20) default '' comment '分类名称',
 	uniacid int(11) default 0 comment '所属公众号',
 	index int(11) default 0 comment '优先级',
-	deleteflag int(11) default 0 '删除标志',	
+	deleteflag int(11) default 0 comment '删除标志',	
+    visible int(11) default 0 comment '是否可见',
 	primary key(id)
 )ENGINE=InnoDB default charset=utf8;
 
@@ -33,6 +34,7 @@ create table ims_shopv1_product(
 	userget int(11) default 0 comment '员工收益',
 	uniacid int(11) default 0 comment '所属公众号',
 	visibleshops varchar(20) default '' comment '在哪些门店可用',
+    make int(11) default 0 comment '0:不用制作 1:水吧 2:厨房',
 	salenum int(11) default 0 comment '销量',
 	deleteflag int(11) default 0,
 	primary key(id)
@@ -96,8 +98,9 @@ drop table if exists ims_shopv1_membercard;
 create table ims_shopv1_membercard(
 	id int(11) auto_increment,
 	cardid int(11),
-	memberid int(11),
-	useflag int(11) default 0,
+	uid int(11) comment '会员Id',
+    senduserid int(11) comment '发送者id',
+	useflag int(11) default 0 comment '0:未使用,1:使用',
 	gettime int(20) default 0,
 	deleteflag int(11) default 0,
 	userid int(11) default '',
@@ -110,13 +113,14 @@ create table ims_shopv1_shift(
 	id int(11) auto_increment,
 	shopid int(11),
 	shifyindex int(11),
-	userid int(11),
+	userid int(11) comment '吧员Id',
 	productcash int(11),
 	productwechat int(11),
 	productalipay int(11),
 	cardnum int(11),
 	starttime int(20) comment '接班时间',
 	submittime int(20) comment '交班时间',
+    nextuserid int(11) comment '接班人',
 	deleteflag int(11) default 0,
 	primary key(id)
 )engine=InnoDB default charset=utf8;
@@ -145,7 +149,8 @@ create table ims_shopv1_order(
 	shopid int(11),
 	uniacid int(11),
 	remark varchar(20),
-	
+	userid int(11) comment '吧员id',
+    uid int(11) comment '会员id',
 	primary key(id)
 )engine=InnoDB default charset=utf8;
 

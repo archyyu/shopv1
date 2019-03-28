@@ -6,20 +6,14 @@
  * and open the template in the editor.
  */
 
-namespace common;
+namespace service;
 
 /**
- * Description of ProductType
+ * Description of CardService
  *
  * @author YJP
  */
-class ProductType {
-    //put your code here
-    
-    const VirtualProduct = -1;
-    const FinishProduct = 0;
-    const SelfMadeProduct = 1;
-    const Material = 2;
+class CardService extends Service{
     
     
     
