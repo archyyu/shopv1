@@ -28,7 +28,7 @@ class Controller {
         $this->smarty->debugging = true;
         $this->smarty->caching = false;
         $this->smarty->cache_lifetime = 10;
-        $this->smarty->assign("StaticRoot", "../addons/cash/static");
+        $this->smarty->assign("StaticRoot", StaticRoot);
         $this->smarty->setTemplateDir(CASHROOT . 'template/web');
 
         $this->netbarBaseInfo = new NetbarBaseInfo();
