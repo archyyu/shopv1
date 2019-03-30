@@ -10,6 +10,35 @@ define('LOGGING_TRACE', 'trace');
 define('LOGGING_WARNING', 'warning');
 define('LOGGING_INFO', 'info');
 
+function logInfo($info){
+    logging_run($info,"info","info");
+}
+
+function logInfoWithArr($info,$arr){
+    foreach($arr as $key=>$value){
+        $info .= " key:$key value:$value";
+    }
+    
+    logInfo($info);
+}
+
+function logError($info,$e = NULL){
+    if($e != NULL){
+        
+        logging_run($info." exMessage:".$e->getMessage(),"error","error");
+        $traceInfo = $e->getTraceAsString();
+        $traceArr = explode("#", $traceInfo);
+        unset($traceArr[0]);
+        foreach ($traceArr as $traceItem){
+            logging_run("#".$traceItem,"error","error");            
+        }
+        
+    }
+    else{
+        logging_run($info,"error","error");
+    }
+}
+
 function logging_run($log, $type = 'trace', $filename = 'run') {
 	global $_W;
 	$filename = IA_ROOT . '/data/logs/' . $filename . '_' . date('Ymd') . '.log';
