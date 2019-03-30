@@ -2,7 +2,7 @@
 
 
 define("CASHROOT", str_replace("\\", "/", dirname(__FILE__)).'/');
-
+define("StaticRoot","../addons/cash/static");
 include('classloader.php');
 
 
