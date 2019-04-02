@@ -108,8 +108,8 @@ create table ims_shopv1_membercard(
 	primary key(id)
 )engine=InnoDB default charset=utf8;
 
-drop table if exists ims_shopv1_shift;
-create table ims_shopv1_shift(
+drop table if exists ims_shopv1_duty;
+create table ims_shopv1_duty(
 	id int(11) auto_increment,
 	shopid int(11),
 	shifyindex int(11),

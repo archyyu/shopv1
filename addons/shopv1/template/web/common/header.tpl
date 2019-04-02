@@ -5,7 +5,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>计费后台管理系统</title>
+  <title>shopv1管理系统</title>
   <link rel="stylesheet" href="{$StaticRoot}/bootstrap-3.3.7/css/bootstrap.min.css">
   <link rel="stylesheet" href="{$StaticRoot}/plugins/bootstrap-table/bootstrap-table.min.css">
   <link rel="stylesheet" href="{$StaticRoot}/css/animate.css">
@@ -100,22 +100,17 @@
             <ul class="nav nav-second-level">
               <li><a href="#">收入汇总</a></li>
               <li><a href="#">交班明细</a></li>
-              <li><a href="#">漫游账目统计</a></li>
-              <li><a href="#">漫游明细</a></li>
-              <li><a href="#">网吧收支</a></li>
-              <li><a href="#">上机明细</a></li>
               <li><a href="#">商品进销存明细</a></li>
               <li><a href="#">积分明细</a></li>
-              <li><a href="#">卡券明细</a></li>
             </ul>
           </li>
           <li>
               <a class="has-arrow">
                 <span class="iconfont iconstore"></span>
-                <span class="menu-label">网吧超市</span>
+                <span class="menu-label">商品库存</span>
               </a>
               <ul class="nav nav-second-level">
-                  <li><a>连锁管理</a></li>
+                  <li><a>门店管理</a></li>
                   <li><a>库房管理</a></li>
                   <li><a>商品管理</a></li>
                   <li><a>进库/出库</a></li>
@@ -130,31 +125,28 @@
               <ul class="nav nav-second-level">
                   <li><a>收入分析</a></li>
                   <li><a>经营分析</a></li>
-                  <li><a>会员分析</a></li>
                   <li><a>消费分析</a></li>
                   <li><a>消费排行</a></li>
               </ul>
           </li>
           <li>
               <a class="has-arrow">
-                <span class="iconfont iconfunction"></span>
-                <span class="menu-label">网吧管理</span>
+                <span class="iconfont iconchart"></span>
+                <span class="menu-label">卡券管理</span>
               </a>
               <ul class="nav nav-second-level">
-                  <li><a href="index.php?c=site&a=entry&m=cash&do=netbarinfo&f=getlist#">分店网吧管理</a></li>
-                  <li>
-                      <a class="has-arrow"><span>费率设置</span></a>
-                      <ul class="nav nav-third-level">
-                          <li><a href="./index.php?c=site&a=entry&m=cash&do=RateSet&f=index" >普通费率设置</a></li>
-                          <li><a href="./index.php?c=site&a=entry&m=cash&do=netbarinfo&f=area&gid=1" >区域电脑设置</a></li>
-                          <li><a href="./index.php?c=site&a=entry&m=cash&do=membertype&f=index">会员等级设置</a></li>
-                          <li><a href='./index.php?c=site&a=entry&m=cash&do=period&f=index'>包时段设置</a></li>
-                          <li><a href='index.php?c=site&a=entry&m=cash&do=extra&f=index'>附加费设置</a></li>
-                          <li><a href='./index.php?c=site&a=entry&m=cash&do=netbarinfo&f=specialView'>特殊费率设置</a></li>
-                      </ul>
-                  </li>
-                  <li><a>服务端设置</a></li>
-                  <li><a>会员管理</a></li>
+                  <li><a>卡券管理</a></li>
+                  <li><a>卡券明细</a></li>
+              </ul>
+          </li>
+          <li>
+              <a class="has-arrow">
+                <span class="iconfont iconchart"></span>
+                <span class="menu-label">门店管理</span>
+              </a>
+              <ul class="nav nav-second-level">
+                  <li><a>门店管理</a></li>
+                  <li><a></a></li>
                   <li><a>员工管理</a></li>
               </ul>
           </li>

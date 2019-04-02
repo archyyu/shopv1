@@ -13,8 +13,10 @@ namespace model;
  *
  * @author YJP
  */
-class ShopShift extends Model{
+class ShopDuty extends Model{
     //put your code here
-    protected $table = "shopv1_shift";
+    protected $table = "shopv1_duty";
+    
+    
     
 }
