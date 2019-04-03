@@ -8,6 +8,11 @@
 
 namespace service;
 
+use model\ShopOrder;
+use model\ShopOrderproduct;
+
+use common\OrderType;
+
 /**
  * Description of OrderService
  *
@@ -15,8 +20,22 @@ namespace service;
  */
 class OrderService extends Service{
     
-    public function addOrder(){
+    public function generateProductOrder($memberid,$userid,$shopid,$address,$productlist,$ordersource,$remark){
         
+        $order = array();
+        $order['id'] = $this->generateOrderId();
+        $order['createtime'] = time();
+        $order['ordersource'] = $ordersource;
+        $order['ordertype'] = OrderType::ProductOrder;
+        $order['orderstate'] = OrderType::UnPay;
+        $order['address'] = $address;
+        $order['remark'] = $remark;
+        
+        
+    }
+    
+    public function generateOrderId(){
+        return date('YmdHis').substr(implode(NULL, array_map('ord', str_split(substr(uniqid(), 7, 13), 1))), 0, 8);
     }
     
     public function payOrder(){

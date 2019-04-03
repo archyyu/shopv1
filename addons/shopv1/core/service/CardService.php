@@ -8,6 +8,9 @@
 
 namespace service;
 
+use model\ShopCardtype;
+use model\ShopMemberCard;
+
 /**
  * Description of CardService
  *
