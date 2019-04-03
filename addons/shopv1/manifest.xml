@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns="http://www.we7.cc" versionCode="0.6,0.7,0.8">
+<manifest xmlns="http://www.we7.cc" versionCode="1.0">
 	<application setting="false">
 		<name><![CDATA[商城V1]]></name>
 		<identifie><![CDATA[shopv1]]></identifie>
 		<version><![CDATA[1.0.0]]></version>
 		<type><![CDATA[business]]></type>
-		<ability><![CDATA[商城，用于网吧]]></ability>
-		<description><![CDATA[商城，用于网吧]]></description>
+		<ability><![CDATA[商城，用于]]></ability>
+		<description><![CDATA[商城，用于]]></description>
 		<author><![CDATA[某某网络]]></author>
 		<url><![CDATA[http://misoho.taobao.com]]></url>
 	</application>
@@ -36,9 +36,11 @@
 			<message type="location" />
 			<message type="link" />
 			<message type="subscribe" />
+			<message type="unsubscribe" />
 			<message type="qr" />
 			<message type="trace" />
 			<message type="click" />
+			<message type="view" />
 			<message type="merchant_order" />
 		</handles>
 		<rule embed="false" />

@@ -31,9 +31,6 @@ class Controller {
         $this->smarty->assign("StaticRoot", StaticRoot);
         $this->smarty->setTemplateDir(CASHROOT . 'template/web');
 
-        $this->netbarBaseInfo = new NetbarBaseInfo();
-        $this->initNetbarList();
-
     }
 
     public function getParam($key) {
@@ -71,11 +68,7 @@ class Controller {
       
       $this->ajaxReturn($arr);
   }
-
-  public function initNetbarList() {
-    $netbarList = $this->netbarBaseInfo->getNetbarsByUniacid($this->getUniacid());
-    $this->smarty->assign("netbarList", $netbarList);
-  } 
+ 
 
     public function getUid() {
         return $this->getParam("__uid");

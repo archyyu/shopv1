@@ -6,7 +6,7 @@
  * and open the template in the editor.
  */
 
-class CashModuleReceiver extends Receiver{
+class Shopv1ModuleReceiver extends Receiver{
     public function receive() {
         parent::receive();
     }

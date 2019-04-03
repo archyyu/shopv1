@@ -6,7 +6,7 @@
  * and open the template in the editor.
  */
 
-namespace controller\admin;
+namespace controller;
 
 use controller\Controller;
 
@@ -19,9 +19,12 @@ class IndexController extends Controller{
     //put your code here
     public function __construct() {
         parent::__construct();
+        logInfo("index contruct");
     }
     
-    
+    public function index(){
+       echo  "indexController index";
+    }
     
     
 }

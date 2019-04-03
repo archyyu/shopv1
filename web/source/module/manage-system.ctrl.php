@@ -262,8 +262,11 @@ if ($do =='install') {
 	}
 	$module_name = trim($_GPC['module_name']);
 	$installed_module = module_fetch($module_name);
+    
+    logInfo("modulename:".$module_name);
 
 	$manifest = ext_module_manifest($module_name);
+    logInfo($manifest);
 	if (!empty($manifest)) {
 		$result = cloud_m_prepare($module_name);
 		if (is_error($result)) {
@@ -320,14 +323,14 @@ if ($do =='install') {
 			itoast($module_info['message'], '', 'error');
 		}
 	}
-
+    logInfo("1");
 	if (!empty($manifest['platform']['main_module'])) {
 		$plugin_exist = table('modules_plugin')->getPluginExists($manifest['platform']['main_module'], $manifest['application']['identifie']);
 		if (empty($plugin_exist)) {
 			itoast('请先更新或安装主模块后再安装插件', url('module/manage-system/installed'), 'error', array(array('title' => '查看主程序', 'url' => url('module/manage-system/module_detail', array('name' => $manifest['platform']['main_module'])))));
 		}
 	}
-
+    logInfo("2");
 	$check_manifest_result = ext_manifest_check($module_name, $manifest);
 	if (is_error($check_manifest_result)) {
 		itoast($check_manifest_result['message'], '', 'error');
@@ -336,7 +339,7 @@ if ($do =='install') {
 	if (is_error($check_file_result)) {
 		itoast('模块缺失文件，请检查模块文件中site.php, processor.php, module.php, receiver.php 文件是否存在！', '', 'error');
 	}
-
+    logInfo("3");
 	$module = ext_module_convert($manifest);
 		if (!$_W['ispost'] || empty($_GPC['flag'])) {
 		$module_group = uni_groups();
@@ -348,6 +351,7 @@ if ($do =='install') {
 			pdo_insert('modules_plugin', array('main_module' => $manifest['application']['identifie'], 'name' => $plugin));
 		}
 	}
+    logInfo("4");
 	$post_groups = $_GPC['group'];
 	$points = ext_module_bindings();
 	if (!empty($points)) {
@@ -367,17 +371,17 @@ if ($do =='install') {
 			}
 		}
 	}
-
+    logInfo("5");
 	$module['permissions'] = iserializer($module['permissions']);
 
 	$module_subscribe_success = true;
-	if (!empty($module['subscribes'])) {
-		$subscribes = iunserializer($module['subscribes']);
-		if (!empty($subscribes)) {
-			$module_subscribe_success = ext_check_module_subscribe($module['name']);
-		}
-	}
-
+//	if (!empty($module['subscribes'])) {
+//		$subscribes = iunserializer($module['subscribes']);
+//		if (!empty($subscribes)) {
+//			$module_subscribe_success = ext_check_module_subscribe($module['name']);
+//		}
+//	}
+    logInfo("6");
 	if (!empty($module_info['version']['cloud_setting'])) {
 		$module['settings'] = 2;
 	}
@@ -394,7 +398,7 @@ if ($do =='install') {
 			}
 		}
 	}
-
+    logInfo("7");
 	ext_module_run_script($manifest, 'install');
 
 	if (pdo_insert('modules', $module)) {

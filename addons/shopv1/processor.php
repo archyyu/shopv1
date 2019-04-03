@@ -6,7 +6,7 @@
  * and open the template in the editor.
  */
 
-class CashModuleProcessor extends Processor{
+class Shopv1ModuleProcessor extends Processor{
     public function respond(){
         return parent::respond();
     }

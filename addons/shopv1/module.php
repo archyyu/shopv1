@@ -8,11 +8,12 @@
 
 defined('IN_IA') or exit('Access Denied');
 
-class CashModule extends WeModule{
+class Shopv1Module extends WeModule{
     
     public function welcomeDisplay()
 	{
-		header('location: ' . './index.php?c=site&a=entry&m=cash&do=main&f=index');
+        //echo "asas";
+		header('location: ' . './web/index.php?c=site&a=entry&m=shopv1&do=index');
 		exit();
 	}
     
