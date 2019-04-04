@@ -7,36 +7,64 @@
  */
 
 include('libs/smarty/Smarty.class.php');
+ 
+class ClassLoader{
+    
+    private static $includedList = array();
+    
+    public static function recurseInclude($dir){
 
-include('core/model/Medoo.php');
-
-$models = file_tree(CASHROOT.'core/model');
-foreach($models as $modelPath){
-    if(basename($modelPath) != "Medoo.php"){
-        include ('core/model/'.basename($modelPath));
+        if(is_file($dir)){
+            include($dir);
+        }
+        else{
+            $files = file_tree($dir);
+            foreach($files as $file){
+                if(is_dir($file)){
+                    $this->recurseInclude($file);
+                    continue;
+                }
+                else{
+                    if(isset(ClassLoader::$includedList[$file]) == false){
+                        include($file);
+                        ClassLoader::$includedList[$file] = true;
+                    }
+                }
+            }
+        }
     }
-}
-
-$commons = file_tree(CASHROOT.'core/common');
-
-foreach($commons as $commonsPath){
-	include ('core/common/'.basename($commonsPath));
-}
-
-include('core/controller/Controller.php');
-
-$controllers = file_tree(CASHROOT.'core/controller');
-foreach($controllers as $controllerPath){
-    if(basename($controllerPath)!="Controller.php"){
-        include ('core/controller/'.basename($controllerPath));
+    
+    public static function recurseFindByClassName($dir,$className){
+        $files = file_tree($dir);
+        foreach($files as $file){
+            if(is_dir($file)){
+                $this->recurseFindByClassName($file);
+            }
+            else{
+                if(basename($file) == $className.".php"){
+                    return $file;
+                }
+            }
+        }
     }
-}
-
-include('core/service/Service.php');
-
-$services = file_tree(CASHROOT.'core/service');
-foreach($services as $service){
-    if(basename($service) != 'Service.php'){
-        include('core/service/'. basename($service));
+    
+    public static function includeBaseClass($dir,$className){
+        $file = ClassLoader::recurseFindByClassName($dir, $className);
+        if(isset($file)){
+            if(isset(ClassLoader::$includedList[$file]) == false){
+                include($file);
+                ClassLoader::$includedList[$file] = true;
+            }
+        }
     }
+    
 }
+
+
+ClassLoader::includeBaseClass(CASHROOT."core", "Controller");
+ClassLoader::includeBaseClass(CASHROOT."core", "Medoo");
+ClassLoader::includeBaseClass(CASHROOT."core", "Service");
+
+ClassLoader::recurseInclude(CASHROOT."core");
+
+
