@@ -8,7 +8,6 @@
 
 namespace controller;
 
-use model\NetbarBaseInfo;
 use common\Code;
 
 /**

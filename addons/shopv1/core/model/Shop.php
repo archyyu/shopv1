@@ -25,4 +25,15 @@ class Shop extends Model{
         return $this->getList("*",['uniacid'=>$uniacid]);
     }
     
+    public function saveShop($data){
+        if(isset($data['id'])){
+            $id = $data;
+            unset($data['id']);
+            return $this->save($data,['id'=>$id]);
+        }
+        else{
+            return $this->add($data);
+        }
+    }
+    
 }

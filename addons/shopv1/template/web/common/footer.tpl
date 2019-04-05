@@ -1,8 +1,6 @@
 
-      </div>
-      {if $showFooter}
-      <footer class="footer">footer</footer>  
-      {/if}
+      </div> 
+      <footer class="footer">footer</footer>   
     </div>
 
     

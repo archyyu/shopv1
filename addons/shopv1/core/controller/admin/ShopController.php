@@ -27,10 +27,43 @@ class ShopController extends Controller{
     }
     
     public function loadShopList(){
-        
+        try{
+            $list = $this->shopModel->findShopListByUniacid($this->getUniacid());
+            $this->returnSuccess($list);
+        }
+        catch (Exception $ex){
+            logError("err", $ex);
+        }
     }
     
     public function save(){
+        
+        $sid = $this->getParam('shopid');
+        $shopname = $this->getParam("shopname");
+        $master = $this->getParam('master');
+        $phone = $this->getParam('phone');
+        $detail = $this->getParam('detail');
+        $address = $this->getParam('address');
+        
+        $data = array();
+        $data['shopname'] = $shopname;
+        $data['master'] = $master;
+        $data['phone'] = $phone;
+        $data['detail'] = $detail;
+        $data['address'] = $address;
+        $data['uniacid'] = $this->getUniacid();
+        
+        if(isset($sid)){
+            $data['id'] = $sid;
+        }
+        
+        $result = $this->shopModel->saveShop($data);
+        if($result){
+            $this->returnSuccess();
+        }
+        else{
+            $this->returnFail("保存错误");
+        }
         
     }
     

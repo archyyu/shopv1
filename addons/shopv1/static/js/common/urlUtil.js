@@ -11,7 +11,7 @@ var UrlUtil = {
 
   createWebUrl: function (doing, func) {
 
-    var url = "./index.php?c=site&a=entry&m=cash&do=" + doing + "&f=" + func;
+    var url = "./index.php?c=site&a=entry&m=shopv1&do=" + doing + "&f=" + func;
     return url;
   }
 

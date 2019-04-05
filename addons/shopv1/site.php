@@ -30,10 +30,7 @@ class Shopv1ModuleSite extends WeModuleSite{
     public function doWebIndex(){
         global $_GPC;
         
-        ini_set('display_errors',1);
-        
         $f = $_GPC['f'];
-        
         //echo $f;
         $controller = new IndexController();
         $controller->$f();

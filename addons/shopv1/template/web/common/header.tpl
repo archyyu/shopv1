@@ -93,6 +93,16 @@
               </a>
           </li>
           <li>
+              <a class="has-arrow">
+                <span class="iconfont iconchart"></span>
+                <span class="menu-label">门店管理</span>
+              </a>
+              <ul class="nav nav-second-level">
+                  <li><a>门店管理</a></li>
+                  <li><a>员工管理</a></li>
+              </ul>
+          </li>
+          <li>
             <a class="has-arrow">
               <span class="iconfont iconbook"></span>
               <span class="menu-label">账目明细</span>
@@ -138,23 +148,6 @@
                   <li><a>卡券管理</a></li>
                   <li><a>卡券明细</a></li>
               </ul>
-          </li>
-          <li>
-              <a class="has-arrow">
-                <span class="iconfont iconchart"></span>
-                <span class="menu-label">门店管理</span>
-              </a>
-              <ul class="nav nav-second-level">
-                  <li><a>门店管理</a></li>
-                  <li><a></a></li>
-                  <li><a>员工管理</a></li>
-              </ul>
-          </li>
-          <li>
-              <a>
-                <span class="iconfont iconnote"></span>
-                <span class="menu-label">操作日志</span>  
-              </a>
           </li>
       </ul>
     </div>
