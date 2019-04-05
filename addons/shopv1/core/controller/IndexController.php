@@ -23,7 +23,7 @@ class IndexController extends Controller{
     }
     
     public function index(){
-       echo  "indexController index";
+        $this->smarty->display('welcome.tpl');
     }
     
     

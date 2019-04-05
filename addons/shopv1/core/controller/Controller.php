@@ -20,7 +20,7 @@ class Controller {
 
     protected $smarty;
 
-    private $netbarBaseInfo;
+    protected $shopModel;
 
     function __construct() {
 
@@ -30,7 +30,14 @@ class Controller {
         $this->smarty->cache_lifetime = 10;
         $this->smarty->assign("StaticRoot", StaticRoot);
         $this->smarty->setTemplateDir(CASHROOT . 'template/web');
-
+        
+        $this->shopModel = new \model\Shop();
+        $this->initShopList();
+    }
+    
+    public function initShopList(){
+        $shopList = $this->shopModel->findShopListByUniacid($this->getUniacid());
+        $this->smarty->assign("shopList", $shopList);
     }
 
     public function getParam($key) {

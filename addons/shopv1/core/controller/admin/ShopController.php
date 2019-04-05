@@ -22,6 +22,16 @@ class ShopController extends Controller{
         parent::__construct();
     }
     
+    public function index(){
+        $this->smarty->display('admin/shopinfo.tpl');
+    }
     
+    public function loadShopList(){
+        
+    }
+    
+    public function save(){
+        
+    }
     
 }

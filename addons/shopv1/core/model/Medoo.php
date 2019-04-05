@@ -1410,15 +1410,15 @@ class Model extends Medoo {
         parent::__construct($options);
     }
 
-    public function getList($join, $columns = null, $where = null) {
+    protected function getList($join, $columns = null, $where = null) {
         return $this->select($this->table, $join, $columns, $where);
     }
 
-    public function getOne($join, $columns = null, $where = null) {
+    protected function getOne($join, $columns = null, $where = null) {
         return $this->get($this->table, $join, $columns, $where);
     }
 
-    public function add(&$data) {
+    protected function add(&$data) {
         $pdoStateResult = $this->insert($this->table, $data);
         if ($pdoStateResult == false) {
             return false;
@@ -1433,7 +1433,7 @@ class Model extends Medoo {
 
     }
 
-    public function save($data, $where) {
+    protected function save($data, $where) {
         $pdoStateResult = $this->update($this->table, $data, $where);
         if ($pdoStateResult == false) {
             return false;
@@ -1449,16 +1449,6 @@ class Model extends Medoo {
 
     public function reSelect($columns, $where) {
         return $this->select($this->table, $columns, $where);
-    }
-
-    public function getUniacid() {
-        global $_GPC;
-        return $_GPC['__uniacid'];
-    }
-
-    public function getparam($key) {
-        global $_GPC;
-        return $_GPC[$key];
     }
 
 }

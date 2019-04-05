@@ -8,8 +8,8 @@
   <div class="row">
     <table id="barList" class="table table-bordered">
       <tr>
-        <th>网吧编号</th>
-        <th>网吧名称</th>
+        <th>门店编号</th>
+        <th>门店名称</th>
         <th>地址</th>
         <th>负责人</th>
         <th>电话</th>
@@ -33,7 +33,7 @@
           <div class="form-group form-group-sm">
             <div class="col-xs-6">
               <div class="row bar-name">
-                <label class="col-xs-4 control-label">网吧名称：</label>
+                <label class="col-xs-4 control-label">门店名称：</label>
                 <div class="col-xs-8">
                   <input type="text" name="netbarname" class="form-control">
                 </div>
@@ -57,13 +57,6 @@
           <div class="form-group form-group-sm">
             <label class="col-xs-2 control-label">负责人：</label>
             <div class="col-xs-4"><input type="text" name="principal" class="form-control"></div>
-            <label class="col-xs-2 control-label">连锁网吧：</label>
-            <div class="col-xs-4">
-              <select name="ifchain" class="form-control">
-                <option value="0" selected>否</option>
-                <option value="1">是</option>
-              </select>
-            </div>
           </div>
           <div class="form-group form-group-sm">
             <label class="col-xs-2 control-label">电话：</label>
@@ -86,6 +79,6 @@
   </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
 <!-- <script src="{$StaticRoot}/js/web/mockData.js"></script> -->
-<script src="{$StaticRoot}/js/web/netbarInfo/netbar.js"></script>
+<script src="{$StaticRoot}/js/web/admin/shop.js"></script>
 
 {include file="../common/footer.tpl"}

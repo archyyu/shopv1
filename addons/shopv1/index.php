@@ -44,6 +44,6 @@ class Router {
         
     }
     
-};
+}
 
 (new Router())->doIndex();

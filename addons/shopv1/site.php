@@ -2,7 +2,7 @@
 
 
 define("CASHROOT", str_replace("\\", "/", dirname(__FILE__)).'/');
-define("StaticRoot","../addons/cash/static");
+define("StaticRoot","../addons/shopv1/static");
 include('classloader.php');
 
 use controller\Controller;
@@ -37,8 +37,18 @@ class Shopv1ModuleSite extends WeModuleSite{
         //echo $f;
         $controller = new IndexController();
         $controller->$f();
-       
-        
+    }
+    
+    public function doWebShop(){
+        global $_GPC;
+        try{
+            $f = $_GPC['f'];
+            $controller = new \controller\admin\ShopController();
+            $controller->$f();
+        }
+        catch(Exception $ex){
+            logError('err', $ex);
+        }
     }
     
     public function doWebWeb(){
