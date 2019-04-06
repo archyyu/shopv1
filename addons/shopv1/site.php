@@ -7,6 +7,7 @@ include('classloader.php');
 
 use controller\Controller;
 use controller\IndexController;
+use controller\WaterbarController;
 
 class Shopv1ModuleSite extends WeModuleSite{
     
@@ -41,6 +42,18 @@ class Shopv1ModuleSite extends WeModuleSite{
         try{
             $f = $_GPC['f'];
             $controller = new \controller\admin\ShopController();
+            $controller->$f();
+        }
+        catch(Exception $ex){
+            logError('err', $ex);
+        }
+    }
+    
+    public function doWebWaterbar(){
+        global $_GPC;
+        try{
+            $f = $_GPC['f'];
+            $controller = new \controller\WaterbarController();
             $controller->$f();
         }
         catch(Exception $ex){

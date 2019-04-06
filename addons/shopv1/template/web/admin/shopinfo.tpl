@@ -70,7 +70,6 @@
     </div><!-- /.modal-content -->
   </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
-<!-- <script src="{$StaticRoot}/js/web/mockData.js"></script> -->
 <script src="{$StaticRoot}/js/web/admin/shop.js"></script>
 
 {include file="../common/footer.tpl"}
