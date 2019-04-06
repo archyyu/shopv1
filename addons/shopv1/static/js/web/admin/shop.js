@@ -18,7 +18,7 @@ var Shop = {
     initShopTable : function(){
         $("#shopList").bootstrapTable({
             data:[],
-            column:[
+            columns:[
                     {
                         field:'id',
                         title:'门店编号'
