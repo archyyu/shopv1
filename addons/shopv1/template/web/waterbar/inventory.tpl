@@ -8,19 +8,15 @@
     </div>
     <div class="panel-body">
       <div class="clearfix">
-        <form id="productSelectForm" class="form-horizontal">
+        <div class="form-inline">
           <div class="form-group">
-            <label for="name" class="col-sm-1 control-label">查询类型</label>
+            <label class="col-sm-1 control-label">查询类型</label>
             <div class="col-sm-3">
-              <select class="form-control input-sm" name="type" id="selectType" onchange="Inventory()">
+              <select class="form-control input-sm">
                 <option value="">请选择</option>
-                @foreach($typeList as $k =>$v)
-                <option value="{{$v->id}}">{{$v->name}}</option>
-                @endforeach
-
               </select>
             </div>
-            <label for="name" class="col-sm-1 col-sm-offset-1 control-label">查询商品</label>
+            <label class="col-sm-1 col-sm-offset-1 control-label">查询商品</label>
             <div class="col-sm-3">
               <input type="text" class="form-control input-sm" name="product" id="selectProduct"
                 placeholder="请输入商品名称或关键字">
@@ -29,7 +25,7 @@
 
             </div>
           </div>
-        </form>
+        </div>
       </div>
 
     </div>
