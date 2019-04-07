@@ -1,5 +1,5 @@
-<div class="modal fade" id="addMaterialModal" role="dialog" aria-hidden="true">
-  <div class="modal-dialog modal-lg add_material" style="width: 1000px;">
+<div id="addMaterialModal" class="modal fade add-material-modal" role="dialog" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title text-center">添加原料</h5>
@@ -10,7 +10,7 @@
             <div class="form-horizontal form_info">
               <div class="form-group">
                 <label class="control-label col-xs-2">操作员：</label>
-                <p class="form-control-static col-xs-10">{{$user->username}}</p>
+                <p class="form-control-static col-xs-10"></p>
               </div>
             </div>
           </div>

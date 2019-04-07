@@ -1,0 +1,33 @@
+
+// waterbar common
+.search-group{
+  margin-bottom: 10px;
+  .form-inline{
+    .bootstrap-select.form-control{
+      width: auto;
+    }
+  }
+  .form-group{
+    label{
+      margin-right: 5px;
+    }
+  }
+}
+.water-btn-group{
+  margin-bottom: 10px;
+  .left-group{
+    float: left;
+  }
+  .right-group{
+    float: right;
+  }
+}
+
+// inventory management
+.inventory{
+  .product-class-modal{
+    .add-class-btn{
+      margin-bottom: 10px;
+    }
+  }
+}

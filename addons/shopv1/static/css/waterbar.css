@@ -1,0 +1,28 @@
+.search-group {
+  margin-bottom: 10px;
+}
+
+.search-group .form-inline .bootstrap-select.form-control {
+  width: auto;
+}
+
+.search-group .form-group label {
+  margin-right: 5px;
+}
+
+.water-btn-group {
+  margin-bottom: 10px;
+}
+
+.water-btn-group .left-group {
+  float: left;
+}
+
+.water-btn-group .right-group {
+  float: right;
+}
+
+.inventory .product-class-modal .add-class-btn {
+  margin-bottom: 10px;
+}
+/*# sourceMappingURL=waterbar.css.map */

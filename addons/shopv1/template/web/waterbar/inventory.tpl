@@ -2,40 +2,27 @@
 <link rel="stylesheet" href="{$StaticRoot}/css/waterbar.css">
 
 <div class="inventory">
-  <div class="panel panel-search">
-    <div class="panel-heading search">
-      <h3 class="panel-title">查询</h3>
-    </div>
-    <div class="panel-body">
-      <div class="clearfix">
-        <div class="form-inline">
-          <div class="form-group">
-            <label class="col-sm-1 control-label">查询类型</label>
-            <div class="col-sm-3">
-              <select class="form-control input-sm">
-                <option value="">请选择</option>
-              </select>
-            </div>
-            <label class="col-sm-1 col-sm-offset-1 control-label">查询商品</label>
-            <div class="col-sm-3">
-              <input type="text" class="form-control input-sm" name="product" id="selectProduct"
-                placeholder="请输入商品名称或关键字">
-            </div>
-            <div class="col-sm-2">
-
-            </div>
-          </div>
-        </div>
+  <div class="search-group">
+    <div class="form-inline">
+      <div class="form-group form-group-sm">
+        <label class="control-label">查询类型</label>
+        <select class="form-control input-sm selectpicker">
+          <option value="">请选择</option>
+        </select>
       </div>
-
+      <div class="form-group form-group-sm">
+        <label class="control-label">查询商品</label>
+        <input type="text" class="form-control" placeholder="请输入商品名称或关键字">
+      </div>
+      <button class="btn btn-sm btn-primary">搜索</button>
     </div>
   </div>
-  <div class="water-btn-group">
+  <div class="water-btn-group clearfix">
     <div class="left-group">
-      <button class="btn btn-primary" data-toggle="modal" data-target="#productClassModal">商品分类</button>
-      <button class="btn btn-primary" data-toggle="modal" data-target="#addProductModal">添加商品</button>
-      <button class="btn btn-primary" data-toggle="modal" data-target="#productClassModal">添加套餐</button>
-      </div>
+      <button class="btn btn-primary" onclick="Inventory.openClassModal()">商品分类</button>
+      <button class="btn btn-primary" onclick="Inventory.openProductModal(0)">添加商品</button>
+      <button class="btn btn-primary" onclick="Inventory.openProductModal(1)">添加套餐</button>
+    </div>
     <div class="right-group">
       <button class="btn btn-success">导出</button>
       <button class="btn btn-success">批量添加</button>
