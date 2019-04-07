@@ -35,10 +35,7 @@
   
   <script src="{$StaticRoot}/js/common/urlUtil.js" ></script>
   <script src="{$StaticRoot}/js/common/tipsUtil.js" ></script>
-
-  <!-- 数据模拟js，生产环境不需要 -->
-  <script src="{$StaticRoot}/js/dist/mock.js"></script>
-  <script src="{$StaticRoot}/js/web/mockData.js"></script>
+  
     {literal}
     <script>
       $(function () {
