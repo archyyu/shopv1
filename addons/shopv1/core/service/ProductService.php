@@ -47,9 +47,14 @@ class ProductService extends Service{
         $this->productTypeModel = new ShopProductType();
     }
     
+    public function getUniacidByShopId($shopId){
+        $shop = $this->shopModel->findShopById($shopId);
+        return $shop['uniacid'];
+    }
+    
     public function getProductTypeList($unacid){
         $list = $this->productTypeModel->getProductTypeList($unacid);
-        $list;
+        return $list;
     }
     
     public function getProductList($shopid,$typeid){

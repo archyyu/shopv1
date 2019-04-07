@@ -10,12 +10,9 @@ namespace controller\admin;
 
 use controller\Controller;
 
-use model\ShopProductType;
-use model\ShopProduct;
-use model\ShopStore;
 
-use model\ShopProductrelation;
-use model\ShopProductInventory;
+
+use service\ProductService;
 
 /**
  * Description of ProductController
@@ -25,13 +22,18 @@ use model\ShopProductInventory;
 class ProductController extends Controller{
     //put your code here
     
-    
+    private $productService;
     
     public function __construct() {
         parent::__construct();
+        $this->productService = new ProductService();
     }
     
     public function index(){
+        $this->smarty->display("product.tpl");
+    }
+    
+    public function loadProductStore(){
         
     }
     
