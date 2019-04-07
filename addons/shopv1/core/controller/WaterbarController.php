@@ -22,8 +22,8 @@ class WaterbarController extends Controller{
         $this->smarty->display('waterbar/inventory.tpl');
     }
     
-    public function material(){
-        $this->smarty->display('waterbar/warehouse/material.tpl');
+    public function warehouse(){
+        $this->smarty->display('waterbar/warehouse/warehouse.tpl');
     }
     
     

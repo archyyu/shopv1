@@ -118,8 +118,8 @@
               </a>
               <ul class="nav nav-second-level">
                   <li><a>门店管理</a></li>
-                  <li><a>库房管理</a></li>
-                  <li><a>商品管理</a></li>
+                  <li><a href="">库房管理</a></li>
+                  <li><a href="index.php?c=site&a=entry&m=shopv1&do=waterbar&f=index">商品管理</a></li>
                   <li><a>进库/出库</a></li>
                   <li><a>盘点</a></li>
               </ul>

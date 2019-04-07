@@ -124,7 +124,6 @@ var Inventory = {
       $(".commonname").text('套餐');
       $(".associatename").text('商品');
     }
-    // $("#productSelect").selectpicker();
     $("#addProductModal").modal("show");
   }
 }

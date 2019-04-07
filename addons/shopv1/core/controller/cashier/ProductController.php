@@ -8,7 +8,7 @@
 
 namespace controller\cashier;
 
-use model\Controller;
+use controller\Controller;
 use service\ProductService;
 
 class ProductController extends Controller{
