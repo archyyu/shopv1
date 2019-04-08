@@ -5,16 +5,10 @@ define("CASHROOT", str_replace("\\", "/", dirname(__FILE__)).'/');
 define("StaticRoot","../addons/shopv1/static");
 include('classloader.php');
 
-use controller\Controller;
 use controller\IndexController;
-use controller\WaterbarController;
 
 class Shopv1ModuleSite extends WeModuleSite{
     
-    public function __construct() {
-        
-    }
-
     public function getMenus(){
          
         $url = $this->getWebUrl();
@@ -30,11 +24,28 @@ class Shopv1ModuleSite extends WeModuleSite{
     
     public function doWebIndex(){
         global $_GPC;
-        
-        $f = $_GPC['f'];
-        //echo $f;
-        $controller = new IndexController();
-        $controller->$f();
+        logInfo("do web index");
+        try{
+            $f = $_GPC['f'];
+            //echo $f;
+            $controller = new IndexController();
+            $controller->$f();
+        }
+        catch (Exception $ex){
+            logError("err", $ex);
+        }
+    }
+    
+    public function doWebProduct(){
+        global $_GPC;
+        try{
+            $f = $_GPC['f'];
+            $controller = new controller\admin\ProductController();
+            $controller->$f();
+        }
+        catch (Exception $ex){
+            logError('er',$ex);
+        }
     }
     
     public function doWebShop(){
@@ -48,6 +59,19 @@ class Shopv1ModuleSite extends WeModuleSite{
             logError('err', $ex);
         }
     }
+    
+    public function doWebCard(){
+        global $_GPC;
+        try{
+            $f = $_GPC['f'];
+            $controller = new controller\admin\CardController();
+            $controller->$f();
+        }
+        catch (Exception $ex){
+            logError("err", $ex);
+        }
+    }
+    
     
     public function doWebWaterbar(){
         global $_GPC;
@@ -66,7 +90,6 @@ class Shopv1ModuleSite extends WeModuleSite{
         try{
             logInfo("do web index");
             return "asas";
-             
         }
         catch (Exception $ex){
             logInfo("ex:".$ex->getMessage());

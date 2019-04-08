@@ -115,6 +115,10 @@ var Inventory = {
   openClassModal: function () {
     $("#productClassModal").modal("show");
   },
+  
+  openAddClassModal:function(){
+      
+  },
 
   openProductModal: function (type) {
     if(type === 0){

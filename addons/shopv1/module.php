@@ -12,9 +12,8 @@ class Shopv1Module extends WeModule{
     
     public function welcomeDisplay()
 	{
-        //echo "asas";
-		header('location: ' . './index.php?c=site&a=entry&m=shopv1&do=index');
-		exit();
+        logInfo("shopv1 module");
+		header('location: ' . './index.php?c=site&a=entry&m=shopv1&do=index&f=index');
 	}
     
 }

@@ -8,11 +8,11 @@
 
 namespace controller\admin;
 
+use model\ShopStore;
+use model\ShopProductType;
 use controller\Controller;
-
-
-
 use service\ProductService;
+
 
 /**
  * Description of ProductController
@@ -24,21 +24,44 @@ class ProductController extends Controller{
     
     private $productService;
     
+    private $storeModel;
+    
+    private $productTypeModel;
+    
+    private $productModel;
+    
     public function __construct() {
         parent::__construct();
         $this->productService = new ProductService();
+        $this->storeModel = new \model\ShopStore();
+        $this->productTypeModel = new ShopProductType();
+        $this->productModel = new \model\ShopProduct();
+        
     }
     
     public function index(){
-        $this->smarty->display("product.tpl");
+        $this->smarty->display('admin/waterbar/inventory.tpl');
     }
     
+    public function store(){
+        $this->smarty->display('admin/waterbar/warehouse/warehouse.tpl');
+    }
+    
+    
     public function loadProductStore(){
+        $uniacid = $this->getUniacid();
+        $list = $this->storeModel->getStoreListByUniacid($uniacid);
+        $this->returnSuccess($list);
+    }
+    
+    public function saveProductStore(){
         
     }
     
     public function loadProductType(){
-        
+        $uniacid = $this->getUniacid();
+        $list = $this->productTypeModel->getProductTypeList($uniacid);
+        $this->returnSuccess($list);
     }
     
     public function saveProductType(){

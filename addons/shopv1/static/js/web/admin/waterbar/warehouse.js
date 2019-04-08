@@ -6,15 +6,7 @@ $(function(){
 var Warehouse = {
   warehouseTableInit: function(){
     $("#warehouseList").bootstrapTable({
-      data: [{
-          id: 1,
-          text: 2
-        },
-        {
-          id: 2,
-          text: 3
-        }
-      ],
+      data: [],
       columns: [
         {
           field: 'id',

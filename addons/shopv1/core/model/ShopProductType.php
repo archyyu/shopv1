@@ -17,8 +17,8 @@ class ShopProductType extends Model{
     //put your code here
     protected $table = "shopv1_producttype";
     
-    public function getProductTypeList($unacid){
-        $list = $this->getList("*",['unacid'=>$unacid,'visible'=>0]);
+    public function getProductTypeList($uniacid){
+        $list = $this->getList("*",['uniacid'=>$uniacid,'visible'=>0]);
         return $list;
     }
     

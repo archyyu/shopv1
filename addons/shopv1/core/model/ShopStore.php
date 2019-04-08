@@ -18,4 +18,10 @@ class ShopStore extends Model{
     
     protected $table = "shopv1_store";
     
+    public function getStoreListByUniacid($uniacid){
+        return $this->getList('*', ['uniacid'=>$uniacid]);
+    }
+    
+    
+    
 }
