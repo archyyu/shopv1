@@ -130,4 +130,4 @@ var Inventory = {
     }
     $("#addProductModal").modal("show");
   }
-}
+};
