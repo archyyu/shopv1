@@ -101,16 +101,21 @@ if ($do == 'ext') {
 	define('FRAME', 'account');
 	define('IN_MODULE', $modulename);
 	if ($_GPC['system_welcome'] && $_W['isfounder']) {
+        logInfo("system_welcome:");
 		define('SYSTEM_WELCOME_MODULE', true);
 		$frames = buildframes('system_welcome');
 	} else {
 		$site = WeUtility::createModule($modulename);
+        logInfo("site:find");
 		if (!is_error($site)) {
+            logInfo("site:no error");
 			$method = 'welcomeDisplay';
 			if(method_exists($site, $method)){
+                logInfo("method exists");
 				define('FRAME', 'module_welcome');
-				$entries = module_entries($modulename, array('menu', 'home', 'profile', 'shortcut', 'cover', 'mine'));
-				$site->$method($entries);
+				//$entries = module_entries($modulename, array('menu', 'home', 'profile', 'shortcut', 'cover', 'mine'));
+                //TODO
+				$site->$method();
 				exit;
 			}
 		}

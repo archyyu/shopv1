@@ -95,7 +95,7 @@
                 <span class="menu-label">门店管理</span>
               </a>
               <ul class="nav nav-second-level">
-                  <li><a>门店管理</a></li>
+                  <li><a href="index.php?c=site&a=entry&m=shopv1&do=shop&f=index">门店管理</a></li>
                   <li><a>员工管理</a></li>
               </ul>
           </li>
@@ -117,10 +117,9 @@
                 <span class="menu-label">商品库存</span>
               </a>
               <ul class="nav nav-second-level">
-                  <li><a>门店管理</a></li>
-                  <li><a href="">库房管理</a></li>
-                  <li><a href="index.php?c=site&a=entry&m=shopv1&do=waterbar&f=index">商品管理</a></li>
-                  <li><a>进库/出库</a></li>
+                  <li><a href="index.php?c=site&a=entry&m=shopv1&do=product&f=store">库房管理</a></li>
+                  <li><a href="index.php?c=site&a=entry&m=shopv1&do=product&f=index">商品管理</a></li>
+                  <li><a href="index.php?c=site&a=entry&m=shopv1&do=product&f=inventory">进库/出库</a></li>
                   <li><a>盘点</a></li>
               </ul>
           </li>
@@ -142,8 +141,8 @@
                 <span class="menu-label">卡券管理</span>
               </a>
               <ul class="nav nav-second-level">
-                  <li><a>卡券管理</a></li>
-                  <li><a>卡券明细</a></li>
+                  <li><a href="index.php?c=site&a=entry&m=shopv1&do=card&f=index">卡券管理</a></li>
+                  <li><a href="index.php?c=site&a=entry&m=shopv1&do=card&f=logIndex">卡券明细</a></li>
               </ul>
           </li>
       </ul>

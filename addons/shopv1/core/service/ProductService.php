@@ -1,6 +1,4 @@
-<?php
-
-/*
+<?php /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
@@ -47,8 +45,8 @@ class ProductService extends Service{
         $this->productTypeModel = new ShopProductType();
     }
     
-    public function getUniacidByShopId($shopId){
-        $shop = $this->shopModel->findShopById($shopId);
+    public function getUniacidByShopId($shopid){
+        $shop = $this->shopModel->findShopById($shopid);
         return $shop['uniacid'];
     }
     

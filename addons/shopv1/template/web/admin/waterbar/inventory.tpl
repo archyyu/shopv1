@@ -1,4 +1,4 @@
-{include file="../common/header.tpl" title=foo1 logo=true}
+{include file="../../common/header.tpl" title=foo1 logo=true}
 <link rel="stylesheet" href="{$StaticRoot}/css/waterbar.css">
 
 <div class="inventory">
@@ -21,11 +21,8 @@
     <div class="left-group">
       <button class="btn btn-primary" onclick="Inventory.openClassModal()">商品分类</button>
       <button class="btn btn-primary" onclick="Inventory.openProductModal(0)">添加商品</button>
-      <button class="btn btn-primary" onclick="Inventory.openProductModal(1)">添加套餐</button>
     </div>
     <div class="right-group">
-      <button class="btn btn-success">导出</button>
-      <button class="btn btn-success">批量添加</button>
     </div>
   </div>
   <div class="goods-list">
@@ -35,5 +32,5 @@
   {include file="./modals/addproduct.tpl"}
 </div>
 
-<script src="{$StaticRoot}/js/web/waterbar/inventory.js"></script>
-{include file="../common/footer.tpl"}
+<script src="{$StaticRoot}/js/web/admin/waterbar/inventory.js"></script>
+{include file="../../common/footer.tpl"}

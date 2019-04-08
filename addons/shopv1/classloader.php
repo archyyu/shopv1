@@ -16,6 +16,7 @@ class ClassLoader{
 
         if(is_file($dir)){
             include($dir);
+            ClassLoader::$includedList[$file] = true;
         }
         else{
             $files = file_tree($dir);
@@ -60,11 +61,9 @@ class ClassLoader{
     
 }
 
-
-ClassLoader::includeBaseClass(CASHROOT."core", "Controller");
 ClassLoader::includeBaseClass(CASHROOT."core", "Medoo");
 ClassLoader::includeBaseClass(CASHROOT."core", "Service");
+ClassLoader::includeBaseClass(CASHROOT."core", "Controller");
 
 ClassLoader::recurseInclude(CASHROOT."core");
-
 
