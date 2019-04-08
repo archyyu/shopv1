@@ -4,7 +4,7 @@
 <div class="warehouse">
   <div class="water-btn-group clearfix">
     <div class="left-group">
-      <button class="btn btn-primary" data-toggle="modal" data-target="#addWarehouseModal">添加库房</button>
+      <button class="btn btn-primary" data-toggle="modal" onclick="Warehouse.openStore(0);">添加库房</button>
     </div>
   </div>
   <div class="detail_content ">

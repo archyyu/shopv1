@@ -54,8 +54,29 @@ class ProductController extends Controller{
         $this->returnSuccess($list);
     }
     
-    public function saveProductStore(){
+    public function saveStore(){
+        $uniacid = $this->getUniacid();
+        $storename = $this->getParam('storename');
+        $storeid = $this->getParam('storeid');
         
+        $data = array();
+        $data['uniacid'] = $uniacid;
+        $data['storename'] = $storename;
+        $data['deleteflag'] = 0;
+        
+        if(isset($storeid)){
+            $data['id'] = $storeid;
+        }
+        else{
+            $data['createdate'] = date("Y-m-d H:i:s");
+        }
+        
+        if($this->storeModel->saveStore($data)){
+            $this->returnSuccess();
+        }
+        else{
+            $this->returnFail("数据库错误");
+        }
     }
     
     public function loadProductType(){
