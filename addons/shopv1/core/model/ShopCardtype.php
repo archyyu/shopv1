@@ -16,4 +16,21 @@ namespace model;
 class ShopCardtype extends Model{
     //put your code here
     protected $table = "shopv1_cardtype";
+    
+    public function getCardTypeList($uniacid){
+        $list = $this->getList("*", ['uniacid'=>$uniacid]);
+        return $list;
+    }
+    
+    public function saveCardType($data){
+        if(isset($data['id'])){
+            $id = $data['id'];
+            unset($data['id']);
+            return $this->save($data,['id'=>$id]);
+        }
+        else{
+            return $this->add($data);
+        }
+    }
+    
 }

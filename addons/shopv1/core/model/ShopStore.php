@@ -22,6 +22,17 @@ class ShopStore extends Model{
         return $this->getList('*', ['uniacid'=>$uniacid]);
     }
     
-    
+    public function saveStore($data){
+        
+        if(isset($data['id'])){
+            $id = $data['id'];
+            unset($data['id']);
+            return $this->save($data,['id'=>$id]);
+        }
+        else{
+            return $this->add($data);            
+        }    
+
+    }
     
 }
