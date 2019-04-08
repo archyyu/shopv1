@@ -19,11 +19,11 @@ class WaterbarController extends Controller{
     //put your code here
     
     public function index(){
-        $this->smarty->display('waterbar/inventory.tpl');
+        $this->smarty->display('admin/waterbar/inventory.tpl');
     }
     
     public function warehouse(){
-        $this->smarty->display('waterbar/warehouse/warehouse.tpl');
+        $this->smarty->display('admin/waterbar/warehouse/warehouse.tpl');
     }
     
     

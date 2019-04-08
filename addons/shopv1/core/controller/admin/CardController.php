@@ -21,12 +21,12 @@ class CardController extends \controller\Controller{
     
     //卡券管理
     public function index(){
-        echo "卡券管理";
+        $this->smarty->display('admin/card/cardmanagement.tpl');
     }
     
     //卡券流水
     public function logIndex(){
-        echo "卡券流水";
+        $this->smarty->display('admin/card/cardflow.tpl');
     }
     
 }

@@ -4,15 +4,23 @@
 <div class="warehouse">
   <div class="water-btn-group clearfix">
     <div class="left-group">
-      <button class="btn btn-primary" data-toggle="modal" data-target="#">添加卡券</button>
+      <button class="btn btn-primary" data-toggle="modal" data-target="#addCardModal">添加卡券</button>
+    </div>
+    <div class="card-filter">
+      <select name="" id="" class="form-group selectpicker">
+        <option value="">卡券</option>
+      </select>
     </div>
   </div>
   <div class="detail_content">
     <table id="cardList" class="table">
     </table>
   </div>
-  {include file="../modals/addwarehouse.tpl"}
 </div>
+
+{include file="./modals/addcard.tpl"}
+{include file="./modals/sendcard.tpl"}
+{include file="./modals/selectmember.tpl"}
 
 <script src="{$StaticRoot}/js/web/card/cardManagement.js"></script>
 <script>
@@ -66,13 +74,13 @@
         field: 'text',
         title: '操作',
         formatter: function (value, row) {
-          return ['<button class="btn btn-xs btn-primary">发行卡券</button> ',
+          return ['<button class="btn btn-xs btn-primary" data-toggle="modal" data-target="#sendCardModal">发行卡券</button> ',
             '<button class="btn btn-xs btn-success">编辑</button> ',
             '<button class="btn btn-xs btn-danger">删除</button>'
           ].join("");
         }
       }
     ]
-  })
+  });
 </script>
 {include file="../../common/footer.tpl"}
