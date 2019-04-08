@@ -7,7 +7,7 @@
       <button class="btn btn-primary" data-toggle="modal" data-target="#addWarehouseModal">添加库房</button>
     </div>
   </div>
-  <div class="detail_content ">
+  <div class="detail_content">
     <table id="warehouseList" class="table">
     </table>
   </div>
