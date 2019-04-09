@@ -6,7 +6,7 @@
         <div class="form-inline">
             <div class="form-group form-group-sm">
                 <label class="control-label">时间起止</label>
-                <input type="text" class="form-control">
+                <input type="text" class="form-control range-picker-js">
             </div>
             <div class="form-group form-group-sm">
                 <label class="control-label">发放门店</label>
@@ -72,6 +72,7 @@
 
 <script src="{$StaticRoot}/js/web/card/cardManagement.js"></script>
 <script>
+    $(".range-picker-js").daterangepicker();
     $("#cardFlowTable").bootstrapTable({
         data: [{
                 id: 1,
