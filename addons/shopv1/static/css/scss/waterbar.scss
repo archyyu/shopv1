@@ -31,3 +31,27 @@
     }
   }
 }
+
+
+// card management
+.card-management{
+  .card-filter{
+      float: left;
+      margin-left: 10px;
+  }
+}
+
+
+// card flow
+.card-flow{
+  .card-info{
+    ul{
+      padding-left: 0;
+      list-style: none;
+      li{
+        float: left;
+        margin-right: 10px;
+      }
+    }
+  }
+}

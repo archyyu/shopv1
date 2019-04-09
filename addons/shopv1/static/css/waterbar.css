@@ -25,4 +25,19 @@
 .inventory .product-class-modal .add-class-btn {
   margin-bottom: 10px;
 }
+
+.card-management .card-filter {
+  float: left;
+  margin-left: 10px;
+}
+
+.card-flow .card-info ul {
+  padding-left: 0;
+  list-style: none;
+}
+
+.card-flow .card-info ul li {
+  float: left;
+  margin-right: 10px;
+}
 /*# sourceMappingURL=waterbar.css.map */

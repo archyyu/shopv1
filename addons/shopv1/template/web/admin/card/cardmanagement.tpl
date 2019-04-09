@@ -1,7 +1,7 @@
 {include file="../../common/header.tpl" logo=true}
 <link rel="stylesheet" href="{$StaticRoot}/css/waterbar.css">
 
-<div class="warehouse">
+<div class="card-management">
   <div class="water-btn-group clearfix">
     <div class="left-group">
       <button class="btn btn-primary" data-toggle="modal" data-target="#addCardModal">添加卡券</button>
