@@ -51,14 +51,14 @@ var Tips = {
       message: text||'确认操作？', 
       callback: function(result){
         if(result){
-          confirmFunc(data)
+          confirmFunc(data);
         }else{
           if(cancelFunc){
-            cancelFunc()
+            cancelFunc();
           }
         }
       }
-    })
+    });
   }
 
 };

@@ -33,9 +33,55 @@ class CardController extends \controller\Controller{
         $this->returnSuccess($list);
     }
     
+    public function removeCardType(){
+        $cardid = $this->getParam("cardid");
+        
+        $data = array();
+        $data['id'] = $cardid;
+        $data['deleteflag'] = 1;
+        
+        $result = $this->cardTypeModel->saveCardType($data);
+        if($result){
+            $this->returnSuccess();
+        }
+        else{
+            $this->returnFail("数据库错误");
+        }
+        
+    }
+    
     public function saveCardType(){
         
+        $uniacid = $this->getUniacid();
+        $cardid = $this->getParam("cardid");
+        $cardname = $this->getParam('cardname');
+        $exchange = $this->getParam('exchange');
+        $discount = $this->getParam('discount');
+        $effectiveprice = $this->getParam('effectiveprice');
+        $effectiveday = $this->getParam('effectiveday');
         
+        $data = array();
+        
+        if($cardid == 0){
+            $data['uniacid'] = $uniacid;
+        }
+        else{
+            $data['id'] = $cardid;
+        }
+        
+        $data["cardname"] = $cardname;
+        $data["exchange"] = $exchange;
+        $data["discount"] = $discount;
+        $data['effectiveprice'] = $effectiveprice;
+        $data['effectiveday'] = $effectiveday;
+        
+        $result = $this->cardTypeModel->saveCardType($data);
+        if($result){
+            $this->returnSuccess();
+        }
+        else{
+            $this->returnFail("数据库错误");
+        }
         
     }
     

@@ -16,70 +16,141 @@ var CardType = {
     
     initTable : function(){
         $("#cardList").bootstrapTable({
-    data: [{
-        id: 1,
-        text: 2
-      },
-      {
-        id: 2,
-        text: 3
-      }
-    ],
-    columns: [{
-        field: 'id',
-        title: '卡券ID'
-      },
-      {
-        field: 'id',
-        title: '卡券名称'
-      },
-      {
-        field: 'id',
-        title: '类别'
-      },
-      {
-        field: 'id',
-        title: '使用场景'
-      },
-      {
-        field: 'id',
-        title: '关联商品'
-      },
-      {
-        field: 'id',
-        title: '卡券金额'
-      },
-      {
-        field: 'id',
-        title: '折扣值'
-      },
-      {
-        field: 'id',
-        title: '最低使用价格'
-      },
-      {
-        field: 'id',
-        title: '卡券有效期'
-      },
-      {
-        field: 'text',
-        title: '操作',
-        formatter: function (value, row) {
-          return ['<button class="btn btn-xs btn-primary" data-toggle="modal" data-target="#sendCardModal">发行卡券</button> ',
-            '<button class="btn btn-xs btn-success">编辑</button> ',
-            '<button class="btn btn-xs btn-danger">删除</button>'
-          ].join("");
-        }
-      }
-    ]
-  });
+            data: [],
+            columns: [{
+                field: 'id',
+                title: '卡券ID'
+              },
+              {
+                field: 'cardname',
+                title: '卡券名称'
+              },
+              {
+                field: 'productid',
+                title: '关联商品'
+              },
+              {
+                field: 'exchange',
+                title: '抵现金额'
+              },
+              {
+                field: 'exchange',
+                title: '折扣'
+              },
+              {
+                field: 'effectiveprice',
+                title: '最低使用价格'
+              },
+              {
+                field: 'effectiveday',
+                title: '卡券有效期'
+              },
+              {
+                field: 'deleteflag',
+                title: '操作',
+                events:{
+                    'click .edit-event':function(e,value,row,index){
+                        CardType.openCardModal(1,row);
+                    },
+                    'click .remove-event':function(e,value,row,index){
+                        Tips.confirm("确认要删除吗",row.id,CardType.deleteCard);
+                    }
+                },
+                formatter: function (value, row) {
+                  return ['',
+                    '<button class="btn btn-xs btn-success edit-event">编辑</button> ',
+                    '<button class="btn btn-xs btn-danger remove-event">删除</button>'
+                  ].join("");
+                }
+              }
+            ]
+          });
     },
     
     reloadTable : function(){
+        $("#cardList").bootstrapTable("refreshOptions",{ajax:CardType.loadCardTypeList});
+    },
+    
+    loadCardTypeList : function(obj){
+        
+        var url = UrlUtil.createWebUrl("card","loadCardTypeList");
+        var params = {};
+        
+        $.post(url,params,function(data){
+            if(data.state == 0){
+                obj.success(data.obj);
+            }
+            else{
+                Tips.failTips(data.msg);
+            }
+        });
         
     },
     
-    loadCardTypeList : function(){
+    openCardModal:function(addOrUpdate,obj){
+        
+        if(addOrUpdate == 0){
+            //新增
+            $("#addCardModal [name=cardid]").val(0);
+            $("#addCardModal [name=cardname]").val("");
+            $("#addCardModal [name=exchange]").val('');
+            $("#addCardModal [name=discount]").val('');
+            $("#addCardModal [name=effectiveprice]").val('');
+            $("#addCardModal [name=effectiveday]").val('');
+            
+        }
+        else{
+            $("#addCardModal [name=cardid]").val(obj.id);
+            $("#addCardModal [name=cardname]").val(obj.cardname);
+            $("#addCardModal [name=exchange]").val(obj.exchange);
+            $("#addCardModal [name=discount]").val(obj.discount);
+            $("#addCardModal [name=effectiveprice]").val(obj.effectiveprice);
+            $("#addCardModal [name=effectiveday]").val(obj.effectiveday);
+        }
+        
+        $("#addCardModal").modal("show");
+        
+    },
+    
+    saveCard:function(){
+        
+        var url = UrlUtil.createWebUrl("card","saveCardType");  
+        var params = {};
+        
+        params.cardid = $("#addCardModal [name=cardid]").val();
+        params.cardname = $("#addCardModal [name=cardname]").val();
+        params.exchange = $("#addCardModal [name=exchange]").val();
+        params.discount = $("#addCardModal [name=discount]").val();
+        params.effectiveprice = $("#addCardModal [name=effectiveprice]").val();
+        params.effectiveday = $("#addCardModal [name=effectiveday]").val();
+      
+        $.post(url,params,function(data){
+           if(data.state == 0){
+               Tips.successTips("保存成功");
+               $("#addCardModal").modal("hide");
+               CardType.reloadTable();
+           } 
+           else{
+               Tips.failTips(data.msg);
+           }
+        });
+        
+    },
+    
+    deleteCard:function(id){
+        var url = UrlUtil.createWebUrl('card','removeCardType');
+        var params = {};
+        params.cardid = id;
+        
+        $.post(url,params,function(data){
+            if(data.state == 0){
+                Tips.successTips("删除成功");
+                CardType.reloadTable();
+            }
+            else{
+                Tips.failTips(data.msg);
+            }
+        });
         
     },
     
