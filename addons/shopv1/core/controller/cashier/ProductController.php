@@ -32,6 +32,11 @@ class ProductController extends \controller\Controller{
         $this->productModel = new ShopProduct();
     }
     
+    public function index(){
+        echo "cashier index";
+        $this->smarty->display('admin/card/cardmanagement.tpl');
+    }
+    
     public function loadProductTypeList(){
         $shopid = $this->getParam('shopid');
         $uniacid = $this->productService->getUniacidByShopId($shopid);
@@ -41,10 +46,6 @@ class ProductController extends \controller\Controller{
     }
     
     public function loadProduct(){
-        
-        $typeid = $this->getParam('typeid');
-        
-        
         
     }
     

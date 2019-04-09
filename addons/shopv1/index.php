@@ -15,7 +15,7 @@
 define('IN_IA',"1");
 
 define("CASHROOT", str_replace("\\", "/", dirname(__FILE__)).'/');
-define("StaticRoot","../cash/static");
+define("StaticRoot","../shopv1/static");
 //echo CASHROOT;
 
 $_W = $_GPC = array();
@@ -34,13 +34,13 @@ class Router {
         $_GPC = array_merge($_GPC, $_POST);
         $_GPC = array_merge($_GPC, $_GET);
         
+        
+        
     }
     
     public function doIndex(){
-        global $_GPC;
-        echo $_GPC["haha"];
         
-        (new controller\NetbarMemberController())->index();
+        (new controller\cashier\ProductController())->index();
         
     }
     

@@ -15,8 +15,11 @@ namespace controller\admin;
  */
 class CardController extends \controller\Controller{
     
+    private $cardTypeModel;
+    
     public function __construct() {
         parent::__construct();
+        $this->cardTypeModel = new \model\ShopCardtype();
     }
     
     //卡券管理
@@ -24,9 +27,22 @@ class CardController extends \controller\Controller{
         $this->smarty->display('admin/card/cardmanagement.tpl');
     }
     
+    public function loadCardTypeList(){
+        $uniacid = $this->getUniacid();
+        $list = $this->cardTypeModel->getCardTypeList($uniacid);
+        $this->returnSuccess($list);
+    }
+    
+    public function saveCardType(){
+        
+        
+        
+    }
+    
     //卡券流水
     public function logIndex(){
         $this->smarty->display('admin/card/cardflow.tpl');
     }
+    
     
 }
