@@ -27,7 +27,11 @@ var Inventory = {
         },
         {
           field: 'id',
-          title: '销售价'
+          title: '正常价'
+        },
+        {
+          field: 'id',
+          title: '会员价'
         },
         {
           field: 'id',
@@ -39,11 +43,7 @@ var Inventory = {
         },
         {
           field: 'id',
-          title: '虚物/实物'
-        },
-        {
-          field: 'id',
-          title: '是否允许卡口'
+          title: '商品类型'
         },
         {
           field: 'id',
@@ -51,18 +51,18 @@ var Inventory = {
         },
         {
           field: 'id',
-          title: '销售时段'
+          title: '排序'
         },
         {
-          field: 'id',
-          title: '排序'
+            field:'id',
+            title:'多属性'
         },
         {
           field: 'id',
           title: '操作'
         }
       ]
-    })
+    });
   },
 
   loadGoodsList: function (obj) {
@@ -109,7 +109,7 @@ var Inventory = {
           }
         }
       ]
-    })
+    });
   },
 
   openClassModal: function () {
