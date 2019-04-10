@@ -1,6 +1,9 @@
 $(function () {
-  Inventory.goodsTableInit();
-  Inventory.classListInit();
+  
+    Inventory.goodsTableInit();
+    Inventory.classListInit();
+    Inventory.classListReload();
+  
 });
 
 var Inventory = {
@@ -79,39 +82,92 @@ var Inventory = {
     });
 
   },
+  
+  
+  classListQuery:function(obj){
+      var url = UrlUtil.createWebUrl("product",'loadProductType');
+      var params = {};
+      
+      $.post(url,params,function(data){
+          if(data.state == 0){
+              obj.success(data.obj);
+          }  
+          else{
+              Tips.failTips(data.msg);
+          }
+      });
+  },
+  
+  classListReload:function(){
+      $("#productTypeTable").bootstrapTable("refreshOptions",{ajax:Inventory.classListQuery});
+  },
+  
 
-  classListInit: function (classId) {
-    $("#productListTable").bootstrapTable({
-      data: [{
-          id: 1,
-          text: 2
-        },
-        {
-          id: 2,
-          text: 3
-        }
-      ],
+  classListInit: function () {
+    $("#productTypeTable").bootstrapTable({
+      data: [],
       columns: [
         {
-          field: 'id',
+          field: 'pos',
           title: '排序'
         },
         {
-          field: 'id',
+          field: 'typename',
           title: '类别'
         },
         {
-          field: 'text',
+          field: 'id',
           title: '操作',
+          events:{
+              'click .edit-event':function(e,value,row,index){
+                  Inventory.openTypeModal(1,row);
+              }
+          },
           formatter: function(value, row){
-            return ['<button class="btn btn-xs btn-success">编辑</button> ',
-            '<button class="btn btn-xs btn-danger">删除</button>'].join("");
+            return '<button class="btn btn-xs edit-event btn-success">编辑</button> ';
           }
         }
       ]
     });
   },
-
+  
+  openTypeModal:function(addOrUpdate,obj){
+      if(addOrUpdate == 0){
+          $("#addProductClassModal [name=typeid]").val(0);
+          $("#addProductClassModal [name=pos]").val(0);
+          $("#addProductClassModal [name=typename]").val("");
+      }
+      else{
+          $("#addProductClassModal [name=typeid]").val(obj.id);
+          $("#addProductClassModal [name=pos]").val(obj.pos);
+          $("#addProductClassModal [name=typename]").val(obj.typename);
+      }
+      
+      $("#addProductClassModal").modal("show");
+        
+  },
+  
+  saveTypeModal:function(){
+      
+      var url = UrlUtil.createWebUrl("product","saveProductType");
+      
+      var params = {};
+      params.typeid = $("#addProductClassModal [name=typeid]").val();
+      params.pos = $("#addProductClassModal [name=pos]").val();
+      params.typename = $("#addProductClassModal [name=typename]").val();
+      
+      $.post(url,params,function(data){
+         if(data.state == 0){
+             Tips.successTips("保存成功");
+             Inventory.classListReload();
+         } 
+         else{
+             Tips.failTips(data.mss);
+         }
+      });
+      
+  },
+  
   openClassModal: function () {
     $("#productClassModal").modal("show");
   },
