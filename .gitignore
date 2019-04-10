@@ -7,6 +7,7 @@ yarn-error.log*
 data/tpl/
 web/templates_c/
 data/logs/
+addons/shopv1/templates_c/
 
 # Editor directories and files
 .idea
@@ -15,3 +16,4 @@ data/logs/
 *.ntvs*
 *.njsproj
 *.sln
+

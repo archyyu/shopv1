@@ -33,8 +33,8 @@ class ProductController extends \controller\Controller{
     }
     
     public function index(){
-        echo "cashier index";
-        $this->smarty->display('admin/card/cardmanagement.tpl');
+        // echo "cashier index";
+        $this->smarty->display('cashier/cashiermain.tpl');
     }
     
     public function loadProductTypeList(){
