@@ -31,4 +31,14 @@ class OrderType {
     const FromClient = 1;
     const FromCash = 2;
     
+    const InventoryChangeOrderPay = 1;
+    const InventoryChangeOrderCancel = 2;
+    const InventoryChangeStock = 3;
+    const InventoryChangeDiliver = 4;
+    const InventoryChangeCheck = 5;
+    const InventoryChangeDamage = 6;
+    const InventoryChangeFlow = 7;
+    const InventoryChangeTransferOut = 8;
+    const InventoryChangeTransferIn = 9;
+    
 }

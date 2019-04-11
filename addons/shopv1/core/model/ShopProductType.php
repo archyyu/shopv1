@@ -33,4 +33,6 @@ class ShopProductType extends Model{
         }
     }
     
+    
+    
 }

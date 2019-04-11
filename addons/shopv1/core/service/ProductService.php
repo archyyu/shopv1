@@ -111,7 +111,7 @@ class ProductService extends Service{
         
     }
     
-    public function subProdudctInventory($shopid,$productId,$productNum,$type){
+    public function subProdudctInventory($shopid,$productId,$productNum,$type,$detail){
         
         $shop = $this->shopModel->findShopById($shopid);
         $product = $this->productModel->findProdudctById($productId);
@@ -128,14 +128,14 @@ class ProductService extends Service{
         }
         
         if($product['producttype'] == ProductType::FinishProduct){
-            return $this->subMatrialInventory($shopid, $productId, $shop['defaultstoreid'], $productNum);
+            return $this->subMatrialInventory($shopid, $productId, $shop['defaultstoreid'], $productNum,$type,$detail);
         }
         
         if($product['producttype'] == ProductType::SelfMadeProduct){
             
             $list = $this->productrelationModel->getRelationList($productId);
             foreach($list as $relation){
-                $this->subMatrialInventory($shopid, $relation['materialid'], $shop['defaultstoreid'], $relation['num'],$type);
+                $this->subMatrialInventory($shopid, $relation['materialid'], $shop['defaultstoreid'], $relation['num'],$type,$detail);
             }
             
         }
@@ -158,7 +158,7 @@ class ProductService extends Service{
         return $productInventory;
     }
     
-    public function subMatrialInventory($shopId,$materialId,$storeId,$num,$type){
+    public function subMatrialInventory($shopId,$materialId,$storeId,$num,$type = 1,$detail=''){
         
         $materialInventory = $this->findInventoryBy($shopId,$materialId, $storeId);
         
@@ -173,6 +173,7 @@ class ProductService extends Service{
         $logData['num'] = $num;
         $logData['logtype'] = $type;
         $logData['createtime'] = time();
+        $logData['detail'] = $detail;
         $this->inventorylogModel->add($logData);
     }
     

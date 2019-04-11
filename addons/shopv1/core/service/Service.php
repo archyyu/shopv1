@@ -15,6 +15,8 @@ namespace service;
  */
 class Service {
     
-    
+    public function __controller(){
+        
+    }
     
 }

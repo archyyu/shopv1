@@ -17,4 +17,19 @@ class ShopOrder extends Model{
     
     protected $table = "shopv1_order";
     
+    public function saveOrder($data){
+        if(isset($data['id'])){
+            $id = $data['id'];
+            unset($data['id']);
+            return $this->save($data,['id'=>$id]);
+        }
+        else{
+            return $this->add($data);
+        }
+    }
+    
+    public function findOrderById($id){
+        return $this->getOne("*", ['id'=>$id]);
+    }
+    
 }

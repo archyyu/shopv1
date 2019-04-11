@@ -1446,6 +1446,18 @@ class Model extends Medoo {
         }
     }
 
+    public function beginTransaction(){
+        $this->pdo->beginTransaction();
+    }
+    
+    public function commit(){
+        $this->pdo->commit();
+    }
+    
+    public function rollback(){
+        $this->pdo->rollBack();
+    }
+    
 
     public function reSelect($columns, $where) {
         return $this->select($this->table, $columns, $where);
