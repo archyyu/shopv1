@@ -68,16 +68,21 @@
               </div>
               <div class="form-group form-group-sm" id="proormat">
                 <label class="col-sm-3 control-label">
-                  <span style="color: red;"> * </span>成品/自制：
+                  <span style="color: red;"> * </span>商品类型：
                 </label>
                 <div class="col-sm-8">
+                    <label class="radio-inline" id="commodity">
+                    <input type="radio" name="protype" value="-1"> 虚拟商品
+                  </label>
                   <label class="radio-inline" id="commodity">
                     <input type="radio" name="protype" value="0" checked="checked"> 成品
                   </label>
                   <label class="radio-inline">
                     <input type="radio" name="protype" value="1"> 自制
                   </label>
-
+                  <label class="radio-inline">
+                    <input type="radio" name="protype" value="2"> 原料
+                  </label>      
                 </div>
               </div>
               <div class="form-group form-group-sm">
@@ -112,7 +117,17 @@
               </div>
               <div class="form-group form-group-sm">
                 <label class="col-sm-3 control-label"><span style="color: red;"> * </span><span
-                    class="commonname">商品</span>售价：</label>
+                    class="commonname">商品</span>原价：</label>
+                <div class="col-sm-8">
+                  <div class="input-group">
+                    <input type="text" class="form-control" placeholder="请输入售价">
+                    <span class="input-group-addon">(元)</span>
+                  </div>
+                </div>
+              </div>
+              <div class="form-group form-group-sm">
+                <label class="col-sm-3 control-label"><span style="color: red;"> * </span><span
+                    class="commonname">商品</span>会员价：</label>
                 <div class="col-sm-8">
                   <div class="input-group">
                     <input type="text" class="form-control" placeholder="请输入售价">
@@ -129,55 +144,9 @@
                 </div>
               </div>
               <div class="form-group form-group-sm">
-                <label class="col-sm-3 control-label">允许下单场景：</label>
-                <div class="col-sm-8">
-                  <label class="checkbox-inline">
-                    <input type="checkbox" checked="checked">
-                    吧台
-                  </label>
-                  <label class="checkbox-inline">
-                    <input type="checkbox" checked="checked"> 微信端
-                  </label>
-                  <label class="checkbox-inline">
-                    <input type="checkbox" checked="checked">
-                    客户机
-                  </label>
-                </div>
-              </div>
-              <div class="form-group form-group-sm">
-                <label class="col-sm-3 control-label">销售时段：</label>
-                <div class="col-sm-8">
-                  <label class="radio-inline">
-                    <input type="radio" name="saletype" value="0" checked="checked"> 全天
-                  </label>
-                  <label class="radio-inline">
-                    <input type="radio" name="saletype" value="1"> 分时段(最多3个时段)
-                  </label>
-                  <button class="btn btn-xs btn-success pull-right" style="display:none;">增加时段</button>
-                </div>
-              </div>
-              <div id="saleTimeList">
-                <div class="form-group form-group-sm">
-                  <div class="col-sm-7 col-sm-offset-3">
-                    <input type="text" class="form-control" placeholder="开始时间-结束时间">
-                  </div>
-                </div>
-              </div>
-              <div class="form-group form-group-sm">
                 <label class="col-sm-3 control-label">商品多属性：</label>
                 <div class="col-sm-8">
                   <input type="text" class="form-control" placeholder="用空格分割不同的属性，比如 无糖 多糖，热 冷等等">
-                </div>
-              </div>
-              <div class="form-group form-group-sm">
-                <label class="col-sm-3 control-label"><span style="color: red;"> * </span>虚物/实物：</label>
-                <div class="col-sm-8">
-                  <label class="radio-inline">
-                    <input type="radio" name="physical" value="1" checked> 实物
-                  </label>
-                  <label class="radio-inline">
-                    <input type="radio" name="physical" value="0"> 虚物
-                  </label>
                 </div>
               </div>
             </div>

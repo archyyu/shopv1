@@ -22,6 +22,17 @@ class ShopProductType extends Model{
         return $list;
     }
     
+    public function saveProductType($data){
+        if(isset($data["id"])){
+            $id = $data['id'];
+            unset($data['id']);
+            return $this->save($data, ['id'=>$id]);
+        }
+        else{
+            return $this->add($data);
+        }
+    }
+    
     
     
 }

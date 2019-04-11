@@ -17,6 +17,16 @@ class ShopOrderproduct extends Model{
     //put your code here
     protected $table = "shopv1_orderproduct";
     
+    public function findOrderProductListByOrderId($orderid){
+        return $this->getList("*",["orderid"=>$orderid]);
+    }
     
+    public function updateOrderProductList($data,$orderid){
+        return $this->save($data, ["orderid"=>$orderid]);
+    }
+    
+    public function addOrderProduct($data){
+        return $this->add($data);
+    }
     
 }

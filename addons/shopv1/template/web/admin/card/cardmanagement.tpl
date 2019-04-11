@@ -4,7 +4,7 @@
 <div class="card-management">
   <div class="water-btn-group clearfix">
     <div class="left-group">
-      <button class="btn btn-primary" data-toggle="modal" data-target="#addCardModal">添加卡券</button>
+        <button class="btn btn-primary" data-toggle="modal" onclick="CardType.openCardModal(0,null);">添加卡券</button>
     </div>
     <div class="card-filter">
       <select name="" id="" class="form-group selectpicker">
@@ -22,5 +22,5 @@
 {include file="./modals/sendcard.tpl"}
 {include file="./modals/selectmember.tpl"}
 
-<script src="{$StaticRoot}/js/web/card/cardtype.js"></script>
+<script src="{$StaticRoot}/js/web/admin/cardtype.js"></script>
 {include file="../../common/footer.tpl"}

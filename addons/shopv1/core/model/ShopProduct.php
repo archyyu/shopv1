@@ -27,6 +27,7 @@ class ShopProduct extends Model{
         return $this->getOne("*",['id'=>$productId]);
     }
     
+    
     public function addProduct($data){
         return $this->add($data);
     }

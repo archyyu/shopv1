@@ -16,4 +16,4 @@ addons/shopv1/templates_c/
 *.ntvs*
 *.njsproj
 *.sln
-
+nbproject

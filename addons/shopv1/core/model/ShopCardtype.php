@@ -18,7 +18,7 @@ class ShopCardtype extends Model{
     protected $table = "shopv1_cardtype";
     
     public function getCardTypeList($uniacid){
-        $list = $this->getList("*", ['uniacid'=>$uniacid]);
+        $list = $this->getList("*", ['uniacid'=>$uniacid,'deleteflag'=>0]);
         return $list;
     }
     

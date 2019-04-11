@@ -87,6 +87,31 @@ class ProductController extends Controller{
     
     public function saveProductType(){
         
+        $uniacid = $this->getUniacid();
+        $typeid = $this->getParam("typeid");
+        $pos = $this->getParam("pos");
+        $typename = $this->getParam("typename");
+        
+        $data = array();
+        
+        if($typeid == 0){
+            
+        }
+        else{
+            $data['id'] = $typeid;
+        }
+        $data["pos"] = $pos;
+        $data["uniacid"] = $uniacid;
+        $data["typename"] = $typename;
+        
+        $result = $this->productTypeModel->saveProductType($data);
+        if($result){
+            $this->returnSuccess();
+        }
+        else{
+            $this->returnFail("内部错误");
+        }
+        
     }
     
     public function loadProduct(){
