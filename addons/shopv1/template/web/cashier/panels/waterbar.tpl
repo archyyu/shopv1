@@ -1,6 +1,6 @@
 <el-tab-pane name="waterbar">
     <span slot="label"><i class="el-icon-date"></i> 水吧</span>
-    <div>
+    <div class="waterbar">
         <el-button-group>
             <el-button type="primary" size="small">商品销售</el-button>
             <el-button type="primary" size="small" plain>原料管理</el-button>
