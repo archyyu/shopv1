@@ -1,0 +1,109 @@
+.el-tabs__content {
+  width: 1000px;
+  margin: 0 auto;
+}
+
+.el-tabs__content .btn-nav-group {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+.waterbar .sale .sale-list .list-wrap ul {
+  padding: 0;
+  list-style: none;
+  border-radius: 4px;
+  border: 1px solid #409EFF;
+}
+
+.waterbar .sale .sale-list .list-wrap ul li {
+  text-align: center;
+  background-color: #fff;
+  height: 36px;
+  line-height: 36px;
+  overflow: hidden;
+  border-bottom: 1px solid #E4E7ED;
+}
+
+.waterbar .sale .sale-list .list-wrap ul li.active {
+  background-color: #409EFF;
+  color: #fff;
+  border-bottom: none;
+}
+
+.waterbar .sale .seal-product .product-wrap {
+  border-radius: 4px;
+  border: 1px solid #409EFF;
+}
+
+.waterbar .sale .seal-product .product-wrap .product-item {
+  border: 1px solid #E4E7ED;
+  height: 122px;
+  font-weight: normal;
+}
+
+.waterbar .sale .seal-product .product-wrap .product-item.less-item p {
+  height: 24px;
+  line-height: 24px;
+  margin-bottom: 0;
+  display: block;
+}
+
+.waterbar .sale .seal-product .product-wrap .product-item.less-item p.pro-price {
+  height: 24px;
+  line-height: 24px;
+}
+
+.waterbar .sale .seal-product .product-wrap .product-item.less-item p.pro-price .pro_lesspro {
+  line-height: 24px;
+}
+
+.waterbar .sale .seal-product .product-wrap .product-item h5 {
+  color: #333;
+  height: 62px;
+  line-height: 1.4;
+  font-size: 20px;
+  padding: 5px 10px;
+  padding-bottom: 0;
+  margin-bottom: 0;
+  margin-top: 0;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  word-break: break-all;
+  overflow: hidden;
+}
+
+.waterbar .sale .seal-product .product-wrap .product-item p.lack-pro {
+  display: none;
+  padding: 0 10px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.waterbar .sale .seal-product .product-wrap .product-item p.pro-price {
+  height: 48px;
+  line-height: 48px;
+  font-size: 16px;
+  color: #f15352;
+  text-align: right;
+  padding: 0px 10px;
+  margin: 0;
+}
+
+.waterbar .sale .seal-product .product-wrap .product-item p.pro-price .pro_lesspro {
+  float: left;
+  font-size: 12px;
+  text-align: center;
+  line-height: 48px;
+}
+
+.waterbar .sale .sale-cart .cart-wrap {
+  border-radius: 4px;
+  border: 1px solid #409EFF;
+}
+/*# sourceMappingURL=cashier.css.map */

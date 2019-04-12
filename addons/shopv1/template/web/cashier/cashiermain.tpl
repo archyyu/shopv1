@@ -15,7 +15,14 @@
     var app = new Vue({
         el: '#app',
         data: {
-            message: 'Hello Vue!'
+            waterbar: {
+                firstPaneShow: 'sale'
+            },
+            shift: {
+                firstPaneShow: 'shiftData'
+            }
+        },
+        methods: {
         }
     })
 </script>

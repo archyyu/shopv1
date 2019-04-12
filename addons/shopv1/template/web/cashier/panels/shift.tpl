@@ -1,11 +1,13 @@
 <el-tab-pane name="shift" lazy>
     <span slot="label"><i class="el-icon-date"></i> 交班</span>
     <div class="shift">
-        <el-button-group>
-            <el-button type="primary" size="small">交班数据</el-button>
-            <el-button type="primary" size="small" plain>商品核对</el-button>
+        <el-button-group class="btn-nav-group">
+            <el-radio-group v-model="shift.firstPaneShow" size="small">
+                <el-radio-button label="shiftData">交班数据</el-radio-button>
+                <el-radio-button label="product">商品核对</el-radio-button>
+            </el-radio-group>
         </el-button-group>
-        <div class="shift-data">
+        <div class="shift-data" v-if="shift.firstPaneShow == 'shiftData'">
             <el-row :gutter="15">
                 <el-col :span="12">
                     接班时间：{{ }}
@@ -50,7 +52,7 @@
                 <el-button type="primary">交班</el-button>
             </div>
         </div>
-        <div class="shift-product">
+        <div class="shift-product" v-else>
             <el-table>
                 <el-table-column label="商品分类"></el-table-column>
                 <el-table-column label="商品名称"></el-table-column>
