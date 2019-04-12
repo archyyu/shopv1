@@ -62,3 +62,19 @@ var Tips = {
   }
 
 };
+
+var Loading = {
+  start: function(){
+    var loading = document.createElement("div")
+    var loadingInner = document.createElement("div")
+    loading.className = "loading"
+    loading.id="loading"
+    loading.appendChild(loadingInner)
+    document.body.appendChild(loading)
+  },
+
+  end: function(){
+    var loadingNode = document.getElementById("loading");
+    document.body.removeChild(loadingNode)
+  }
+};

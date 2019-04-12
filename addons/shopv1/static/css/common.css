@@ -671,3 +671,68 @@ html,body{
 .footer{
   height: 36px;
 }
+.loading{
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    top: 0;
+    z-index: 9999;
+    background-color: rgba(0,0,0,0.6);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .loading>div {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    color: #409EFF;
+    vertical-align: middle;
+    pointer-events: none;
+    border-radius: 50%;
+    box-shadow: 0 20px 0 -4px currentcolor;
+    position: relative;
+    -webkit-animation: loading-ani 0.8s ease-in-out alternate infinite;
+    animation: loading-ani 0.8s ease-in-out alternate infinite;
+    -webkit-animation-delay: 0.32s;
+    animation-delay: 0.32s;
+    top: -20px;
+  }
+  .loading>div:after,
+  .loading>div:before {
+    content: '';
+    position: absolute;
+    width: inherit;
+    height: inherit;
+    border-radius: inherit;
+    box-shadow: inherit;
+    -webkit-animation: inherit;
+    animation: inherit;
+  }
+  .loading>div:before {
+    left: -20px;
+    -webkit-animation-delay: 0.48s;
+    animation-delay: 0.48s;
+  }
+  .loading>div:after {
+    right: -20px;
+    -webkit-animation-delay: 0.16s;
+    animation-delay: 0.16s;
+  }
+  @-webkit-keyframes loading-ani {
+    0% {
+        box-shadow: 0 40px 0 -4px currentcolor;
+    }
+    100% {
+        box-shadow: 0 20px 0 -4px currentcolor;
+    }
+  }
+  @keyframes loading-ani {
+    0% {
+        box-shadow: 0 40px 0 -4px currentcolor;
+    }
+    100% {
+        box-shadow: 0 20px 0 -4px currentcolor;
+    }
+  }
