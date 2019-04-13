@@ -5,9 +5,12 @@
   <div class="search-group">
     <div class="form-inline">
       <div class="form-group form-group-sm">
-        <label class="control-label">查询类型</label>
-        <select class="form-control input-sm selectpicker">
+        <label class="control-label">商品分类</label>
+        <select class="form-control input-sm selectpicker" id="typeSelectQuery">
           <option value="">请选择</option>
+          {foreach $typelist as $type}
+            <option value='{$type.id}'  >{$type.typename}</option>
+        {/foreach}
         </select>
       </div>
       <div class="form-group form-group-sm">

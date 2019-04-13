@@ -27,6 +27,10 @@ class ShopProduct extends Model{
         return $this->getOne("*",['id'=>$productId]);
     }
     
+    public function findProductByUniacid($uniacid){
+        return $this->getList("*",['uniacid'=>$uniacid]);
+    }
+    
     
     public function addProduct($data){
         return $this->add($data);

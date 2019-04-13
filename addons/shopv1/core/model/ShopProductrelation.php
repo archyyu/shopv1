@@ -21,4 +21,12 @@ class ShopProductrelation extends Model{
         return $this->getList('*',['productid'=>$productId]);
     }
     
+    public function deleteRelation($productid){
+        return $this->remove(['productid'=>$productid]);
+    }
+    
+    public function addNewRelation($data){
+        return $this->add($data);
+    }
+    
 }

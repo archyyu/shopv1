@@ -1152,7 +1152,7 @@ class Medoo {
         return $this->exec('UPDATE ' . $this->tableQuote($table) . ' SET ' . implode(', ', $fields) . $this->whereClause($where, $map), $map);
     }
 
-    public function delete($table, $where) {
+    protected function delete($table, $where) {
         $map = [];
 
         return $this->exec('DELETE FROM ' . $this->tableQuote($table) . $this->whereClause($where, $map), $map);
@@ -1444,6 +1444,22 @@ class Model extends Medoo {
             logInfoWithArr("save error", $pdoStateResult->errorInfo());
             return false;
         }
+    }
+    
+    protected function remove($where){
+        $pdoStateResult = $this->delete($this->table, $where);
+        if($pdoStateResult == false){
+            return false;
+        }
+        
+        if($pdoStateResult->rowCount() > 0){
+            return true;
+        }
+        else{
+            logInfoWithArr("save error", $pdoStateResult->errorInfo());
+            return false;
+        }
+        
     }
 
     public function beginTransaction(){

@@ -30,16 +30,22 @@ class ProductController extends Controller{
     
     private $productModel;
     
+    private $productRelateModel;
+    
     public function __construct() {
         parent::__construct();
         $this->productService = new ProductService();
         $this->storeModel = new \model\ShopStore();
         $this->productTypeModel = new ShopProductType();
         $this->productModel = new \model\ShopProduct();
+        $this->productRelateModel = new \model\ShopProductrelation();
         
     }
     
     public function index(){
+        $uniacid = $this->getUniacid();
+        $list = $this->productTypeModel->getProductTypeList($uniacid);
+        $this->smarty->assign("typelist",$list);
         $this->smarty->display('admin/waterbar/inventory.tpl');
     }
     
@@ -81,7 +87,9 @@ class ProductController extends Controller{
     
     public function loadProductType(){
         $uniacid = $this->getUniacid();
+        
         $list = $this->productTypeModel->getProductTypeList($uniacid);
+        
         $this->returnSuccess($list);
     }
     
@@ -115,10 +123,89 @@ class ProductController extends Controller{
     }
     
     public function loadProduct(){
+        $uniacid = $this->getUniacid();
+        $typelist = $this->productTypeModel->getProductTypeList($uniacid);
         
+        $map = array();
+        foreach ($typelist as $key=>$value){
+            $map[$value['id']] = $value;
+            //logInfo($value[id].":".$value["typename"]);
+        }
+        
+        
+        
+        $productList = $this->productModel->findProductByUniacid($uniacid);
+        
+        foreach($productList as $k=>$v){
+            $productList[$k]['typename'] = $map[$v['typeid']]['typename'];
+        }
+        
+        $this->returnSuccess($productList);
     }
     
     public function saveProduct(){
+        $productid = $this->getParam("productid");
+        $productname = $this->getParam("productname");
+        $productcode = $this->getParam("productcode");
+        
+        $typeid = $this->getParam("typeid");
+        $producttype = $this->getParam("producttype");
+        $normalprice = $this->getParam("normalprice");
+        $memberprice = $this->getParam("memberprice");
+        $make = $this->getParam("make");
+        $attributes = $this->getParam("attributes");
+        $unit = $this->getParam("unit");
+        $index = $this->getParam("index");
+        
+        
+        $data = array();
+        
+        $data["uniacid"] = $this->getUniacid();
+        $data["productname"] = $productname;
+        $data["productcode"] = $productcode;
+        $data["typeid"] = $typeid;
+        $data['producttype'] = $producttype;
+        $data["normalprice"] = $normalprice;
+        $data["memberprice"] = $memberprice;
+        $data["make"] = $make;
+        $data["unit"] = $unit;
+        $data["index"] = $index;
+        $data["attributes"] = $attributes;
+        
+        $result = false;
+        
+        if($productid == 0){
+            $result = $this->productModel->addProduct($data);
+        }
+        else{
+            $result = $this->productModel->updateProductById($data, $productid);
+            $this->productRelateModel->deleteRelation($productid);
+        }
+        $productlinks = json_decode( $this->getParam("productlink") );
+        
+        if(isset($productlinks)){
+            
+            foreach($productlinks as $key=>$value){
+
+                $subproductid = $value['productid'];
+                $num = $value['num'];
+
+                $data = array();
+                $data["productid"] = $productid;
+                $data['materialid'] = $subproductid;
+                $data["num"] = $num;
+
+                $this->productRelateModel->addNewRelation($data);
+            }
+            
+        }
+        
+        if($result){
+            $this->returnSuccess();
+        }
+        else{
+            $this->returnFail("数据库异常");
+        }
         
     }
     
