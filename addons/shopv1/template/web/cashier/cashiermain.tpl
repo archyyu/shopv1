@@ -23,8 +23,8 @@
                 firstPaneShow: 'shiftData'
             }
         },
-        created:{
-            this.queryTypeList():
+        created: function(){
+            this.queryTypeList()
         },
         methods: {
             
