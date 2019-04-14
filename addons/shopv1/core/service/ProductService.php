@@ -111,7 +111,9 @@ class ProductService extends Service{
         
     }
     
-    public function subProdudctInventory($shopid,$productId,$productNum,$type,$detail){
+    
+    //TODO
+    public function updateProdudctInventory($shopid,$productId,$productNum,$type,$detail){
         
         $shop = $this->shopModel->findShopById($shopid);
         $product = $this->productModel->findProdudctById($productId);
@@ -128,14 +130,14 @@ class ProductService extends Service{
         }
         
         if($product['producttype'] == ProductType::FinishProduct){
-            return $this->subMatrialInventory($shopid, $productId, $shop['defaultstoreid'], $productNum,$type,$detail);
+            return $this->updateMaterialInventory($shop['uniacid'],$shopid, $productId, $shop['defaultstoreid'], -$productNum,$type,$detail);
         }
         
         if($product['producttype'] == ProductType::SelfMadeProduct){
             
             $list = $this->productrelationModel->getRelationList($productId);
             foreach($list as $relation){
-                $this->subMatrialInventory($shopid, $relation['materialid'], $shop['defaultstoreid'], $relation['num'],$type,$detail);
+                $this->updateProdudctInventory($shopid, $relation['materialid'], $relation['num'], $type, $detail);
             }
             
         }
@@ -147,8 +149,7 @@ class ProductService extends Service{
             return $productInventory;
         }
         
-        $productInventory = array();
-        $productInventory['shopid'] = $shopid;
+        //$productInventory['shopid'] = $shopid;
         $productInventory['productid'] = $productid;
         $productInventory['storeid'] = $storeid;
         $productInventory['inventory'] = 0;
@@ -158,7 +159,7 @@ class ProductService extends Service{
         return $productInventory;
     }
     
-    public function subMatrialInventory($shopId,$materialId,$storeId,$num,$type = 1,$detail=''){
+    public function updateMaterialInventory($uniacid,$shopId,$materialId,$storeId,$num,$type = 1,$detail='',$userid = 0){
         
         $materialInventory = $this->findInventoryBy($shopId,$materialId, $storeId);
         
@@ -167,6 +168,7 @@ class ProductService extends Service{
         $this->productInventoryModel->updateProductInventory($data, $materialId,$storeId);
         
         $logData = array();
+        $logData['uniacid'] = $uniacid;
         $logData['shopid'] = $shopId;
         $logData['productid'] = $materialId;
         $logData['storeid'] = $storeId;
@@ -174,7 +176,28 @@ class ProductService extends Service{
         $logData['logtype'] = $type;
         $logData['createtime'] = time();
         $logData['detail'] = $detail;
+        $logData['userid'] = $userid;
         $this->inventorylogModel->add($logData);
+        
     }
+    
+    //调货
+    public function transferInventory($uniacid,$shopId,$productid,$inventory,$sourceid,$destinationid,$userid){
+        $this->updateMaterialInventory($uniacid, $shopId, $productid, $sourceid, $inventory, \common\OrderType::InventoryChangeTransferOut, "调拨出库", $userid);
+        $this->updateMaterialInventory($uniacid, $shopId, $productid, $destinationid, $inventory, \common\OrderType::InventoryChangeTransferIn, "调拨入库", $userid);
+    }
+    
+    //报损
+    public function inventoryDamage($uniacid,$shopid,$productid,$inventory,$storeid,$userid){
+        $this->updateMaterialInventory($uniacid, $shopid, $productid, $storeid, -$inventory, \common\OrderType::InventoryChangeDamage, "库存报损", $userid);
+    }
+    
+    //报溢
+    public function inventoryFlow($uniacid,$shopid,$productid,$inventory,$storeid,$userid){
+        $this->updateMaterialInventory($uniacid, $shopid, $productid, $storeid, $inventory, \common\OrderType::InventoryChangeFlow, "库存报溢", $userid);
+    }
+    
+    
+    
     
 }

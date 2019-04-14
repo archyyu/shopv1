@@ -88,7 +88,7 @@ class OrderService extends Service{
         $orderProductList = $this->shopOrderProduct->findOrderProductListByOrderId($orderid);
         foreach($orderProductList as $key=>$value){
             $this->productService->addProductSale($value['productid'], $value['num']);
-            $this->productService->subProdudctInventory($shopid, $value['productid'], $value['num'], OrderType::InventoryChangeOrderPay,"订单号".$orderid);
+            $this->productService->updateProdudctInventory($shopid, $value['productid'], $value['num'], OrderType::InventoryChangeOrderPay,"订单号".$orderid);
         }
         
     }

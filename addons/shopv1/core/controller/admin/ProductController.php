@@ -211,4 +211,23 @@ class ProductController extends Controller{
         
     }
     
+    public function inventoryTransfer($productid,$inventory,$sourceid,$destinationid){
+        $uniacid = $this->getUniacid();
+        $this->productService->transferInventory($uniacid, 0, $productid, $inventory, $sourceid, $destinationid, 0);
+        return $this->returnSuccess();
+    }
+    
+    public function inventoryDamage($productid,$inventory,$storeid){
+        $uniacid = $this->getUniacid();
+        $this->productService->inventoryDamage($uniacid, 0, $productid, $inventory, $storeid, 0);
+        return $this->returnSuccess();
+    }
+    
+    public function inventoryFlow($productid,$inventory,$storeid){
+        $uniacid = $this->getUniacid();
+        $this->productService->inventoryFlow($uniacid, 0, $productid, $inventory, $storeid, 0);
+        return $this->returnSuccess();
+    }
+    
+    
 }
