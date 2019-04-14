@@ -32,24 +32,30 @@ var CardType = {
               {
                 field: 'exchange',
                 title: '抵现金额',
-                formatter:function(value,row){
+                formatter:function(value, row,index){
                     return value/100;
                 }
               },
               {
                 field: 'exchange',
-                title: '折扣'
+                title: '折扣',
+                formatter:function(value,row,index){
+                    return value + "%";
+                }
               },
               {
                 field: 'effectiveprice',
                 title: '最低使用价格',
-                formatter:function(value,row){
+                formatter:function(value, row,index){
                     return value/100;
                 }
               },
               {
                 field: 'effectiveday',
-                title: '卡券有效期'
+                title: '卡券有效期',
+                formatter:function(value,row,index){
+                    return value + "天";
+                }
               },
               {
                 field: 'deleteflag',
