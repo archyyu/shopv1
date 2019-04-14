@@ -39,7 +39,15 @@ var Shop = {
                         title:'电话'
                     },{
                         field:'logo',
-                        title:'操作'
+                        title:'操作',
+                        events:{
+                            'click .edit-event':function(e,value,row,index){
+                                Shop.openShopModal(1,row);
+                            }
+                        },
+                        formatter:function(value,row,index){
+                            return  '<button class="btn btn-xs btn-success edit-event">编辑</button> ';
+                        }
                     }
             ]
         });
@@ -65,6 +73,24 @@ var Shop = {
         
     },
     
+    openShopModal:function(au,obj){
+        
+        if(au == 0){
+            $("#addShop [name=sid]").val(0);
+        }
+        else{
+            $("#addShop [name=sid]").val(obj.id);
+            $("#addShop [name=shopname]").val(obj.shopname);
+            $("#addShop [name=detail]").val(obj.detail);
+            $("#addShop [name=master]").val(obj.master);
+            $("#addShop [name=thephone]").val(obj.thephone);
+            $("#addShop [name=setuptime]").val(obj.setuptime);
+            $("#addShop [name=address]").val(obj.address);
+        }
+        
+        $("#addShop").modal("show");
+    },
+    
     save:function(){
         
         var url = UrlUtil.createWebUrl("shop","save");
@@ -84,6 +110,7 @@ var Shop = {
         
         $.post(url,params,function(data){
            if(data.state == 0){
+               $("#addShop").modal("hidden");
                Tips.successTips("保存成功");
                Shop.reloadShopTable();
            } 
