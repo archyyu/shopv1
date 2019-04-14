@@ -17,6 +17,8 @@
         data: {
             waterbar: {
                 firstPaneShow: 'sale',
+                cartMain: true,
+                editBtnShow: true,
                 typelist:[]
             },
             shift: {

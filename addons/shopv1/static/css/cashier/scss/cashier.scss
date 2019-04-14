@@ -1,27 +1,65 @@
 $mainColor: #409EFF;
 
+@mixin waterbar-title{
+    height: 30px;
+    line-height: 20px;
+    padding-bottom: 10px;
+}
+
 // common
+*{
+    box-sizing: border-box;
+}
+html,body,#app,.el-tabs{
+    height: 100%;
+    border-bottom: none;
+}
+.el-tabs__header{
+    margin-bottom: 0;
+    height: 70px;
+}
 .el-tabs__content {
+    padding-top: 15px;
     width: 1000px;
     margin: 0 auto;
-
-    .btn-nav-group {
-        display: flex;
-        justify-content: center;
+    height: calc(100% - 70px);
+    .el-tab-pane{
+        height: 100%;
+        >div{
+            height: 100%;
+            .btn-nav-group {
+                display: flex;
+                justify-content: center;
+                + .sub-pane{
+                    height: calc(100% - 32px);
+                }
+            }
+            
+        }
     }
 }
 
 // waterbar
 .waterbar {
     .sale {
+        >.el-row{
+            height: 100%;
+        }
         .sale-list {
+            height: 100%;
+            .list-title{
+                @include waterbar-title
+            }
             .list-wrap {
+                height: calc(100% - 30px);
+                padding-bottom: 15px;
                 ul {
                     padding: 0;
                     list-style: none;
                     border-radius: 4px;
                     border: 1px solid $mainColor;
-
+                    margin: 0;
+                    height: 100%;
                     li {
                         text-align: center;
                         background-color: #fff;
@@ -41,12 +79,21 @@ $mainColor: #409EFF;
         }
 
         .seal-product {
-            .product-title {}
+            height: 100%;
+            padding-bottom: 15px;
+            .product-title {
+                @include waterbar-title;
+                .el-button{
+                    float: right;
+                    padding-bottom: 5px;
+                    padding-top: 5px;
+                }
+            }
 
             .product-wrap {
                 border-radius: 4px;
                 border: 1px solid $mainColor;
-
+                height: calc(100% - 30px);
                 .product-item {
                     border: 1px solid #E4E7ED;
                     height: 122px;
@@ -116,12 +163,34 @@ $mainColor: #409EFF;
             }
         }
         .sale-cart{
-            .cart-title{}
+            height: 100%;
+            padding-bottom: 15px;
+            .cart-title{
+                @include waterbar-title;
+                .el-button{
+                    float: right;
+                    padding-bottom: 5px;
+                    padding-top: 5px;
+                    + .el-button{
+                        margin-right: 5px;
+                    }
+                }
+            }
             .cart-wrap{
                 border-radius: 4px;
                 border: 1px solid $mainColor;
+                height: calc(100% - 30px);
             }
         }
 
+    }
+    .material{
+        .material-title{
+            @include waterbar-title();
+        }
+        .material-table{
+            height: calc(100% - 30px);
+            padding-bottom: 20px;
+        }
     }
 }

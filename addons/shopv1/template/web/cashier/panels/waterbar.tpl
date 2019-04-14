@@ -7,7 +7,7 @@
                 <el-radio-button label="material">原料管理</el-radio-button>
             </el-radio-group>
         </el-button-group>
-        <div class="sale" v-if="waterbar.firstPaneShow == 'sale'">
+        <div class="sub-pane sale" v-if="waterbar.firstPaneShow == 'sale'">
             <el-row :gutter="15">
                 <el-col :span="4" class="sale-list">
                     <div class="list-title">商品分类</div>
@@ -43,13 +43,13 @@
                     </el-row>
                 </el-col>
                 <el-col :span="6" class="sale-cart">
-                    <div class="cart-title">购物车
-                        <el-button type="success" size="mini" plain>编辑</el-button>
-                        <el-button type="success" size="mini" plain>优惠方案</el-button>
-                        <el-button type="danger" size="mini" plain>关闭</el-button>
-                        <el-button type="danger" size="mini" plain>清除</el-button>
+                    <div class="cart-title" v-if="waterbar.cartMain">购物车
+                        <el-button type="success" size="mini" plain v-if="waterbar.editBtnShow">编辑</el-button>
+                        <el-button type="success" size="mini" plain v-if="waterbar.editBtnShow">优惠方案</el-button>
+                        <el-button type="danger" size="mini" plain v-if="!waterbar.editBtnShow">关闭</el-button>
+                        <el-button type="danger" size="mini" plain v-if="!waterbar.editBtnShow">清除</el-button>
                     </div>
-                    <div class="checkout-title">
+                    <div class="checkout-title" v-if="!waterbar.cartMain">
                         <div class=""><a href="#"><span class="icon iconfont back">&#xe61c;</span></a></div>
                         <div class="">结账</div>
                     </div>
@@ -75,10 +75,12 @@
                 </el-col>
             </el-row>
         </div>
-        <div class="material" v-else>
+        <div class="sub-pane material" v-else>
             <div class="material-title">吧台库</div>
             <div class="material-table">
-                <el-table >
+                <el-table
+                    height="100%"
+                    border>
                     <el-table-column label="编号"></el-table-column>
                     <el-table-column label="类型"></el-table-column>
                 </el-table>

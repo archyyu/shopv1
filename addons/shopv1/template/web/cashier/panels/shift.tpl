@@ -7,7 +7,7 @@
                 <el-radio-button label="product">商品核对</el-radio-button>
             </el-radio-group>
         </el-button-group>
-        <div class="shift-data" v-if="shift.firstPaneShow == 'shiftData'">
+        <div class="sub-pane shift-data" v-if="shift.firstPaneShow == 'shiftData'">
             <el-row :gutter="15">
                 <el-col :span="12">
                     接班时间：{{ }}
@@ -52,7 +52,7 @@
                 <el-button type="primary">交班</el-button>
             </div>
         </div>
-        <div class="shift-product" v-else>
+        <div class="sub-pane shift-product" v-else>
             <el-table>
                 <el-table-column label="商品分类"></el-table-column>
                 <el-table-column label="商品名称"></el-table-column>
