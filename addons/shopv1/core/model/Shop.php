@@ -27,7 +27,7 @@ class Shop extends Model{
     
     public function saveShop($data){
         if(isset($data['id'])){
-            $id = $data;
+            $id = $data['id'];
             unset($data['id']);
             return $this->save($data,['id'=>$id]);
         }

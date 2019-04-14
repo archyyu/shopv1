@@ -31,19 +31,31 @@ var CardType = {
               },
               {
                 field: 'exchange',
-                title: '抵现金额'
+                title: '抵现金额',
+                formatter:function(value, row,index){
+                    return value/100;
+                }
               },
               {
                 field: 'exchange',
-                title: '折扣'
+                title: '折扣',
+                formatter:function(value,row,index){
+                    return value + "%";
+                }
               },
               {
                 field: 'effectiveprice',
-                title: '最低使用价格'
+                title: '最低使用价格',
+                formatter:function(value, row,index){
+                    return value/100;
+                }
               },
               {
                 field: 'effectiveday',
-                title: '卡券有效期'
+                title: '卡券有效期',
+                formatter:function(value,row,index){
+                    return value + "天";
+                }
               },
               {
                 field: 'deleteflag',
@@ -102,9 +114,9 @@ var CardType = {
         else{
             $("#addCardModal [name=cardid]").val(obj.id);
             $("#addCardModal [name=cardname]").val(obj.cardname);
-            $("#addCardModal [name=exchange]").val(obj.exchange);
+            $("#addCardModal [name=exchange]").val(obj.exchange/100);
             $("#addCardModal [name=discount]").val(obj.discount);
-            $("#addCardModal [name=effectiveprice]").val(obj.effectiveprice);
+            $("#addCardModal [name=effectiveprice]").val(obj.effectiveprice/100);
             $("#addCardModal [name=effectiveday]").val(obj.effectiveday);
         }
         
