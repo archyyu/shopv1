@@ -13,7 +13,8 @@
                     <div class="list-title">商品分类</div>
                     <div class="list-wrap">
                         <ul>
-                            <li class="active">默认分类</li>
+                            
+                            <li>默认分类</li>
                             <li>啤酒</li>
                             <li>饮料</li>
                             <li>矿泉水</li>

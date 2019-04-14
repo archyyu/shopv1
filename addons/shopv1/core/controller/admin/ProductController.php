@@ -44,8 +44,10 @@ class ProductController extends Controller{
     
     public function index(){
         $uniacid = $this->getUniacid();
-        $list = $this->productTypeModel->getProductTypeList($uniacid);
-        $this->smarty->assign("typelist",$list);
+        $typelist = $this->productTypeModel->getProductTypeList($uniacid);
+        $storelist = $this->storeModel->getStoreListByUniacid($uniacid);
+        $this->smarty->assign("typelist",$typelist);
+        $this->smarty->assign("storelist",$storelist);
         $this->smarty->display('admin/waterbar/inventory.tpl');
     }
     

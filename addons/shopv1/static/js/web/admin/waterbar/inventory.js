@@ -57,10 +57,6 @@ var Inventory = {
           }
         },
         {
-          field: 'id',
-          title: '关联商品'
-        },
-        {
           field: 'index',
           title: '排序'
         },
@@ -107,13 +103,14 @@ var Inventory = {
           $("#addProductModal [name=productid]").val(obj.id);
           $("#addProductModal [name=productname]").val(obj.productname);
           $("#addProductModal [name=productcode]").val(obj.productcode);
-          $("#addProductModal [name=make] option[value=" + obj.make + "]").attr("selected","selected");
+          $("#addProductModal [name=make]").selectpicker('val', obj.make);
           $("#addProductModal [name=normalprice]").val(obj.normalprice);
           $("#addProductModal [name=memberprice]").val(obj.memberprice);
           $("#addProductModal [name=index]").val(obj.index);
           $("#addProductModal [name=attributes]").val(obj.attributes);
           $("#addProductModal [name=unit]").val(obj.unit);
-          $("#addProductModal [name=typeid]").val(obj.typeid);
+          $("#addProductModal [name=typeid]").selectpicker('val',obj.typeid);
+          
           $("#addProductModal [name=producttype][value=" +obj.producttype + "]").attr('checked', 'checked');
           
       }

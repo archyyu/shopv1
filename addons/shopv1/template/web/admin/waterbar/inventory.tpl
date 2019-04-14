@@ -14,6 +14,15 @@
         </select>
       </div>
       <div class="form-group form-group-sm">
+        <label class="control-label">库房选择</label>
+        <select class="form-control input-sm selectpicker">
+          <option value="">请选择</option>
+          {foreach $storelist as $store}
+            <option value='{$store.id}'>{$store.storename}</option>
+          {/foreach}
+        </select>
+      </div>
+      <div class="form-group form-group-sm">
         <label class="control-label">查询商品</label>
         <input type="text" class="form-control" placeholder="请输入商品名称或关键字">
       </div>

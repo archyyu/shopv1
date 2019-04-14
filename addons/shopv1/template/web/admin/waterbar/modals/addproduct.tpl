@@ -37,7 +37,7 @@
                   <span style="color: red;"> * </span>所属类型：
                 </label>
                 <div class="col-sm-8">
-                  <select class="form-control selectpicker" name="typeid">
+                  <select class="form-control selectpicker" name="typeid" id="addTypeId">
                     <option value="">请选择</option>
                     {foreach $typelist as $type}
                         <option value='{$type.id}'  >{$type.typename}</option>
@@ -71,10 +71,7 @@
                   </label>
                   <label class="radio-inline">
                     <input type="radio" name="producttype" value="2"> 原料
-                  </label>      
-                  <label class="radio-inline">
-                    <input type="radio" name="producttype" value="3"> 套餐
-                  </label>  
+                  </label>
                 </div>
               </div>
               <div class="form-group form-group-sm">

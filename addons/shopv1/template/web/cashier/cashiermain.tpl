@@ -16,14 +16,23 @@
         el: '#app',
         data: {
             waterbar: {
-                firstPaneShow: 'sale'
+                firstPaneShow: 'sale',
+                typelist:[]
             },
             shift: {
                 firstPaneShow: 'shiftData'
             }
         },
+        created:{
+            this.queryTypeList():
+        },
         methods: {
+            
+            queryTypeList:function(){
+                console.log("queryTypelist");
+            }
+            
         }
-    })
+    });
 </script>
 {include file="./common/footer.tpl"}
