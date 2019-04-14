@@ -70,9 +70,9 @@ class CardController extends \controller\Controller{
         }
         
         $data["cardname"] = $cardname;
-        $data["exchange"] = $exchange;
+        $data["exchange"] = $exchange/100;
         $data["discount"] = $discount;
-        $data['effectiveprice'] = $effectiveprice;
+        $data['effectiveprice'] = $effectiveprice/100;
         $data['effectiveday'] = $effectiveday;
         
         $result = $this->cardTypeModel->saveCardType($data);
