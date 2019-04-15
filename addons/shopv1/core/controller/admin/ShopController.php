@@ -18,12 +18,70 @@ use controller\Controller;
 class ShopController extends Controller{
     //put your code here
     
+    private $userModel;
+    
     public function __construct() {
         parent::__construct();
+        $this->userModel = new \model\ShopUser();
     }
     
     public function index(){
         $this->smarty->display('admin/shopinfo.tpl');
+    }
+    
+    public function staffIndex(){
+        $this->smarty->display('admin/staff.tpl');
+    }
+    
+    public function loadStaffList(){
+        try{
+            
+            $shopid = $this->getParam('shopid');
+            $list = $this->userModel->getShopUserList($shopid);
+            $this->returnSuccess($list);
+        
+        }
+        catch (Exception $e){
+            logError("error", $e);
+        }
+        
+    }
+    
+    public function saveStaff(){
+        
+        $userid = $this->getParam('userid');
+        $uniacid = $this->getUniacid();
+        $shopid = $this->getParam("shopid");
+        $password = $this->getParam("password");
+        $sex = $this->getParam("sex");
+        $account = $this->getParam("account");
+        $phone = $this->getParam("phone");
+        $openid = $this->getParam("openid");
+        
+        $data = array();
+        
+        if($userid == 0){
+            $data['password'] = md5($password);            
+        }
+        else{
+            $data['id'] = $userid;
+        }
+        
+        $data['uniacid'] = $uniacid;
+        $data['shopid'] = $shopid;
+        $data['account'] = $account;
+        $data['sex'] = $sex;
+        $data['openid'] = $openid;
+        $data["phone"] = $phone;
+        
+        if($this->userModel->saveUser($data)){
+            $this->returnSuccess();
+        }
+        else{
+            
+            $this->returnFail("数据库内部错误");
+        }
+        
     }
     
     public function loadShopList(){

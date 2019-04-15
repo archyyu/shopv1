@@ -96,7 +96,7 @@
               </a>
               <ul class="nav nav-second-level">
                   <li><a href="index.php?c=site&a=entry&m=shopv1&do=shop&f=index">门店管理</a></li>
-                  <li><a>员工管理</a></li>
+                  <li><a href="index.php?c=site&a=entry&m=shopv1&do=shop&f=staffIndex">员工管理</a></li>
               </ul>
           </li>
           <li>
