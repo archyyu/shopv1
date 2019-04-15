@@ -27,6 +27,13 @@
         },
         created: function(){
             this.queryTypeList()
+            // axios.get("http://api.douban.com/v2/movie/coming_soon")
+            // .then(function(res) {
+            //     console.log(res)
+            // })
+            // .catch(function(err) {
+            //     console.log(err)
+            // });
         },
         methods: {
             

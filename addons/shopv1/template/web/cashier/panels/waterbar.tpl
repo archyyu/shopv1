@@ -14,14 +14,14 @@
                     <div class="list-wrap">
                         <ul>
                             
-                            <li>默认分类</li>
+                            <li class="active">默认分类</li>
                             <li>啤酒</li>
                             <li>饮料</li>
                             <li>矿泉水</li>
                         </ul>
                     </div>
                 </el-col>
-                <el-col :span="14" class="seal-product">
+                <el-col :span="14" class="sale-product">
                     <div class="product-title">商品列表
                         <el-button type="primary" size="mini" plain>打开钱箱</el-button>
                     </div>
@@ -54,21 +54,39 @@
                         <div class="">结账</div>
                     </div>
                     <div class="cart-wrap">
-                        <div class="pay-ways">
-                            <el-row>
+                        <div class="cart-list">
+                            <div class="cart-item">
+                                <div class="cart-item-title">123
+                                    <el-button type="success" size="mini" plain>赠送</el-button>
+                                </div>
+                                <el-row class="cart-item-num">
+                                    <el-col :span="6">赠送</el-col>
+                                    <el-col :span="8">￥12.00</el-col>
+                                    <el-col :span="10" class="num-cal">
+                                        <span class="num-operate minus">-</span>
+                                        1
+                                        <span class="num-operate add">+</span>
+                                    </el-col>
+                                </el-row>
+                            </div>
+                        </div>
+                        <div class="pay-info">
+                            <el-row class="pay-num">
                                 <el-col :span="24">
                                     <el-form>
-                                        <el-form-item label="座位/牌号:">888</el-form-item>
+                                        <el-form-item label="座位/牌号:" label-width="80px">
+                                            <el-input size="mini"></el-input>
+                                        </el-form-item>
                                     </el-form>
                                 </el-col>
                             </el-row>
-                            <el-row>
+                            <el-row class="pay-sum">
                                 <el-col :span="24">合计：80 元</el-col>
                             </el-row>
-                            <el-row>
-                                <el-col :span="8">现金支付</el-col>
-                                <el-col :span="8">微信支付</el-col>
-                                <el-col :span="8">支付宝支付</el-col>
+                            <el-row class="pay-ways">
+                                <el-col :span="8" class="cashpay">现金</el-col>
+                                <el-col :span="8" class="weipay">微信</el-col>
+                                <el-col :span="8" class="alipay">支付宝</el-col>
                             </el-row>
                         </div>
                     </div>

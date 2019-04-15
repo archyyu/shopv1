@@ -84,56 +84,57 @@ html, body, #app, .el-tabs {
   border-bottom: none;
 }
 
-.waterbar .sale .seal-product {
+.waterbar .sale .sale-product {
   height: 100%;
   padding-bottom: 15px;
 }
 
-.waterbar .sale .seal-product .product-title {
+.waterbar .sale .sale-product .product-title {
   height: 30px;
   line-height: 20px;
   padding-bottom: 10px;
 }
 
-.waterbar .sale .seal-product .product-title .el-button {
+.waterbar .sale .sale-product .product-title .el-button {
   float: right;
   padding-bottom: 5px;
   padding-top: 5px;
 }
 
-.waterbar .sale .seal-product .product-wrap {
+.waterbar .sale .sale-product .product-wrap {
   border-radius: 4px;
   border: 1px solid #409EFF;
   height: calc(100% - 30px);
 }
 
-.waterbar .sale .seal-product .product-wrap .product-item {
+.waterbar .sale .sale-product .product-wrap .product-item {
   border: 1px solid #E4E7ED;
   height: 122px;
   font-weight: normal;
 }
 
-.waterbar .sale .seal-product .product-wrap .product-item.less-item p {
+.waterbar .sale .sale-product .product-wrap .product-item.less-item p {
   height: 24px;
   line-height: 24px;
   margin-bottom: 0;
   display: block;
 }
 
-.waterbar .sale .seal-product .product-wrap .product-item.less-item p.pro-price {
+.waterbar .sale .sale-product .product-wrap .product-item.less-item p.pro-price {
   height: 24px;
   line-height: 24px;
 }
 
-.waterbar .sale .seal-product .product-wrap .product-item.less-item p.pro-price .pro_lesspro {
+.waterbar .sale .sale-product .product-wrap .product-item.less-item p.pro-price .pro_lesspro {
   line-height: 24px;
 }
 
-.waterbar .sale .seal-product .product-wrap .product-item h5 {
+.waterbar .sale .sale-product .product-wrap .product-item h5 {
   color: #333;
   height: 62px;
   line-height: 1.4;
   font-size: 20px;
+  font-weight: normal;
   padding: 5px 10px;
   padding-bottom: 0;
   margin-bottom: 0;
@@ -145,7 +146,7 @@ html, body, #app, .el-tabs {
   overflow: hidden;
 }
 
-.waterbar .sale .seal-product .product-wrap .product-item p.lack-pro {
+.waterbar .sale .sale-product .product-wrap .product-item p.lack-pro {
   display: none;
   padding: 0 10px;
   overflow: hidden;
@@ -153,7 +154,7 @@ html, body, #app, .el-tabs {
   white-space: nowrap;
 }
 
-.waterbar .sale .seal-product .product-wrap .product-item p.pro-price {
+.waterbar .sale .sale-product .product-wrap .product-item p.pro-price {
   height: 48px;
   line-height: 48px;
   font-size: 16px;
@@ -163,7 +164,7 @@ html, body, #app, .el-tabs {
   margin: 0;
 }
 
-.waterbar .sale .seal-product .product-wrap .product-item p.pro-price .pro_lesspro {
+.waterbar .sale .sale-product .product-wrap .product-item p.pro-price .pro_lesspro {
   float: left;
   font-size: 12px;
   text-align: center;
@@ -195,6 +196,103 @@ html, body, #app, .el-tabs {
   border-radius: 4px;
   border: 1px solid #409EFF;
   height: calc(100% - 30px);
+  position: relative;
+}
+
+.waterbar .sale .sale-cart .cart-wrap .cart-list {
+  height: calc(100% - 141px);
+}
+
+.waterbar .sale .sale-cart .cart-wrap .cart-list .cart-item {
+  border-bottom: 1px solid #eee;
+  padding: 15px 10px;
+}
+
+.waterbar .sale .sale-cart .cart-wrap .cart-list .cart-item .cart-item-title {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  margin-bottom: 5px;
+}
+
+.waterbar .sale .sale-cart .cart-wrap .cart-list .cart-item .cart-item-title .el-button {
+  padding: 4px 10px;
+}
+
+.waterbar .sale .sale-cart .cart-wrap .cart-list .cart-item .cart-item-num {
+  text-align: center;
+}
+
+.waterbar .sale .sale-cart .cart-wrap .cart-list .cart-item .cart-item-num .num-cal {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.waterbar .sale .sale-cart .cart-wrap .cart-list .cart-item .cart-item-num .num-cal .num-operate {
+  border: 1px solid #409EFF;
+  border-radius: 50%;
+  height: 20px;
+  width: 20px;
+  display: -webkit-inline-box;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  color: #409EFF;
+}
+
+.waterbar .sale .sale-cart .cart-wrap .pay-info {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  font-size: 14px;
+}
+
+.waterbar .sale .sale-cart .cart-wrap .pay-info .pay-num {
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+.waterbar .sale .sale-cart .cart-wrap .pay-info .pay-num .el-form-item {
+  margin-bottom: 0;
+}
+
+.waterbar .sale .sale-cart .cart-wrap .pay-info .pay-sum {
+  background-color: #F2FCFF;
+  text-align: center;
+  height: 30px;
+  line-height: 30px;
+}
+
+.waterbar .sale .sale-cart .cart-wrap .pay-info .pay-ways {
+  border-top: 1px solid #eee;
+  text-align: center;
+  height: 70px;
+}
+
+.waterbar .sale .sale-cart .cart-wrap .pay-info .pay-ways .weipay {
+  border-left: 1px solid #eee;
+}
+
+.waterbar .sale .sale-cart .cart-wrap .pay-info .pay-ways .alipay {
+  border-left: 1px solid #eee;
 }
 
 .waterbar .material .material-title {
