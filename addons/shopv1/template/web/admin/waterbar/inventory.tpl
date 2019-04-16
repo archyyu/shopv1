@@ -9,7 +9,7 @@
         <select class="form-control input-sm selectpicker" id="typeSelectQuery">
           <option value="">请选择</option>
           {foreach $typelist as $type}
-            <option value='{$type.id}'  >{$type.typename}</option>
+            <option value='{$type.id}'>{$type.typename}</option>
         {/foreach}
         </select>
       </div>
@@ -33,6 +33,7 @@
     <div class="left-group">
       <button class="btn btn-primary" onclick="Inventory.openClassModal()">商品分类</button>
       <button class="btn btn-primary" onclick="Inventory.openProductModal(0)">添加商品</button>
+      <button class="btn btn-primary" data-toggle="modal" data-target="#specModal">维护商品规格</button>
     </div>
     <div class="right-group">
     </div>
@@ -42,6 +43,7 @@
   </div>
   {include file="./modals/productclass.tpl"}
   {include file="./modals/addproduct.tpl"}
+  {include file="./modals/materialSpec.tpl"}
 </div>
 
 <script src="{$StaticRoot}/js/web/admin/waterbar/inventory.js"></script>

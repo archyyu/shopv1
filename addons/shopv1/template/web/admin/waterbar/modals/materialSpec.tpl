@@ -2,12 +2,12 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title text-center">进购规格</h5>
+        <h5 class="modal-title">商品规格</h5>
       </div>
       <div class="modal-body">
         <div class="row">
           <div class="col-xs-3 add_button">
-            <button class="btn btn-block btn-success text-center"><span class="pull-left">+</span>添加规格</button>
+            <button class="btn btn-success" data-toggle="modal" data-target="#addSpecModal">添加规格</button>
           </div>
         </div>
         <div class="row materialspec_table">
@@ -41,12 +41,56 @@
         </div>
       </div>
       <div class="modal-footer">
-        <div class="col-xs-4 col-xs-offset-4">
-          <button class="btn btn-block btn-info" data-dismiss="modal">关&nbsp;&nbsp;&nbsp;&nbsp;闭</button>
-        </div>
+          <button class="btn btn-default" data-dismiss="modal">关&nbsp;&nbsp;&nbsp;&nbsp;闭</button>
       </div>
     </div>
   </div>
-
-
+</div>
+<div class="modal fade" id="addSpecModal" role="dialog" aria-hidden="true" data-backdrop="static">
+  <div class="modal-dialog modal-sm">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">添加商品规格</h5>
+      </div>
+      <div class="modal-body">
+        <form class="form-horizontal">
+            <div class="form-group form-group-sm">
+                <label class="col-sm-4 control-label">选择原料：</label>
+                <div class="col-sm-8">
+                        <select class="form-control selectpicker">
+                        </select>
+                </div>
+            </div>
+            <div class="form-group form-group-sm">
+                <label class="col-sm-4 control-label">规格名称：</label>
+                <div class="col-sm-8">
+                    <input class="form-control">
+                </div>
+            </div>
+            <div class="form-group form-group-sm">
+                <label class="col-sm-4 control-label">容量：</label>
+                <div class="col-sm-8">
+                    <input class="form-control">
+                </div>
+            </div>
+            <div class="form-group form-group-sm">
+                <label class="col-sm-4 control-label">单位：</label>
+                <div class="col-sm-8">
+                    <input class="form-control" readonly="readonly">
+                </div>
+            </div>
+             <div class="form-group form-group-sm">
+                <label class="col-sm-4 control-label">价格：</label>
+                <div class="col-sm-8">
+                    <input class="form-control">
+                </div>
+            </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+          <button class="btn btn-default" data-dismiss="modal">关&nbsp;&nbsp;&nbsp;&nbsp;闭</button>
+          <button class="btn btn-primary">确&nbsp;&nbsp;&nbsp;&nbsp;定</button>
+      </div>
+    </div>
+  </div>
 </div>
