@@ -42,17 +42,83 @@
 create table ims_shopv1_tags(
     id int(11) auto_increment,
     memberid int(11) comment '',
+    uniacid int(11) comment '',
     tag varchar(30) comment 'tag name',
     deleteflag int(11) default 0,
     primary key(id)
 )engine=innodb;
 
+#盘点表
+create table ims_shopv1_stock(
+    id int(11) auto_increment,
+    uniacid int(11),
+    createtime bigint(20) comment '盘点时间',
+    userid int(11) comment '吧员',
+    deleteflag int(11) default 0,
+    storeid int(11) comment '库房id',
+    primary key(id)
+)engine=innodb;
+
+#盘点
+create table ims_shopv1_stockproduct(
+    id int(11) auto_increment,
+    stockid int(11) comment '盘点Id',
+    productid int(11) comment '商品id',
+    num int(11) comment '货架库存',
+    primary key(id)
+)engine=innodb;
+
+create table ims_shopv1_product_unit(
+    id int(11) auto_increment,
+    unitname varchar(30) default '' comment '规格名称',
+    productid int(11) comment '商品id',
+    num int(11) comment '容量',
+    price int(11) comment '价格',
+    primary key(id)
+)engine=innodb;
+
+##后台库存管理
+###批量进货 供货单位维护
+###商品页面  进购规格维护 报损报溢页面
 
 
 ##关于吧员手机端
 
 ###下单， 选择商品，下单，选择会员价还是非会员价， 选择微信支付，支付宝 或者现金
+商品选择页面，参考aida的微端下单页面就ok
+
 ###交班， 展示下这个吧员这个班次的微信收入，支付宝收入，现金收入，订单数量，售卖商品列表
-###订单列表，展示某个班次下面的订单列表数据
-###盘点， 判断某个库房下面，所有商品的库存， 以列表展示
+本班开始时间 2019-04-16 08:00:00，当前时间 2019-04-16 22:17:00
+吧员:NNN
+微信收入:100元
+支付宝收入:200元
+现金收入:200元
+提成收益:80元
+备注:[]
+
+确认交班
+
+###订单列表，展示某个某个时间段内订单列表数据
+时间起止选择[]-[]
+
+订单id       总价   售卖商品
+129238984    10元  3元饮料*2 + 4元饮料*1
+。
+。
+。
+
+
+###盘点， 判断某个库房下面，所有商品的库存， 以列表展示，货架库存是需要手动填入的
+
+Title: 库存盘点
+
+商品名称  系统库存  货架库存     损溢  数量
+3元饮料      60        [63]      报溢   +3
+4元饮料      20        [18]      报损   -2
+.
+.
+.
+.
+                  确定
+
 

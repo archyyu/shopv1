@@ -44,6 +44,7 @@
   {include file="./modals/productclass.tpl"}
   {include file="./modals/addproduct.tpl"}
   {include file="./modals/materialSpec.tpl"}
+  {include file="./modals/productdamage.tpl"}
 </div>
 
 <script src="{$StaticRoot}/js/web/admin/waterbar/inventory.js"></script>
