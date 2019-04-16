@@ -1,4 +1,4 @@
-{include file="../../common/header.tpl" title=foo1 logo=true}
+{include file="../../common/header.tpl"logo=true}
 <link rel="stylesheet" href="{$StaticRoot}/css/waterbar.css">
 
 <div class="inventory">
