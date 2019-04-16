@@ -48,7 +48,14 @@ class ClassLoader{
             }
         }
     }
-    
+ 
+    public static function includeFile($file){
+        if(isset(ClassLoader::$includedList[$file]) == false){
+            include($file);
+            ClassLoader::$includedList[$file] = true;
+        }
+    }
+ 
     public static function includeBaseClass($dir,$className){
         $file = ClassLoader::recurseFindByClassName($dir, $className);
         if(isset($file)){
@@ -62,9 +69,9 @@ class ClassLoader{
 }
 
 
-ClassLoader::includeBaseClass(CASHROOT."core", "Medoo");
-ClassLoader::includeBaseClass(CASHROOT."core", "Service");
-ClassLoader::includeBaseClass(CASHROOT."core", "Controller");
+ClassLoader::includeFile(CASHROOT."core/model/Medoo.php");
+ClassLoader::includeFile(CASHROOT."core/service/Service.php");
+ClassLoader::includeFile(CASHROOT."core/controller/Controller.php");
 
 ClassLoader::recurseInclude(CASHROOT."core");
 
