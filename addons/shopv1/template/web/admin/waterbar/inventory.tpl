@@ -33,7 +33,6 @@
     <div class="left-group">
       <button class="btn btn-primary" onclick="Inventory.openClassModal()">商品分类</button>
       <button class="btn btn-primary" onclick="Inventory.openProductModal(0)">添加商品</button>
-      <button class="btn btn-primary" data-toggle="modal" data-target="#specModal">维护商品规格</button>
     </div>
     <div class="right-group">
     </div>

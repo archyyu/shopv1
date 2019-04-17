@@ -17,5 +17,20 @@ class ShopProductUnit extends Model{
     
     protected $table = "shopv1_product_unit";
     
+    public function getProductUnitList($productid){
+        return $this->getList("*",['productid'=>$productid]);
+    }
+    
+    public function saveProductUnit($data){
+        if(isset($data['id'])){
+            $id = $data['id'];
+            unset($data['id']);
+            return $this->save($data, ['id'=>$id]);
+        }
+        else{
+            return $this->add($data);
+        }
+    }
+    
     
 }

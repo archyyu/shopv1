@@ -6,6 +6,8 @@ $(function () {
     Inventory.classListInit();
     Inventory.classListReload();
   
+    Inventory.unitTableInit();
+    
 });
 
 var Inventory = {
@@ -70,10 +72,15 @@ var Inventory = {
           events:{
               'click .edit-event':function(e,value,row,index){
                   Inventory.openGoodModal(1,row);
+              },
+              'click .unit-event':function(e,value,row,index){
+                  Inventory.openProductUnitModal(row.id);
+                  $("#addSpecModal [name=unit]").val(row.unit);
               }
           },
           formatter: function(value, row,index){
-            return '<button class="btn btn-xs btn-success edit-event">编辑</button>';
+            return '<button class="btn btn-xs btn-success unit-event">规格</button>\n\
+                    <button class="btn btn-xs btn-success edit-event">编辑</button>';
           }
         }
       ]
@@ -187,6 +194,78 @@ var Inventory = {
       });
   },
   
+  saveUnit:function(){
+      var url = UrlUtil.createWebUrl('product','saveProductUnit');
+      
+      var params = {};
+      params.productid = $("#specModal [name=productid]").val();
+      params.unitname = $("#addSpecModal [name=unitname]").val();
+      params.num = $("#addSpecModal [name=num]").val();
+      params.price = $("#addSpecModal [name=price]").val();
+      
+      $.post(url,params,function(data){
+          if(data.state == 0){
+              $("#addSpecModal").modal("hide");
+              $("#unitTable").bootstrapTable("refreshOptions",{ajax:Inventory.loadProductUnit});
+          }
+          else{
+              Tips.failTips(data.msg);
+          }
+      });
+      
+  },
+  
+  openProductUnitModal:function(productid){
+     
+     $("#specModal [name=productid]").val(productid);
+     $("#specModal").modal("show");
+     $("#unitTable").bootstrapTable("refreshOptions",{ajax:Inventory.loadProductUnit});
+     
+  },
+  
+  loadProductUnit:function(obj){
+      var url = UrlUtil.createWebUrl("product",'loadProductUnit');
+      var params = {};
+      params.productid = $("#specModal [name=productid]").val();
+      
+      $.post(url,params,function(data){
+           if(data.state == 0){
+               obj.success(data.obj);
+           }
+           else{
+               Tips.failTips(data.msg);
+           }
+      });
+      
+  },
+  
+  unitTableInit:function(){
+      $("#unitTable").bootstrapTable({
+          data:[],
+          columns:[
+              {
+                  field:'productname',
+                  title:'商品名称'
+              },{
+                  field:'unitname',
+                  title:'规格名称'
+              },{
+                  field:'num',
+                  title:'容量'
+              },{
+                  field:'unit',
+                  title:'单位'
+              },{
+                  field:'price',
+                  title:"价格"
+              },{
+                  field:'id',
+                  title:'操作'
+              }
+          ]
+      });
+  },
+  
   classListReload:function(){
       $("#productTypeTable").bootstrapTable("refreshOptions",{ajax:Inventory.classListQuery});
   },
@@ -274,5 +353,9 @@ var Inventory = {
       $(".associatename").text('商品');
     }
     $("#addProductModal").modal("show");
+  },
+  
+  info : function(){
+      
   }
 };

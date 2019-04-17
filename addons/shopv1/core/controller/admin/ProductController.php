@@ -32,6 +32,8 @@ class ProductController extends Controller{
     
     private $productRelateModel;
     
+    private $productUnitModel;
+    
     public function __construct() {
         parent::__construct();
         $this->productService = new ProductService();
@@ -39,6 +41,7 @@ class ProductController extends Controller{
         $this->productTypeModel = new ShopProductType();
         $this->productModel = new \model\ShopProduct();
         $this->productRelateModel = new \model\ShopProductrelation();
+        $this->productUnitModel = new \model\ShopProductUnit();
         
     }
     
@@ -207,6 +210,38 @@ class ProductController extends Controller{
         }
         else{
             $this->returnFail("数据库异常");
+        }
+        
+    }
+    
+    public function loadProductUnit(){
+        $productid = $this->getParam('productid');
+        $product = $this->productModel->findProdudctById($productid);
+        $list = $this->productUnitModel->getProductUnitList($productid);
+        
+        foreach ($list as $key=>$value){
+            $list[$key]['productname'] = $product['productname'];
+            $list[$key]['unit'] = $product['unit'];
+        }
+        
+        $this->returnSuccess($list);
+    }
+    
+    public function saveProductUnit(){
+        $productid = $this->getParam('productid');
+        $unitname = $this->getParam('unitname');
+        $num = $this->getParam('num');
+        
+        $data = array();
+        $data['productid'] = $productid;
+        $data['unitname'] = $unitname;
+        $data['num'] = $num;
+        
+        if($this->productUnitModel->saveProductUnit($data)){
+            $this->returnSuccess();
+        }
+        else{
+            $this->returnFail('数据库错误');
         }
         
     }
