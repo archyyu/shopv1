@@ -58,3 +58,87 @@
     }
   }
 }
+
+// batch stock
+.batch-stock{
+  .detail_content{
+    margin-bottom: 15px;
+  }
+}
+.checkboxs{
+  border:1px solid #ccc;
+  padding:10px;
+  line-height: 25px;
+  font-size: 14px;
+  height:300px;
+  .checkself{
+    width: 33.333%;
+    float: left;
+    overflow: hidden; 
+    height: 25px;
+  }
+}
+.remark_box{
+  background: #fff;
+  border:1px solid #ccc;
+  padding:30px;
+  font-size: 18px;
+  label{
+    font-weight: normal;
+  }
+  input#remark{
+    width: 800px;
+  }
+  p{
+    &.pay_last{
+      display: inline-block;
+      span{
+        color:#C9302C
+      }
+    }
+  }
+  .foot_remark{
+    text-align: center;
+  }
+  .stock_btn{
+    display: flex;
+    justify-content: center;
+    button+button{
+      margin-left: 15px;
+    }
+  }
+}
+
+// transfer modal
+.transfer_goods{
+  .transfer_out, .transfer_in{
+    position: relative;
+    margin-top: 8px;
+    >h5{
+      position: absolute;
+      background-color: #fff;
+      color: #409eff;
+      left: 30px;
+      top: -18px;
+      padding: 0 6px;
+    }
+    >div{
+      border: 1px solid #409eff;
+      padding: 15px;
+      padding-bottom: 0;
+      height: 175px;
+      .form-group{
+        margin-bottom: 8px;
+      }
+    }
+  }
+  .transfer_out{
+    padding-right: 4px;
+  }
+  .transfer_in{
+    padding-left: 4px;
+    >h5{
+      left: 20px;
+    }
+  }
+}

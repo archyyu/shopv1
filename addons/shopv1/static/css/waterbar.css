@@ -44,4 +44,100 @@
   float: left;
   margin-right: 10px;
 }
+
+.batch-stock .detail_content {
+  margin-bottom: 15px;
+}
+
+.checkboxs {
+  border: 1px solid #ccc;
+  padding: 10px;
+  line-height: 25px;
+  font-size: 14px;
+  height: 300px;
+}
+
+.checkboxs .checkself {
+  width: 33.333%;
+  float: left;
+  overflow: hidden;
+  height: 25px;
+}
+
+.remark_box {
+  background: #fff;
+  border: 1px solid #ccc;
+  padding: 30px;
+  font-size: 18px;
+}
+
+.remark_box label {
+  font-weight: normal;
+}
+
+.remark_box input#remark {
+  width: 800px;
+}
+
+.remark_box p.pay_last {
+  display: inline-block;
+}
+
+.remark_box p.pay_last span {
+  color: #C9302C;
+}
+
+.remark_box .foot_remark {
+  text-align: center;
+}
+
+.remark_box .stock_btn {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+.remark_box .stock_btn button + button {
+  margin-left: 15px;
+}
+
+.transfer_goods .transfer_out, .transfer_goods .transfer_in {
+  position: relative;
+  margin-top: 8px;
+}
+
+.transfer_goods .transfer_out > h5, .transfer_goods .transfer_in > h5 {
+  position: absolute;
+  background-color: #fff;
+  color: #409eff;
+  left: 30px;
+  top: -18px;
+  padding: 0 6px;
+}
+
+.transfer_goods .transfer_out > div, .transfer_goods .transfer_in > div {
+  border: 1px solid #409eff;
+  padding: 15px;
+  padding-bottom: 0;
+  height: 175px;
+}
+
+.transfer_goods .transfer_out > div .form-group, .transfer_goods .transfer_in > div .form-group {
+  margin-bottom: 8px;
+}
+
+.transfer_goods .transfer_out {
+  padding-right: 4px;
+}
+
+.transfer_goods .transfer_in {
+  padding-left: 4px;
+}
+
+.transfer_goods .transfer_in > h5 {
+  left: 20px;
+}
 /*# sourceMappingURL=waterbar.css.map */
