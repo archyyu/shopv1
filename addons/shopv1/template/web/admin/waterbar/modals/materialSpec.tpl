@@ -3,6 +3,7 @@
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title">商品规格</h5>
+        <input name="productid" type="hidden" value="0" />
       </div>
       <div class="modal-body">
         <div class="row">
@@ -12,30 +13,8 @@
         </div>
         <div class="row materialspec_table">
           <div class="col-xs-12">
-            <table class="table table-bordered table-condensed">
-              <thead>
-                <th>原料名称</th>
-                <th>规格名称</th>
-                <th>容量</th>
-                <th>原料单位</th>
-                <th>价格</th>
-                <th colspan="2" class="text-center">操作</th>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>{$T.record.materialname}</td>
-                  <td>{$T.record.name}</td>
-                  <td>{$T.record.volume}</td>
-                  <td>{$T.record.unit}</td>
-                  <td>{$T.record.price/100}元</td>
-                  <td style="widht:80px;">
-                    <button class="btn btn-xs btn-link edit">编辑</button>
-                  </td>
-                  <td style="widht:80px;">
-                    <button class="btn btn-xs btn-link delete">删除</button>
-                  </td>
-                </tr>
-              </tbody>
+            <table class="table table-bordered table-condensed" id="unitTable">
+              
             </table>
           </div>
         </div>
@@ -55,41 +34,34 @@
       <div class="modal-body">
         <form class="form-horizontal">
             <div class="form-group form-group-sm">
-                <label class="col-sm-4 control-label">选择原料：</label>
-                <div class="col-sm-8">
-                        <select class="form-control selectpicker">
-                        </select>
-                </div>
-            </div>
-            <div class="form-group form-group-sm">
                 <label class="col-sm-4 control-label">规格名称：</label>
                 <div class="col-sm-8">
-                    <input class="form-control">
+                    <input name="unitname" class="form-control">
                 </div>
             </div>
             <div class="form-group form-group-sm">
                 <label class="col-sm-4 control-label">容量：</label>
                 <div class="col-sm-8">
-                    <input class="form-control">
+                    <input name="num" class="form-control">
                 </div>
             </div>
             <div class="form-group form-group-sm">
                 <label class="col-sm-4 control-label">单位：</label>
                 <div class="col-sm-8">
-                    <input class="form-control" readonly="readonly">
+                    <input name="unit" class="form-control" readonly="readonly">
                 </div>
             </div>
              <div class="form-group form-group-sm">
                 <label class="col-sm-4 control-label">价格：</label>
                 <div class="col-sm-8">
-                    <input class="form-control">
+                    <input name="price" class="form-control">
                 </div>
             </div>
         </form>
       </div>
       <div class="modal-footer">
           <button class="btn btn-default" data-dismiss="modal">关&nbsp;&nbsp;&nbsp;&nbsp;闭</button>
-          <button class="btn btn-primary">确&nbsp;&nbsp;&nbsp;&nbsp;定</button>
+          <button class="btn btn-primary" onclick="Inventory.saveUnit();" >确&nbsp;&nbsp;&nbsp;&nbsp;定</button>
       </div>
     </div>
   </div>

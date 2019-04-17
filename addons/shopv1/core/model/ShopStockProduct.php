@@ -16,7 +16,6 @@ namespace model;
 class ShopStockProduct extends Model{
     
     protected $table = "shopv1_stockproduct";
-
-
-    //put your code here
+    
+    
 }

@@ -15,8 +15,7 @@
       </div>
       <div class="form-group form-group-sm">
         <label class="control-label">库房选择</label>
-        <select class="form-control input-sm selectpicker">
-          <option value="">请选择</option>
+        <select class="form-control input-sm selectpicker" id="storeSelect">
           {foreach $storelist as $store}
             <option value='{$store.id}'>{$store.storename}</option>
           {/foreach}
@@ -33,7 +32,6 @@
     <div class="left-group">
       <button class="btn btn-primary" onclick="Inventory.openClassModal()">商品分类</button>
       <button class="btn btn-primary" onclick="Inventory.openProductModal(0)">添加商品</button>
-      <button class="btn btn-primary" data-toggle="modal" data-target="#specModal">维护商品规格</button>
     </div>
     <div class="right-group">
     </div>

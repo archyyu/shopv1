@@ -18,4 +18,8 @@ class ShopInventorylog extends Model{
     protected $table = "shopv1_inventorylog";
     
     
+    public function addLog($data){
+        return $this->add($data);
+    }
+    
 }

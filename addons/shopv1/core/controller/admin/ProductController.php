@@ -32,6 +32,8 @@ class ProductController extends Controller{
     
     private $productRelateModel;
     
+    private $productUnitModel;
+    
     public function __construct() {
         parent::__construct();
         $this->productService = new ProductService();
@@ -39,6 +41,7 @@ class ProductController extends Controller{
         $this->productTypeModel = new ShopProductType();
         $this->productModel = new \model\ShopProduct();
         $this->productRelateModel = new \model\ShopProductrelation();
+        $this->productUnitModel = new \model\ShopProductUnit();
         
     }
     
@@ -126,20 +129,23 @@ class ProductController extends Controller{
     
     public function loadProduct(){
         $uniacid = $this->getUniacid();
+        
+        $storeid = $this->getParam("storeid");
+        
         $typelist = $this->productTypeModel->getProductTypeList($uniacid);
         
         $map = array();
         foreach ($typelist as $key=>$value){
             $map[$value['id']] = $value;
-            //logInfo($value[id].":".$value["typename"]);
         }
-        
-        
         
         $productList = $this->productModel->findProductByUniacid($uniacid);
         
         foreach($productList as $k=>$v){
             $productList[$k]['typename'] = $map[$v['typeid']]['typename'];
+            
+            $inventory = $this->productService->findInventoryBy(0, $v['id'], $storeid);
+            $productList[$k]['inventory'] = $inventory['inventory'];
         }
         
         $this->returnSuccess($productList);
@@ -211,10 +217,60 @@ class ProductController extends Controller{
         
     }
     
+    public function loadProductUnit(){
+        $productid = $this->getParam('productid');
+        $product = $this->productModel->findProdudctById($productid);
+        $list = $this->productUnitModel->getProductUnitList($productid);
+        
+        foreach ($list as $key=>$value){
+            $list[$key]['productname'] = $product['productname'];
+            $list[$key]['unit'] = $product['unit'];
+        }
+        
+        $this->returnSuccess($list);
+    }
+    
+    public function saveProductUnit(){
+        $productid = $this->getParam('productid');
+        $unitname = $this->getParam('unitname');
+        $num = $this->getParam('num');
+        
+        $data = array();
+        $data['productid'] = $productid;
+        $data['unitname'] = $unitname;
+        $data['num'] = $num;
+        
+        if($this->productUnitModel->saveProductUnit($data)){
+            $this->returnSuccess();
+        }
+        else{
+            $this->returnFail('数据库错误');
+        }
+        
+    }
+    
+    public function inventoryStock(){
+        
+    }
+    
     public function inventoryTransfer($productid,$inventory,$sourceid,$destinationid){
         $uniacid = $this->getUniacid();
         $this->productService->transferInventory($uniacid, 0, $productid, $inventory, $sourceid, $destinationid, 0);
         return $this->returnSuccess();
+    }
+    
+    public function inventoryChange(){
+        $productid = $this->getParam('productid');
+        $storeid = $this->getParam('storeid');
+        $inventory = $this->getParam("num");
+        
+        if($inventory > 0){
+            $this->inventoryFlow($productid, $inventory, $storeid);
+        }
+        else{
+            $this->inventoryDamage($productid, abs($inventory), $storeid);
+        }
+        
     }
     
     public function inventoryDamage($productid,$inventory,$storeid){
