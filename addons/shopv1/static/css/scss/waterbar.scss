@@ -58,3 +58,53 @@
     }
   }
 }
+
+// batch stock
+.batch-stock{
+  .detail_content{
+    margin-bottom: 15px;
+  }
+}
+.checkboxs{
+  border:1px solid #ccc;
+  padding:10px;
+  line-height: 25px;
+  font-size: 14px;
+  height:300px;
+  .checkself{
+    width: 33.333%;
+    float: left;
+    overflow: hidden; 
+    height: 25px;
+  }
+}
+.remark_box{
+  background: #fff;
+  border:1px solid #ccc;
+  padding:30px;
+  font-size: 18px;
+  label{
+    font-weight: normal;
+  }
+  input#remark{
+    width: 800px;
+  }
+  p{
+    &.pay_last{
+      display: inline-block;
+      span{
+        color:#C9302C
+      }
+    }
+  }
+  .foot_remark{
+    text-align: center;
+  }
+  .stock_btn{
+    display: flex;
+    justify-content: center;
+    button+button{
+      margin-left: 15px;
+    }
+  }
+}

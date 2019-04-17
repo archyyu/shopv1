@@ -44,4 +44,63 @@
   float: left;
   margin-right: 10px;
 }
+
+.batch-stock .detail_content {
+  margin-bottom: 15px;
+}
+
+.checkboxs {
+  border: 1px solid #ccc;
+  padding: 10px;
+  line-height: 25px;
+  font-size: 14px;
+  height: 300px;
+}
+
+.checkboxs .checkself {
+  width: 33.333%;
+  float: left;
+  overflow: hidden;
+  height: 25px;
+}
+
+.remark_box {
+  background: #fff;
+  border: 1px solid #ccc;
+  padding: 30px;
+  font-size: 18px;
+}
+
+.remark_box label {
+  font-weight: normal;
+}
+
+.remark_box input#remark {
+  width: 800px;
+}
+
+.remark_box p.pay_last {
+  display: inline-block;
+}
+
+.remark_box p.pay_last span {
+  color: #C9302C;
+}
+
+.remark_box .foot_remark {
+  text-align: center;
+}
+
+.remark_box .stock_btn {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+.remark_box .stock_btn button + button {
+  margin-left: 15px;
+}
 /*# sourceMappingURL=waterbar.css.map */
