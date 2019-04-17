@@ -108,3 +108,37 @@
     }
   }
 }
+
+// transfer modal
+.transfer_goods{
+  .transfer_out, .transfer_in{
+    position: relative;
+    margin-top: 8px;
+    >h5{
+      position: absolute;
+      background-color: #fff;
+      color: #409eff;
+      left: 30px;
+      top: -18px;
+      padding: 0 6px;
+    }
+    >div{
+      border: 1px solid #409eff;
+      padding: 15px;
+      padding-bottom: 0;
+      height: 175px;
+      .form-group{
+        margin-bottom: 8px;
+      }
+    }
+  }
+  .transfer_out{
+    padding-right: 4px;
+  }
+  .transfer_in{
+    padding-left: 4px;
+    >h5{
+      left: 20px;
+    }
+  }
+}

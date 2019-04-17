@@ -103,4 +103,41 @@
 .remark_box .stock_btn button + button {
   margin-left: 15px;
 }
+
+.transfer_goods .transfer_out, .transfer_goods .transfer_in {
+  position: relative;
+  margin-top: 8px;
+}
+
+.transfer_goods .transfer_out > h5, .transfer_goods .transfer_in > h5 {
+  position: absolute;
+  background-color: #fff;
+  color: #409eff;
+  left: 30px;
+  top: -18px;
+  padding: 0 6px;
+}
+
+.transfer_goods .transfer_out > div, .transfer_goods .transfer_in > div {
+  border: 1px solid #409eff;
+  padding: 15px;
+  padding-bottom: 0;
+  height: 175px;
+}
+
+.transfer_goods .transfer_out > div .form-group, .transfer_goods .transfer_in > div .form-group {
+  margin-bottom: 8px;
+}
+
+.transfer_goods .transfer_out {
+  padding-right: 4px;
+}
+
+.transfer_goods .transfer_in {
+  padding-left: 4px;
+}
+
+.transfer_goods .transfer_in > h5 {
+  left: 20px;
+}
 /*# sourceMappingURL=waterbar.css.map */
