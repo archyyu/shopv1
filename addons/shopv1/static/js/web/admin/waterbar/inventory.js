@@ -76,10 +76,16 @@ var Inventory = {
               'click .unit-event':function(e,value,row,index){
                   Inventory.openProductUnitModal(row.id);
                   $("#addSpecModal [name=unit]").val(row.unit);
+              },
+              'click .damage-event':function(e,value,row,index){
+                  $("#damageModal [name=productid]").val(row.id);
+                  $("#damageModal").modal("show");
+                  
               }
           },
           formatter: function(value, row,index){
-            return '<button class="btn btn-xs btn-success unit-event">规格</button>\n\
+            return '<button class="btn btn-xs btn-success unit-event">规格</button>\
+                    <button class="btn btn-xs btn-success damage-event">报损报溢</button>\
                     <button class="btn btn-xs btn-success edit-event">编辑</button>';
           }
         }
@@ -221,6 +227,26 @@ var Inventory = {
      $("#specModal").modal("show");
      $("#unitTable").bootstrapTable("refreshOptions",{ajax:Inventory.loadProductUnit});
      
+  },
+  
+  damage:function(){
+      var url = UrlUtil.createWebUrl('product','inventoryChange');
+      var params = {};
+      params.productid = $("#damageModal [name=productid]").val();
+      params.storeid = $("#damageModal [name=store]").val();
+      params.num = $("#damageModal [name=num]").val();
+      params.remark = $("#damageModal [name=remark]").val();
+      
+      $.post(url,params,function(data){
+          if(data.state==0){
+              Tips.successTips("变更成功");
+              $("#damageModal").modal('hide');
+          }
+          else{
+              Tips.failTips(data.msg);
+          }
+      });
+      
   },
   
   loadProductUnit:function(obj){

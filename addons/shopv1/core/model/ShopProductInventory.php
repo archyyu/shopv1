@@ -25,4 +25,8 @@ class ShopProductInventory extends Model{
         return $this->save($data, ['productid'=>$productid,'storeid'=>$storeid]);
     }
     
+    public function addOne($data){
+        return $this->add($data);
+    }
+    
 }

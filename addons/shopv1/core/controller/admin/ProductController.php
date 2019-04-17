@@ -246,10 +246,28 @@ class ProductController extends Controller{
         
     }
     
+    public function inventoryStock(){
+        
+    }
+    
     public function inventoryTransfer($productid,$inventory,$sourceid,$destinationid){
         $uniacid = $this->getUniacid();
         $this->productService->transferInventory($uniacid, 0, $productid, $inventory, $sourceid, $destinationid, 0);
         return $this->returnSuccess();
+    }
+    
+    public function inventoryChange(){
+        $productid = $this->getParam('productid');
+        $storeid = $this->getParam('storeid');
+        $inventory = $this->getParam("num");
+        
+        if($inventory > 0){
+            $this->inventoryFlow($productid, $inventory, $storeid);
+        }
+        else{
+            $this->inventoryDamage($productid, abs($inventory), $storeid);
+        }
+        
     }
     
     public function inventoryDamage($productid,$inventory,$storeid){

@@ -154,7 +154,7 @@ class ProductService extends Service{
         $productInventory['storeid'] = $storeid;
         $productInventory['inventory'] = 0;
         
-        $this->productInventoryModel->add($productInventory);
+        $this->productInventoryModel->addOne($productInventory);
         
         return $productInventory;
     }
@@ -177,7 +177,7 @@ class ProductService extends Service{
         $logData['createtime'] = time();
         $logData['detail'] = $detail;
         $logData['userid'] = $userid;
-        $this->inventorylogModel->add($logData);
+        $this->inventorylogModel->addLog($logData);
         
     }
     

@@ -4,39 +4,32 @@
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
                         aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title">添加进货原料</h4>
+                <h4 class="modal-title">报损报溢</h4>
             </div>
             <div class="modal-body">
                     <div class="form-horizontal">
-                            <div class="form-group form-group-sm" id="damagetype">
-                                <label class="col-sm-3 control-label">报损报溢：</label>
-                                <div class="col-sm-8">
-                                    <label class="radio-inline">
-                                        <input type="radio"> 报损
-                                    </label>
-                                    <label class="radio-inline">
-                                        <input type="radio"> 报溢
-                                    </label>
-                                </div>
-                            </div>
+                        <input type="hidden" name="productid" value="0" />
                             <div class="form-group form-group-sm">
                                 <label class="col-sm-3 control-label">库房名称：</label>
                                 <div class="col-sm-8">
-                                    <select class="form-control selectpicker">
+                                    <select class="form-control selectpicker" name="store">
+                                        {foreach $storelist as $store}
+                                            <option value='{$store.id}'>{$store.storename}</option>
+                                        {/foreach}
                                     </select>
                                 </div>
                             </div>
                             <div class="form-group form-group-sm">
-                                <label class="col-sm-3 control-label">数量：</label>
+                                <label class="col-sm-3 control-label" >数量：</label>
                                 <div class="col-sm-8">
-                                    <input class="form-control">
+                                    <input class="form-control" name="num">
                                 </div>
                                 <div class="col-sm-9 col-sm-offset-3">
-                                    <span class="help-block">此数额为变动的数额</span>
+                                    <span class="help-block">正数表示报损，负数表示报溢</span>
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label class="col-sm-3 control-label">原因：</label>
+                                <label class="col-sm-3 control-label" name="remark">原因：</label>
                                 <div class="col-sm-8">
                                     <textarea class="form-control" rows="3"></textarea>
                                 </div>
@@ -44,8 +37,8 @@
                         </div>
             </div>
             <div class="modal-footer">
-                    <button class="btn btn-default">取&nbsp;&nbsp;&nbsp;&nbsp;消</button>
-                    <button class="btn btn-primary">确&nbsp;&nbsp;&nbsp;&nbsp;定</button>
+                    <button class="btn btn-default" onclick="$('#damageModal').modal('hide');">取&nbsp;&nbsp;&nbsp;&nbsp;消</button>
+                    <button class="btn btn-primary" onclick="Inventory.damage();" >确&nbsp;&nbsp;&nbsp;&nbsp;定</button>
             </div>
         </div>
     </div>
