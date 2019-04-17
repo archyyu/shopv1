@@ -181,11 +181,41 @@ class ProductService extends Service{
         
     }
     
+    //进货
+    public function inventoryStock($uniacid,$shopid,$productid,$inventory,$storeid,$userid,$stockid){
+        $detail = "进货批次:".$stockid;
+        $this->updateMaterialInventory($uniacid,$shopid,$productid,$storeid,$inventory, \common\OrderType::InventoryChangeStock,$detail,$userid);
+    }
+    
     //调货
     public function transferInventory($uniacid,$shopId,$productid,$inventory,$sourceid,$destinationid,$userid){
         $this->updateMaterialInventory($uniacid, $shopId, $productid, $sourceid, $inventory, \common\OrderType::InventoryChangeTransferOut, "调拨出库", $userid);
         $this->updateMaterialInventory($uniacid, $shopId, $productid, $destinationid, $inventory, \common\OrderType::InventoryChangeTransferIn, "调拨入库", $userid);
     }
+    
+    //库存盘点
+    public function inventoryCheck($uniacid,$shopid,$productid,$inventory,$storeId,$userid){
+        
+        $materialInventory = $this->findInventoryBy($shopid,$productid, $storeId);
+        
+        $data = array();
+        $data['inventory'] = $inventory;
+        $this->productInventoryModel->updateProductInventory($data, $productid,$storeId);
+        
+        $logData = array();
+        $logData['uniacid'] = $uniacid;
+        $logData['shopid'] = $shopid;
+        $logData['productid'] = $productid;
+        $logData['storeid'] = $storeId;
+        $logData['num'] = $inventory -  $materialInventory['inventory'];
+        $logData['logtype'] = \common\OrderType::InventoryChangeCheck;
+        $logData['createtime'] = time();
+        $logData['detail'] = "盘点,原来库存".$materialInventory['inventory']."调整为".$inventory;
+        $logData['userid'] = $userid;
+        $this->inventorylogModel->addLog($logData);
+        
+    }
+    
     
     //报损
     public function inventoryDamage($uniacid,$shopid,$productid,$inventory,$storeid,$userid){

@@ -47,6 +47,10 @@ class Controller {
     public function getUniacid() {
         return $this->getParam("__uniacid");
     }  
+    
+    public function getUserid(){
+        return 0;
+    }
 
   /**
    * ajax返回

@@ -250,12 +250,46 @@ class ProductController extends Controller{
     }
     
     public function inventoryStock(){
+        $uniacid = $this->getUniacid();
+        $storeid = $this->getParam('storeid');
+        $stockid = $this->getParam('stockid');
+        $userid = $this->getUserid();
+        
+        
+        $list = json_encode($this->getParam('list'));
+        
+        foreach($list as $key=>$value){
+            $productid = $value['productid'];
+            $num = $value['num'];
+            $this->productService->inventoryStock($uniacid, 0, $productid, $num, $storeid, $userid, $stockid);
+        }
+        
+        $this->returnSuccess();
+        
+    }
+    
+    public function inventoryCheck(){
+        
+        $uniacid = $this->getUniacid();
+        $storeid = $this->getParam('storeid');
+        $userid = $this->getUserid();
+        
+        $list = json_decode($this->getParam('list'));
+        
+        foreach ($list as $key=>$value){
+            $productid = $value['productid'];
+            $num = $value['num'];
+            $this->productService->inventoryCheck($uniacid, 0, $productid, $num, $storeid, $userid);
+        }
+        
+        return $this->returnSuccess();
         
     }
     
     public function inventoryTransfer($productid,$inventory,$sourceid,$destinationid){
         $uniacid = $this->getUniacid();
-        $this->productService->transferInventory($uniacid, 0, $productid, $inventory, $sourceid, $destinationid, 0);
+        $userid = $this->getUserid();
+        $this->productService->transferInventory($uniacid, 0, $productid, $inventory, $sourceid, $destinationid, $userid);
         return $this->returnSuccess();
     }
     
@@ -263,26 +297,29 @@ class ProductController extends Controller{
         $productid = $this->getParam('productid');
         $storeid = $this->getParam('storeid');
         $inventory = $this->getParam("num");
+        $userid = $this->getParam("userid");
         
         if($inventory > 0){
-            $this->inventoryFlow($productid, $inventory, $storeid);
+            $this->inventoryFlow($productid, $inventory, $storeid,$userid);
         }
         else{
-            $this->inventoryDamage($productid, abs($inventory), $storeid);
+            $this->inventoryDamage($productid, abs($inventory), $storeid,$userid);
         }
         
     }
     
-    public function inventoryDamage($productid,$inventory,$storeid){
+    public function inventoryDamage($productid,$inventory,$storeid,$userid){
         $uniacid = $this->getUniacid();
-        $this->productService->inventoryDamage($uniacid, 0, $productid, $inventory, $storeid, 0);
+        $this->productService->inventoryDamage($uniacid, 0, $productid, $inventory, $storeid, $userid);
         return $this->returnSuccess();
     }
     
-    public function inventoryFlow($productid,$inventory,$storeid){
+    public function inventoryFlow($productid,$inventory,$storeid,$userid){
+        
         $uniacid = $this->getUniacid();
-        $this->productService->inventoryFlow($uniacid, 0, $productid, $inventory, $storeid, 0);
+        $this->productService->inventoryFlow($uniacid, 0, $productid, $inventory, $storeid, $userid);
         return $this->returnSuccess();
+        
     }
     
     
