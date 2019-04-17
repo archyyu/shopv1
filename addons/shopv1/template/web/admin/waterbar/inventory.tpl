@@ -39,6 +39,7 @@
   <div class="goods-list">
     <table id="goodsTable"></table>
   </div>
+  {include file="./modals/selectproduct.tpl"}
   {include file="./modals/productclass.tpl"}
   {include file="./modals/addproduct.tpl"}
   {include file="./modals/materialSpec.tpl"}

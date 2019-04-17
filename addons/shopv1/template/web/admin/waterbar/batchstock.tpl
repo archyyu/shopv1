@@ -115,7 +115,5 @@ function priceFormatter(data) {
   }
 </script>
 
-{include file="./modals/addbatchstock.tpl"}
-
-
+{include file="./modals/selectproduct.tpl"}
 {include file="../../common/footer.tpl"}

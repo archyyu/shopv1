@@ -1,15 +1,15 @@
-<div class="modal fade" tabindex="-1" role="dialog" id="addStockMaterial">
+<div class="modal fade" tabindex="-1" role="dialog" style="z-index:10" id="addStockMaterial">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
                         aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title">添加进货原料</h4>
+                <h4 class="modal-title">选择商品</h4>
             </div>
             <div class="modal-body">
                 <form class="form-horizontal" role="form" id="conForm" onsubmit="javascript:return false;">
                     <div class="pop_body">
-                        <div class="form-group">
+                        {*<div class="form-group">
                             <label class="col-sm-2  form-control-static ">原料分类</label>
                             <div class="col-sm-3">
                                 <select class="form-control input-sm selectpicker">
@@ -20,16 +20,19 @@
                             <div class="col-sm-3 ">
                                 <input class="form-control">
                             </div>
-                        </div>
+                        </div>*}
                         <div class="row">
                             <div class="col-xs-12">
                                 <p class="selectall">
                                 <button class="btn btn-link">全选/反选&nbsp;&nbsp;</button><span id="checkNum">0</span>/15
                                 </p>
-                                <div class="checkboxs">
-                                    <div class="checkself">
-                                        <input type="checkbox">
-                                        呵呵 </div>
+                                <div class="checkboxs" id="selectProductList">
+                                    {foreach $productlist as $product}
+                                        <div class="checkself">
+                                            <input type="checkbox" name="{$product.id}" />
+                                            <span>{$product.productname}</span> 
+                                        </div>
+                                    {/foreach}
                                 </div>
                             </div>
                         </div>

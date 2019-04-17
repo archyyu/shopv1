@@ -21,6 +21,10 @@ class ShopProductInventory extends Model{
         return $this->getOne("*",['productid'=>$productid,'storeid'=>$storeid]);
     }
     
+    public function findInventoryListByProductId($productid){
+        return $this->getList("*",['productid'=>$productid]);
+    }
+    
     public function updateProductInventory($data,$productid,$storeid){
         return $this->save($data, ['productid'=>$productid,'storeid'=>$storeid]);
     }

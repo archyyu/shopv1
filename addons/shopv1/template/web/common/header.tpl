@@ -119,8 +119,8 @@
               <ul class="nav nav-second-level">
                   <li><a href="index.php?c=site&a=entry&m=shopv1&do=product&f=store">库房管理</a></li>
                   <li><a href="index.php?c=site&a=entry&m=shopv1&do=product&f=index">商品管理</a></li>
-                  <li><a href="index.php?c=site&a=entry&m=shopv1&do=product&f=inventory">进库/出库</a></li>
-                  <li><a>盘点</a></li>
+                  <li><a href="index.php?c=site&a=entry&m=shopv1&do=product&f=inventorylog">库存</a></li>
+                  <li><a href="index.php?c=site&a=entry&m=shopv1&do=product&f=stock">批量进货</a></li>
               </ul>
           </li>
           <li>

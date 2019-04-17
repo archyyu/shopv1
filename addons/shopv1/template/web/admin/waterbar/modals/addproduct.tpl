@@ -89,9 +89,8 @@
                 <label class="col-sm-3 control-label">
                 </label>
                 <div class="col-sm-4">
-                  <select id="productSelect" class="form-control">
-                    <option>选择商品</option>
-                  </select>
+                    <input type="hidden" name="productid" />
+                    <span name="productname">测试商品1</span>
                 </div>
                 <div class="col-sm-2">
                     <span></span><input class="form-control">
@@ -101,9 +100,8 @@
                 <label class="col-sm-3 control-label">
                 </label>
                 <div class="col-sm-4">
-                  <select name="linkproductid" class="form-control">
-                    <option value="">选择商品</option>
-                  </select>
+                    <input type="hidden" name="productid" />
+                    <span name="productname">测试商品1</span>
                 </div>
                 <div class="col-sm-2">
                     <input name="linkproductnum" class="form-control">
@@ -111,7 +109,7 @@
               </div>
               <div class="form-group form-group-sm">
                 <div class="col-sm-3 col-sm-offset-3">
-                    <button class="btn btn-block btn-xs btn-primary" onclick="Inventory.addMoreProduct();">增加关联商品</button>
+                    <button class="btn btn-block btn-xs btn-primary" onclick="Inventory.selectProduct();">增加关联商品</button>
                 </div>
               </div>
               <div class="form-group form-group-sm">

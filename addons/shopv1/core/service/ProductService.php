@@ -189,7 +189,7 @@ class ProductService extends Service{
     
     //调货
     public function transferInventory($uniacid,$shopId,$productid,$inventory,$sourceid,$destinationid,$userid){
-        $this->updateMaterialInventory($uniacid, $shopId, $productid, $sourceid, $inventory, \common\OrderType::InventoryChangeTransferOut, "调拨出库", $userid);
+        $this->updateMaterialInventory($uniacid, $shopId, $productid, $sourceid, -$inventory, \common\OrderType::InventoryChangeTransferOut, "调拨出库", $userid);
         $this->updateMaterialInventory($uniacid, $shopId, $productid, $destinationid, $inventory, \common\OrderType::InventoryChangeTransferIn, "调拨入库", $userid);
     }
     

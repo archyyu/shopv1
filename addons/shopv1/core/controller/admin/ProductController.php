@@ -30,6 +30,8 @@ class ProductController extends Controller{
     
     private $productModel;
     
+    private $productInventory;
+    
     private $productRelateModel;
     
     private $productUnitModel;
@@ -42,6 +44,7 @@ class ProductController extends Controller{
         $this->productModel = new \model\ShopProduct();
         $this->productRelateModel = new \model\ShopProductrelation();
         $this->productUnitModel = new \model\ShopProductUnit();
+        $this->productInventory = new \model\ShopProductInventory();
         
     }
     
@@ -49,8 +52,10 @@ class ProductController extends Controller{
         $uniacid = $this->getUniacid();
         $typelist = $this->productTypeModel->getProductTypeList($uniacid);
         $storelist = $this->storeModel->getStoreListByUniacid($uniacid);
+        $productlist = $this->productModel->findProductByUniacid($uniacid);
         $this->smarty->assign("typelist",$typelist);
         $this->smarty->assign("storelist",$storelist);
+        $this->smarty->assign('productlist',$productlist);
         $this->smarty->display('admin/waterbar/inventory.tpl');
     }
     
@@ -125,6 +130,12 @@ class ProductController extends Controller{
             $this->returnFail("内部错误");
         }
         
+    }
+    
+    public function inventorylist(){
+        $productid = $this->getParam('productid');
+        $list = $this->productInventory->findInventoryListByProductId($productid);
+        $this->returnSuccess($list);
     }
     
     public function loadProduct(){
@@ -286,9 +297,15 @@ class ProductController extends Controller{
         
     }
     
-    public function inventoryTransfer($productid,$inventory,$sourceid,$destinationid){
+    public function inventoryTransfer(){
+        $productid = $this->getParam('productid');
+        $inventory = $this->getParam("inventory");
+        $sourceid = $this->getParam("sourceid");
+        $destinationid = $this->getParam("destinationid");
+        
         $uniacid = $this->getUniacid();
         $userid = $this->getUserid();
+        
         $this->productService->transferInventory($uniacid, 0, $productid, $inventory, $sourceid, $destinationid, $userid);
         return $this->returnSuccess();
     }
@@ -321,6 +338,11 @@ class ProductController extends Controller{
         return $this->returnSuccess();
         
     }
+    
+    public function stock(){
+        $this->smarty->display('admin/waterbar/batchstock.tpl');
+    }
+    
     
     
 }

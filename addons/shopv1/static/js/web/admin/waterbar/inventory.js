@@ -84,17 +84,85 @@ var Inventory = {
               'click .damage-event':function(e,value,row,index){
                   $("#damageModal [name=productid]").val(row.id);
                   $("#damageModal").modal("show");
-                  
+              },
+              'click .transfer-event':function(e,value,row,index){
+                  Inventory.openTransModal(row.id,row.unit);
               }
           },
           formatter: function(value, row,index){
             return '<button class="btn btn-xs btn-success unit-event">规格</button>\
                     <button class="btn btn-xs btn-success damage-event">报损报溢</button>\
+                    <button class="btn btn-xs btn-success transfer-event">调货</button>\
                     <button class="btn btn-xs btn-success edit-event">编辑</button>';
           }
         }
       ]
     });
+  },
+  
+  inventoryList : [],
+  
+  transferStoreChange:function(){
+      $("#transferModal [name=inventory]").html(0);
+        for(var i = 0;i<inventoryList.length;i++){
+            if(inventoryList[i].storeid == $("#transferModal [name=sourceid]").val()){
+                $("#transferModal [name=inventory]").html(inventoryList[i].inventory);
+                return;
+            }
+        }
+  },
+  
+  inventoryTransfer:function(){
+      var url = UrlUtil.createWebUrl('product','inventoryTransfer');
+      
+      var params = {};
+      params.productid = $("#transferModal [name=productid]").val();
+      params.sourceid = $("#transferModal [name=sourceid]").val();
+      params.destinationid = $("#transferModal [name=destinationid").val();
+      params.inventory = $("#transferModal [name=num]").val();
+      
+      $.post(url,params,function(data){
+         if(data.state == 0){
+             Tips.successTips('调货成功');
+             $("#transferModal").modal('hide');
+         } 
+         else{
+             Tips.failTips("失败");
+         }
+      });
+      
+  },
+  
+  openTransModal:function(productid,unit){
+       $("#transferModal [name=unit]").val(unit);
+       $("#transferModal [name=productid]").val(productid);
+      var url = UrlUtil.createWebUrl('product','inventorylist');
+      
+      var params = {};
+      params.productid = productid;
+      
+      $.post(url,params,function(data){
+          if(data.state == 0){
+              inventoryList = data.obj;
+              console.log(inventoryList);
+              for(var i = 0;i<inventoryList.length;i++){
+                  if(inventoryList[i].storeid == $("#transferModal [name=sourceid]").val()){
+                      $("#transferModal [name=inventory]").html(inventoryList[i].inventory);
+                       $("#transferModal").modal("show");
+                      return;
+                  }
+              }
+              
+              $("#transferModal [name=inventory]").html(inventoryList[i].inventory);
+              $("#transferModal").modal("show");
+              
+          }
+          else{
+              
+          }
+          
+      });
+      
   },
   
   goodsTableReload:function(){
@@ -131,7 +199,6 @@ var Inventory = {
           $("#addProductModal [name=producttype][value=" +obj.producttype + "]").attr('checked', 'checked');
           
       }
-      
       $("#addProductModal").modal("show");
   },
   
@@ -385,6 +452,10 @@ var Inventory = {
       $(".associatename").text('商品');
     }
     $("#addProductModal").modal("show");
+  },
+  
+  selectProduct:function(){
+      $('#addStockMaterial').modal('show');
   },
   
   info : function(){
