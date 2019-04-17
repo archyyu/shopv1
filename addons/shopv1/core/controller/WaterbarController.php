@@ -26,5 +26,9 @@ class WaterbarController extends Controller{
         $this->smarty->display('admin/waterbar/warehouse/warehouse.tpl');
     }
     
+    public function batchstock(){
+        $this->smarty->display('admin/waterbar/batchstock.tpl');
+    }
+    
     
 }

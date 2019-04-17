@@ -1,4 +1,4 @@
-{include file="../../common/header.tpl"logo=true}
+{include file="../../common/header.tpl" logo=true}
 <link rel="stylesheet" href="{$StaticRoot}/css/waterbar.css">
 
 <div class="inventory">
@@ -45,6 +45,7 @@
   {include file="./modals/addproduct.tpl"}
   {include file="./modals/materialSpec.tpl"}
   {include file="./modals/productdamage.tpl"}
+  {include file="./modals/damage.tpl"}
 </div>
 
 <script src="{$StaticRoot}/js/web/admin/waterbar/inventory.js"></script>
