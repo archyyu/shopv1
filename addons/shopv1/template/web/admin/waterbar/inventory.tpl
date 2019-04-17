@@ -15,8 +15,7 @@
       </div>
       <div class="form-group form-group-sm">
         <label class="control-label">库房选择</label>
-        <select class="form-control input-sm selectpicker">
-          <option value="">请选择</option>
+        <select class="form-control input-sm selectpicker" id="storeSelect">
           {foreach $storelist as $store}
             <option value='{$store.id}'>{$store.storename}</option>
           {/foreach}

@@ -129,20 +129,23 @@ class ProductController extends Controller{
     
     public function loadProduct(){
         $uniacid = $this->getUniacid();
+        
+        $storeid = $this->getParam("storeid");
+        
         $typelist = $this->productTypeModel->getProductTypeList($uniacid);
         
         $map = array();
         foreach ($typelist as $key=>$value){
             $map[$value['id']] = $value;
-            //logInfo($value[id].":".$value["typename"]);
         }
-        
-        
         
         $productList = $this->productModel->findProductByUniacid($uniacid);
         
         foreach($productList as $k=>$v){
             $productList[$k]['typename'] = $map[$v['typeid']]['typename'];
+            
+            $inventory = $this->productService->findInventoryBy(0, $v['id'], $storeid);
+            $productList[$k]['inventory'] = $inventory['inventory'];
         }
         
         $this->returnSuccess($productList);

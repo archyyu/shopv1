@@ -40,6 +40,10 @@ var Inventory = {
           title: '销量'
         },
         {
+            field:'inventory',
+            title:'库存'
+        },
+        {
           field: 'producttype',
           title: '商品类型',
           formatter:function(value, row,index){
@@ -174,6 +178,8 @@ var Inventory = {
 
     var url = UrlUtil.createWebUrl('product', 'loadProduct');
     var params = {};
+    
+    params.storeid = $("#storeSelect").val();
 
     $.post(url, params, function (data) {
       if (data.state == 0) {
