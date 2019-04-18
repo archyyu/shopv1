@@ -49,6 +49,28 @@
   margin-bottom: 15px;
 }
 
+.batch-stock .none-border {
+  border-left-width: 0;
+  border-right-width: 0;
+}
+
+.batch-stock .footer-sum {
+  text-align: right;
+  border-right-width: 0;
+  position: relative;
+}
+
+.batch-stock .footer-sum .th-inner {
+  padding-right: 0;
+  position: absolute;
+  top: 0;
+  right: -15px;
+}
+
+.batch-stock .footer-sum .th-inner > span {
+  color: #C12E2A;
+}
+
 .checkboxs {
   border: 1px solid #ccc;
   padding: 10px;
