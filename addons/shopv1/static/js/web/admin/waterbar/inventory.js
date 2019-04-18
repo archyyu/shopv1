@@ -51,11 +51,11 @@ var Inventory = {
         },
         {
           field: 'normalprice',
-          title: '正常价'
+          title: '正常价(分)'
         },
         {
           field: 'memberprice',
-          title: '会员价'
+          title: '会员价(分)'
         },
         {
           field: 'salenum',
@@ -164,6 +164,11 @@ var Inventory = {
   },
   
   openStockModal:function(product){
+      
+      $("#proInModal [name=productid]").val(product.id);
+      $("#proInModal [name=productname]").html(product.productname);
+      $("#proInModal [name=unit]").html(product.unit);
+      
       $("#proInModal").modal('show');
   },
   
@@ -199,7 +204,19 @@ var Inventory = {
       var url = UrlUtil.createWebUrl("product","productStock");
       
       var params = {};
-      params.productid = $("#");
+      params.productid = $("#proInModal [name=productid]").val();
+      params.storeid = $("#proInModal [name=store]").val();
+      params.inventory = $("#proInModal [name=inventory]").val();
+      
+      $.post(url,params,function(data){
+         if(data.state == 0){
+             Tips.successTips("进货成功");
+             $("#proInModal").modal('hide');
+         } 
+         else{
+             Tips.failTips(data.msg);
+         }
+      });
       
   },
   
