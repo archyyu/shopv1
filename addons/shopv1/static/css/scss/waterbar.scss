@@ -64,6 +64,24 @@
   .detail_content{
     margin-bottom: 15px;
   }
+  .none-border{
+    border-left-width: 0;
+    border-right-width: 0;
+  }
+  .footer-sum{
+    text-align: right;
+    border-right-width: 0;
+    position: relative;
+    .th-inner{
+      padding-right: 0;
+      position: absolute;
+      top: 0;
+      right: -15px;
+      >span{
+        color: #C12E2A;
+      }
+    }
+  }
 }
 .checkboxs{
   border:1px solid #ccc;

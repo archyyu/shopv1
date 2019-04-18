@@ -57,6 +57,8 @@
         </div>
     </div>
 </div>
+
+{literal}
 <script>
 $("#batchStockTable").bootstrapTable({
     data: [{
@@ -70,12 +72,10 @@ $("#batchStockTable").bootstrapTable({
         num: 5
     }],
     showFooter: true,
+    footerStyle: footerStyle,
     columns: [{
             field: 'id',
-            title: '类型',
-            footerFormatter: function (value) {
-				return '合计';
-			}
+            title: '类型'
         },
         {
             field: 'id',
@@ -83,7 +83,10 @@ $("#batchStockTable").bootstrapTable({
         },
         {
             field: 'text',
-            title: '进货单位'
+            title: '进货单位',
+            footerFormatter: function (value) {
+				return '合计';
+			}
         },
         {
             field: 'id',
@@ -106,14 +109,43 @@ $("#batchStockTable").bootstrapTable({
 })
 
 function priceFormatter(data) {
-    var field = this.field
-    return data.map(function (row) {
-      return +row[field]
-    }).reduce(function (sum, i) {
-      return sum + i
-    }, 0)
+    var field = this.field;
+    var sum = 0;
+    data.map(function (row) {
+        console.log(row)
+        sum += row[field]
+    })
+    return '<span>'+sum+'</span> 元'
+  }
+  function footerStyle(column) {
+    return [
+      {
+        css: {'border-right': 0}
+      },
+      {
+        classes: 'none-border'
+      },
+      {
+        classes: 'none-border',
+        css: {'text-align': 'center'}
+      },
+      {
+        classes: 'none-border'
+      },
+      {
+        classes: 'none-border'
+      },
+      {
+        classes: 'footer-sum'
+      },
+      {
+        css: {'border-left' : 0}
+      }
+    ][column.fieldIndex]
   }
 </script>
+    
+{/literal}
 
 {include file="./modals/selectproduct.tpl"}
 {include file="../../common/footer.tpl"}
