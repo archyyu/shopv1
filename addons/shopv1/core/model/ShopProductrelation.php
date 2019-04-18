@@ -25,6 +25,16 @@ class ShopProductrelation extends Model{
         return $this->remove(['productid'=>$productid]);
     }
     
+    public function addRelation($productid,$materialid,$num){
+        $data = array();
+        
+        $data['productid'] = $productid;
+        $data['materialid'] = $materialid;
+        $data['num'] = $num;
+        
+        return $this->add($data);
+    }
+    
     public function addNewRelation($data){
         return $this->add($data);
     }

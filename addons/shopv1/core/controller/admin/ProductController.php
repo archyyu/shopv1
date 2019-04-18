@@ -176,6 +176,10 @@ class ProductController extends Controller{
         $unit = $this->getParam("unit");
         $index = $this->getParam("index");
         
+        $linklist = json_decode($this->getParam("link"));
+        logInfo("productid:".$productid);
+        logInfo("link:".$this->getParam("link"));
+        
         
         $data = array();
         
@@ -195,28 +199,15 @@ class ProductController extends Controller{
         
         if($productid == 0){
             $result = $this->productModel->addProduct($data);
+            $productid = $data['lastInsertId'];
         }
         else{
             $result = $this->productModel->updateProductById($data, $productid);
             $this->productRelateModel->deleteRelation($productid);
         }
-        $productlinks = json_decode( $this->getParam("productlink") );
         
-        if(isset($productlinks)){
-            
-            foreach($productlinks as $key=>$value){
-
-                $subproductid = $value['productid'];
-                $num = $value['num'];
-
-                $data = array();
-                $data["productid"] = $productid;
-                $data['materialid'] = $subproductid;
-                $data["num"] = $num;
-
-                $this->productRelateModel->addNewRelation($data);
-            }
-            
+        foreach($linklist as $key=>$value){
+            $this->productRelateModel->addRelation($productid, $value['materialid'], $value['num']);
         }
         
         if($result){

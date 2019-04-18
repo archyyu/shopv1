@@ -13,18 +13,20 @@ $(function () {
         Inventory.selectProductList = [];
         
         $("#selectProductList div").each(function(){
-            var item = {};
-            item.productname = $(this).find("span").html();
-            item.productid = $(this).find("input").attr("name");
-            Inventory.selectProductList.push(item);
+            
+            if( $(this).find("input").is(':checked')){
+            
+                var item = {};
+                item.productname = $(this).find("span").html();
+                item.productid = $(this).find("input").attr("productid");
+                Inventory.selectProductList.push(item);
+            
+            }
         });
-        //TODO
-        
         var jsonStr = JSON.stringify(Inventory.selectProductList);
-        console.log(jsonStr);
         
-        
-        
+        $('#addStockMaterial').modal('hide');
+        Inventory.linkProductList();
     });
     
 });
@@ -268,7 +270,7 @@ var Inventory = {
           $("#addProductModal [name=index]").val(0);
           $("#addProductModal [name=attributes]").val('');
           $("#addProductModal [name=unit]").val('');
-          $("#addProductModal [name=producttype][value=-1]").attr('checked', 'checked');
+          $("#addProductModal [name=producttype][value='0']").prop('checked', 'checked');
           
       }
       else{
@@ -283,10 +285,46 @@ var Inventory = {
           $("#addProductModal [name=unit]").val(obj.unit);
           $("#addProductModal [name=typeid]").selectpicker('val',obj.typeid);
           
-          $("#addProductModal [name=producttype][value=" +obj.producttype + "]").attr('checked', 'checked');
+          $("#addProductModal [name=producttype][value='" +obj.producttype + "']").prop('checked', 'checked');
+          
+        }
+        
+        Inventory.selectProductType();
+        
+      $("#addProductModal").modal("show");
+  },
+  
+  linkProductList:function(){
+      
+      for(var i=0;i<Inventory.selectProductList.length;i++){
+          var item = Inventory.selectProductList[i];
+          var str = "<div class='form-group form-group-sm associalproduct' name='associalproduct'>"+
+                "<label class='col-sm-3 control-label'>" +
+                "</label>" + 
+                "<div class='col-sm-4'>" +
+                    "<input type='hidden' name='productid' productid='" + item.productid + "' />"+
+                    "<span name='productname'>" + item.productname + "</span>"+
+                "</div>" +
+                "<div class='col-sm-2'>"+
+                    "<span></span><input name=num class='form-control'>"+
+                "</div>"+
+              "</div>";
+          
+          $("#addProductModal [name=linkproduct]").append(str);
           
       }
-      $("#addProductModal").modal("show");
+      
+  },
+  
+  selectProductType:function(){
+      var producttype = $("#addProductModal [name=producttype]:checked").val();
+      if(producttype == 1){
+          $("#addProductModal .associalproduct").css("display","block");
+      }
+      else{
+          $("#addProductModal .associalproduct").css("display","none");
+      }
+      
   },
   
   saveGood:function(){
@@ -306,6 +344,15 @@ var Inventory = {
       params.attributes = $("#addProductModal [name=attributes]").val();
       params.unit = $("#addProductModal [name=unit]").val();
       
+      var list = [];
+      $("#addProductModal [name=associalproduct]").each(function(){
+          var item = {};
+          item.materialid = $(this).find("[name=productid]").attr('productid');
+          item.num = $(this).find("[name=num]").val();
+          list.push(item);
+      });
+      
+      params.link = JSON.stringify(list);
       
       $.post(url,params,function(data){
             

@@ -28,7 +28,7 @@
                                 <div class="checkboxs" id="selectProductList">
                                     {foreach $productlist as $product}
                                         <div class="checkself">
-                                            <input type="checkbox" productid="{$product.id}" />
+                                            <input type="checkbox" productid={$product.id} />
                                             <span>{$product.productname}</span> 
                                         </div>
                                     {/foreach}
@@ -39,7 +39,7 @@
                 </form>
             </div>
             <div class="modal-footer">
-                <button class="btn btn-default">取&nbsp;&nbsp;&nbsp;&nbsp;消</button>
+                <button class="btn btn-default" data-dismiss="modal">取&nbsp;&nbsp;&nbsp;&nbsp;消</button>
                 <button class="btn btn-primary" id="selectProductBtn">确&nbsp;&nbsp;&nbsp;&nbsp;定</button>
             </div>
         </div>
