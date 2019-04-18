@@ -1,4 +1,4 @@
-<div id="addProductModal" class="modal fade add-product-modal" role="dialog" aria-hidden="true">
+<div id="addProductModal" class="modal fade add-product-modal" role="dialog">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">

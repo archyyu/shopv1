@@ -1,5 +1,5 @@
-<div class="modal fade" tabindex="-1" role="dialog" style="z-index:10" id="addStockMaterial">
-    <div class="modal-dialog" role="document">
+<div class="modal fade" role="dialog" id="addStockMaterial">
+    <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
