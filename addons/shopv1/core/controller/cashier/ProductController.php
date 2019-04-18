@@ -47,10 +47,10 @@ class ProductController extends \controller\Controller{
     
     public function loadProduct(){
         
-        $shopid = $this->getParam("shopid");
-        $typeid = $this->getParam("typeid");
+        $typeid = 1;
         
-        $this->productModel->findProductByType($typeid);
+        $list = $this->productModel->findProductByType($typeid);
+        $this->returnSuccess($list);
     }
     
     

@@ -1,3 +1,4 @@
+{literal}
 <el-tab-pane name="waterbar" class="waterbar">
     <span slot="label"><i class="el-icon-date"></i> 水吧</span>
     <div class="waterbar-content">
@@ -13,11 +14,7 @@
                     <div class="list-title">商品分类</div>
                     <div class="list-wrap">
                         <ul>
-                            
-                            <li class="active">默认分类</li>
-                            <li>啤酒</li>
-                            <li>饮料</li>
-                            <li>矿泉水</li>
+                            <li v-for="item of waterbar.typelist" @click="">{{item.typename}}</li>
                         </ul>
                     </div>
                 </el-col>
@@ -26,17 +23,17 @@
                         <el-button type="primary" size="mini" plain>打开钱箱</el-button>
                     </div>
                     <el-row class="product-wrap">
-                        <el-col :sm="8" :md="6" class="product-item less-item">
-                            <div>
-                                <h5>商品名称</h5>
+                        <el-col :sm="8" :md="6" class="product-item less-item" v-for="product in waterbar.productlist">
+                            <div v-on:click='addCart(product.id,product.productname)'>
+                                <h5>{{product.productname}}</h5>
                                 <p class="lack-pro"></p>
                                 <p class="pro-price">
-                                    <span class="pro_lesspro">
-                                        <span class="icon iconfont">&#xe63f;</span>无库存 
-                                    </span>
+                                    <!--<span class="pro_lesspro">
+                                        <span class="icon iconfont">&#xe63f;</span>无库存
+                                    </span> -->
                                     <!-- <span class="origin">￥100</span>
                                     <br> -->
-                                    ￥80 
+                                    ￥{{product.memberprice/100}}
                                 </p>
                             </div>
                         </el-col>
@@ -55,16 +52,14 @@
                     </div>
                     <div class="cart-wrap">
                         <div class="cart-list">
-                            <div class="cart-item">
-                                <div class="cart-item-title">123
-                                    <el-button type="success" size="mini" plain>赠送</el-button>
+                            <div class="cart-item" v-for="cart in waterbar.cartlist">
+                                <div class="cart-item-title">{{cart.productname}}
                                 </div>
                                 <el-row class="cart-item-num">
-                                    <el-col :span="6">赠送</el-col>
-                                    <el-col :span="8">￥12.00</el-col>
+                                    <el-col :span="8">￥{{cart.price}}</el-col>
                                     <el-col :span="10" class="num-cal">
                                         <span class="num-operate minus">-</span>
-                                        1
+                                        {{cart.num}}
                                         <span class="num-operate add">+</span>
                                     </el-col>
                                 </el-row>
@@ -106,3 +101,4 @@
         </div>
     </div>
 </el-tab-pane>
+{/literal}

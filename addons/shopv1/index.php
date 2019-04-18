@@ -31,6 +31,7 @@ class Router {
     
     public function __construct() {
         global $_GPC;
+        global $_POST;
         $_GPC = array_merge($_GPC, $_POST);
         $_GPC = array_merge($_GPC, $_GET);
         
@@ -39,8 +40,14 @@ class Router {
     }
     
     public function doIndex(){
+        global $_GPC;
+        $f = $_GPC['f'];
         
-        (new controller\cashier\ProductController())->index();
+        if(isset($f) == false){
+            $f = "index";
+        }
+        
+        (new controller\cashier\ProductController())->$f();
         
     }
     
