@@ -176,6 +176,10 @@ class ProductController extends Controller{
         $unit = $this->getParam("unit");
         $index = $this->getParam("index");
         
+        $linklist = json_decode($this->getParam("link"));
+        logInfo("productid:".$productid);
+        logInfo("link:".$this->getParam("link"));
+        
         
         $data = array();
         
@@ -195,28 +199,15 @@ class ProductController extends Controller{
         
         if($productid == 0){
             $result = $this->productModel->addProduct($data);
+            $productid = $data['lastInsertId'];
         }
         else{
             $result = $this->productModel->updateProductById($data, $productid);
             $this->productRelateModel->deleteRelation($productid);
         }
-        $productlinks = json_decode( $this->getParam("productlink") );
         
-        if(isset($productlinks)){
-            
-            foreach($productlinks as $key=>$value){
-
-                $subproductid = $value['productid'];
-                $num = $value['num'];
-
-                $data = array();
-                $data["productid"] = $productid;
-                $data['materialid'] = $subproductid;
-                $data["num"] = $num;
-
-                $this->productRelateModel->addNewRelation($data);
-            }
-            
+        foreach($linklist as $key=>$value){
+            $this->productRelateModel->addRelation($productid, $value['materialid'], $value['num']);
         }
         
         if($result){
@@ -277,6 +268,30 @@ class ProductController extends Controller{
         
         $this->returnSuccess();
         
+    }
+    
+    public function productStock(){
+        
+        $uniacid = $this->getUniacid();
+        $storeid = $this->getParam('storeid');
+        $productid = $this->getParam("productid");
+        $num = $this->getParam('inventory');
+        $userid = $this->getUserid();
+        $stockid = "";
+        
+        $this->productService->inventoryStock($uniacid, 0, $productid, $num, $storeid, $userid, $stockid);
+        $this->returnSuccess();
+    }
+    
+    public function productCheck(){
+        $uniacid = $this->getUniacid();
+        $storeid = $this->getParam('storeid');
+        $productid = $this->getParam("productid");
+        $num = $this->getParam('inventory');
+        $userid = $this->getUserid();
+        
+        $this->productService->inventoryCheck($uniacid, 0, $productid, $num, $storeid, $userid);
+        $this->returnSuccess();
     }
     
     public function inventoryCheck(){

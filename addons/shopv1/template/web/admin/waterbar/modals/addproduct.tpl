@@ -62,20 +62,20 @@
                 </label>
                 <div class="col-sm-8">
                     <label class="radio-inline" id="commodity">
-                    <input type="radio" name="producttype" value="-1"> 虚拟商品
+                        <input type="radio" name="producttype" onclick="Inventory.selectProductType();" value="-1"> 虚拟商品
                   </label>
                   <label class="radio-inline" id="commodity">
-                    <input type="radio" name="producttype" value="0" checked="checked"> 成品
+                    <input type="radio" name="producttype" onclick="Inventory.selectProductType();" value="0" checked="checked"> 成品
                   </label>
                   <label class="radio-inline">
-                    <input type="radio" name="producttype" value="1"> 自制
+                    <input type="radio" name="producttype" onclick="Inventory.selectProductType();" value="1"> 自制
                   </label>
                   <label class="radio-inline">
-                    <input type="radio" name="producttype" value="2"> 原料
+                    <input type="radio" name="producttype" onclick="Inventory.selectProductType();" value="2"> 原料
                   </label>
                 </div>
               </div>
-              <div class="form-group form-group-sm">
+              <div class="form-group form-group-sm associalproduct" name="linkproduct">
                 <label class="col-sm-3 control-label">
                   <span style="color: red;"> * </span>关联商品：
                 </label>
@@ -86,31 +86,10 @@
                   数量
                 </div>
               </div>
+              
               <div class="form-group form-group-sm associalproduct">
-                <label class="col-sm-3 control-label">
-                </label>
-                <div class="col-sm-4">
-                    <input type="hidden" name="productid" />
-                    <span name="productname">测试商品1</span>
-                </div>
-                <div class="col-sm-2">
-                    <span></span><input class="form-control">
-                </div>
-              </div>
-              <div class="form-group form-group-sm associalproduct">
-                <label class="col-sm-3 control-label">
-                </label>
-                <div class="col-sm-4">
-                    <input type="hidden" name="productid" />
-                    <span name="productname">测试商品1</span>
-                </div>
-                <div class="col-sm-2">
-                    <input name="linkproductnum" class="form-control">
-                </div>
-              </div>
-              <div class="form-group form-group-sm">
                 <div class="col-sm-3 col-sm-offset-3">
-                    <button class="btn btn-block btn-xs btn-primary" onclick="Inventory.selectProduct();">增加关联商品</button>
+                    <button class="btn btn-block btn-xs btn-primary" onclick="Inventory.selectProduct();">选择关联商品</button>
                 </div>
               </div>
               <div class="form-group form-group-sm">

@@ -8,9 +8,33 @@ $(function () {
   
     Inventory.unitTableInit();
     
+    $('#selectProductBtn').click(function(){
+        
+        Inventory.selectProductList = [];
+        
+        $("#selectProductList div").each(function(){
+            
+            if( $(this).find("input").is(':checked')){
+            
+                var item = {};
+                item.productname = $(this).find("span").html();
+                item.productid = $(this).find("input").attr("productid");
+                Inventory.selectProductList.push(item);
+            
+            }
+        });
+        var jsonStr = JSON.stringify(Inventory.selectProductList);
+        
+        $('#addStockMaterial').modal('hide');
+        Inventory.linkProductList();
+    });
+    
 });
 
 var Inventory = {
+    
+   selectProductList:[],
+    
   goodsTableInit: function () {
     $("#goodsTable").bootstrapTable({
       data: [
@@ -29,11 +53,11 @@ var Inventory = {
         },
         {
           field: 'normalprice',
-          title: '正常价'
+          title: '正常价(分)'
         },
         {
           field: 'memberprice',
-          title: '会员价'
+          title: '会员价(分)'
         },
         {
           field: 'salenum',
@@ -87,10 +111,18 @@ var Inventory = {
               },
               'click .transfer-event':function(e,value,row,index){
                   Inventory.openTransModal(row.id,row.unit);
+              },
+              'click .stock-event':function(e,value,row,index){
+                  Inventory.openStockModal(row);
+              },
+              'click .check-event':function(e,value,row,index){
+                  Inventory.openCheckModal(row);
               }
           },
           formatter: function(value, row,index){
             return '<button class="btn btn-xs btn-success unit-event">规格</button>\
+                    <button class="btn btn-xs btn-success stock-event">进货</button>\
+                    <button class="btn btn-xs btn-success check-event">盘点</button>\
                     <button class="btn btn-xs btn-success damage-event">报损报溢</button>\
                     <button class="btn btn-xs btn-success transfer-event">调货</button>\
                     <button class="btn btn-xs btn-success edit-event">编辑</button>';
@@ -128,6 +160,63 @@ var Inventory = {
          } 
          else{
              Tips.failTips("失败");
+         }
+      });
+      
+  },
+  
+  openStockModal:function(product){
+      
+      $("#proInModal [name=productid]").val(product.id);
+      $("#proInModal [name=productname]").html(product.productname);
+      $("#proInModal [name=unit]").html(product.unit);
+      
+      $("#proInModal").modal('show');
+  },
+  
+  //单品盘点
+  openCheckModal:function(product){
+      
+      $('#stockModal [name=productid]').val(product.id);
+      $('#stockModal').modal('show');
+      
+  },
+  
+  productCheck:function(){
+      var url = UrlUtil.createWebUrl('product','productCheck');
+      
+      var params = {};
+      params.productid = $('#stockModal [name=productid]').val();
+      params.storeid = $("#stockModal [name=store]").val();
+      params.inventory = $("#stockModal [name=inventory]").val();
+      
+      $.post(url,params,function(data){
+         if(data.state == 0){
+             Tips.successTips('盘点成功');
+             $("#stockModal").modal('hide');
+         } 
+         else{
+             Tips.failTips(data.msg);
+         }
+      });
+      
+  },
+  
+  productStock:function(){
+      var url = UrlUtil.createWebUrl("product","productStock");
+      
+      var params = {};
+      params.productid = $("#proInModal [name=productid]").val();
+      params.storeid = $("#proInModal [name=store]").val();
+      params.inventory = $("#proInModal [name=inventory]").val();
+      
+      $.post(url,params,function(data){
+         if(data.state == 0){
+             Tips.successTips("进货成功");
+             $("#proInModal").modal('hide');
+         } 
+         else{
+             Tips.failTips(data.msg);
          }
       });
       
@@ -181,7 +270,7 @@ var Inventory = {
           $("#addProductModal [name=index]").val(0);
           $("#addProductModal [name=attributes]").val('');
           $("#addProductModal [name=unit]").val('');
-          $("#addProductModal [name=producttype][value=-1]").attr('checked', 'checked');
+          $("#addProductModal [name=producttype][value='0']").prop('checked', 'checked');
           
       }
       else{
@@ -196,10 +285,46 @@ var Inventory = {
           $("#addProductModal [name=unit]").val(obj.unit);
           $("#addProductModal [name=typeid]").selectpicker('val',obj.typeid);
           
-          $("#addProductModal [name=producttype][value=" +obj.producttype + "]").attr('checked', 'checked');
+          $("#addProductModal [name=producttype][value='" +obj.producttype + "']").prop('checked', 'checked');
+          
+        }
+        
+        Inventory.selectProductType();
+        
+      $("#addProductModal").modal("show");
+  },
+  
+  linkProductList:function(){
+      
+      for(var i=0;i<Inventory.selectProductList.length;i++){
+          var item = Inventory.selectProductList[i];
+          var str = "<div class='form-group form-group-sm associalproduct' name='associalproduct'>"+
+                "<label class='col-sm-3 control-label'>" +
+                "</label>" + 
+                "<div class='col-sm-4'>" +
+                    "<input type='hidden' name='productid' productid='" + item.productid + "' />"+
+                    "<span name='productname'>" + item.productname + "</span>"+
+                "</div>" +
+                "<div class='col-sm-2'>"+
+                    "<span></span><input name=num class='form-control'>"+
+                "</div>"+
+              "</div>";
+          
+          $("#addProductModal [name=linkproduct]").append(str);
           
       }
-      $("#addProductModal").modal("show");
+      
+  },
+  
+  selectProductType:function(){
+      var producttype = $("#addProductModal [name=producttype]:checked").val();
+      if(producttype == 1){
+          $("#addProductModal .associalproduct").css("display","block");
+      }
+      else{
+          $("#addProductModal .associalproduct").css("display","none");
+      }
+      
   },
   
   saveGood:function(){
@@ -219,6 +344,15 @@ var Inventory = {
       params.attributes = $("#addProductModal [name=attributes]").val();
       params.unit = $("#addProductModal [name=unit]").val();
       
+      var list = [];
+      $("#addProductModal [name=associalproduct]").each(function(){
+          var item = {};
+          item.materialid = $(this).find("[name=productid]").attr('productid');
+          item.num = $(this).find("[name=num]").val();
+          list.push(item);
+      });
+      
+      params.link = JSON.stringify(list);
       
       $.post(url,params,function(data){
             
