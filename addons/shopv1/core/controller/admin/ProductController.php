@@ -279,6 +279,30 @@ class ProductController extends Controller{
         
     }
     
+    public function productStock(){
+        
+        $uniacid = $this->getUniacid();
+        $storeid = $this->getParam('storeid');
+        $productid = $this->getParam("productid");
+        $num = $this->getParam('inventory');
+        $userid = $this->getUserid();
+        $stockid = "";
+        
+        $this->productService->inventoryStock($uniacid, 0, $productid, $num, $storeid, $userid, $stockid);
+        $this->returnSuccess();
+    }
+    
+    public function productCheck(){
+        $uniacid = $this->getUniacid();
+        $storeid = $this->getParam('storeid');
+        $productid = $this->getParam("productid");
+        $num = $this->getParam('inventory');
+        $userid = $this->getUserid();
+        
+        $this->productService->inventoryCheck($uniacid, 0, $productid, $num, $storeid, $userid);
+        $this->returnSuccess();
+    }
+    
     public function inventoryCheck(){
         
         $uniacid = $this->getUniacid();

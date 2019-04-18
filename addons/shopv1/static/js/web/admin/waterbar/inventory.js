@@ -20,6 +20,9 @@ $(function () {
         });
         //TODO
         
+        var jsonStr = JSON.stringify(Inventory.selectProductList);
+        console.log(jsonStr);
+        
         
         
     });
@@ -106,10 +109,18 @@ var Inventory = {
               },
               'click .transfer-event':function(e,value,row,index){
                   Inventory.openTransModal(row.id,row.unit);
+              },
+              'click .stock-event':function(e,value,row,index){
+                  Inventory.openStockModal(row);
+              },
+              'click .check-event':function(e,value,row,index){
+                  Inventory.openCheckModal(row);
               }
           },
           formatter: function(value, row,index){
             return '<button class="btn btn-xs btn-success unit-event">规格</button>\
+                    <button class="btn btn-xs btn-success stock-event">进货</button>\
+                    <button class="btn btn-xs btn-success check-event">盘点</button>\
                     <button class="btn btn-xs btn-success damage-event">报损报溢</button>\
                     <button class="btn btn-xs btn-success transfer-event">调货</button>\
                     <button class="btn btn-xs btn-success edit-event">编辑</button>';
@@ -149,6 +160,46 @@ var Inventory = {
              Tips.failTips("失败");
          }
       });
+      
+  },
+  
+  openStockModal:function(product){
+      $("#proInModal").modal('show');
+  },
+  
+  //单品盘点
+  openCheckModal:function(product){
+      
+      $('#stockModal [name=productid]').val(product.id);
+      $('#stockModal').modal('show');
+      
+  },
+  
+  productCheck:function(){
+      var url = UrlUtil.createWebUrl('product','productCheck');
+      
+      var params = {};
+      params.productid = $('#stockModal [name=productid]').val();
+      params.storeid = $("#stockModal [name=store]").val();
+      params.inventory = $("#stockModal [name=inventory]").val();
+      
+      $.post(url,params,function(data){
+         if(data.state == 0){
+             Tips.successTips('盘点成功');
+             $("#stockModal").modal('hide');
+         } 
+         else{
+             Tips.failTips(data.msg);
+         }
+      });
+      
+  },
+  
+  productStock:function(){
+      var url = UrlUtil.createWebUrl("product","productStock");
+      
+      var params = {};
+      params.productid = $("#");
       
   },
   
