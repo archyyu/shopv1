@@ -8,9 +8,28 @@ $(function () {
   
     Inventory.unitTableInit();
     
+    $('#selectProductBtn').click(function(){
+        
+        Inventory.selectProductList = [];
+        
+        $("#selectProductList div").each(function(){
+            var item = {};
+            item.productname = $(this).find("span").html();
+            item.productid = $(this).find("input").attr("name");
+            Inventory.selectProductList.push(item);
+        });
+        //TODO
+        
+        
+        
+    });
+    
 });
 
 var Inventory = {
+    
+   selectProductList:[],
+    
   goodsTableInit: function () {
     $("#goodsTable").bootstrapTable({
       data: [

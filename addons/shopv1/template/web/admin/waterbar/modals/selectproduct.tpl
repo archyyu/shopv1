@@ -24,12 +24,12 @@
                         <div class="row">
                             <div class="col-xs-12">
                                 <p class="selectall">
-                                <button class="btn btn-link">全选/反选&nbsp;&nbsp;</button><span id="checkNum">0</span>/15
+                                <button class="btn btn-link">全选/反选&nbsp;&nbsp;</button><span id="checkNum">0</span>/{$productlist.length}
                                 </p>
                                 <div class="checkboxs" id="selectProductList">
                                     {foreach $productlist as $product}
                                         <div class="checkself">
-                                            <input type="checkbox" name="{$product.id}" />
+                                            <input type="checkbox" productid="{$product.id}" />
                                             <span>{$product.productname}</span> 
                                         </div>
                                     {/foreach}
@@ -41,7 +41,7 @@
             </div>
             <div class="modal-footer">
                 <button class="btn btn-default">取&nbsp;&nbsp;&nbsp;&nbsp;消</button>
-                <button class="btn btn-primary">确&nbsp;&nbsp;&nbsp;&nbsp;定</button>
+                <button class="btn btn-primary" id="selectProductBtn">确&nbsp;&nbsp;&nbsp;&nbsp;定</button>
             </div>
         </div>
     </div><!-- /.modal-content -->
