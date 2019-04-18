@@ -2,6 +2,7 @@
   <div class="modal-dialog material_manage">
     <div class="modal-content">
       <div class="modal-header">
+        <button class="close" data-dismiss="modal"><span>&times;</span></button>
         <h5 class="modal-title text-center">添加原料分类</h5>
       </div>
       <div class="modal-body">

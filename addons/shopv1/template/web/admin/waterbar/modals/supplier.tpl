@@ -2,7 +2,8 @@
   <div class="modal-dialog modal-lg supplier">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title text-center">我的供货单位</h5>
+        <button class="close" data-dismiss="modal"><span>&times;</span></button>
+        <h5 class="modal-title">我的供货单位</h5>
       </div>
       <div class="modal-body">
         <div class="row">

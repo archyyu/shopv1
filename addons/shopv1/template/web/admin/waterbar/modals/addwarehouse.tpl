@@ -2,6 +2,7 @@
   <div class="modal-dialog add_warehouse">
     <div class="modal-content">
       <div class="modal-header">
+        <button class="close" data-dismiss="modal"><span>&times;</span></button>
         <h5 class="modal-title">添加库房</h5>
       </div>
       <div class="modal-body">

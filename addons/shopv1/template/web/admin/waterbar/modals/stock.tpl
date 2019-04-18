@@ -2,6 +2,7 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
+                <button class="close" data-dismiss="modal"><span>&times;</span></button>
                 <h5 class="modal-title"><span></span> 盘点</h5>
             </div>
             <div class="modal-body">
@@ -25,7 +26,7 @@
                 </form>
             </div>
             <div class="modal-footer">
-                <button class="btn btn-sm btn-default">取 &nbsp;&nbsp; 消</button>
+                <button class="btn btn-sm btn-default" data-dismiss="modal">取 &nbsp;&nbsp; 消</button>
                 <button class="btn btn-sm btn-primary">确 &nbsp;&nbsp; 定</button>
             </div>
         </div>
