@@ -1,7 +1,8 @@
-<div class="modal fade" id="specModal" role="dialog" aria-hidden="true" data-backdrop="static">
+<div class="modal fade" id="specModal" role="dialog" data-backdrop="static">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
+        <button class="close" data-dismiss="modal"><span>&times;</span></button>
         <h5 class="modal-title">商品规格</h5>
         <input name="productid" type="hidden" value="0" />
       </div>

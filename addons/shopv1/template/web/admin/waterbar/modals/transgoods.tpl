@@ -1,7 +1,8 @@
-<div class="modal fade" id="transferModal" role="dialog" aria-hidden="true">
+<div class="modal fade" id="transferModal" role="dialog">
     <div class="modal-dialog transfer_goods">
         <div class="modal-content">
             <div class="modal-header">
+                <button class="close" data-dismiss="modal"><span>&times;</span></button>
                 <h5 class="modal-title"><span></span>调货</h5>
             </div>
             <div class="modal-body">

@@ -2,6 +2,7 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
+        <button class="close" data-dismiss="modal"><span>&times;</span></button>
         <h5 class="modal-title">添加商品</h5>
         <input type="hidden" name="productid" value="0" />
       </div>
