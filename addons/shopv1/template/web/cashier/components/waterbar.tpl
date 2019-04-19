@@ -13,7 +13,7 @@
                     <div class="list-title">商品分类</div>
                     <div class="list-wrap">
                         <ul>
-                            <li v-for="item of typelist" @click="">{{item.typename}}</li>
+                            <li v-for="item of typelist" @click="queryProductList(item.id)">{{item.typename}}</li>
                         </ul>
                     </div>
                 </el-col>
@@ -23,7 +23,7 @@
                     </div>
                     <el-row class="product-wrap">
                         <el-col :sm="8" :md="6" class="product-item less-item" v-for="product in productlist">
-                            <div v-on:click='addCart(product.id,product.productname)'>
+                            <div v-on:click='addCart(product.id,product.productname,product.memberprice)'>
                                 <h5>{{product.productname}}</h5>
                                 <p class="lack-pro"></p>
                                 <p class="pro-price">
@@ -90,9 +90,7 @@
         <div class="sub-pane material" v-else>
             <div class="material-title">吧台库</div>
             <div class="material-table">
-                <el-table
-                    height="100%"
-                    border>
+                <el-table height="100%" border>
                     <el-table-column label="编号"></el-table-column>
                     <el-table-column label="类型"></el-table-column>
                 </el-table>
@@ -122,48 +120,70 @@ Vue.component('waterbar', {
         this.queryProductList();
     },
     methods: {
-        queryTypeList: function () {
-            var params = {};
-            params.shopid = 1;
-            axios.post(this.createUrl('loadProductTypeList'), params)
-            .then((res) => {
-                console.log(res);
-                res = res.data;
-                if (res.state == 0) {
-                    this.typelist = res.obj;
-                }
-            })
-            .catch(err=>console.log(err));
+        
+        createUrl:function(f){
+            return "index.php?__uniacid=1&shopid=1&f=" + f;
         },
-
-        queryProductList: function () {
+        createOrder:function(){
+            
+            var url = this.createUrl('createOrder');
             var params = {};
-            params.typeid = 1;
-            axios.post(this.createUrl('loadProduct'), params)
-            .then((res) => {
-                res = res.data;
+            
+            axois.post(url,params)
+                    .then((res)=>{
+                        res = res.data;
                 console.log(res);
-                if (res.state == 0) {
-                    this.productlist = res.obj;
+                if(res.state == 0){
+                    
                 }
-            })
-            .catch(err=>console.log(err));
+                else{
+                }
+        });
+            
         },
-
-        addCart: function (productid, productname) {
+        addCart: function (productid, productname, price) {
 
             for (var i = 0; i < this.cartlist.length; i++) {
                 if (this.cartlist[i].productid == productid) {
                     this.cartlist[i].num += 1;
+                    this.cartlist[i].price += price / 100;
                     return;
                 }
             }
+
             var cart = {};
             cart.productid = productid;
             cart.num = 1;
+            cart.price = price / 100;
             cart.productname = productname;
             this.cartlist.push(cart);
-        }
+        },
+
+        queryTypeList: function () {
+            var params = {};
+            params.shopid = 1;
+            axios.post(this.createUrl('loadProductTypeList'), params)
+                .then((res) => {
+                    console.log(res);
+                    res = res.data;
+                    if (res.state == 0) {
+                        this.typelist = res.obj;
+                    }
+                });
+        },
+
+        queryProductList: function (type) {
+            var params = {};
+            params.typeid = type;
+            axios.post(this.createUrl('loadProduct'), params)
+                .then((res) => {
+                    res = res.data;
+                    console.log(res);
+                    if (res.state == 0) {
+                        this.productlist = res.obj;
+                    }
+                });
+        },
     }
-})
+});
 </script>
