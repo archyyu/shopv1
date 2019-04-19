@@ -18,5 +18,13 @@
   <script src="{$StaticRoot}/js/dist/axios/es6-promise.js"></script>
   <script src="{$StaticRoot}/js/dist/moment.min.js"></script>
   <script src="{$StaticRoot}/js/dist/moment-zh-cn.js"></script>
+
+  <script>
+    // axios.defaults.baseURL = ""
+    axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded'
+    axios.defaults.transformRequest = [function (data) {
+      return Qs.stringify(data)
+    }]
+  </script>
 </head>
 <body>
