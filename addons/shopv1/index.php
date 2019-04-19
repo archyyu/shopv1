@@ -25,15 +25,16 @@ include("../../data/config.php");
 include('../../framework/function/file.func.php');
 include('classloader.php');
 
+global $_GPC;
+$_GPC = array_merge($_GPC, $_POST);
+$_GPC = array_merge($_GPC, $_GET);
+
 $_W['config'] = $config;
 
 class Router {
     
     public function __construct() {
-        global $_GPC;
-        global $_POST;
-        $_GPC = array_merge($_GPC, $_POST);
-        $_GPC = array_merge($_GPC, $_GET);
+        
         
         
         
