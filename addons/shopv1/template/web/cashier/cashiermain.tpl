@@ -30,13 +30,6 @@
         created: function(){
             this.queryTypeList();
             this.queryProductList();
-            // axios.get("http://api.douban.com/v2/movie/coming_soon")
-            // .then(function(res) {
-            //     console.log(res)
-            // })
-            // .catch(function(err) {
-            //     console.log(err)
-            // }); 
         },
         methods: {
             
@@ -44,11 +37,12 @@
                 return "index.php?__uniacid=1&shopid=1&f=" + f;
             },
             
-            addCart:function(productid,productname){
+            addCart:function(productid,productname,price){
                 
                 for(var i=0;i<this.waterbar.cartlist.length;i++){
                     if(this.waterbar.cartlist[i].productid == productid){
                         this.waterbar.cartlist[i].num += 1;
+                        this.waterbar.cartlist[i].price += price/100;
                         return;
                     }
                 }
@@ -56,6 +50,7 @@
                 var cart = {};
                 cart.productid = productid;
                 cart.num = 1;
+                cart.price = price/100;
                 cart.productname = productname;
                 this.waterbar.cartlist.push(cart);
             },
@@ -73,9 +68,9 @@
                         });
             },
             
-            queryProductList:function(){
+            queryProductList:function(type){
                 var params = {};
-                params.typeid = 1;
+                params.typeid = type;
                 axios.post(this.createUrl('loadProduct'),params)
                         .then((res)=>{
                             res = res.data;
@@ -84,6 +79,23 @@
                                 this.waterbar.productlist = res.obj;
                             }
                         });
+            },
+            createOrder:function(){
+                
+                var url = this.createUrl('createOrder');
+                var params = {};
+                
+                axois.post(url,params)
+                        .then((res)=>{
+                            res = res.data;
+                    console.log(res);
+                    if(res.state == 0){
+                        
+                    }
+                    else{
+                    }
+            });
+                
             }
             
         }

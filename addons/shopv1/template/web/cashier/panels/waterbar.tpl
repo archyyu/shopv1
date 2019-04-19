@@ -14,7 +14,7 @@
                     <div class="list-title">商品分类</div>
                     <div class="list-wrap">
                         <ul>
-                            <li v-for="item of waterbar.typelist" @click="">{{item.typename}}</li>
+                            <li v-for="item of waterbar.typelist" @click="queryProductList(item.id)">{{item.typename}}</li>
                         </ul>
                     </div>
                 </el-col>
@@ -24,7 +24,7 @@
                     </div>
                     <el-row class="product-wrap">
                         <el-col :sm="8" :md="6" class="product-item less-item" v-for="product in waterbar.productlist">
-                            <div v-on:click='addCart(product.id,product.productname)'>
+                            <div v-on:click='addCart(product.id,product.productname,product.memberprice)'>
                                 <h5>{{product.productname}}</h5>
                                 <p class="lack-pro"></p>
                                 <p class="pro-price">
