@@ -306,8 +306,11 @@ html, body, #app, .el-tabs {
   padding-bottom: 20px;
 }
 
-.shift .shift-data {
+.shift .sub-pane {
   padding: 15px;
+}
+
+.shift .shift-data {
   height: calc(100% - 32px);
 }
 

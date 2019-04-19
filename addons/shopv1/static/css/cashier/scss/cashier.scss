@@ -264,8 +264,10 @@ html,body,#app,.el-tabs{
 
 // shift
 .shift{
-    .shift-data{
+    .sub-pane{
         padding: 15px;
+    }
+    .shift-data{
         height: calc(100% - 32px);
         .shift-info{
             margin-bottom: 10px;
