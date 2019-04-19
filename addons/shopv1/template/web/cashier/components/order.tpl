@@ -1,6 +1,6 @@
 <script type="text/x-template" id="order">
     {literal}
-    <div>
+    <div class="order">
         <div>角色管理</div>
         <div class="order">
             <el-row :gutter="15">

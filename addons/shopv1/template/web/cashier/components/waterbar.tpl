@@ -78,9 +78,9 @@
                                 <el-col :span="24">合计：80 元</el-col>
                             </el-row>
                             <el-row class="pay-ways">
-                                <el-col :span="8" class="cashpay">现金</el-col>
-                                <el-col :span="8" class="weipay">微信</el-col>
-                                <el-col :span="8" class="alipay">支付宝</el-col>
+                                <el-col :span="8" class="cashpay"><iconfont>&#xe6d1;</iconfont> 现金</el-col>
+                                <el-col :span="8" class="weipay"><iconfont>&#xe669;</iconfont> 微信</el-col>
+                                <el-col :span="8" class="alipay"><iconfont>&#xe666;</iconfont> 支付宝</el-col>
                             </el-row>
                         </div>
                     </div>
