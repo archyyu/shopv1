@@ -1,20 +1,19 @@
+<script type="text/x-template" id="waterbar">
 {literal}
-<el-tab-pane name="waterbar" class="waterbar">
-    <span slot="label"><i class="el-icon-date"></i> 水吧</span>
     <div class="waterbar-content">
         <el-button-group class="btn-nav-group">
-            <el-radio-group v-model="waterbar.firstPaneShow" size="small">
+            <el-radio-group v-model="firstPaneShow" size="small">
                 <el-radio-button label="sale">商品销售</el-radio-button>
                 <el-radio-button label="material">原料管理</el-radio-button>
             </el-radio-group>
         </el-button-group>
-        <div class="sub-pane sale" v-if="waterbar.firstPaneShow == 'sale'">
+        <div class="sub-pane sale" v-if="firstPaneShow == 'sale'">
             <el-row :gutter="15">
                 <el-col :span="4" class="sale-list">
                     <div class="list-title">商品分类</div>
                     <div class="list-wrap">
                         <ul>
-                            <li v-for="item of waterbar.typelist" @click="">{{item.typename}}</li>
+                            <li v-for="item of typelist" @click="">{{item.typename}}</li>
                         </ul>
                     </div>
                 </el-col>
@@ -23,7 +22,7 @@
                         <el-button type="primary" size="mini" plain>打开钱箱</el-button>
                     </div>
                     <el-row class="product-wrap">
-                        <el-col :sm="8" :md="6" class="product-item less-item" v-for="product in waterbar.productlist">
+                        <el-col :sm="8" :md="6" class="product-item less-item" v-for="product in productlist">
                             <div v-on:click='addCart(product.id,product.productname)'>
                                 <h5>{{product.productname}}</h5>
                                 <p class="lack-pro"></p>
@@ -40,19 +39,19 @@
                     </el-row>
                 </el-col>
                 <el-col :span="6" class="sale-cart">
-                    <div class="cart-title" v-if="waterbar.cartMain">购物车
-                        <el-button type="success" size="mini" plain v-if="waterbar.editBtnShow">编辑</el-button>
-                        <el-button type="success" size="mini" plain v-if="waterbar.editBtnShow">优惠方案</el-button>
-                        <el-button type="danger" size="mini" plain v-if="!waterbar.editBtnShow">关闭</el-button>
-                        <el-button type="danger" size="mini" plain v-if="!waterbar.editBtnShow">清除</el-button>
+                    <div class="cart-title" v-if="cartMain">购物车
+                        <el-button type="success" size="mini" plain v-if="editBtnShow">编辑</el-button>
+                        <el-button type="success" size="mini" plain v-if="editBtnShow">优惠方案</el-button>
+                        <el-button type="danger" size="mini" plain v-if="!editBtnShow">关闭</el-button>
+                        <el-button type="danger" size="mini" plain v-if="!editBtnShow">清除</el-button>
                     </div>
-                    <div class="checkout-title" v-if="!waterbar.cartMain">
+                    <div class="checkout-title" v-if="!cartMain">
                         <div class=""><a href="#"><span class="icon iconfont back">&#xe61c;</span></a></div>
                         <div class="">结账</div>
                     </div>
                     <div class="cart-wrap">
                         <div class="cart-list">
-                            <div class="cart-item" v-for="cart in waterbar.cartlist">
+                            <div class="cart-item" v-for="cart in cartlist">
                                 <div class="cart-item-title">{{cart.productname}}
                                 </div>
                                 <el-row class="cart-item-num">
@@ -100,5 +99,71 @@
             </div>
         </div>
     </div>
-</el-tab-pane>
 {/literal}
+</script>
+
+
+<script>
+Vue.component('waterbar', {
+    name: 'waterbar',
+    template: '#waterbar',
+    data() {
+        return {
+            firstPaneShow: 'sale',
+            cartMain: true,
+            editBtnShow: true,
+            typelist: [],
+            productlist: [],
+            cartlist: []
+        }
+    },
+    created: function () {
+        this.queryTypeList();
+        this.queryProductList();
+    },
+    methods: {
+        queryTypeList: function () {
+            var params = {};
+            params.shopid = 1;
+            axios.post(this.createUrl('loadProductTypeList'), params)
+            .then((res) => {
+                console.log(res);
+                res = res.data;
+                if (res.state == 0) {
+                    this.typelist = res.obj;
+                }
+            })
+            .catch(err=>console.log(err));
+        },
+
+        queryProductList: function () {
+            var params = {};
+            params.typeid = 1;
+            axios.post(this.createUrl('loadProduct'), params)
+            .then((res) => {
+                res = res.data;
+                console.log(res);
+                if (res.state == 0) {
+                    this.productlist = res.obj;
+                }
+            })
+            .catch(err=>console.log(err));
+        },
+
+        addCart: function (productid, productname) {
+
+            for (var i = 0; i < this.cartlist.length; i++) {
+                if (this.cartlist[i].productid == productid) {
+                    this.cartlist[i].num += 1;
+                    return;
+                }
+            }
+            var cart = {};
+            cart.productid = productid;
+            cart.num = 1;
+            cart.productname = productname;
+            this.cartlist.push(cart);
+        }
+    }
+})
+</script>
