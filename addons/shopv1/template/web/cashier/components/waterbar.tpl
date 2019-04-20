@@ -12,9 +12,11 @@
                 <el-col :span="4" class="sale-list">
                     <div class="list-title">商品分类</div>
                     <div class="list-wrap">
-                        <ul>
-                            <li v-for="item of typelist" @click="queryProductList(item.id)">{{item.typename}}</li>
-                        </ul>
+                        <el-scrollbar>
+                            <ul>
+                                <li v-for="item of typelist" :class="{active: item.id == activeNav}" @click="queryProductList(item.id)">{{item.typename}}</li>
+                            </ul>
+                        </el-scrollbar>
                     </div>
                 </el-col>
                 <el-col :span="14" class="sale-product">
@@ -110,6 +112,7 @@ Vue.component('waterbar', {
             firstPaneShow: 'sale',
             cartMain: true,
             editBtnShow: true,
+            activeNav: 0,
             typelist: [],
             productlist: [],
             cartlist: []
@@ -168,11 +171,15 @@ Vue.component('waterbar', {
                     res = res.data;
                     if (res.state == 0) {
                         this.typelist = res.obj;
+                        this.activeNav = res.obj[0].id
                     }
                 });
         },
 
         queryProductList: function (type) {
+            if(type){
+                this.activeNav = type;
+            }
             var params = {};
             params.typeid = type;
             axios.post(this.createUrl('loadProduct'), params)
