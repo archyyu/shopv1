@@ -77,7 +77,7 @@ html, body, #app, .el-tabs {
   height: 100%;
 }
 
-.el-scrollbar__wrap {
+.el-scrollbar .el-scrollbar__wrap {
   overflow-x: hidden;
 }
 
@@ -352,6 +352,12 @@ html, body, #app, .el-tabs {
   display: block;
   font-size: 24px;
   margin-bottom: 5px;
+}
+
+.waterbar .sale .attribute-modal .el-radio {
+  margin-left: 0;
+  margin-right: 10px;
+  margin-bottom: 10px;
 }
 
 .waterbar .material .material-title {

@@ -67,9 +67,9 @@ html,body,#app,.el-tabs{
 }
 .el-scrollbar{
     height: 100%;
-}
-.el-scrollbar__wrap{
-    overflow-x: hidden;
+    .el-scrollbar__wrap{
+        overflow-x: hidden;
+    }
 }
 // common END
 
@@ -298,7 +298,13 @@ html,body,#app,.el-tabs{
                 }
             }
         }
-
+        .attribute-modal{
+            .el-radio{
+                margin-left: 0;
+                margin-right: 10px;
+                margin-bottom: 10px;
+            }
+        }
     }
     .material{
         .material-title{

@@ -88,6 +88,21 @@
                     </div>
                 </el-col>
             </el-row>
+            
+            <el-dialog title="商品属性" visible width="30%" class="attribute-modal" center>
+                    <el-form label-width="90px">
+                        <el-form-item label="商品名称："></el-form-item>
+                        <el-form-item label="价格："></el-form-item>
+                        <el-form-item label="商品属性：">
+                            <el-radio-group v-model="attribute" size="small">
+                                <el-radio label="1" border>备选项1</el-radio>
+                                <el-radio label="2" border>备选项2</el-radio>
+                                <el-radio label="1" border>备选项1</el-radio>
+                                <el-radio label="2" border>备选项2</el-radio>
+                            </el-radio-group>
+                        </el-form-item>
+                    </el-form>
+                </el-dialog>
         </div>
         <div class="sub-pane material" v-else>
             <div class="material-title">吧台库</div>
@@ -115,7 +130,8 @@ Vue.component('waterbar', {
             activeNav: 0,
             typelist: [],
             productlist: [],
-            cartlist: []
+            cartlist: [],
+            attribute: '1'
         }
     },
     created: function () {
