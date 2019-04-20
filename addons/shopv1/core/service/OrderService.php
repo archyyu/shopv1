@@ -26,14 +26,17 @@ class OrderService extends Service{
     
     private $productService;
     
+    private $shopDuty;
+    
     public function __controller(){
         parent::__controller();
         $this->shopOrder = new ShopOrder();
         $this->shopOrderProduct = new ShopOrderproduct();
         $this->productService = new ProductService();
+        $this->shopDuty = new \model\ShopDuty();
     }
     
-    public function generateProductOrder($memberid,$userid,$shopid,$address,$productlist,$ordersource,$remark){
+    public function generateProductOrder($memberid,$userid,$shopid,$address,$productlist,$ordersource,$remark,$paytype,$from){
         
         $order = array();
         $order['id'] = $this->generateOrderId();
@@ -46,6 +49,8 @@ class OrderService extends Service{
         $order['address'] = $address;
         $order['remark'] = $remark;
         $order['memberid'] = $memberid;
+        $order['paytype'] = $paytype;
+        $order['ordersource'] = $from;
         
         $price = 0;
         foreach($productlist as $key=>$value){
@@ -72,7 +77,7 @@ class OrderService extends Service{
             
         }
         
-        
+        return $order['id'];
     }
     
     public function generateOrderId(){
@@ -102,6 +107,56 @@ class OrderService extends Service{
     
     public function cancelOrder(){
         
+    }
+    
+    public function queryLastDutyTime($shopid){
+        $starttime = 0;
+        
+        $lastDuty = $this->dutyModel->selectShopLastDuty($shopid);
+        if(isset($lastDuty)){
+            $starttime = $lastDuty["submittime"];
+        }
+        
+        return $starttime;
+    }
+    
+    public function generateDuty($shopid){
+        $starttime = 0;
+        
+        $lastDuty = $this->dutyModel->selectShopLastDuty($shopid);
+        if(isset($lastDuty)){
+            $starttime = $lastDuty["submittime"];
+        }
+        
+        $endtime = time();
+        
+        $orderList = $this->orderModel->findShopOrderList($shopid, $starttime, $endtime);
+        
+        $productcash = 0;
+        $productwechat = 0;
+        $productalipay = 0;
+        
+        foreach($orderList as $key=>$value){
+            if($value['paytype'] == 0){
+                //cash
+                $productcash += $value['orderprice'];
+            }
+            else if($value['paytype'] == 1){
+                //wechat
+                $productwechat += $value['orderprice'];
+            }
+            else if($value['paytype'] == 2){
+                //ali
+                $productalipay += $value['orderprice'];
+            }
+        }
+        
+        $duty['starttime'] = $starttime;
+        $duty['productcash'] = $productcash;
+        $duty['productwechat'] = $productwechat;
+        $duty['productalipay'] = $productalipay;
+        
+        return $duty;
     }
     
 }

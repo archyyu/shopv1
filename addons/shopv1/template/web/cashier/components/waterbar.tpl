@@ -12,9 +12,11 @@
                 <el-col :span="4" class="sale-list">
                     <div class="list-title">商品分类</div>
                     <div class="list-wrap">
-                        <ul>
-                            <li v-for="item of typelist" @click="queryProductList(item.id)">{{item.typename}}</li>
-                        </ul>
+                        <el-scrollbar>
+                            <ul>
+                                <li v-for="item of typelist" :class="{active: item.id == activeNav}" @click="queryProductList(item.id)">{{item.typename}}</li>
+                            </ul>
+                        </el-scrollbar>
                     </div>
                 </el-col>
                 <el-col :span="14" class="sale-product">
@@ -69,7 +71,7 @@
                                 <el-col :span="24">
                                     <el-form>
                                         <el-form-item label="座位/牌号:" label-width="80px">
-                                            <el-input size="mini"></el-input>
+                                            <el-input size="mini" v-model='address'></el-input>
                                         </el-form-item>
                                     </el-form>
                                 </el-col>
@@ -78,14 +80,29 @@
                                 <el-col :span="24">合计：80 元</el-col>
                             </el-row>
                             <el-row class="pay-ways">
-                                <el-col :span="8" class="cashpay">现金</el-col>
-                                <el-col :span="8" class="weipay">微信</el-col>
-                                <el-col :span="8" class="alipay">支付宝</el-col>
+                                <el-col :span="8" class="cashpay" @click='createOrder(0)'><iconfont>&#xe6d1;</iconfont> 现金</el-col>
+                                <el-col :span="8" class="weipay"><iconfont>&#xe669;</iconfont> 微信</el-col>
+                                <el-col :span="8" class="alipay"><iconfont>&#xe666;</iconfont> 支付宝</el-col>
                             </el-row>
                         </div>
                     </div>
                 </el-col>
             </el-row>
+            
+            <el-dialog title="商品属性" visible width="30%" class="attribute-modal" v-if='false' center>
+                <el-form label-width="90px">
+                    <el-form-item label="商品名称："></el-form-item>
+                    <el-form-item label="价格："></el-form-item>
+                    <el-form-item label="商品属性：">
+                        <el-radio-group v-model="attribute" size="small">
+                            <el-radio label="1" border>备选项1</el-radio>
+                            <el-radio label="2" border>备选项2</el-radio>
+                            <el-radio label="1" border>备选项1</el-radio>
+                            <el-radio label="2" border>备选项2</el-radio>
+                        </el-radio-group>
+                    </el-form-item>
+                </el-form>
+            </el-dialog>
         </div>
         <div class="sub-pane material" v-else>
             <div class="material-title">吧台库</div>
@@ -110,11 +127,14 @@ Vue.component('waterbar', {
             firstPaneShow: 'sale',
             cartMain: true,
             editBtnShow: true,
+            activeNav: 0,
             typelist: [],
             productlist: [],
             cartlist: [],
-            defaulttypeid:0
-        }
+            defaulttypeid:0,
+            attribute: '1' ,
+            address:''
+        };
     },
     created: function () {
         this.queryTypeList();
@@ -122,12 +142,9 @@ Vue.component('waterbar', {
     },
     methods: {
         
-        createUrl:function(f){
-            return "index.php?__uniacid=1&shopid=1&f=" + f;
-        },
         createOrder:function(){
             
-            var url = this.createUrl('createOrder');
+            var url = UrlHelper.createUrl('product','createOrder');
             var params = {};
             
             axois.post(url,params)
@@ -163,15 +180,14 @@ Vue.component('waterbar', {
         queryTypeList: function (typeid) {
             var params = {};
             params.shopid = typeid;
-            axios.post(this.createUrl('loadProductTypeList'), params)
+            axios.post(UrlHelper.createUrl('product','loadProductTypeList'), params)
                 .then((res) => {
                     console.log(res);
                     res = res.data;
                     if (res.state == 0) {
                         this.typelist = res.obj;
-                        
                         this.defaulttypeid = this.typelist[0].id;
-                        
+                        this.activeNav = res.obj[0].id 
                     }
                 });
         },
@@ -179,7 +195,13 @@ Vue.component('waterbar', {
         queryProductList: function (type) {
             let params = {};
             params.type = type;
-            axios.post(this.createUrl('loadProduct'), params)
+            if(type){
+                this.activeNav = type;
+            }
+            
+            params.typeid = type;
+            
+            axios.post(UrlHelper.createUrl('product','loadProduct'), params)
                 .then((res) => {
                     res = res.data;
                     console.log(res);
@@ -190,6 +212,12 @@ Vue.component('waterbar', {
         },
         
         createOrder:function(paytype){
+            var url = UrlHelper.createUrl('order','createOrder');
+            
+            var params = Store.createParams();
+            params.paytype = paytype;
+            
+            
             
         },
         

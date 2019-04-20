@@ -17,9 +17,12 @@ class OrderController extends \controller\Controller{
     
     private $orderService;
     
+    private $orderModel;
+    
     public function __construct() {
         parent::__construct();
         $this->orderService = new \service\OrderService();
+        $this->orderModel = new \model\ShopOrder();
     }
     
     public function addOrder(){
@@ -28,12 +31,18 @@ class OrderController extends \controller\Controller{
         $userid = $this->getParamDefault("userid", 0);
         $shopid = $this->getParam("shopid");
         $address = $this->getParamDefault("address", "A001");
-        $ordersource = 2;
-        $remark = "";
+        $ordersource = $this->getParam("from");
+        $remark = $this->getParamDefault('remark','');
+        $paytype = $this->getParam("paytype");
         
         $productlist = json_decode(html_entity_decode($this->getParam("productlist")),true);
+        $orderid = $this->orderService->generateProductOrder($memberid, $userid, $shopid, $address, $productlist, $ordersource, $remark,$paytype);
         
-        $this->orderService->generateProductOrder($memberid, $userid, $shopid, $address, $productlist, $ordersource, $remark);
+        if($ordersource == 0){
+            $this->orderService->payOrder($shopid, $orderid);
+        }
+        
+        $this->returnSuccess();
         
     }
     
@@ -41,7 +50,15 @@ class OrderController extends \controller\Controller{
         
     }
     
-    public function queryOrder(){
+    public function cashierQueryOrder(){
+        
+        $shopid = $this->getParam("shopid");
+        $starttime = $this->orderService->queryLastDutyTime($shopid);
+        $endtime = time();
+        
+        $orderList = $this->orderModel->findShopOrderList($shopid, $starttime, $endtime);
+        
+        $this->returnSuccess($orderList);
         
     }
     

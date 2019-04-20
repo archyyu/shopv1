@@ -5,10 +5,10 @@
  */
 
 
-var UrlHelp = {
+var UrlHelper = {
     
     createUrl:function(c,f){
-        
+        return "index.php?__uniacid=1&shopid=1&f=" + f + "&c=" + c;
     },
     
     info:function(){

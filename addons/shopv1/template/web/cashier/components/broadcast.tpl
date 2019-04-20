@@ -1,4 +1,15 @@
-<el-tab-pane name="broadcast" lazy>
-    <span slot="label"><i class="el-icon-date"></i> 语音播报</span>
+<script type="text/x-template" id="broadcast">
+    {literal}
     <div>角色管理</div>
-</el-tab-pane>
+    {/literal}
+</script>
+
+<script>
+Vue.component('broadcast', {
+    name: 'broadcast',
+    template: '#broadcast',
+    data() {
+        return {}
+    }
+});
+</script>

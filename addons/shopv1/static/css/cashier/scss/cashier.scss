@@ -15,8 +15,35 @@ html,body,#app,.el-tabs{
     border-bottom: none;
 }
 .el-tabs__header{
+    border-bottom-width: 0;
     margin-bottom: 0;
     height: 70px;
+    .el-tabs__nav{
+        border-width: 0 !important;
+    }
+    .el-tabs__item{
+        padding-top: 10px;
+        padding-bottom: 12px;
+        height: auto;
+        line-height: inherit;
+        width: 97px;
+        text-align: center;
+        &:last-child{
+            border-right: 1px solid #e4e7ed;
+        }
+        >span{
+            display: inline-block;
+            font-weight: bold;
+            text-align: center;
+            .iconfont{
+                display: block;
+                height: 32px;
+                line-height: 30px;
+                font-size: 24px;
+                font-weight: normal;
+            }
+        }
+    }
 }
 .el-tabs__content {
     padding-top: 15px;
@@ -38,6 +65,14 @@ html,body,#app,.el-tabs{
         }
     }
 }
+.el-scrollbar{
+    height: 100%;
+    .el-scrollbar__wrap{
+        overflow-x: hidden;
+    }
+}
+// common END
+
 
 // waterbar
 .waterbar {
@@ -53,21 +88,22 @@ html,body,#app,.el-tabs{
             .list-wrap {
                 height: calc(100% - 30px);
                 padding-bottom: 15px;
+                .el-scrollbar{
+                    border-radius: 4px;
+                    border: 1px solid $mainColor;
+                }
                 ul {
                     padding: 0;
                     list-style: none;
-                    border-radius: 4px;
-                    border: 1px solid $mainColor;
                     margin: 0;
-                    height: 100%;
                     li {
                         text-align: center;
                         background-color: #fff;
-                        height: 36px;
-                        line-height: 36px;
+                        height: 40px;
+                        line-height: 40px;
                         overflow: hidden;
                         border-bottom: 1px solid #E4E7ED;
-
+                        cursor: pointer;
                         &.active {
                             background-color: $mainColor;
                             color: #fff;
@@ -125,7 +161,7 @@ html,body,#app,.el-tabs{
                         font-weight: normal;
                         padding: 5px 10px;
                         padding-bottom: 0;
-                        margin-bottom: 0;
+                        margin-bottom: 10px;
                         margin-top: 0;
                         display: -webkit-box;
                         -webkit-box-orient: vertical;
@@ -239,17 +275,36 @@ html,body,#app,.el-tabs{
                         border-top: 1px solid #eee;
                         text-align: center;
                         height: 70px;
-                        .weipay{
-                            border-left: 1px solid #eee;
-                        }
-                        .alipay{
-                            border-left: 1px solid #eee;
+                        >div{
+                            padding: 10px;
+                            &.cashpay{
+                                color: #fd5459;
+                            }
+                            &.weipay{
+                                border-left: 1px solid #eee;
+                                color: #09bb07;
+                            }
+                            &.alipay{
+                                border-left: 1px solid #eee;
+                                color: #00a7ff;
+                            }
+                            .iconfont{
+                                display: block;
+                                font-size: 24px;
+                                margin-bottom: 5px;
+                            }
                         }
                     }
                 }
             }
         }
-
+        .attribute-modal{
+            .el-radio{
+                margin-left: 0;
+                margin-right: 10px;
+                margin-bottom: 10px;
+            }
+        }
     }
     .material{
         .material-title{
@@ -264,8 +319,10 @@ html,body,#app,.el-tabs{
 
 // shift
 .shift{
-    .shift-data{
+    .sub-pane{
         padding: 15px;
+    }
+    .shift-data{
         height: calc(100% - 32px);
         .shift-info{
             margin-bottom: 10px;
@@ -286,5 +343,88 @@ html,body,#app,.el-tabs{
     }
     .shift-product{
         padding-bottom: 20px;
+    }
+}
+
+
+// order
+.order{
+    >.el-row{
+        height: 100%;
+        >.el-col{
+            height: 100%;
+        }
+    }
+    .list-title{
+        color: #333;
+        padding-top: 12px;
+        padding-bottom: 12px;
+        >span{
+            float: right;
+        }
+    }
+    .order-list{
+        height: calc(100% - 65px);
+        border-radius: 4px;
+        border: 1px solid $mainColor;
+        ul{
+            padding-left: 0;
+            list-style: none;
+            margin: 0;
+            li{
+                &.active{
+                    .order-list-item{
+                        background-color: $mainColor;
+                        border-bottom-width: 0;
+                        color: #fff;
+                        .order-price{
+                            p{
+                                &:first-child{
+                                    color: #ffff00;
+                                }
+                            }
+                        }
+                    }
+                }
+                .order-list-item{
+                    padding: 10px 5px;
+                    border-bottom: 1px solid #e1e1e1;
+                    p{
+                        font-size: 14px;
+                        margin-top: 0;
+                        margin-bottom: 0;
+                        + p{
+                            margin-top: 8px;
+                        }
+                    }
+                }
+                .order-num{
+                    border-right: 1px solid #e1e1e1;
+                    p{
+                        word-break: break-all;
+                        &:first-child{
+                            font-size: 13px;
+                        }
+                    }
+                }
+                .order-price{
+                    text-align: right;
+                    p{
+                        &:first-child{
+                            font-weight: bold;
+                        }
+                    }
+                }
+            }
+        }
+    }
+    .order-detail{
+        p{
+            margin-top: 15px;
+            margin-bottom: 15px;
+        }
+        .print-btn{
+            margin-top: 15px;
+        }
     }
 }

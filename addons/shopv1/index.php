@@ -73,4 +73,4 @@ if(isset($c) == false){
     $c = "product";
 }
 
-(new Router())->$c;
+(new Router())->$c();
