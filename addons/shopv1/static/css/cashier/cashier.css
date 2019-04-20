@@ -73,6 +73,14 @@ html, body, #app, .el-tabs {
   height: calc(100% - 32px);
 }
 
+.el-scrollbar {
+  height: 100%;
+}
+
+.el-scrollbar__wrap {
+  overflow-x: hidden;
+}
+
 .waterbar .sale > .el-row {
   height: 100%;
 }
@@ -92,13 +100,15 @@ html, body, #app, .el-tabs {
   padding-bottom: 15px;
 }
 
+.waterbar .sale .sale-list .list-wrap .el-scrollbar {
+  border-radius: 4px;
+  border: 1px solid #409EFF;
+}
+
 .waterbar .sale .sale-list .list-wrap ul {
   padding: 0;
   list-style: none;
-  border-radius: 4px;
-  border: 1px solid #409EFF;
   margin: 0;
-  height: 100%;
 }
 
 .waterbar .sale .sale-list .list-wrap ul li {
@@ -108,6 +118,7 @@ html, body, #app, .el-tabs {
   line-height: 40px;
   overflow: hidden;
   border-bottom: 1px solid #E4E7ED;
+  cursor: pointer;
 }
 
 .waterbar .sale .sale-list .list-wrap ul li.active {
@@ -384,5 +395,89 @@ html, body, #app, .el-tabs {
 
 .shift .shift-product {
   padding-bottom: 20px;
+}
+
+.order > .el-row {
+  height: 100%;
+}
+
+.order > .el-row > .el-col {
+  height: 100%;
+}
+
+.order .list-title {
+  color: #333;
+  padding-top: 12px;
+  padding-bottom: 12px;
+}
+
+.order .list-title > span {
+  float: right;
+}
+
+.order .order-list {
+  height: calc(100% - 65px);
+  border-radius: 4px;
+  border: 1px solid #409EFF;
+}
+
+.order .order-list ul {
+  padding-left: 0;
+  list-style: none;
+  margin: 0;
+}
+
+.order .order-list ul li.active .order-list-item {
+  background-color: #409EFF;
+  border-bottom-width: 0;
+  color: #fff;
+}
+
+.order .order-list ul li.active .order-list-item .order-price p:first-child {
+  color: #ffff00;
+}
+
+.order .order-list ul li .order-list-item {
+  padding: 10px 5px;
+  border-bottom: 1px solid #e1e1e1;
+}
+
+.order .order-list ul li .order-list-item p {
+  font-size: 14px;
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+.order .order-list ul li .order-list-item p + p {
+  margin-top: 8px;
+}
+
+.order .order-list ul li .order-num {
+  border-right: 1px solid #e1e1e1;
+}
+
+.order .order-list ul li .order-num p {
+  word-break: break-all;
+}
+
+.order .order-list ul li .order-num p:first-child {
+  font-size: 13px;
+}
+
+.order .order-list ul li .order-price {
+  text-align: right;
+}
+
+.order .order-list ul li .order-price p:first-child {
+  font-weight: bold;
+}
+
+.order .order-detail p {
+  margin-top: 15px;
+  margin-bottom: 15px;
+}
+
+.order .order-detail .print-btn {
+  margin-top: 15px;
 }
 /*# sourceMappingURL=cashier.css.map */
