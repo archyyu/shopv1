@@ -176,7 +176,7 @@ class ProductController extends Controller{
         $unit = $this->getParam("unit");
         $index = $this->getParam("index");
         
-        $linklist = json_decode($this->getParam("link"));
+        $linklist = json_decode(html_entity_decode($this->getParam("link")),true);
         logInfo("productid:".$productid);
         logInfo("link:".$this->getParam("link"));
         
@@ -207,15 +207,13 @@ class ProductController extends Controller{
         }
         
         foreach($linklist as $key=>$value){
+            logInfo("product relation: $productid,".$value['materialid']." ".$value['num']);
             $this->productRelateModel->addRelation($productid, $value['materialid'], $value['num']);
         }
         
-        if($result){
-            $this->returnSuccess();
-        }
-        else{
-            $this->returnFail("数据库异常");
-        }
+        
+        $this->returnSuccess();
+       
         
     }
     

@@ -112,12 +112,13 @@ Vue.component('waterbar', {
             editBtnShow: true,
             typelist: [],
             productlist: [],
-            cartlist: []
+            cartlist: [],
+            defaulttypeid:0
         }
     },
     created: function () {
         this.queryTypeList();
-        this.queryProductList();
+        //this.queryProductList(this.defaulttypeid);
     },
     methods: {
         
@@ -159,22 +160,25 @@ Vue.component('waterbar', {
             this.cartlist.push(cart);
         },
 
-        queryTypeList: function () {
+        queryTypeList: function (typeid) {
             var params = {};
-            params.shopid = 1;
+            params.shopid = typeid;
             axios.post(this.createUrl('loadProductTypeList'), params)
                 .then((res) => {
                     console.log(res);
                     res = res.data;
                     if (res.state == 0) {
                         this.typelist = res.obj;
+                        
+                        this.defaulttypeid = this.typelist[0].id;
+                        
                     }
                 });
         },
 
         queryProductList: function (type) {
-            var params = {};
-            params.typeid = type;
+            let params = {};
+            params.type = type;
             axios.post(this.createUrl('loadProduct'), params)
                 .then((res) => {
                     res = res.data;
@@ -184,6 +188,13 @@ Vue.component('waterbar', {
                     }
                 });
         },
+        
+        createOrder:function(paytype){
+            
+        },
+        
+        info:function(){
+        }
     }
 });
 </script>

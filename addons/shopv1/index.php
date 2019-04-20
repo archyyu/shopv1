@@ -18,6 +18,7 @@ define("CASHROOT", str_replace("\\", "/", dirname(__FILE__)).'/');
 define("StaticRoot","../shopv1/static");
 //echo CASHROOT;
 
+global $_GPC;
 $_W = $_GPC = array();
 
 include("../../data/config.php");
@@ -25,7 +26,7 @@ include("../../data/config.php");
 include('../../framework/function/file.func.php');
 include('classloader.php');
 
-global $_GPC;
+
 $_GPC = array_merge($_GPC, $_POST);
 $_GPC = array_merge($_GPC, $_GET);
 
@@ -35,12 +36,9 @@ class Router {
     
     public function __construct() {
         
-        
-        
-        
     }
     
-    public function doIndex(){
+    public function product(){
         global $_GPC;
         $f = $_GPC['f'];
         
@@ -52,6 +50,27 @@ class Router {
         
     }
     
+    public function order(){
+        global $_GPC;
+        $f = $_GPC['f'];
+        
+        (new controller\cashier\OrderController())->$f();
+    }
+    
+   public function duty(){
+       global $_GPC;
+       $f = $_GPC['f'];
+       
+       (new controller\cashier\DutyController())->$f();
+   }
+   
+    
 }
 
-(new Router())->doIndex();
+$c = $_GPC['c'];
+
+if(isset($c) == false){
+    $c = "product";
+}
+
+(new Router())->$c;

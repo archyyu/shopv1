@@ -43,6 +43,14 @@ class Controller {
         global $_GPC;
         return $_GPC[$key];
     }
+    
+    public function getParamDefault($key,$default){
+        global $_GPC;
+        if(isset($_GPC[$key])){
+            return $_GPC[$key];
+        }
+        return $default;
+    }
 
     public function getUniacid() {
         return $this->getParam("__uniacid");

@@ -15,11 +15,25 @@ namespace controller\cashier;
  */
 class OrderController extends \controller\Controller{
     
+    private $orderService;
+    
     public function __construct() {
         parent::__construct();
+        $this->orderService = new \service\OrderService();
     }
     
     public function addOrder(){
+        
+        $memberid = $this->getParamDefault("memberid",0);
+        $userid = $this->getParamDefault("userid", 0);
+        $shopid = $this->getParam("shopid");
+        $address = $this->getParamDefault("address", "A001");
+        $ordersource = 2;
+        $remark = "";
+        
+        $productlist = json_decode(html_entity_decode($this->getParam("productlist")),true);
+        
+        $this->orderService->generateProductOrder($memberid, $userid, $shopid, $address, $productlist, $ordersource, $remark);
         
     }
     

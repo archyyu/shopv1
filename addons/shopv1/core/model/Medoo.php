@@ -293,7 +293,7 @@ class Medoo {
 
     public function exec($query, $map = []) {
         if ($this->debug_mode) {
-            echo $this->generate($query, $map);
+            logInfo("sql:".$this->generate($query, $map));
 
             $this->debug_mode = false;
 
