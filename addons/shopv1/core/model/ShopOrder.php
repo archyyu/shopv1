@@ -17,15 +17,14 @@ class ShopOrder extends Model{
     
     protected $table = "shopv1_order";
     
-    public function saveOrder($data){
-        if(isset($data['id'])){
-            $id = $data['id'];
-            unset($data['id']);
-            return $this->save($data,['id'=>$id]);
-        }
-        else{
-            return $this->add($data);
-        }
+    public function addOrder($data){
+        return $this->add($data);
+    }
+    
+    public function saveOrder($data,$id){
+         
+        return $this->save($data,['id'=>$id]);
+         
     }
     
     public function findOrderById($id){
@@ -33,7 +32,7 @@ class ShopOrder extends Model{
     }
     
     public function findShopOrderList($shopid,$starttime,$endtime){
-        return $this->getList("*", ['shopid'=>$shopid,'paytime[>=]'=>$starttime,'paytype[<=]'=>$endtime,'orderstate[>=]'=>0]);
+        return $this->getList("*", ['shopid'=>$shopid,'paytime[>=]'=>$starttime,'paytime[<=]'=>$endtime,'orderstate[>=]'=>0]);
     }
     
 }

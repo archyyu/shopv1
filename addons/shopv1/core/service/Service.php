@@ -15,7 +15,7 @@ namespace service;
  */
 class Service {
     
-    public function __controller(){
+    public function __construct(){
         
     }
     

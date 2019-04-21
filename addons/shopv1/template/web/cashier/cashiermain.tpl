@@ -7,10 +7,10 @@
             <span slot="label"><iconfont iconclass="icon-wangdianguanli"></iconfont> 水吧</span>
             <waterbar></waterbar>
         </el-tab-pane>
-        <el-tab-pane name="broadcast" lazy>
+        {*<el-tab-pane name="broadcast" lazy>
             <span slot="label"><iconfont iconclass="icon-xingxiaoxiaoguo"></iconfont> 语音播报</span>
             <broadcast></broadcast>
-        </el-tab-pane>
+        </el-tab-pane>*}
         <el-tab-pane name="shift" lazy>
             <span slot="label"><iconfont iconclass="icon-shouzhiliushuizhang"></iconfont> 交班</span>
             <shift></shift>

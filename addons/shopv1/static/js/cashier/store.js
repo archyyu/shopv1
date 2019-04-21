@@ -10,7 +10,7 @@ var Store = {
     createParams:function(){
         let params = {};
         params.userid = 1;
-        params.from = 2;
+        params.from = 0;
         params.shopid = 1;
         return params;
     },

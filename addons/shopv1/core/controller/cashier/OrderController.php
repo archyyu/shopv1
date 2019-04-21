@@ -25,7 +25,7 @@ class OrderController extends \controller\Controller{
         $this->orderModel = new \model\ShopOrder();
     }
     
-    public function addOrder(){
+    public function createOrder(){
         
         $memberid = $this->getParamDefault("memberid",0);
         $userid = $this->getParamDefault("userid", 0);
@@ -37,6 +37,10 @@ class OrderController extends \controller\Controller{
         
         $productlist = json_decode(html_entity_decode($this->getParam("productlist")),true);
         $orderid = $this->orderService->generateProductOrder($memberid, $userid, $shopid, $address, $productlist, $ordersource, $remark,$paytype);
+        
+        if($orderid == false){
+            $this->returnFail("订单错误");
+        }
         
         if($ordersource == 0){
             $this->orderService->payOrder($shopid, $orderid);

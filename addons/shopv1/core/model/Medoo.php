@@ -1424,7 +1424,7 @@ class Model extends Medoo {
             return false;
         }
         if ($pdoStateResult->rowCount() > 0) {
-            $data['lastInsertId'] = $this->id();
+            //$data['lastInsertId'] = $this->id();
             return true;
         } else {
             logInfoWithArr("add error", $pdoStateResult->errorInfo());
@@ -1441,7 +1441,7 @@ class Model extends Medoo {
         if ($pdoStateResult->rowCount() > 0) {
             return true;
         } else {
-            logInfoWithArr("save error", $pdoStateResult->errorInfo());
+            //logInfoWithArr("save error", $pdoStateResult->errorInfo());
             return false;
         }
     }

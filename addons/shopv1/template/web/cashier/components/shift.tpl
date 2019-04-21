@@ -23,7 +23,7 @@
             </el-row>
             <el-row :gutter="15" class="shift-table">
                 <el-col :span="12" :offset="6">
-                    <el-table size="mini" border>
+                    <el-table :data="dutyData" size="mini" border>
                         <el-table-column label="现金收入"></el-table-column>
                         <el-table-column label="微信收入"></el-table-column>
                         <el-table-column label="支付宝收入"></el-table-column>
@@ -74,8 +74,36 @@ Vue.component('shift', {
     template: '#shift',
     data() {
         return {
-            firstPaneShow: 'shiftData'
-        }        
+            firstPaneShow: 'shiftData',
+            duty:{
+                starttime:0,
+                endtime:0
+            },
+            dutyData:[{
+                productcash:0,
+                productwechat:0,
+                productalipay:0
+                }]
+        };
+    },
+    mounted:{
+    },
+    methods:{
+        queryCurrentDuty:function(){
+            var url = UrlHelper.createUrl('duty','queryDuty');
+            var params = Store.createParams();
+            
+            axios.post(url,params)
+                    .then((res)=>{
+                res = res.data;
+                if(res.state == 0){
+                    
+                }
+                else{
+                
+                }
+                        });
+        }
     }
 });
 </script>

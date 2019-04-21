@@ -28,18 +28,22 @@ class OrderService extends Service{
     
     private $shopDuty;
     
-    public function __controller(){
-        parent::__controller();
+    private $dutyModel;
+    
+    public function __construct(){
+        parent::__construct();
         $this->shopOrder = new ShopOrder();
         $this->shopOrderProduct = new ShopOrderproduct();
         $this->productService = new ProductService();
         $this->shopDuty = new \model\ShopDuty();
+        $this->dutyModel = new \model\ShopDuty();
     }
     
-    public function generateProductOrder($memberid,$userid,$shopid,$address,$productlist,$ordersource,$remark,$paytype,$from){
+    public function generateProductOrder($memberid,$userid,$shopid,$address,$productlist,$ordersource,$remark,$paytype){
         
         $order = array();
         $order['id'] = $this->generateOrderId();
+        logInfo("orderid:".$order['id']);
         $order['shopid'] = $shopid;
         $order['userid'] = $userid;
         $order['createtime'] = time();
@@ -49,17 +53,16 @@ class OrderService extends Service{
         $order['address'] = $address;
         $order['remark'] = $remark;
         $order['memberid'] = $memberid;
-        $order['paytype'] = $paytype;
-        $order['ordersource'] = $from;
+        $order['paytype'] = $paytype; 
         
         $price = 0;
         foreach($productlist as $key=>$value){
-            $price += $value['price']*$value['num'];
+            $price += $value['price']*$value['num']*100;
         }
         
         $order['orderprice'] = $price;
         
-        $orderResult = $this->shopOrder->saveOrder($order);
+        $orderResult = $this->shopOrder->addOrder($order);
         if($orderResult == false){
             logError("create order error");
             return false;
@@ -71,7 +74,7 @@ class OrderService extends Service{
             $orderProduct["orderid"] = $order['id'];
             $orderProduct["productid"] = $value["productid"];
             $orderProduct['num'] = $value['num'];
-            $orderProduct['orderstate'] = $value['orderstate'];
+            $orderProduct['orderstate'] = OrderType::UnPay;
             
             $this->shopOrderProduct->addOrderProduct($orderProduct);
             
@@ -81,7 +84,7 @@ class OrderService extends Service{
     }
     
     public function generateOrderId(){
-       return date('Ymd') . str_pad(mt_rand(1, 99999), 5, '0', STR_PAD_LEFT);
+       return date('Ymdhis').rand(10000, 99999);
     }
     
     public function payOrder($shopid,$orderid){
@@ -89,8 +92,9 @@ class OrderService extends Service{
         $orderData = array();
         $orderData["id"] = $orderid;
         $orderData["orderstate"] = OrderType::Payed;
+        $orderData['paytime'] = time();
         
-        $this->shopOrder->saveOrder($orderData);
+        $this->shopOrder->saveOrder($orderData,$orderid);
         
         $orderProductData = array(); 
         $orderProductData["orderstate"] = OrderType::Payed;

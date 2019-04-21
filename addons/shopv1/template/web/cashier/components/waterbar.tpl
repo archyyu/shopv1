@@ -80,7 +80,7 @@
                                 <el-col :span="24">合计：80 元</el-col>
                             </el-row>
                             <el-row class="pay-ways">
-                                <el-col :span="8" class="cashpay" @click='createOrder(0)'><iconfont>&#xe6d1;</iconfont> 现金</el-col>
+                                <el-col @click.native="createOrder(0)" :span="8" class="cashpay"><iconfont>&#xe6d1;</iconfont> 现金</el-col>
                                 <el-col :span="8" class="weipay"><iconfont>&#xe669;</iconfont> 微信</el-col>
                                 <el-col :span="8" class="alipay"><iconfont>&#xe666;</iconfont> 支付宝</el-col>
                             </el-row>
@@ -142,21 +142,27 @@ Vue.component('waterbar', {
     },
     methods: {
         
-        createOrder:function(){
+        createOrder:function(paytype){
             
-            var url = UrlHelper.createUrl('product','createOrder');
-            var params = {};
+            var url = UrlHelper.createUrl('order','createOrder');
+            var params = Store.createParams();
+            params.address = this.address;
+            params.paytype = paytype;
+            params.productlist = JSON.stringify(this.cartlist);
             
-            axois.post(url,params)
+            axios.post(url,params)
                     .then((res)=>{
                         res = res.data;
-                console.log(res);
-                if(res.state == 0){
-                    
-                }
-                else{
-                }
-        });
+                        console.log(res);
+                        if(res.state == 0){
+                            console.log("create order ok");
+                            this.$message.success("下单成功");
+                            this.cartlist = [];
+                        }
+                        else{
+                            this.$message.error(res.msg);
+                        }
+                        });
             
         },
         addCart: function (productid, productname, price) {
@@ -209,16 +215,6 @@ Vue.component('waterbar', {
                         this.productlist = res.obj;
                     }
                 });
-        },
-        
-        createOrder:function(paytype){
-            var url = UrlHelper.createUrl('order','createOrder');
-            
-            var params = Store.createParams();
-            params.paytype = paytype;
-            
-            
-            
         },
         
         info:function(){
