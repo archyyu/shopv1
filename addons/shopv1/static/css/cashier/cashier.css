@@ -8,7 +8,7 @@ html, body, #app, .el-tabs {
   border-bottom: none;
 }
 
-.el-tabs__header {
+.el-tabs__header{
   border-bottom-width: 0;
   margin-bottom: 0;
   height: 70px;
