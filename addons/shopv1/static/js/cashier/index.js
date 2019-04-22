@@ -6,11 +6,11 @@ var app = new Vue({
         }
     },
     methods: {
-        handleClick(tab){
+        tab(tab){
             console.log(tab);
             if(tab.$children[0].open){
                 tab.$children[0].open();
             }
-        },
+        }
     }
 });
