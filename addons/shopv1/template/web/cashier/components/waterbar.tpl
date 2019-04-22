@@ -142,6 +142,10 @@ Vue.component('waterbar', {
     },
     methods: {
         
+        open:function(){
+            
+        },
+        
         createOrder:function(paytype){
             
             var url = UrlHelper.createUrl('order','createOrder');

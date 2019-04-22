@@ -8,14 +8,14 @@
                         <el-scrollbar style="height:100%">
                             <ul>
                                 <li v-for="order of orderlist" @click='selectOrder(order.id)'>
-                                    <el-row class="order-list-item">
+                                    <el-row @click='selectOrder(order.id)' class="order-list-item">
                                         <el-col :span="14" class="order-num">
                                             <p>{{order.id}}</p>
                                             <p>编号：A001</p>
                                         </el-col>
                                         <el-col :span="10" class="order-price">
                                             <p>{{order.orderprice/100}}</p>
-                                            <p>{{order.createtime}}</p>
+                                            <p>{{DateUtil.parseTimeInYmdHms(order.createtime)}}</p>
                                         </el-col>
                                     </el-row>
                                 </li>
@@ -40,11 +40,11 @@
                         </el-col>
                         <el-col :span="6">
                             <p>总金额：{{order.orderprice/100 }}</p>
-                            <p>订单状态：{{order.orderstate }}</p>
+                            <p>订单状态：{{ Store.stateToStr(order.orderstate) }}</p>
                             <p>积分抵现：{{0 }}</p>
                         </el-col>
                         <el-col :span="6">
-                            <p>订单来源：<el-tag size="small">收银端</el-tag></p>
+                            <p>订单来源：<el-tag size="small">{{Store.sourceToStr(order.ordersource)}}</el-tag></p>
                         </el-col>
                         <el-col :span="6">
                             <el-button type="primary" class="print-btn">再次打印</el-button>
@@ -62,14 +62,16 @@ Vue.component('order', {
     template: '#order',
     data() {
         return {
+            DateUtil:DateUtil,
+            Store:Store,
             orderlist:[],
-            order:{},
+            order:{}
         };
     },
-    mounted(){
-        this.queryOrderList();
-    },
     methods:{
+        open(){
+            this.queryOrderList();
+        },
         queryOrderList:function(){
             var url = UrlHelper.createUrl('order','cashierQueryOrder');
             
@@ -88,8 +90,8 @@ Vue.component('order', {
                 });
             
         },
-        selectOrder:function(id)){
-            for(let item in this.orderlist){
+        selectOrder:function(id){
+            for(let item of this.orderlist){
                 if(item.id == id){
                     this.order = item;
                     break;

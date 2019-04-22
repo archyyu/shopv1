@@ -10,15 +10,15 @@
         <div class="sub-pane shift-data" v-if="firstPaneShow == 'shiftData'">
             <el-row :gutter="15" class="shift-info">
                 <el-col :span="12">
-                    接班时间：{{ }}
+                    接班时间：{{ DateUtil.parseTimeInYmdHms(duty.starttime) }}
                 </el-col>
                 <el-col :span="12">
-                    现在时间{{ }}
+                    现在时间：{{ DateUtil.parseTimeInYmdHms(duty.endtime)}}
                 </el-col>
             </el-row>
             <el-row :gutter="15" class="shift-info">
                 <el-col :span="12">
-                    当前值班{{ }}
+                    当前值班：{{ }}
                 </el-col>
             </el-row>
             <el-row :gutter="15" class="shift-table">
@@ -75,22 +75,26 @@ Vue.component('shift', {
     data() {
         return {
             firstPaneShow: 'shiftData',
+            Store:Store,
+            DateUtil:DateUtil,
             duty:{
                 starttime:0,
-                endtime:0
-            },
-            dutyData:[{
+                endtime:0,
                 productcash:0,
                 productwechat:0,
                 productalipay:0
+            },
+            dutyData:[{
+                    productcash:0,
+                    productwechat:0,
+                    productalipay:0
                 }]
         };
     },
-    mounted:{
-    },
     methods:{
-        open:function(){
+        open(){
             //todo
+            this.queryCurrentDuty();
         },
         queryCurrentDuty:function(){
             var url = UrlHelper.createUrl('duty','queryDuty');
@@ -100,10 +104,11 @@ Vue.component('shift', {
                     .then((res)=>{
                 res = res.data;
                 if(res.state == 0){
-                    
+                    this.duty = res.obj;
+                    this.dutyData[0] = this.duty;
                 }
                 else{
-                
+                    this.$message.success(res.msg);
                 }
                         });
         }

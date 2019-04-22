@@ -127,14 +127,14 @@ class OrderService extends Service{
     public function generateDuty($shopid){
         $starttime = 0;
         
-        $lastDuty = $this->dutyModel->selectShopLastDuty($shopid);
+        $lastDuty = $this->shopDuty->selectShopLastDuty($shopid);
         if(isset($lastDuty)){
             $starttime = $lastDuty["submittime"];
         }
         
         $endtime = time();
         
-        $orderList = $this->orderModel->findShopOrderList($shopid, $starttime, $endtime);
+        $orderList = $this->shopOrder->findShopOrderList($shopid, $starttime, $endtime);
         
         $productcash = 0;
         $productwechat = 0;
@@ -156,6 +156,7 @@ class OrderService extends Service{
         }
         
         $duty['starttime'] = $starttime;
+        $duty['endtime'] = time();
         $duty['productcash'] = $productcash;
         $duty['productwechat'] = $productwechat;
         $duty['productalipay'] = $productalipay;

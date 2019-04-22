@@ -2,7 +2,7 @@
 
 
 <div id="app">
-    <el-tabs value="waterbar" type="card" @tab-click="handleClick">
+    <el-tabs value="waterbar" type="card" @tab-click="tab" >
         <el-tab-pane name="waterbar" class="waterbar">
             <span slot="label"><iconfont iconclass="icon-wangdianguanli"></iconfont> 水吧</span>
             <waterbar></waterbar>
@@ -33,6 +33,8 @@
 {include file="./components/iconfont.tpl"}
 
 <script src="{$StaticRoot}/js/cashier/index.js"></script>
+<script src="{$StaticRoot}/js/cashier/dateUtil.js"></script>
+
 
 
 {include file="./common/footer.tpl"}
