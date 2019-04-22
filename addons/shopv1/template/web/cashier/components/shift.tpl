@@ -89,6 +89,9 @@ Vue.component('shift', {
     mounted:{
     },
     methods:{
+        open:function(){
+            //todo
+        },
         queryCurrentDuty:function(){
             var url = UrlHelper.createUrl('duty','queryDuty');
             var params = Store.createParams();
