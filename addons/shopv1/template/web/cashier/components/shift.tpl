@@ -2,7 +2,7 @@
     {literal}
     <div class="shift">
         <el-button-group class="btn-nav-group">
-            <el-radio-group v-model="firstPaneShow" size="small">
+            <el-radio-group v-model="firstPaneShow" @change="selectProduct" size="small">
                 <el-radio-button label="shiftData">交班数据</el-radio-button>
                 <el-radio-button label="product">商品核对</el-radio-button>
             </el-radio-group>
@@ -24,10 +24,10 @@
             <el-row :gutter="15" class="shift-table">
                 <el-col :span="12" :offset="6">
                     <el-table :data="dutyData" size="mini" border>
-                        <el-table-column label="现金收入"></el-table-column>
-                        <el-table-column label="微信收入"></el-table-column>
-                        <el-table-column label="支付宝收入"></el-table-column>
-                        <el-table-column label="总收入"></el-table-column>
+                        <el-table-column prop="productcash" label="现金收入"></el-table-column>
+                        <el-table-column prop="productwechat" label="微信收入"></el-table-column>
+                        <el-table-column prop="productalipay" label="支付宝收入"></el-table-column>
+                        <el-table-column prop="productsum" label="总收入"></el-table-column>
                     </el-table>
                 </el-col>
                 <!-- <el-col :span="12">
@@ -55,13 +55,13 @@
                 <el-button type="primary" size="small">交班</el-button>
             </div>
         </div>
-        <div class="sub-pane shift-product" v-else>
+        <div class="sub-pane shift-product" :data='productlist' v-else>
             <el-table height="100%" size="mini" border>
-                <el-table-column label="商品分类"></el-table-column>
-                <el-table-column label="商品名称"></el-table-column>
-                <el-table-column label="单价"></el-table-column>
-                <el-table-column label="销量"></el-table-column>
-                <el-table-column label="销售额"></el-table-column>
+                <el-table-column prop='producttype' label="商品分类"></el-table-column>
+                <el-table-column prop='productname' label="商品名称"></el-table-column>
+                <el-table-column prop='price' label="单价"></el-table-column>
+                <el-table-column prop='num' label="销量"></el-table-column>
+                <el-table-column prop='sum' label="销售额"></el-table-column>
             </el-table>
         </div>
     </div>
@@ -87,8 +87,10 @@ Vue.component('shift', {
             dutyData:[{
                     productcash:0,
                     productwechat:0,
-                    productalipay:0
-                }]
+                    productalipay:0,
+                    sum:0
+                }],
+            productlist:[]
         };
     },
     methods:{
@@ -111,6 +113,32 @@ Vue.component('shift', {
                     this.$message.success(res.msg);
                 }
                         });
+        },
+        
+        selectProduct:function(){
+            if(this.firstPaneShow == "product"){
+                this.queryCurrentProductList();
+            }
+        },
+        
+        queryCurrentProductList:function(){
+            var url = UrlHelper.createUrl("order","queryDutyProductList");
+            var params = Store.createParams();
+            
+            axios.post(url,params)
+                    .then((res)=>{
+                         res = res.data;
+                         if(res.state ==0){
+                                this.productlist = res.obj;
+                             }
+                             else{
+                                this.$message.error(res.msg);
+                             }
+                        });
+        },
+        
+        info:function(){
+            
         }
     }
 });

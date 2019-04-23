@@ -33,6 +33,15 @@ class ShopProductType extends Model{
         }
     }
     
-    
+    public function getProductTypeMap($uniacid){
+        
+        $list = $this->getList("*",['uniacid'=>$uniacid,'visible'=>0]);
+        
+        $map = array();
+        foreach($list as $key=>$value){
+            $map[$value['id']] = $value['typename'];
+        }
+        return $map;
+    }
     
 }

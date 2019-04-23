@@ -68,21 +68,15 @@ class Router {
 }
 $logger = new common\Logger("development.log", common\Logger::INFO);
 function logInfo($msg){
-    global $logger;
-    $logger->info($msg);
+    
 }
 
 function logError($msg){
-    global $logger;
-    $logger->error($msg);
+    
 }
 
 function logInfoWithArr($info,$arr){
-    foreach($arr as $key=>$value){
-        $info .= " key:$key value:$value";
-    }
     
-    logInfo($info);
 }
 
 

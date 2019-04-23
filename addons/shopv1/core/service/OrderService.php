@@ -54,6 +54,7 @@ class OrderService extends Service{
         $order['remark'] = $remark;
         $order['memberid'] = $memberid;
         $order['paytype'] = $paytype; 
+        $order['orderdetail'] = json_encode($productlist);
         
         $price = 0;
         foreach($productlist as $key=>$value){
@@ -114,7 +115,7 @@ class OrderService extends Service{
     }
     
     public function queryLastDutyTime($shopid){
-        $starttime = 0;
+        $starttime = 631152000;
         
         $lastDuty = $this->dutyModel->selectShopLastDuty($shopid);
         if(isset($lastDuty)){
@@ -157,9 +158,10 @@ class OrderService extends Service{
         
         $duty['starttime'] = $starttime;
         $duty['endtime'] = time();
-        $duty['productcash'] = $productcash;
-        $duty['productwechat'] = $productwechat;
-        $duty['productalipay'] = $productalipay;
+        $duty['productcash'] = $productcash/100;
+        $duty['productwechat'] = $productwechat/100;
+        $duty['productalipay'] = $productalipay/100;
+        $duty['productsum'] = ($productcash + $productwechat + $productalipay)/100;
         
         return $duty;
     }

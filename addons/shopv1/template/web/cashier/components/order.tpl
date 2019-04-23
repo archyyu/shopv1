@@ -12,7 +12,7 @@
                                         <el-col :span="14" class="order-num">
                                             <p>{{order.id}}</p>
                                             <p>编号：A001</p>
-                                        </el-col>
+                                        </el-col>   
                                         <el-col :span="10" class="order-price">
                                             <p>{{order.orderprice/100}}</p>
                                             <p>{{DateUtil.parseTimeInYmdHms(order.createtime)}}</p>
@@ -24,22 +24,20 @@
                     </div>
                 </el-col>
                 <el-col :span="17" class="order-detail">
-                    <el-table height="calc(100% - 140px)" border>
-                        <el-table-column label="商品名"></el-table-column>
-                        <el-table-column label="原价"></el-table-column>
-                        <el-table-column label="折扣"></el-table-column>
-                        <el-table-column label="优惠金额"></el-table-column>
-                        <el-table-column label="出售价"></el-table-column>
-                        <el-table-column label="数量"></el-table-column>
+                    <el-table :data='productlist' height="calc(100% - 140px)" border>
+                        <el-table-column prop="productid" label="商品id"></el-table-column>
+                        <el-table-column prop="productname" label="商品名"></el-table-column>
+                        <el-table-column prop="price" label="出售价(元)"></el-table-column>
+                        <el-table-column prop="num" label="数量"></el-table-column>
                     </el-table>
                     <el-row>
                         <el-col :span="6">
-                            <p>数量：{{ }}</p>
+                            <p>数量：{{ getOrderProductNum() }}</p>
                             <p>会员：{{ }}</p>
                             <p>地址：{{order.address }}</p>
                         </el-col>
                         <el-col :span="6">
-                            <p>总金额：{{order.orderprice/100 }}</p>
+                            <p>总金额：{{order.orderprice/100 }}元</p>
                             <p>订单状态：{{ Store.stateToStr(order.orderstate) }}</p>
                             <p>积分抵现：{{0 }}</p>
                         </el-col>
@@ -65,12 +63,20 @@ Vue.component('order', {
             DateUtil:DateUtil,
             Store:Store,
             orderlist:[],
-            order:{}
+            order:{},
+            productlist:[]
         };
     },
     methods:{
         open(){
             this.queryOrderList();
+        },
+        getOrderProductNum:function(){
+            let cnt = 0;
+            for(let item of this.productlist){
+                cnt += item.num;
+            }
+            return cnt;
         },
         queryOrderList:function(){
             var url = UrlHelper.createUrl('order','cashierQueryOrder');
@@ -83,6 +89,7 @@ Vue.component('order', {
                             this.orderlist = res.obj;
                             console.log(res.obj);
                             this.order = this.orderlist[0];
+                            this.productlist = JSON.parse(this.order.orderdetail);
                         }
                         else{
                             //this.$message.error(res.msg);
@@ -94,6 +101,7 @@ Vue.component('order', {
             for(let item of this.orderlist){
                 if(item.id == id){
                     this.order = item;
+                    this.productlist = JSON.parse(this.order.orderdetail);
                     break;
                 }
             }

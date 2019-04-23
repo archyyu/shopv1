@@ -19,10 +19,13 @@ class OrderController extends \controller\Controller{
     
     private $orderModel;
     
+    private $productTypeModel;
+    
     public function __construct() {
         parent::__construct();
+        $this->productTypeModel = new \model\ShopProductType();
         $this->orderService = new \service\OrderService();
-        $this->orderModel = new \model\ShopOrder();
+        $this->orderModel = new \model\ShopOrder(); 
     }
     
     public function createOrder(){
@@ -64,6 +67,54 @@ class OrderController extends \controller\Controller{
         
         $this->returnSuccess($orderList);
         
+    }
+    
+    public function queryDutyProductList(){
+        
+        $shopid = $this->getParam("shopid");
+        $uniacid = $this->shopModel->findShopById($shopid)['uniacid'];
+        $starttime = $this->orderService->queryLastDutyTime($shopid);
+        $endtime = time();
+        
+        $orderList = $this->orderModel->findShopOrderList($shopid, $starttime, $endtime);
+        
+        $productlist = array();
+        
+        foreach($orderList as $key=>$value){
+            
+            $productinfo = json_decode($value['orderdetail'], true);
+            $productid = $productinfo['productid'];
+            
+            if(isset($productlist[$productid])){
+                
+                $item = array();
+                
+                $productlist[$productid]["productid"] = $productid;
+                $productlist[$productid]["num"] = $productinfo['num'];
+                $productlist[$productid]['sum'] = $productinfo['num']*$productinfo['price'];
+                $productlist[$productid]['price'] = $productinfo['price'];
+                
+            }
+            else{
+                
+                $productlist[$productid]["num"] += $productinfo['num'];
+                $productlist[$productid]['sum'] += $productinfo['num']*$productinfo['price'];
+                $productlist[$productid]['price'] = $productinfo['price'];
+            }
+            
+            $productlist[$productid] = $item;
+            
+        }
+        
+        $typeMap = $this->productTypeModel->getProductTypeMap($uniacid);
+        
+        $list = array();
+        foreach($productlist as $key=>$value){
+            $value['producttype'] = "-";
+            $list[] = $value;
+        }
+        
+        $this->returnSuccess($list);
     }
     
 }
