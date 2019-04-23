@@ -155,6 +155,11 @@ class ProductController extends Controller{
         foreach($productList as $k=>$v){
             $productList[$k]['typename'] = $map[$v['typeid']]['typename'];
             
+            if($v['producttype'] == 1 || $v['producttype'] == -1 || $v['producttype'] == 3){
+                $productList[$k]['inventory'] = '-';
+                continue;
+            }
+            
             $inventory = $this->productService->findInventoryBy(0, $v['id'], $storeid);
             $productList[$k]['inventory'] = $inventory['inventory'];
         }

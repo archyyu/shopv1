@@ -39,7 +39,7 @@
                             </div>
                         </el-col>
                     </el-row>
-                </el-col>
+                </el-col>   
                 <el-col :span="6" class="sale-cart">
                     <div class="cart-title" v-if="cartMain">购物车
                         <el-button type="success" size="mini" plain v-if="editBtnShow">编辑</el-button>
@@ -59,9 +59,9 @@
                                 <el-row class="cart-item-num">
                                     <el-col :span="8">￥{{cart.price}}</el-col>
                                     <el-col :span="10" class="num-cal">
-                                        <span class="num-operate minus">-</span>
+                                        <span @click="cartDeduct(cart.productid)" class="num-operate minus">-</span>
                                         {{cart.num}}
-                                        <span class="num-operate add">+</span>
+                                        <span @click='cartAdd(cart.productid)' class="num-operate add">+</span>
                                     </el-col>
                                 </el-row>
                             </div>
@@ -77,7 +77,7 @@
                                 </el-col>
                             </el-row>
                             <el-row class="pay-sum">
-                                <el-col :span="24">合计：80 元</el-col>
+                                <el-col :span="24">合计：{{getCartSum()}} 元</el-col>
                             </el-row>
                             <el-row class="pay-ways">
                                 <el-col @click.native="createOrder(0)" :span="8" class="cashpay"><iconfont>&#xe6d1;</iconfont> 现金</el-col>
@@ -169,6 +169,33 @@ Vue.component('waterbar', {
                         });
             
         },
+        
+        cartAdd:function(productid){
+            
+            for (var i = 0; i < this.cartlist.length; i++) {
+                if (this.cartlist[i].productid == productid) {
+                    this.cartlist[i].num += 1;
+                    this.cartlist[i].price += this.cartlist[i].price;
+                    return;
+                }
+            }
+            
+        },
+        
+        cartDeduct:function(productid){
+            for (var i = 0; i < this.cartlist.length; i++) {
+                if (this.cartlist[i].productid == productid) {
+                    this.cartlist[i].num -= 1;
+                    
+                    if(this.cartlist[i].num == 0){
+                        this.cartlist.splice(i);
+                    }
+                    
+                    return;
+                }
+            }
+        },
+        
         addCart: function (productid, productname, price) {
 
             for (var i = 0; i < this.cartlist.length; i++) {
@@ -186,6 +213,14 @@ Vue.component('waterbar', {
             cart.productname = productname;
             this.cartlist.push(cart);
         },
+        
+        getCartSum:function(){
+            let sum = 0;
+            for(let cart of this.cartlist){
+                sum += cart.price;
+            }
+            return sum;
+        },
 
         queryTypeList: function (typeid) {
             var params = {};
@@ -197,7 +232,8 @@ Vue.component('waterbar', {
                     if (res.state == 0) {
                         this.typelist = res.obj;
                         this.defaulttypeid = this.typelist[0].id;
-                        this.activeNav = res.obj[0].id 
+                        this.activeNav = res.obj[0].id;
+                        this.queryProductList(this.defaulttypeid);
                     }
                 });
         },

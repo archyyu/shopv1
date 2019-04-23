@@ -92,6 +92,7 @@ class OrderController extends \controller\Controller{
                     $item = array();
                        
                     $item['productid'] = $productid;
+                    $item['productname'] = $productinfovalue->productname;
                     $item["num"] = $productinfovalue->num;
                     $item['sum'] = $productinfovalue->num*$productinfovalue->price;
                     $item['price'] = $productinfovalue->price;

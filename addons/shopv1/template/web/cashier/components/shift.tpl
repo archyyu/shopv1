@@ -55,8 +55,8 @@
                 <el-button type="primary" size="small">交班</el-button>
             </div>
         </div>
-        <div class="sub-pane shift-product" :data='productData' v-else>
-            <el-table height="100%" size="mini" border>
+        <div class="sub-pane shift-product"  v-else>
+            <el-table height="100%" :data='productData' size="mini" border>
                 <el-table-column prop='producttype' label="商品分类"></el-table-column>
                 <el-table-column prop='productname' label="商品名称"></el-table-column>
                 <el-table-column prop='price' label="单价"></el-table-column>

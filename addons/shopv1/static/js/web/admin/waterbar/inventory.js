@@ -343,6 +343,7 @@ var Inventory = {
       params.index = $("#addProductModal [name=index]").val();
       params.attributes = $("#addProductModal [name=attributes]").val();
       params.unit = $("#addProductModal [name=unit]").val();
+      params.typeid = $("#addProductModal [name=typeid]").val();
       
       var list = [];
       $("#addProductModal [name=associalproduct]").each(function(){
