@@ -8,6 +8,7 @@ var app = new Vue({
     methods: {
         tab(tab){
             console.log(tab);
+            console.log(tab.$children)
             if(tab.$children[0].open){
                 tab.$children[0].open();
             }

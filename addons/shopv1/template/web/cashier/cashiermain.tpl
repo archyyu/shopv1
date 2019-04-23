@@ -7,15 +7,15 @@
             <span slot="label"><iconfont iconclass="icon-wangdianguanli"></iconfont> 水吧</span>
             <waterbar></waterbar>
         </el-tab-pane>
-        {*<el-tab-pane name="broadcast" lazy>
+        {*<el-tab-pane name="broadcast">
             <span slot="label"><iconfont iconclass="icon-xingxiaoxiaoguo"></iconfont> 语音播报</span>
             <broadcast></broadcast>
         </el-tab-pane>*}
-        <el-tab-pane name="shift" lazy>
+        <el-tab-pane name="shift">
             <span slot="label"><iconfont iconclass="icon-shouzhiliushuizhang"></iconfont> 交班</span>
             <shift></shift>
         </el-tab-pane>
-        <el-tab-pane name="order" lazy>
+        <el-tab-pane name="order">
             <span slot="label"><iconfont iconclass="icon-liushui"></iconfont> 订单管理</span>
             <order></order>
         </el-tab-pane>
@@ -32,8 +32,8 @@
 {include file="./components/order.tpl"}
 {include file="./components/iconfont.tpl"}
 
-<script src="{$StaticRoot}/js/cashier/index.js"></script>
 <script src="{$StaticRoot}/js/cashier/dateUtil.js"></script>
+<script src="{$StaticRoot}/js/cashier/index.js"></script>
 
 
 
