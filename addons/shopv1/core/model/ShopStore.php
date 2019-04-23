@@ -22,6 +22,18 @@ class ShopStore extends Model{
         return $this->getList('*', ['uniacid'=>$uniacid]);
     }
     
+    public function addStore($name,$shopid,$uniacid){
+        
+        $data = array();
+        $data["storename"] = $name;
+        $data['shopid'] = $shopid;
+        $data['uniacid'] = $uniacid;
+        $data['createdate'] = date("Y-m-d H:i:s");
+        
+        $this->add($data);
+        return $data["lastInsertId"];
+    }
+    
     public function saveStore($data){
         
         if(isset($data['id'])){
