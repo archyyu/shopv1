@@ -8,7 +8,7 @@ html, body, #app, .el-tabs {
   border-bottom: none;
 }
 
-.el-tabs__header{
+.el-tabs__header {
   border-bottom-width: 0;
   margin-bottom: 0;
   height: 70px;
@@ -216,7 +216,7 @@ html, body, #app, .el-tabs {
 
 .waterbar .sale .sale-cart {
   height: 100%;
-  padding-bottom: 15px;
+  padding-bottom: 20px;
 }
 
 .waterbar .sale .sale-cart .cart-title {
@@ -233,6 +233,19 @@ html, body, #app, .el-tabs {
 
 .waterbar .sale .sale-cart .cart-title .el-button + .el-button {
   margin-right: 5px;
+}
+
+.waterbar .sale .sale-cart .checkout-title {
+  height: 30px;
+  line-height: 20px;
+  padding-bottom: 10px;
+  text-align: center;
+}
+
+.waterbar .sale .sale-cart .checkout-title .checkout-back {
+  float: left;
+  padding: 5px;
+  border-width: 0;
 }
 
 .waterbar .sale .sale-cart .cart-wrap {
@@ -352,6 +365,67 @@ html, body, #app, .el-tabs {
   display: block;
   font-size: 24px;
   margin-bottom: 5px;
+}
+
+.waterbar .sale .sale-cart .cart-wrap .cart-qrcode {
+  text-align: center;
+  padding-left: 15px;
+  padding-right: 15px;
+}
+
+.waterbar .sale .sale-cart .cart-wrap .cart-qrcode .qrcode {
+  height: 150px;
+  width: 150px;
+  margin: 0 auto;
+}
+
+.waterbar .sale .sale-cart .cart-wrap .cart-qrcode .qrcode img {
+  height: 100%;
+  width: 100%;
+}
+
+.waterbar .sale .sale-cart .cart-wrap .cart-qrcode .confirm-btn {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  border-width: 0;
+  border-top-width: 1px;
+  border-radius: 0;
+  width: 100%;
+}
+
+.waterbar .sale .sale-cart .cart-wrap .cart-checkout {
+  text-align: center;
+}
+
+.waterbar .sale .sale-cart .cart-wrap .cart-checkout .check-icon {
+  color: #67C23A;
+  font-size: 45px;
+  margin-top: 80px;
+}
+
+.waterbar .sale .sale-cart .cart-wrap .cart-checkout .checkout-text {
+  color: #67C23A;
+}
+
+.waterbar .sale .sale-cart .cart-wrap .cart-checkout .checkout-money {
+  margin-top: 40px;
+}
+
+.waterbar .sale .sale-cart .cart-wrap .cart-checkout .checkout-money > span {
+  font-size: 25px;
+}
+
+.waterbar .sale .sale-cart .cart-wrap .cart-checkout .confirm-btn {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  border-width: 0;
+  border-top-width: 1px;
+  border-radius: 0;
+  width: 100%;
 }
 
 .waterbar .sale .attribute-modal .el-radio {

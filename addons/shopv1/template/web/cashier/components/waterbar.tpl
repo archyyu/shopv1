@@ -48,42 +48,58 @@
                         <el-button type="danger" size="mini" plain v-if="!editBtnShow">清除</el-button>
                     </div>
                     <div class="checkout-title" v-if="!cartMain">
-                        <div class=""><a href="#"><span class="icon iconfont back">&#xe61c;</span></a></div>
-                        <div class="">结账</div>
+                        <el-button size="mini" class="checkout-back"><span class="icon iconfont back">&#xe603;</span></el-button>
+                        <div class="checkout-title">结账</div>
                     </div>
                     <div class="cart-wrap">
-                        <div class="cart-list">
-                            <div class="cart-item" v-for="cart in cartlist">
-                                <div class="cart-item-title">{{cart.productname}}
+                        <div class="cart-main" v-if="cartMain">
+                            <div class="cart-list">
+                                <div class="cart-item" v-for="cart in cartlist">
+                                    <div class="cart-item-title">{{cart.productname}}
+                                    </div>
+                                    <el-row class="cart-item-num">
+                                        <el-col :span="8">￥{{cart.price}}</el-col>
+                                        <el-col :span="10" class="num-cal">
+                                            <span class="num-operate minus">-</span>
+                                            {{cart.num}}
+                                            <span class="num-operate add">+</span>
+                                        </el-col>
+                                    </el-row>
                                 </div>
-                                <el-row class="cart-item-num">
-                                    <el-col :span="8">￥{{cart.price}}</el-col>
-                                    <el-col :span="10" class="num-cal">
-                                        <span class="num-operate minus">-</span>
-                                        {{cart.num}}
-                                        <span class="num-operate add">+</span>
+                            </div>
+                            <div class="pay-info">
+                                <el-row class="pay-num">
+                                    <el-col :span="24">
+                                        <el-form>
+                                            <el-form-item label="座位/牌号:" label-width="80px">
+                                                <el-input size="mini" v-model='address'></el-input>
+                                            </el-form-item>
+                                        </el-form>
                                     </el-col>
+                                </el-row>
+                                <el-row class="pay-sum">
+                                    <el-col :span="24">合计：80 元</el-col>
+                                </el-row>
+                                <el-row class="pay-ways">
+                                    <el-col @click.native="createOrder(0)" :span="8" class="cashpay"><iconfont>&#xe6d1;</iconfont> 现金</el-col>
+                                    <el-col :span="8" class="weipay"><iconfont>&#xe669;</iconfont> 微信</el-col>
+                                    <el-col :span="8" class="alipay"><iconfont>&#xe666;</iconfont> 支付宝</el-col>
                                 </el-row>
                             </div>
                         </div>
-                        <div class="pay-info">
-                            <el-row class="pay-num">
-                                <el-col :span="24">
-                                    <el-form>
-                                        <el-form-item label="座位/牌号:" label-width="80px">
-                                            <el-input size="mini" v-model='address'></el-input>
-                                        </el-form-item>
-                                    </el-form>
-                                </el-col>
-                            </el-row>
-                            <el-row class="pay-sum">
-                                <el-col :span="24">合计：80 元</el-col>
-                            </el-row>
-                            <el-row class="pay-ways">
-                                <el-col @click.native="createOrder(0)" :span="8" class="cashpay"><iconfont>&#xe6d1;</iconfont> 现金</el-col>
-                                <el-col :span="8" class="weipay"><iconfont>&#xe669;</iconfont> 微信</el-col>
-                                <el-col :span="8" class="alipay"><iconfont>&#xe666;</iconfont> 支付宝</el-col>
-                            </el-row>
+                        <div class="cart-qrcode" v-else-if="qrcodeShow">
+                            <p class="order-id">123456789</p>
+                            <div class="qrcode"> <img src="http://placehold.it/150x150"> </div>
+                            <p class="tips">若扫码未自动跳转，请确认付款后，点击确认支付！</p>
+                            <el-button type="primary" plain class="confirm-btn">确认支付</el-button>
+                        </div>
+                        <div class="cart-checkout" v-else>
+                            <div class="check-icon">
+                                <span class="el-icon-success"></span>
+                            </div>
+                            <p class="checkout-text">订单支付成功！</p>
+                            <div class="checkout-money">订单金额：<span>￥12.88</span></div>
+                            <el-button type="primary" plain class="confirm-btn">返回购物车</el-button>
                         </div>
                     </div>
                 </el-col>
@@ -125,8 +141,9 @@ Vue.component('waterbar', {
     data() {
         return {
             firstPaneShow: 'sale',
-            cartMain: true,
             editBtnShow: true,
+            cartMain: true,
+            qrcodeShow: false,
             activeNav: 0,
             typelist: [],
             productlist: [],

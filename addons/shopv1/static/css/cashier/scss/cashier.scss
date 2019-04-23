@@ -201,7 +201,7 @@ html,body,#app,.el-tabs{
         }
         .sale-cart{
             height: 100%;
-            padding-bottom: 15px;
+            padding-bottom: 20px;
             .cart-title{
                 @include waterbar-title;
                 .el-button{
@@ -211,6 +211,15 @@ html,body,#app,.el-tabs{
                     + .el-button{
                         margin-right: 5px;
                     }
+                }
+            }
+            .checkout-title{
+                @include waterbar-title;
+                text-align: center;
+                .checkout-back{
+                    float: left;
+                    padding: 5px;
+                    border-width: 0;
                 }
             }
             .cart-wrap{
@@ -294,6 +303,57 @@ html,body,#app,.el-tabs{
                                 margin-bottom: 5px;
                             }
                         }
+                    }
+                }
+                .cart-qrcode{
+                    text-align: center;
+                    padding-left: 15px;
+                    padding-right: 15px;
+                    .qrcode{
+                        height: 150px;
+                        width: 150px;
+                        margin: 0 auto;
+                        img{
+                            height: 100%;
+                            width: 100%;
+                        }
+                    }
+                    .confirm-btn{
+                        position: absolute;
+                        left: 0;
+                        right: 0;
+                        bottom: 0;
+                        border-width: 0;
+                        border-top-width: 1px;
+                        border-radius: 0;
+                        width: 100%;
+                    }
+                }
+                .cart-checkout{
+                    text-align: center;
+                    .check-icon{
+                        color: #67C23A;
+                        font-size: 45px;
+                        margin-top: 80px;
+                    }
+                    .checkout-text{
+                        color: #67C23A;
+                    }
+                    .checkout-money{
+                        margin-top: 40px;
+                        >span{
+                            font-size: 25px;
+                        }
+                    }
+                    .confirm-btn{
+                        position: absolute;
+                        left: 0;
+                        right: 0;
+                        bottom: 0;
+                        border-width: 0;
+                        border-top-width: 1px;
+                        border-radius: 0;
+                        width: 100%;
                     }
                 }
             }
