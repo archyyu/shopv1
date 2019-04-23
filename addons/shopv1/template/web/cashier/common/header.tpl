@@ -21,6 +21,40 @@
   <script src="{$StaticRoot}/js/dist/moment-zh-cn.js"></script>
 
   <script>
+    // Global Loading setting
+    var loading = null;
+    function startLoading (){
+      loading = app.$loading({
+        lock: true,
+        text: '页面加载中',
+        spinner: 'el-icon-loading',
+        background: 'rgba(0, 0, 0, 0.7)'
+      });
+      console.log(app)
+      console.log(loading)
+    }
+    function stopLoading (){
+      loading.close();
+    }
+    // request interceptor
+    axios.interceptors.request.use(function(config){
+      startLoading()
+      console.log("ElementUI")
+      return config
+    }, function(error){
+      return Promise.reject(error);
+    });
+    // response interceptor
+    axios.interceptors.response.use(function(res){
+      stopLoading()
+      return res
+    }, function(error){
+      console.log('err')
+      stopLoading()
+      app.$message.error('网络连接失败');
+      return Promise.reject(error);
+    });
+
     // axios.defaults.baseURL = ""
     axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
     axios.defaults.transformRequest = [function (data) {
