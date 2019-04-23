@@ -82,31 +82,39 @@ class OrderController extends \controller\Controller{
         
         foreach($orderList as $key=>$value){
             
-            $productinfo = json_decode($value['orderdetail'], true);
-            $productid = $productinfo['productid'];
+            $productinfo = json_decode($value['orderdetail']);
             
-            if(isset($productlist[$productid])){
-                
-                $item = array();
-                
-                $productlist[$productid]["productid"] = $productid;
-                $productlist[$productid]["num"] = $productinfo['num'];
-                $productlist[$productid]['sum'] = $productinfo['num']*$productinfo['price'];
-                $productlist[$productid]['price'] = $productinfo['price'];
-                
-            }
-            else{
-                
-                $productlist[$productid]["num"] += $productinfo['num'];
-                $productlist[$productid]['sum'] += $productinfo['num']*$productinfo['price'];
-                $productlist[$productid]['price'] = $productinfo['price'];
-            }
+            foreach($productinfo as $key=>$productinfovalue)
+            {
+                $productid = $productinfovalue->productid;
+
+                if(isset($productlist[$productid]) == false){
+                    $item = array();
+                       
+                    $item['productid'] = $productid;
+                    $item['productname'] = $productinfovalue->productname;
+                    $item["num"] = $productinfovalue->num;
+                    $item['sum'] = $productinfovalue->num*$productinfovalue->price;
+                    $item['price'] = $productinfovalue->price;
+
+                }
+                else{
+                    $item = $productlist[$productid];
+                    
+                    $item['productid'] = $productid;
+                    $item["num"] += $productinfovalue->num;
+                    $item['sum'] += $productinfovalue->num*$productinfovalue->price;
+                    $item['price'] = $productinfovalue->price;
+
+                }
+
+                $productlist[$productid] = $item;
             
-            $productlist[$productid] = $item;
+            }
             
         }
         
-        $typeMap = $this->productTypeModel->getProductTypeMap($uniacid);
+        //$typeMap = $this->productTypeModel->getProductTypeMap($uniacid);
         
         $list = array();
         foreach($productlist as $key=>$value){

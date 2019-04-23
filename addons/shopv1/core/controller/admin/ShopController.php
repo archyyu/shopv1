@@ -20,9 +20,12 @@ class ShopController extends Controller{
     
     private $userModel;
     
+    private $storeModel;
+    
     public function __construct() {
         parent::__construct();
         $this->userModel = new \model\ShopUser();
+        $this->storeModel = new \model\ShopStore();
     }
     
     public function index(){
@@ -116,6 +119,22 @@ class ShopController extends Controller{
         }
         
         $result = $this->shopModel->saveShop($data);
+        
+        if(isset($sid) == false){
+            //新建门店
+            $sid = $data["lastInsertId"];
+            //创建默认库房
+            
+            $storeid = $this->storeModel->addStore($shopname."的库房", $sid,  $data['uniacid']);
+            
+            $newData = array();
+            $newData['id'] = $sid;
+            $newData['defaultstoreid'] = $storeid;
+            
+            $this->shopModel->saveShop($newData);
+            
+        }
+        
         if($result){
             $this->returnSuccess();
         }

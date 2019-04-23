@@ -129,9 +129,10 @@ class ProductService extends Service{
             return 1;
         }
         
-        if($product['producttype'] == ProductType::FinishProduct){
+        if($product['producttype'] == ProductType::FinishProduct || $product['producttype'] == ProductType::Material){
             return $this->updateMaterialInventory($shop['uniacid'],$shopid, $productId, $shop['defaultstoreid'], -$productNum,$type,$detail);
         }
+        
         
         if($product['producttype'] == ProductType::SelfMadeProduct){
             
