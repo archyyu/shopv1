@@ -55,7 +55,7 @@
                 <el-button type="primary" size="small">交班</el-button>
             </div>
         </div>
-        <div class="sub-pane shift-product" :data='productlist' v-else>
+        <div class="sub-pane shift-product" :data='productData' v-else>
             <el-table height="100%" size="mini" border>
                 <el-table-column prop='producttype' label="商品分类"></el-table-column>
                 <el-table-column prop='productname' label="商品名称"></el-table-column>
@@ -90,7 +90,7 @@ Vue.component('shift', {
                     productalipay:0,
                     sum:0
                 }],
-            productlist:[]
+            productData:[]
         };
     },
     methods:{
@@ -128,8 +128,8 @@ Vue.component('shift', {
             axios.post(url,params)
                     .then((res)=>{
                          res = res.data;
-                         if(res.state ==0){
-                                this.productlist = res.obj;
+                         if(res.state == 0){
+                                this.productData = res.obj;
                              }
                              else{
                                 this.$message.error(res.msg);
