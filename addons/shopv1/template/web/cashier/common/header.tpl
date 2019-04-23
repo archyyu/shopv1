@@ -30,8 +30,6 @@
         spinner: 'el-icon-loading',
         background: 'rgba(0, 0, 0, 0.7)'
       });
-      console.log(app)
-      console.log(loading)
     }
     function stopLoading (){
       loading.close();
@@ -39,7 +37,6 @@
     // request interceptor
     axios.interceptors.request.use(function(config){
       startLoading()
-      console.log("ElementUI")
       return config
     }, function(error){
       return Promise.reject(error);
