@@ -7,7 +7,7 @@
                     <div class="order-list">
                         <el-scrollbar style="height:100%">
                             <ul>
-                                <li v-for="order of orderlist" @click='selectOrder(order.id)'>
+                                <li v-for="order of orderlist" :class="{'active': order.id == activeLi}" @click='selectOrder(order.id)'>
                                     <el-row @click='selectOrder(order.id)' class="order-list-item">
                                         <el-col :span="14" class="order-num">
                                             <p>{{order.id}}</p>
@@ -15,7 +15,7 @@
                                         </el-col>   
                                         <el-col :span="10" class="order-price">
                                             <p>{{order.orderprice/100}}</p>
-                                            <p>{{DateUtil.parseTimeInYmdHms(order.createtime)}}</p>
+                                            <p>{{DateUtil.parseTime(order.createtime,"MM-DD HH:mm")}}</p>
                                         </el-col>
                                     </el-row>
                                 </li>
@@ -64,7 +64,8 @@ Vue.component('order', {
             Store:Store,
             orderlist:[],
             order:{},
-            productlist:[]
+            productlist:[],
+            activeLi: 0
         };
     },
     methods:{
@@ -87,6 +88,7 @@ Vue.component('order', {
                         var res = res.data;
                         if(res.state == 0){
                             this.orderlist = res.obj;
+                            this.activeLi = res.obj.length?res.obj[0].id:0;
                             console.log(res.obj);
                             this.order = this.orderlist[0];
                             this.productlist = JSON.parse(this.order.orderdetail);
@@ -101,6 +103,7 @@ Vue.component('order', {
             for(let item of this.orderlist){
                 if(item.id == id){
                     this.order = item;
+                    this.activeLi = id;
                     this.productlist = JSON.parse(this.order.orderdetail);
                     break;
                 }
