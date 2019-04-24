@@ -7,12 +7,24 @@
 
 var Store = {
     
+    token: '',
+    gid: 0, 
+    shopInfo: {},
+    cashierInfo: {},
+    
     createParams:function(){
         let params = {};
         params.userid = 1;
         params.from = 0;
         params.shopid = 1;
         return params;
+    },
+
+    initLoginMsg: function(msg){
+        this.shopInfo = msg.first;
+        this.cashierInfo = msg.second;
+        this.gid = msg.first.gid;
+        this.token = msg.second.token;
     },
     
     sourceToStr:function(source){

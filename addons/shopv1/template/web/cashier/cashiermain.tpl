@@ -2,7 +2,7 @@
 
 
 <div id="app">
-    <el-tabs value="waterbar" type="card" @tab-click="tab" >
+    <el-tabs value="waterbar" type="card" @tab-click="tab"  v-if="isLogin">
         <el-tab-pane name="waterbar" class="waterbar">
             <span slot="label"><iconfont iconclass="icon-wangdianguanli"></iconfont> 水吧</span>
             <waterbar></waterbar>
@@ -19,7 +19,31 @@
             <span slot="label"><iconfont iconclass="icon-liushui"></iconfont> 订单管理</span>
             <order></order>
         </el-tab-pane>
-  </el-tabs>
+    </el-tabs>
+
+    <!-- login -->
+    <div class="login-container" v-else>
+        <el-form :modal="loginMsg" ref="loginForm" class="login-form">
+            <h3 class="title">水吧登录</h3>
+            <el-form-item prop="account">
+                <span class="iconfont-wrap" @click="showPw = !showPw">
+                    <span class="iconfont icon-account"></span>
+                </span>
+                <el-input v-model="loginMsg.account"></el-input>
+            </el-form-item>
+            <el-form-item prop="password">
+                <el-input :type="showPw?'text':'password'" prefix-icon="iconfont icon-lock" v-model="loginMsg.password">
+                </el-input>
+                <span class="iconfont-wrap show-pw" @click="showPw = !showPw">
+                    <span :class="showPw?'icon-eye':'icon-hide'" class="iconfont eye-icon">
+                </span>
+            </el-form-item>
+            <el-button :loading="loading" type="primary" class="login-btn" @click="login">
+                登 录
+            </el-button>
+        </el-form>
+    </div>
+
 </div>
 
 <script src="{$StaticRoot}/js/cashier/store.js"></script>

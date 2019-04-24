@@ -74,6 +74,72 @@ html,body,#app,.el-tabs{
 // common END
 
 
+// login
+.login-container {
+    min-height: 100%;
+    width: 100%;
+    background-color: #2d3a4b;
+    overflow: hidden;
+    .login-form {
+      position: relative;
+      width: 520px;
+      max-width: 100%;
+      padding: 160px 35px 0;
+      margin: 0 auto;
+      overflow: hidden;
+    }
+    .title{
+      color: #eee;
+      text-align: center;
+    }
+    
+    .el-form-item {
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      background: rgba(0, 0, 0, 0.1);
+      border-radius: 5px;
+      color: #454545;
+      .iconfont-wrap{
+        position: absolute;
+        left: 0;
+        width: 30px;
+        >.iconfont{
+          color: #889aa4;
+          padding: 0;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          height: 47px;
+        }
+        &.show-pw{
+          left: initial;
+          right: 0;
+          top:0;
+          cursor: pointer;
+        }
+      }
+    }
+    .el-input {
+      background-color: transparent;
+      display: inline-block;
+  
+      input {
+        background-color: transparent;
+        border: 0px;
+        height: 47px;
+        -webkit-appearance: none;
+        border-radius: 0px;
+        color: #eee;
+        caret-color: #fff;
+        padding-left: 30px;
+        padding-right: 30px;
+      }
+    }
+    .login-btn{
+      width: 100%;
+    }
+}
+
+
 // waterbar
 .waterbar {
     .sale {
