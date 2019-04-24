@@ -17,7 +17,7 @@ var app = new Vue({
             axios.post("/user/login", this.loginMsg)
             .then(res => {
                 console.log(res);
-                let data = res.data;
+                var data = res.data;
                 if (data.state === 0) {
                     Store.initLoginMsg(data.data);
                     this.isLogin = true
