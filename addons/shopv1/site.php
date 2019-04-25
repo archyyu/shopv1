@@ -96,6 +96,55 @@ class Shopv1ModuleSite extends WeModuleSite{
         }
     }
     
+    public function doCashierduty(){
+        global $_GPC;
+        try{
+            $dutyController = new controller\cashier\DutyController();
+            $f = $_GPC['f'];
+            $dutyController->$f();
+        }
+        catch (Exception $ex){
+            logInfo("ex:".$ex->getMessage());
+        }
+    }
+    
+    public function doCashierorder(){
+        global $_GPC;
+        try{
+            $orderController = new controller\cashier\OrderController();
+            $f = $_GPC['f'];
+            $orderController->$f();
+        }
+        catch (Exception $ex){
+            logInfo("ex:".$ex->getMessage());
+        }
+    }
+    
+    public function doCashierproduct(){
+        global $_GPC;
+        try{
+            $productController = new controller\cashier\ProductController();
+            $f = $_GPC['f'];
+            $productController->$f();
+        }
+        catch (Exception $ex){
+            logInfo("ex:".$ex->getMessage());
+        }
+    }
+    
+    public function doCashieruser(){
+        global $_GPC;
+        try{
+            $userController = new controller\cashier\UserController();
+            $f = $_GPC['f'];
+            $userController->$f();
+        }
+        catch (Exception $ex){
+            logInfo("ex:".$ex->getMessage());
+        }
+    }
+    
+    
     public function doMobileMobile(){
         
     }

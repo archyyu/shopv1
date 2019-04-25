@@ -11,7 +11,7 @@
                                     <el-row @click='selectOrder(order.id)' class="order-list-item">
                                         <el-col :span="14" class="order-num">
                                             <p>{{order.id}}</p>
-                                            <p>编号：A001</p>
+                                            <p>地址：{{order.address}}</p>
                                         </el-col>   
                                         <el-col :span="10" class="order-price">
                                             <p>{{order.orderprice/100}}</p>

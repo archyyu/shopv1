@@ -5,29 +5,21 @@ load()->web('common');
 load()->web('template');
 load()->func('file');
 header('Content-Type: text/html; charset=UTF-8');
-$uniacid = intval($_GPC['i']);
+$uniacid = intval($_GPC['__uniacid']);
 if (empty($uniacid)) 
 {
 	exit('Access Denied.');
 }
-$site = WeUtility::createModuleSite('cash');
+$site = WeUtility::createModuleSite('shopv1');
 $_GPC['c'] = 'site';
 $_GPC['a'] = 'entry';
-$_GPC['m'] = 'cash';
+$_GPC['m'] = 'shopv1';
 
-if (!(isset($_GPC['r']))) 
-{
-	$_GPC['r'] = 'cashier.manage.index';
-}
-else 
-{
-	$_GPC['r'] = 'cashier.manage.' . $_GPC['r'];
-}
-$_W['uniacid'] = (int) $_GPC['i'];
-$_W['acid'] = (int) $_GPC['i'];
+$_W['uniacid'] = (int) $_GPC['__uniacid'];
+$_W['acid'] = (int) $_GPC['__uniacid'];
 if (!(is_error($site))) 
 {
-	$method = $_GPC['do'];
+	$method = "doCashier".$_GPC['do'];
 	$site->uniacid = $uniacid;
 	$site->inMobile = false;
 	if (method_exists($site, $method)) 

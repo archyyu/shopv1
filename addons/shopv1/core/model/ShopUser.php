@@ -22,6 +22,10 @@ class ShopUser extends Model{
         return $list;
     }
     
+    public function getShop($account,$pwd){
+        return $this->getOne("*", ['account'=>$account,"password"=>$pwd]);
+    }
+    
     public function saveUser($data){
         if(isset($data['id'])){
             $id = $data['id'];
@@ -31,7 +35,6 @@ class ShopUser extends Model{
         else{
             return $this->add($data);
         }
-        
     }
     
 }
