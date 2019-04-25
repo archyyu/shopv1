@@ -26,13 +26,13 @@
                     </div>
                     <el-row class="product-wrap">
                         <el-col :sm="8" :md="6" class="product-item less-item" v-for="product in productlist">
-                            <div v-on:click='addCart(product.id,product.productname,product.memberprice)'>
+                            <div v-on:click='addCart(product.id,product.productname,product.memberprice,product.inventory)'>
                                 <h5>{{product.productname}}</h5>
                                 <p class="lack-pro"></p>
                                 <p class="pro-price">
-                                    <!--<span class="pro_lesspro">
+                                    <span v-if="product.inventory < 0" class="pro_lesspro">
                                         <span class="icon iconfont">&#xe63f;</span>无库存
-                                    </span> -->
+                                    </span>
                                     <!-- <span class="origin">￥100</span>
                                     <br> -->
                                     ￥{{product.memberprice/100}}
@@ -221,7 +221,12 @@ Vue.component('waterbar', {
             }
         },
         
-        addCart: function (productid, productname, price) {
+        addCart: function (productid, productname, price,inventory) {
+            
+            if(inventory <= 0){
+                this.$message.error("库存不足,请进货或者调货");
+                return;
+            }
 
             for (var i = 0; i < this.cartlist.length; i++) {
                 if (this.cartlist[i].productid == productid) {
@@ -264,7 +269,7 @@ Vue.component('waterbar', {
         },
 
         queryProductList: function (type) {
-            let params = {};
+            let params = Store.createParams();
             params.type = type;
             if(type){
                 this.activeNav = type;

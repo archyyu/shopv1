@@ -73,7 +73,7 @@ class ProductService extends Service{
         }
         
         if($product['producttype'] == ProductType::FinishProduct){
-            return $product['inventory'];
+            return $this->findInventoryBy($shop['id'], $product['id'], $shop['defaultstoreid'])["inventory"];
         }
         
         if($product['producttype'] == ProductType::SelfMadeProduct){
