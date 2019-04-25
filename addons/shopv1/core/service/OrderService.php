@@ -131,7 +131,7 @@ class OrderService extends Service{
         
         $lastDuty = $this->shopDuty->selectShopLastDuty($shopid);
         if(isset($lastDuty)){
-            $starttime = $lastDuty["submittime"];
+            $starttime = $lastDuty["endtime"];
         }
         
         $endtime = time();

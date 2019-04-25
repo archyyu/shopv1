@@ -51,8 +51,7 @@
             </el-row>
             <div class="shift-data-footer">
                 <el-button type="success" size="small">打印</el-button>
-                <el-button type="default" size="small">取消</el-button>
-                <el-button type="primary" size="small">交班</el-button>
+                <el-button type="primary" @click="submitDuty()" size="small">交班</el-button>
             </div>
         </div>
         <div class="sub-pane shift-product"  v-else>
@@ -113,6 +112,28 @@ Vue.component('shift', {
                     this.$message.success(res.msg);
                 }
                         });
+        },
+        
+        submitDuty:function(){
+            
+            var url = UrlHelper.createUrl("duty","submitDuty");
+            var params = Store.createParams();
+            
+            axios.post(url,params)
+                    .then((res)=>{
+                
+                        res = res.data;
+                        if(res.state == 0){
+                            this.$message.success("交班成功");
+                            this.queryCurrentDuty();
+                        }
+                        else{
+                            this.$message.error(res.msg);
+                        }
+        
+                                        
+                        });
+            
         },
         
         selectProduct:function(){

@@ -36,18 +36,18 @@
     }
     // request interceptor
     axios.interceptors.request.use(function(config){
-      startLoading()
-      return config
+      startLoading();
+      return config;
     }, function(error){
       return Promise.reject(error);
     });
     // response interceptor
     axios.interceptors.response.use(function(res){
-      stopLoading()
-      return res
+      stopLoading();
+      return res;
     }, function(error){
-      console.log('err')
-      stopLoading()
+      console.log('err');
+      stopLoading();
       app.$message.error('网络连接失败');
       return Promise.reject(error);
     });

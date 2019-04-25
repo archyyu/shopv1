@@ -88,6 +88,11 @@ Vue.component('order', {
                         var res = res.data;
                         if(res.state == 0){
                             this.orderlist = res.obj;
+                            
+                            if(this.orderlist.length <= 0){
+                                return ;
+                            }
+                            
                             this.activeLi = res.obj.length?res.obj[0].id:0;
                             console.log(res.obj);
                             this.order = this.orderlist[0];

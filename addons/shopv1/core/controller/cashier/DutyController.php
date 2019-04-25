@@ -44,7 +44,9 @@ class DutyController extends \controller\Controller{
         
         $duty = $this->orderService->generateDuty($shopid);
         $duty['userid'] = $userid;
-        $duty['submittime'] = time();
+        $duty['shopid'] = $shopid;
+        
+        unset($duty['productsum']);
         
         if($this->dutyModel->saveDuty($duty)){
             $this->returnSuccess();
