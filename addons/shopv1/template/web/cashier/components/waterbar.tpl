@@ -252,9 +252,9 @@ Vue.component('waterbar', {
             return sum;
         },
 
-        queryTypeList: function (typeid) {
-            var params = {};
-            params.shopid = typeid;
+        queryTypeList: function () {
+            var params = Store.createParams();
+            //params.shopid = typeid;
             axios.post(UrlHelper.createUrl('product','loadProductTypeList'), params)
                 .then((res) => {
                     console.log(res);

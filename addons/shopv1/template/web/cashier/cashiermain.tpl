@@ -22,7 +22,7 @@
     </el-tabs>
 
     <!-- login -->
-    <div class="login-container" v-else>
+    <div class="login-container" v-if="!isLogin">
         <el-form :modal="loginMsg" ref="loginForm" class="login-form">
             <h3 class="title">水吧登录</h3>
             <el-form-item prop="account">

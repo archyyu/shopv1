@@ -1,30 +1,30 @@
 var app = new Vue({
     el: '#app',
-    data: {
+    data:{
         shift: {
             firstPaneShow: 'shiftData'
         },
         loginMsg: {
-            account: 'ls001',
-            password: '123456'
+            account: '',
+            password: ''
         },
         showPw: false,
         loading: false,
-        isLogin: true
+        isLogin: false
     },
     methods: {
         login() {
-            axios.post("/user/login", this.loginMsg)
+            
+            axios.post(UrlHelper.createUrl("user","login"), this.loginMsg)
             .then(res => {
                 console.log(res);
                 var data = res.data;
                 if (data.state === 0) {
-                    Store.initLoginMsg(data.data);
-                    this.isLogin = true
-
-                } else(
-                    this.$message.error(data.des)
-                )
+                    Store.initLoginMsg(data.obj);
+                    this.isLogin = true;
+                } else{
+                    this.$message.error(data.des);
+                }
             })
             .catch(err => {
                 this.$message.error('登录失败')

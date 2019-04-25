@@ -8,7 +8,7 @@
 var UrlHelper = {
     
     createUrl:function(d,f){
-        return "cashier.php?__uniacid=1&shopid=1&f=" + f + "&do=" + d;
+        return "cashier.php?__uniacid=1&f=" + f + "&do=" + d;
     },
     
     info:function(){

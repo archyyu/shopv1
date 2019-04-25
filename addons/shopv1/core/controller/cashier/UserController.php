@@ -16,10 +16,11 @@ namespace controller\cashier;
 class UserController extends \controller\Controller{
     
     private $userModel;
+     
     
     public function __construct() {
         parent::__construct();
-        $this->userModel = new \model\ShopUser();
+        $this->userModel = new \model\ShopUser(); 
     }
     
     public function login(){
@@ -27,10 +28,15 @@ class UserController extends \controller\Controller{
         $account = $this->getParam("account");
         $password = $this->getParam("password");
         
-        $user = $this->userModel->getShop($account, $password);
+        $user = $this->userModel->getShop($account, md5($password));
         
         if(isset($user)){
-            $this->returnSuccess($user);
+            
+            $result = array();
+            $result['user'] = $user;
+            $result['shop'] = $this->shopModel->findShopById($user['shopid']);
+            
+            $this->returnSuccess($result);
         }
         else{
             $this->returnFail("账号或者密码错误");

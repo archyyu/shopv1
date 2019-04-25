@@ -8,23 +8,21 @@
 var Store = {
     
     token: '',
-    gid: 0, 
     shopInfo: {},
-    cashierInfo: {},
+    userInfo: {},
     
     createParams:function(){
         let params = {};
-        params.userid = 1;
+        params.userid = Store.userInfo.id;
         params.from = 0;
-        params.shopid = 1;
+        params.shopid = Store.userInfo.shopid;
+        params.token = Store.token;
         return params;
     },
 
     initLoginMsg: function(msg){
-        this.shopInfo = msg.first;
-        this.cashierInfo = msg.second;
-        this.gid = msg.first.gid;
-        this.token = msg.second.token;
+        Store.shopInfo = msg.shop;
+        Store.userInfo = msg.user;
     },
     
     sourceToStr:function(source){
