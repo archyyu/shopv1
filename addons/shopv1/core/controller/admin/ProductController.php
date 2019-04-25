@@ -36,6 +36,8 @@ class ProductController extends Controller{
     
     private $productUnitModel;
     
+    private $inventoryLogModel;
+    
     public function __construct() {
         parent::__construct();
         $this->productService = new ProductService();
@@ -45,6 +47,7 @@ class ProductController extends Controller{
         $this->productRelateModel = new \model\ShopProductrelation();
         $this->productUnitModel = new \model\ShopProductUnit();
         $this->productInventory = new \model\ShopProductInventory();
+        $this->inventoryLogModel = new \model\ShopInventorylog();
         
     }
     
@@ -361,6 +364,22 @@ class ProductController extends Controller{
         $this->smarty->display('admin/waterbar/batchstock.tpl');
     }
     
+    public function inventorylog(){
+        $this->smarty->display("admin/waterbar/inventorylog.tpl");
+    }
     
+    public function loadlogs(){
+        $uniacid = $this->getUniacid();
+        $where = array();
+        $where["uniacid"] = $uniacid;
+        
+        
+        $where["ORDER"]=["id"=>"DESC"];
+        
+        $list = $this->inventoryLogModel->getLogs($where);
+        
+        $this->returnSuccess($list);
+        
+    }
     
 }

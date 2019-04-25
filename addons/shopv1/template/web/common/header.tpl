@@ -107,8 +107,7 @@
             <ul class="nav nav-second-level">
               <li><a href="#">收入汇总</a></li>
               <li><a href="#">交班明细</a></li>
-              <li><a href="#">商品进销存明细</a></li>
-              <li><a href="#">积分明细</a></li>
+              <li><a href="index.php?c=site&a=entry&m=shopv1&do=order&f=index">订单明细</a></li>
             </ul>
           </li>
           <li>

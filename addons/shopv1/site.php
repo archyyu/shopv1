@@ -60,6 +60,18 @@ class Shopv1ModuleSite extends WeModuleSite{
         }
     }
     
+    public function doWebOrder(){
+        global $_GPC;
+        try{
+            $f = $_GPC['f'];
+            $controller = new controller\admin\OrderController();
+            $controller->$f();
+        }
+        catch (Exception $ex){
+            logError("err", $ex);
+        }
+    }
+    
     public function doWebCard(){
         global $_GPC;
         try{

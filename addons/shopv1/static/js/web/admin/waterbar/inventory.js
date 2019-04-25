@@ -225,6 +225,7 @@ var Inventory = {
   openTransModal:function(productid,unit){
        $("#transferModal [name=unit]").val(unit);
        $("#transferModal [name=productid]").val(productid);
+       
       var url = UrlUtil.createWebUrl('product','inventorylist');
       
       var params = {};

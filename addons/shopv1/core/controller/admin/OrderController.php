@@ -15,6 +15,28 @@ namespace controller\admin;
  */
 class OrderController extends \controller\Controller{
     
+    private $orderModel;
     
+    public function __construct() {
+        parent::__construct();
+        $this->orderModel = new \model\ShopOrder();
+    }
+    
+    public function index(){
+        $this->smarty->display('admin/waterbar/order.tpl');
+    }
+    
+    public function loadOrders(){
+        
+        $uniacid = $this->getUniacid();
+        
+        $where['uniacid'] = $uniacid;
+        $where["ORDER"] = ["createtime"=>"DESC"];
+        
+        $list = $this->orderModel->findOrders($where);
+        
+        $this->returnSuccess($list);
+        
+    }
     
 }

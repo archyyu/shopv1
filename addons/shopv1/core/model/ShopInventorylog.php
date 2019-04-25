@@ -22,4 +22,8 @@ class ShopInventorylog extends Model{
         return $this->add($data);
     }
     
+    public function getLogs($where){
+        return $this->getList("*", $where);
+    }
+    
 }

@@ -37,9 +37,10 @@ class OrderController extends \controller\Controller{
         $ordersource = $this->getParam("from");
         $remark = $this->getParamDefault('remark','');
         $paytype = $this->getParam("paytype");
+        $uniacid = $this->getUniacid();
         
         $productlist = json_decode(html_entity_decode($this->getParam("productlist")),true);
-        $orderid = $this->orderService->generateProductOrder($memberid, $userid, $shopid, $address, $productlist, $ordersource, $remark,$paytype);
+        $orderid = $this->orderService->generateProductOrder($uniacid,$memberid, $userid, $shopid, $address, $productlist, $ordersource, $remark,$paytype);
         
         if($orderid == false){
             $this->returnFail("订单错误");

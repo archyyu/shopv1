@@ -39,12 +39,13 @@ class OrderService extends Service{
         $this->dutyModel = new \model\ShopDuty();
     }
     
-    public function generateProductOrder($memberid,$userid,$shopid,$address,$productlist,$ordersource,$remark,$paytype){
+    public function generateProductOrder($uniacid,$memberid,$userid,$shopid,$address,$productlist,$ordersource,$remark,$paytype){
         
         $order = array();
         $order['id'] = $this->generateOrderId();
         logInfo("orderid:".$order['id']);
         $order['shopid'] = $shopid;
+        $order['uniacid'] = $uniacid;
         $order['userid'] = $userid;
         $order['createtime'] = time();
         $order['ordersource'] = $ordersource;
