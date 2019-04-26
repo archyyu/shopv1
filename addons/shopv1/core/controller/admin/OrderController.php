@@ -29,11 +29,14 @@ class OrderController extends \controller\Controller{
     public function loadOrders(){
         
         $uniacid = $this->getUniacid();
+        $offset = $this->getParam("offset");
+        $limit = $this->getParam("limit");
         
         $where['uniacid'] = $uniacid;
-        $where["ORDER"] = ["createtime"=>"DESC"];
+//        $where["ORDER"] = ["createtime"=>"DESC"];
         
-        $list = $this->orderModel->findOrders($where);
+//        $list = $this->orderModel->findOrders($where);
+        $list = $this->orderModel->page($offset, $limit, "*", $where, "createtime");
         
         $this->returnSuccess($list);
         

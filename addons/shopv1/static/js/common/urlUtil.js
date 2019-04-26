@@ -13,6 +13,19 @@ var UrlUtil = {
 
     var url = "./index.php?c=site&a=entry&m=shopv1&do=" + doing + "&f=" + func;
     return url;
+  },
+  
+  createWebUrlWithParams: function (controller, func, params) {
+    var str = '';
+    if (params) {
+      $.each( params, function(key, val){
+        if(val != 'undefined') {
+          str += "&"+ key + "=" + val;
+        }
+      });
+    }
+    var url = "./index.php?c=site&a=entry&m=cash&do=" + controller + "&f=" + func + str;
+    return url;
   }
 
 };

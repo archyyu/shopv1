@@ -16,6 +16,9 @@ var Order = {
         
         $("#OrderListTable").bootstrapTable({
             data:[],
+            sidePagination: "server",
+            pageSize: 10,
+            pagination: true,
             columns:[{
                 field:'id',
                 title:'订单号'
@@ -86,7 +89,7 @@ var Order = {
         
         var url = UrlUtil.createWebUrl('order',"loadOrders");
         
-        var params = {};
+        var params = obj.data;
         
         $.post(url,params,function(data){
             if(data.state == 0){

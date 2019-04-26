@@ -295,7 +295,7 @@ class Medoo {
         if ($this->debug_mode) {
             logInfo("sql:".$this->generate($query, $map));
 
-            $this->debug_mode = false;
+            //$this->debug_mode = false;
 
             return false;
         }
@@ -1477,6 +1477,27 @@ class Model extends Medoo {
 
     public function reSelect($columns, $where) {
         return $this->select($this->table, $columns, $where);
+    }
+    
+    public function countNum($column, $where) {
+        return $this->count($this->table, $column, $where);
+    }
+    
+    public function page($offset,$limit, $field, $where, $order = '', $join = '') {
+        
+        
+        $data['total'] = $this->countNum($field, $where);
+        $where['LIMIT'] = [$offset, $limit];
+        if ($order) {
+            $where['ORDER'] = [$order => 'DESC'];
+        }
+        if ($join) {
+            $list = $this->getList($join, $field, $where);
+        } else {
+            $list = $this->getList($field, $where);
+        }
+        $data['rows'] = $list;
+        return $data;
     }
 
 }

@@ -16,6 +16,9 @@ var InventoryLog = {
     logTableInit:function(){
         $("#logListTable").bootstrapTable({
             data:[],
+            sidePagination: "server",
+            pageSize: 10,
+            pagination: true,
             columns:[{
                 field:"id",
                 title:"流水"
@@ -85,12 +88,12 @@ var InventoryLog = {
     loadLogs:function(obj){
         var url = UrlUtil.createWebUrl('product','loadlogs');
         
-        var params = {};
+        var params = obj.data;
         
         $.post(url,params,function(data){
            if(data.state == 0){
                obj.success(data.obj);
-           } 
+           }
            else{
                Tips.failTips(data.msg);
            }

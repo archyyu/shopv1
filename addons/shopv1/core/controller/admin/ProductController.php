@@ -370,13 +370,12 @@ class ProductController extends Controller{
     
     public function loadlogs(){
         $uniacid = $this->getUniacid();
-        $where = array();
+        $offset = $this->getParam("offset");
+        $limit = $this->getParam("limit");
+        
         $where["uniacid"] = $uniacid;
         
-        
-        $where["ORDER"]=["id"=>"DESC"];
-        
-        $list = $this->inventoryLogModel->getLogs($where);
+        $list = $this->inventoryLogModel->page($offset, $limit, "*", $where,"id");
         
         $this->returnSuccess($list);
         
