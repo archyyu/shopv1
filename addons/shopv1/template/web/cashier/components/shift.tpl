@@ -18,7 +18,7 @@
             </el-row>
             <el-row :gutter="15" class="shift-info">
                 <el-col :span="12">
-                    当前值班：{{ }}
+                    当前值班：{{ Store.userInfo.account }}
                 </el-col>
             </el-row>
             <el-row :gutter="15" class="shift-table">
@@ -87,7 +87,7 @@ Vue.component('shift', {
                     productcash:0,
                     productwechat:0,
                     productalipay:0,
-                    sum:0
+                    productsum:0
                 }],
             productData:[]
         };

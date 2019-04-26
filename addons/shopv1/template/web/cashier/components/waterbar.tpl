@@ -25,7 +25,7 @@
                         <el-button type="primary" size="mini" plain>打开钱箱</el-button>
                     </div>
                     <el-row class="product-wrap">
-                        <el-col :sm="8" :md="6" class="product-item less-item" v-for="product in productlist">
+                        <el-col :sm="8" :md="6" class="product-item" v-for="product in productlist" :class="{'less-item':product.inventory <= 0}">
                             <div v-on:click='addCart(product.id,product.productname,product.memberprice,product.inventory)'>
                                 <h5>{{product.productname}}</h5>
                                 <p class="lack-pro"></p>
@@ -43,10 +43,10 @@
                 </el-col>
                 <el-col :span="6" class="sale-cart">
                     <div class="cart-title" v-if="cartMain">购物车
-                        <el-button type="success" size="mini" plain v-if="editBtnShow">编辑</el-button>
+                        <el-button type="success" size="mini" plain v-if="editBtnShow" @click="editBtnShow = false">编辑</el-button>
                         <el-button type="success" size="mini" plain v-if="editBtnShow">优惠方案</el-button>
-                        <el-button type="danger" size="mini" plain v-if="!editBtnShow">关闭</el-button>
-                        <el-button type="danger" size="mini" plain v-if="!editBtnShow">清除</el-button>
+                        <el-button type="danger" size="mini" plain v-if="!editBtnShow" @click="editBtnShow = true">关闭</el-button>
+                        <el-button type="danger" size="mini" plain v-if="!editBtnShow" @click="clearCart">清除</el-button>
                     </div>
                     <div class="checkout-title" v-if="!cartMain">
                         <el-button size="mini" class="checkout-back"><span class="icon iconfont back">&#xe603;</span>
@@ -194,6 +194,10 @@ Vue.component('waterbar', {
                         });
             
         },
+
+        clearCart: function(){
+            this.cartlist = [];
+        },
         
         cartAdd:function(productid){
             
@@ -222,7 +226,9 @@ Vue.component('waterbar', {
         },
         
         addCart: function (productid, productname, price,inventory) {
-            
+
+            this.editBtnShow = true;
+
             if(inventory <= 0){
                 this.$message.error("库存不足,请进货或者调货");
                 return;
