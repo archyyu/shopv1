@@ -38,10 +38,15 @@ class ShopController extends Controller{
     
     public function loadStaffList(){
         try{
-            
+            $offset = $this->getParam('offset');
+            $limit = $this->getParam('limit');
             $shopid = $this->getParam('shopid');
-            $list = $this->userModel->getShopUserList($shopid);
-            $this->returnSuccess($list);
+            
+            $where['shopid'] = $shopid;
+            $data = $this->userModel->page($offset,$limit,'*',$where,'id');
+            //$list = $this->userModel->getShopUserList($shopid);
+            
+            $this->returnSuccess($data);
         
         }
         catch (Exception $e){
@@ -89,8 +94,16 @@ class ShopController extends Controller{
     
     public function loadShopList(){
         try{
-            $list = $this->shopModel->findShopListByUniacid($this->getUniacid());
-            $this->returnSuccess($list);
+            $uniacid = $this->getUniacid();
+            $offset = $this->getParam('offset');
+            $limit = $this->getParam('limit');
+            
+            $where = array();
+            $where['uniacid'] = $uniacid;
+            
+            $data = $this->shopModel->page($offset,$limit,'*',$where,'id');
+            
+            $this->returnSuccess($data);
         }
         catch (Exception $ex){
             logError("err", $ex);

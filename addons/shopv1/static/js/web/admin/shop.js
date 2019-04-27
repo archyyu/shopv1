@@ -18,6 +18,9 @@ var Shop = {
     initShopTable : function(){
         $("#shopList").bootstrapTable({
             data:[],
+            sidePagination: "server",
+            pageSize: 10,
+            pagination: true,
             columns:[
                     {
                         field:'id',
@@ -60,7 +63,7 @@ var Shop = {
     loadShopList:function(obj){
         
         var url = UrlUtil.createWebUrl('shop','loadShopList');
-        var params = {};
+        var params = obj.data;
         
         $.post(url,params,function(data){
             if(data.state == 0){

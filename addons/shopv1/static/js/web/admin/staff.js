@@ -7,7 +7,7 @@
 
 $(function(){
     Staff.staffTableInit();
-    
+    Staff.staffTableReload();
 });
 
 $("#shopSelect").change(function(){
@@ -19,6 +19,9 @@ var Staff = {
     staffTableInit:function(){
         $("#staffListTable").bootstrapTable({
             data:[],
+            sidePagination: "server",
+            pageSize: 10,
+            pagination: true,
             columns:[{
                         field:'account',
                         title:'账号'
@@ -61,7 +64,7 @@ var Staff = {
     
     queryStaffList:function(obj){
         var url = UrlUtil.createWebUrl('shop','loadStaffList');
-        var params = {};
+        var params = obj.data;
         params.shopid = $("#shopSelect").val();
         $.post(url,params,function(data){
             if(data.state == 0){
