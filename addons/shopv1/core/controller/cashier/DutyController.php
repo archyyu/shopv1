@@ -41,10 +41,12 @@ class DutyController extends \controller\Controller{
         
         $shopid = $this->getParam('shopid');
         $userid = $this->getParam('userid');
+        $uniacid = $this->getUniacid();
         
         $duty = $this->orderService->generateDuty($shopid);
         $duty['userid'] = $userid;
         $duty['shopid'] = $shopid;
+        $duty['uniacid'] = $uniacid;
         
         unset($duty['productsum']);
         

@@ -79,7 +79,7 @@ class ProductService extends Service{
         if($product['producttype'] == ProductType::SelfMadeProduct){
             //如果是自制，则计算能制作多少
             $maxcnt = 100;
-            $productMaterialList = $this->productrelationModel->getRelationList($product['id']);
+            $productMaterialList = json_decode($product['productlink'],true);
             foreach($productMaterialList as $key=>$value){
                 
                 $inventory = $this->findInventoryBy($shop['id'], $value['materialid'], $shop['defaultstoreid']);
@@ -136,9 +136,9 @@ class ProductService extends Service{
         
         if($product['producttype'] == ProductType::SelfMadeProduct){
             
-            $list = $this->productrelationModel->getRelationList($productId);
+            $list = json_decode($product['productlink'], true);
             foreach($list as $relation){
-                $this->updateProdudctInventory($shopid, $relation['materialid'], $relation['num'], $type, $detail);
+                $this->updateProdudctInventory($shopid, $relation['materialid'], $relation['num']*$productNum, $type, $detail);
             }
             
         }

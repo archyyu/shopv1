@@ -69,7 +69,13 @@ class ProductController extends Controller{
     
     public function loadProductStore(){
         $uniacid = $this->getUniacid();
+        $shopMap = $this->shopModel->findShopMapByUnacid($uniacid);
         $list = $this->storeModel->getStoreListByUniacid($uniacid);
+        
+        foreach($list as $key=>$value){    
+            $list[$key]['shopname'] = $shopMap[$value['shopid']]['shopname'];
+        }
+        
         $this->returnSuccess($list);
     }
     
@@ -77,10 +83,16 @@ class ProductController extends Controller{
         $uniacid = $this->getUniacid();
         $storename = $this->getParam('storename');
         $storeid = $this->getParam('storeid');
+        $shopid = $this->getParam("shopid");
         
         $data = array();
         $data['uniacid'] = $uniacid;
         $data['storename'] = $storename;
+        
+        if(isset($shopid)){
+            $data['shopid'] = $shopid;
+        }
+        
         $data['deleteflag'] = 0;
         
         if(isset($storeid)){
@@ -143,8 +155,11 @@ class ProductController extends Controller{
     
     public function loadProduct(){
         $uniacid = $this->getUniacid();
-        
+        $offset = $this->getParam("offset");
+        $limit = $this->getParam("limit");
         $storeid = $this->getParam("storeid");
+        
+        $typeid = $this->getParam('typeid');
         
         $typelist = $this->productTypeModel->getProductTypeList($uniacid);
         
@@ -153,7 +168,16 @@ class ProductController extends Controller{
             $map[$value['id']] = $value;
         }
         
-        $productList = $this->productModel->findProductByUniacid($uniacid);
+        $where = array();
+        $where['uniacid'] = $uniacid;
+        //$where['storeid'] = $storeid;
+        
+        if(isset($typeid) && $typeid != ''){
+            $where['typeid'] = $typeid;
+        }
+        
+        $productData = $this->productModel->page($offset, $limit, '*', $where, 'id');
+        $productList = $productData['rows'];
         
         foreach($productList as $k=>$v){
             $productList[$k]['typename'] = $map[$v['typeid']]['typename'];
@@ -167,7 +191,9 @@ class ProductController extends Controller{
             $productList[$k]['inventory'] = $inventory['inventory'];
         }
         
-        $this->returnSuccess($productList);
+        $productData['rows'] = $productList;
+        
+        $this->returnSuccess($productData);
     }
     
     public function saveProduct(){
@@ -184,7 +210,7 @@ class ProductController extends Controller{
         $unit = $this->getParam("unit");
         $index = $this->getParam("index");
         
-        $linklist = json_decode(html_entity_decode($this->getParam("link")),true);
+        $linklist = html_entity_decode($this->getParam("link"));
         logInfo("productid:".$productid);
         logInfo("link:".$this->getParam("link"));
         
@@ -202,6 +228,7 @@ class ProductController extends Controller{
         $data["unit"] = $unit;
         $data["index"] = $index;
         $data["attributes"] = $attributes;
+        $data['productlink'] = $linklist;
         
         $result = false;
         
@@ -214,10 +241,10 @@ class ProductController extends Controller{
             $this->productRelateModel->deleteRelation($productid);
         }
         
-        foreach($linklist as $key=>$value){
-            logInfo("product relation: $productid,".$value['materialid']." ".$value['num']);
-            $this->productRelateModel->addRelation($productid, $value['materialid'], $value['num']);
-        }
+//        foreach($linklist as $key=>$value){
+//            logInfo("product relation: $productid,".$value['materialid']." ".$value['num']);
+//            $this->productRelateModel->addRelation($productid, $value['materialid'], $value['num']);
+//        }
         
         
         $this->returnSuccess();

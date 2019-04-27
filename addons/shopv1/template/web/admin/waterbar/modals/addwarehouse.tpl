@@ -17,6 +17,19 @@
             <div class="col-xs-7"><input type="text" id="storename" class="form-control" placeholder="请输入库房名称">
             </div>
           </div>
+          <div class="form-group form-group-sm">
+            <label class="col-sm-3 control-label">
+              <span style="color: red;"> * </span>所属门店：
+            </label>
+            <div class="col-sm-8">
+              <select class="form-control selectpicker" name="shopid" id="shopid">
+                <option value="">请选择</option>
+                {foreach $shopList as $store}
+                    <option value='{$store.id}' >{$store.shopname}</option>
+                {/foreach}
+              </select>
+            </div>
+          </div>
         </div>
       </div>
     <div class="modal-footer">

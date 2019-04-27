@@ -26,7 +26,18 @@ $(function () {
         var jsonStr = JSON.stringify(Inventory.selectProductList);
         
         $('#addStockMaterial').modal('hide');
+        $("#addProductModal [name=linkproduct]").empty();
         Inventory.linkProductList();
+    });
+    
+    $("#storeSelect").change(function(){
+        
+        Inventory.goodsTableReload();
+        
+    });
+    
+    $('#typeSelectQuery').change(function(){
+       Inventory.goodsTableReload(); 
     });
     
 });
@@ -39,6 +50,9 @@ var Inventory = {
     $("#goodsTable").bootstrapTable({
       data: [
       ],
+      sidePagination: "server",
+        pageSize: 10,
+        pagination: true,
       columns: [{
           field: 'id',
           title: '商品Id'
@@ -120,12 +134,18 @@ var Inventory = {
               }
           },
           formatter: function(value, row,index){
-            return '<button class="btn btn-xs btn-success unit-event">规格</button>\
+              
+              if(row.producttype != 1){
+                return '<button class="btn btn-xs btn-success unit-event">规格</button>\
                     <button class="btn btn-xs btn-success stock-event">进货</button>\
                     <button class="btn btn-xs btn-success check-event">盘点</button>\
                     <button class="btn btn-xs btn-success damage-event">报损报溢</button>\
                     <button class="btn btn-xs btn-success transfer-event">调货</button>\
                     <button class="btn btn-xs btn-success edit-event">编辑</button>';
+              }
+              else{
+                    return '<button class="btn btn-xs btn-success edit-event">编辑</button>';
+              }              
           }
         }
       ]
@@ -285,6 +305,28 @@ var Inventory = {
           $("#addProductModal [name=attributes]").val(obj.attributes);
           $("#addProductModal [name=unit]").val(obj.unit);
           $("#addProductModal [name=typeid]").selectpicker('val',obj.typeid);
+          $("#addProductModal [name=linkproduct]").empty();
+          try{
+            var list = JSON.parse(obj.productlink);
+            for(let item of list){
+                var str = "<div class='form-group form-group-sm associalproduct' name='associalproduct'>"+
+                  "<label class='col-sm-3 control-label'>" +
+                  "</label>" + 
+                  "<div class='col-sm-4'>" +
+                      "<input type='hidden' name='productid' productid='" + item.materialid + "' />"+
+                      "<span name='productname'>" + item.materialname + "</span>"+
+                  "</div>" +
+                  "<div class='col-sm-2'>"+
+                      "<span></span><input name=num class='form-control' value='" + item.num + "' >"+
+                  "</div>"+
+                "</div>";
+
+              $("#addProductModal [name=linkproduct]").append(str);
+            }
+        }
+        catch (ex){
+            
+        }
           
           $("#addProductModal [name=producttype][value='" +obj.producttype + "']").prop('checked', 'checked');
           
@@ -350,6 +392,7 @@ var Inventory = {
       $("#addProductModal [name=associalproduct]").each(function(){
           var item = {};
           item.materialid = $(this).find("[name=productid]").attr('productid');
+          item.materialname = $(this).find("[name=productname]").html();
           item.num = $(this).find("[name=num]").val();
           list.push(item);
       });
@@ -380,10 +423,11 @@ var Inventory = {
   loadGoodsList: function (obj) {
 
     var url = UrlUtil.createWebUrl('product', 'loadProduct');
-    var params = {};
+    var params = obj.data;
     
     params.storeid = $("#storeSelect").val();
-
+    params.typeid = $("#typeSelectQuery").val();
+    
     $.post(url, params, function (data) {
       if (data.state == 0) {
         obj.success(data.obj);

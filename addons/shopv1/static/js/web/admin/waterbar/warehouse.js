@@ -20,6 +20,10 @@ var Warehouse = {
           title: '创建时间'
         },
         {
+          field:'shopname',
+          title:'所属门店'
+        },
+        {
           field: 'id',
           title: '操作',
           events:{
@@ -61,6 +65,11 @@ var Warehouse = {
           $("#addWarehouseModal").modal("show");
       }
       else{
+          
+          if(obj.shopid != undefined){
+              $("#shopid").selectpicker('val',obj.shopid);
+          }
+          
           $("#storeid").val(obj.id);
           $("#storename").val(obj.storename);
           $("#addWarehouseModal").modal("show");
@@ -75,6 +84,10 @@ var Warehouse = {
           params.storeid = $("#storeid").val();
       }
       params.storename = $('#storename').val();
+      
+      if($("#shopid").val() != ''){
+          params.shopid = $("#shopid").val();
+      }
       
       $.post(url,params,function(data){
           if(data.state == 0){
