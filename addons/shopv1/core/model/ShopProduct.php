@@ -23,6 +23,17 @@ class ShopProduct extends Model{
         return $list;
     }
     
+    public function findProductMapByUniacid($uniacid){
+        $list = $this->getList("*",['uniacid'=>$uniacid]);
+        $map = array();
+        
+        foreach($list as $key=>$value){
+            $map[$value['id']] = $value;
+        }
+        
+        return $map;
+    }
+    
     public function findProdudctById($productId){
         return $this->getOne("*",['id'=>$productId]);
     }

@@ -23,10 +23,10 @@ var InventoryLog = {
                 field:"id",
                 title:"流水"
             },{
-                field:'productid',
+                field:'productname',
                 title:'商品'
             },{
-                field:'storeid',
+                field:'storename',
                 title:'库房'
             },{
                 field:'logtype',

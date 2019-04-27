@@ -17,9 +17,15 @@ class OrderController extends \controller\Controller{
     
     private $orderModel;
     
+    private $storeModel;
+    
+    private $productModel;
+    
     public function __construct() {
         parent::__construct();
+        $this->storeModel = new \model\ShopStore();
         $this->orderModel = new \model\ShopOrder();
+        $this->productModel = new \model\ShopProduct();
     }
     
     public function index(){
@@ -35,8 +41,18 @@ class OrderController extends \controller\Controller{
         $where['uniacid'] = $uniacid;
 //        $where["ORDER"] = ["createtime"=>"DESC"];
         
-//        $list = $this->orderModel->findOrders($where);
+        $storeMap = $this->storeModel->getStoreMapByUnacid($uniacid);
+        $productMap = $this->productModel->findProductMapByUniacid($uniacid);
+        
         $list = $this->orderModel->page($offset, $limit, "*", $where, "createtime");
+        
+        foreach($list["rows"] as $key=>$value){
+            
+            
+            
+            //$list['rows'][$key] = $value;
+            
+        }
         
         $this->returnSuccess($list);
         

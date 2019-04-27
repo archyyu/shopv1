@@ -375,7 +375,15 @@ class ProductController extends Controller{
         
         $where["uniacid"] = $uniacid;
         
+        $productMap = $this->productModel->findProductMapByUniacid($uniacid);
+        $storeMap = $this->storeModel->getStoreMapByUnacid($uniacid);
+        
         $list = $this->inventoryLogModel->page($offset, $limit, "*", $where,"id");
+        
+        foreach($list['rows'] as $key=>$value){
+            $list['rows'][$key]['productname'] = $productMap[$value['productid']]['productname'];
+            $list['rows'][$key]['storename'] = $storeMap[$value['storeid']]['storename'];
+        }
         
         $this->returnSuccess($list);
         
