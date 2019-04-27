@@ -22,6 +22,16 @@ class ShopUser extends Model{
         return $list;
     }
     
+    public function getUserMap($uniacid){
+        $list = $this->getList('*',['uniacid'=>$uniacid]);
+        $map = array();
+        foreach($list as $key=>$value){
+            $map[$value['id']] = $value;
+        }
+        
+        return $map;
+    }
+    
     public function getShop($account,$pwd){
         return $this->getOne("*", ['account'=>$account,"password"=>$pwd]);
     }
@@ -36,5 +46,7 @@ class ShopUser extends Model{
             return $this->add($data);
         }
     }
+    
+    
     
 }

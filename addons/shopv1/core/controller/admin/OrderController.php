@@ -41,8 +41,8 @@ class OrderController extends \controller\Controller{
         $where['uniacid'] = $uniacid;
 //        $where["ORDER"] = ["createtime"=>"DESC"];
         
-        $storeMap = $this->storeModel->getStoreMapByUnacid($uniacid);
-        $productMap = $this->productModel->findProductMapByUniacid($uniacid);
+//        $storeMap = $this->storeModel->getStoreMapByUnacid($uniacid);
+//        $productMap = $this->productModel->findProductMapByUniacid($uniacid);
         
         $list = $this->orderModel->page($offset, $limit, "*", $where, "createtime");
         

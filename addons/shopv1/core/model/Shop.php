@@ -21,8 +21,21 @@ class Shop extends Model{
         return $this->getOne("*",['id'=>$shopId]);
     }
     
+    
+    
     public function findShopListByUniacid($uniacid){
         return $this->getList("*",['uniacid'=>$uniacid]);
+    }
+    
+    public function findShopMapByUnacid($uniacid){
+        $list = $this->getList("*",['uniacid'=>$uniacid]);
+        
+        $map = array();
+        foreach($list as $key=>$value){
+            $map[$value['id']] = $value;
+        }
+        return $map;
+        
     }
     
     public function saveShop($data){
