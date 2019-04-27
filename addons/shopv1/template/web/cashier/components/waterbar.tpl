@@ -61,7 +61,7 @@
                                     </div>
                                     <el-row class="cart-item-num">
                                         <el-col :span="8">￥{{cart.price}}</el-col>
-                                        <el-col :span="10" class="num-cal">
+                                        <el-col :span="10" :offset="6" class="num-cal">
                                             <span @click="cartDeduct(cart.productid)" class="num-operate minus">-</span>
                                             {{cart.num}}
                                             <span @click='cartAdd(cart.productid)' class="num-operate add">+</span>
