@@ -9,7 +9,7 @@
   {* <link rel="stylesheet" href="{$StaticRoot}/css/normalize.css"> *}
   <link rel="stylesheet" href="{$StaticRoot}/plugins/cube-ui/cube.min.css">
   <link rel="stylesheet" href="{$StaticRoot}/fonts/iconfont.css">
-  <link rel="stylesheet" href="{$StaticRoot}/css/cashier/cashier.css">
+  <link rel="stylesheet" href="{$StaticRoot}/css/mobile/mobile.css">
 
   <script src="{$StaticRoot}/js/dist/vue.js"></script>
   <script src="{$StaticRoot}/plugins/cube-ui/cube.min.js"></script>
@@ -24,15 +24,15 @@
     {* // Global Loading setting
     var loading = null;
     function startLoading (){
-      loading = app.$loading({
-        lock: true,
-        text: '页面加载中',
-        spinner: 'el-icon-loading',
-        background: 'rgba(0, 0, 0, 0.7)'
+      loading = app.$createToast({
+        mask: true,
+        time:0,
+        text: '页面加载中'
       });
+      loading.show()
     }
     function stopLoading (){
-      loading.close();
+      loading.hide();
     }
     // request interceptor
     axios.interceptors.request.use(function(config){

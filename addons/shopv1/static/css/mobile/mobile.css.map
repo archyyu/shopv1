@@ -1,0 +1,9 @@
+{
+    "version": 3,
+    "mappings": "",
+    "sources": [
+        "scss/mobile.scss"
+    ],
+    "names": [],
+    "file": "mobile.css"
+}
