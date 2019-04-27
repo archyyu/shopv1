@@ -54,7 +54,7 @@
                         <div class="checkout-title">结账</div>
                     </div>
                     <div class="cart-wrap">
-                        <div class="cart-main" v-if="cartMain">
+                        <div class="cart-main" v-if="orderState == -1">
                             <div class="cart-list">
                                 <div class="cart-item" v-for="cart in cartlist">
                                     <div class="cart-item-title">{{cart.productname}}
@@ -95,19 +95,19 @@
                                 </el-row>
                             </div>
                         </div>
-                        <div class="cart-qrcode" v-else-if="qrcodeShow">
+                        <div class="cart-qrcode" v-if="orderState == 0">
                             <p class="order-id">123456789</p>
                             <div class="qrcode"> <img src="http://placehold.it/150x150"> </div>
                             <p class="tips">若扫码未自动跳转，请确认付款后，点击确认支付！</p>
                             <el-button type="primary" plain class="confirm-btn">确认支付</el-button>
                         </div>
-                        <div class="cart-checkout" v-else>
+                        <div class="cart-checkout" v-if="orderState == 1">
                             <div class="check-icon">
                                 <span class="el-icon-success"></span>
                             </div>
                             <p class="checkout-text">订单支付成功！</p>
-                            <div class="checkout-money">订单金额：<span>￥12.88</span></div>
-                            <el-button type="primary" plain class="confirm-btn">返回购物车</el-button>
+                            <div class="checkout-money">订单金额：<span>￥{{orderPrice}}</span></div>
+                            <el-button type="primary" plain @click="orderState = -1" class="confirm-btn">返回购物车</el-button>
                         </div>
                     </div>
                 </el-col>
@@ -150,8 +150,8 @@ Vue.component('waterbar', {
         return {
             firstPaneShow: 'sale',
             editBtnShow: true,
-            cartMain: true,
-            qrcodeShow: false,
+            orderState : -1,
+            orderPrice:0,
             activeNav: 0,
             typelist: [],
             productlist: [],
@@ -173,6 +173,8 @@ Vue.component('waterbar', {
         
         createOrder:function(paytype){
             
+            this.orderPrice = this.getCartSum();
+            
             var url = UrlHelper.createUrl('order','createOrder');
             var params = Store.createParams();
             params.address = this.address;
@@ -186,6 +188,7 @@ Vue.component('waterbar', {
                         if(res.state == 0){
                             console.log("create order ok");
                             this.$message.success("下单成功");
+                            this.orderState = 1;
                             this.cartlist = [];
                         }
                         else{
@@ -200,6 +203,7 @@ Vue.component('waterbar', {
         },
         
         cartAdd:function(productid){
+        
             
             for (var i = 0; i < this.cartlist.length; i++) {
                 if (this.cartlist[i].productid == productid) {
@@ -227,6 +231,10 @@ Vue.component('waterbar', {
         
         addCart: function (productid, productname, price,inventory) {
 
+            if(this.orderState != -1){
+                this.orderState = -1;
+            }
+                
             this.editBtnShow = true;
 
             if(inventory <= 0){
