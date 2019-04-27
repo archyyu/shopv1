@@ -55,6 +55,12 @@ class ProductController extends \controller\Controller{
         $this->returnSuccess($list);
     }
     
+    public function clientshift(){
+        
+        $this->smarty->setTemplateDir(CASHROOT . 'template/mobile');
+        $this->smarty->display('shift.tpl');
+    }
+    
     
     
 }
