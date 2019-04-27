@@ -37,7 +37,7 @@
                             <p>地址：{{order.address }}</p>
                         </el-col>
                         <el-col :span="6">
-                            <p>总金额：{{order.orderprice/100 }}元</p>
+                            <p>总金额：{{order.orderprice/100 || 0 }}元</p>
                             <p>订单状态：{{ Store.stateToStr(order.orderstate) }}</p>
                             <p>积分抵现：{{0 }}</p>
                         </el-col>
