@@ -61,6 +61,12 @@ class ProductController extends \controller\Controller{
         $this->smarty->display('shift.tpl');
     }
     
+    public function clientcount(){
+        
+        $this->smarty->setTemplateDir(CASHROOT . 'template/mobile');
+        $this->smarty->display('count.tpl');
+    }
+    
     
     
 }

@@ -5,7 +5,7 @@
         <header class="header">
             <i class="cubeic-back"></i>
             <div class="title">
-                <span>全部赛事</span>
+                <span>交班</span>
             </div>
         </header>
         <div class="container">
@@ -51,7 +51,7 @@
             <div class="product-list">
                 <h5>商品列表</h5>
                 <div class="product-list-table">
-                    <table>
+                    <table class="table">
                         <thead>
                             <tr>
                                 <th>商品名称</th>

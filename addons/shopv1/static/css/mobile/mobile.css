@@ -43,6 +43,21 @@
   overflow-y: auto;
 }
 
+.table {
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+.table > thead > tr > th,
+.table > tbody > tr > th,
+.table > thead > tr > td,
+.table > tbody > tr > td {
+  padding: 5px;
+  line-height: 1.42857143;
+  vertical-align: center;
+  border: 1px solid #ddd;
+}
+
 .shift .shift-info {
   border: 1px solid rgba(0, 0, 0, 0.1);
   border-radius: 4px;
@@ -86,17 +101,16 @@
   margin-bottom: 15px;
 }
 
-.shift .product-list .product-list-table table {
-  width: 100%;
+.count .count-table {
+  font-size: .8rem;
 }
 
-.shift .product-list .product-list-table table > thead > tr > th,
-.shift .product-list .product-list-table table > tbody > tr > th,
-.shift .product-list .product-list-table table > thead > tr > td,
-.shift .product-list .product-list-table table > tbody > tr > td {
-  padding: 5px;
-  line-height: 1.42857143;
-  vertical-align: top;
-  border: 1px solid #ddd;
+.count .count-table .cube-input input {
+  width: 100px;
+  padding: 2px;
+}
+
+.count .cube-btn {
+  padding: 10px;
 }
 /*# sourceMappingURL=mobile.css.map */
