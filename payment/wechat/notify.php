@@ -57,7 +57,8 @@ if(is_array($setting['payment'])) {
 			$facilitator_setting = uni_setting($wechat['service'], array('payment'));
 			$wechat['signkey'] = $facilitator_setting['payment']['wechat_facilitator']['signkey'];
 		} else {
-			$wechat['signkey'] = ($wechat['version'] == 1) ? $wechat['key'] : (!empty($wechat['apikey']) ? $wechat['apikey'] : $wechat['signkey']);  		}
+			$wechat['signkey'] = ($wechat['version'] == 1) ? $wechat['key'] : (!empty($wechat['apikey']) ? $wechat['apikey'] : $wechat['signkey']);  	
+        }
 		$sign = strtoupper(md5($string1 . "key={$wechat['signkey']}"));
 		if($sign == $get['sign']) {
 			$sql = 'SELECT * FROM ' . tablename('core_paylog') . ' WHERE `uniontid`=:uniontid';
@@ -67,7 +68,7 @@ if(is_array($setting['payment'])) {
 			if (intval($wechat['switch']) == PAYMENT_WECHAT_TYPE_SERVICE) {
 				$get['openid'] = $log['openid'];
 			}
-						if(!empty($log) && $log['status'] == '0' && (($get['total_fee'] / 100) == $log['card_fee'])) {
+            if(!empty($log) && $log['status'] == '0' && (($get['total_fee'] / 100) == $log['card_fee'])) {
 				$log['tag'] = iunserializer($log['tag']);
 				$log['tag']['transaction_id'] = $get['transaction_id'];
 				$log['uid'] = $log['tag']['uid'];

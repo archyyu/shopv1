@@ -7,7 +7,7 @@ defined('IN_IA') or exit('Access Denied');
 
 load()->func('file');
 define('CACHE_FILE_PATH', IA_ROOT . '/data/cache/');
-
+flush();
 function cache_read($key, $dir = '', $include = true) {
 	$key = str_replace(':', '@', $key);
 	$key = CACHE_FILE_PATH . $key;

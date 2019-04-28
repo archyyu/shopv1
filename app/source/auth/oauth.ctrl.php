@@ -9,7 +9,7 @@ load()->func('communication');
 $code = $_GPC['code'];
 $scope = $_GPC['scope'];
 if (!empty($_SESSION['pay_params'])) {
-		$setting = uni_setting($_W['uniacid'], array('payment'));
+	$setting = uni_setting($_W['uniacid'], array('payment'));
 	$uniacid = !empty($setting['payment']['wechat']['service']) ? $setting['payment']['wechat']['service'] : $setting['payment']['wechat']['borrow'];
 	$acid = pdo_getcolumn('uni_account', array('uniacid' => $uniacid), 'default_acid');
 	$setting = account_fetch($acid);

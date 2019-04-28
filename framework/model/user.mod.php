@@ -188,6 +188,9 @@ function user_single($user_or_uid) {
 	}
 	if (!empty($user['password'])) {
 		$password = user_hash($user['password'], $record['salt']);
+        
+        logging_run("password:$password,password:".$record['password']);
+        
 		if ($password != $record['password']) {
 			return false;
 		}

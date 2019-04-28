@@ -153,4 +153,5 @@ if ($do == 'module') {
 		);
 	}
 }
+
 template('platform/cover');

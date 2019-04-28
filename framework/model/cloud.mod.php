@@ -82,9 +82,7 @@ function cloud_request($url, $post = '', $extra = array() , $timeout = 60) {
 function cloud_prepare() {
     global $_W;
     setting_load();
-    if (empty($_W['setting']['site']['key']) || empty($_W['setting']['site']['token'])) {
-        return error('-1', "您的站点只有在微擎云服务平台成功注册后，才能使用云服务的相应功能。");
-    }
+    //TODO
     return true;
 }
 function cloud_build() {
@@ -232,16 +230,15 @@ function cloud_download($path, $type = '') {
     }
 }
 function cloud_m_prepare($name) {
-    $pars['method'] = 'module.check';
-    $pars['module'] = $name;
-    $dat = cloud_request(HTTP_X_FOR .'update.zhifun.cc/app/api.php', $pars);
-    if (is_error($dat)) {
-        return $dat;
-    }
-    if ($dat['content'] == 'install-module-protect') {
-        //	return error('-1', '此模块已设置版权保护，您只能通过云平台来安装。');
-        
-    }
+//    $pars['method'] = 'module.check';
+//    $pars['module'] = $name;
+//    $dat = cloud_request(HTTP_X_FOR .'update.zhifun.cc/app/api.php', $pars);
+//    if (is_error($dat)) {
+//        return $dat;
+//    }
+//    if ($dat['content'] == 'install-module-protect') {
+//        return error('-1', '此模块已设置版权保护，您只能通过云平台来安装。');
+//    }
     return true;
 }
 function cloud_m_build($modulename, $type = '') {

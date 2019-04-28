@@ -37,8 +37,7 @@ if (($_W['setting']['copyright']['status'] == 1) && empty($_W['isfounder']) && $
 	}
 	isetcookie('__session', '', - 10000);
 	
-	
-		message('站点已关闭，关闭原因：' . $_W['setting']['copyright']['reason'], url('account/welcome'), 'info');
+    message('站点已关闭，关闭原因：' . $_W['setting']['copyright']['reason'], url('account/welcome'), 'info');
 	
 }
 
@@ -116,7 +115,10 @@ if ($_W['role'] != ACCOUNT_MANAGE_NAME_FOUNDER) {
 		message('不能访问, 需要相应的权限才能访问！');
 	}
 }
-require _forward($controller, $action);
+
+$file = _forward($controller, $action);
+logging_run("forward file:".$file);
+require $file;
 
 define('ENDTIME', microtime());
 if (empty($_W['config']['setting']['maxtimeurl'])) {
