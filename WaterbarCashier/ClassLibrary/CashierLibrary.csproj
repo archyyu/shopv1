@@ -107,13 +107,11 @@
     <Compile Include="KeyBoard\KeyboardHook.cs" />
     <Compile Include="KeyBoard\KeyboardHookS.cs" />
     <Compile Include="KeyBoard\WinLockUtil.cs" />
-    <Compile Include="Model\ChainMember.cs" />
     <Compile Include="Model\DataFormatProcessor.cs" />
     <Compile Include="Model\DragHandler.cs" />
     <Compile Include="Model\FileProcessor.cs" />
     <Compile Include="Model\ImageProcessor.cs" />
     <Compile Include="Model\Injection.cs" />
-    <Compile Include="Model\Member.cs" />
     <Compile Include="Model\MenuHandler.cs" />
     <Compile Include="Model\Notify.cs" />
     <Compile Include="Model\Order.cs" />
