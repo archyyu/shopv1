@@ -19,9 +19,7 @@ namespace PcWaterbar
     {
 
         private CefSharp.WinForms.ChromiumWebBrowser webCom = null;
-
-        private frmTopMostForm myTopMost = null;
-
+        
         private System.Windows.Forms.Timer stopRectTimer = new System.Windows.Forms.Timer();
 
         private string openId = "";
@@ -34,8 +32,6 @@ namespace PcWaterbar
             this.clickStamp = this.getCurrentTimeStamp();
 
             InitializeComponent();
-            myTopMost = new frmTopMostForm(this);
-            this.myTopMost.TopMost = false;
             this.Show();
             
 
@@ -100,24 +96,7 @@ namespace PcWaterbar
 
         private void stopRectTick(object sender, EventArgs e)
         {
-            if (this.Bounds.Contains(Cursor.Position))
-            {
-                
-            }
-            else
-            {
-
-                double nnnow = this.getCurrentTimeStamp();
-                if ((nnnow - this.clickStamp) > 30)
-                {
-                    this.Hide();
-                    //this.myTopMost.setPos(Screen.PrimaryScreen.Bounds.Width - 200, 100);
-                    this.myTopMost.Show();
-                }    
-            }
-
-            //this.testHttp();
-
+            
         }
 
         private void testHttp()
@@ -191,19 +170,8 @@ namespace PcWaterbar
             MethodInvoker MethInvo = new MethodInvoker(waterbar);
             this.BeginInvoke(MethInvo);
         }
-
-        private void netfee()
-        {
-            NetbarForm netbarForm = new NetbarForm(this.openId);
-            netbarForm.Show();
-        }
-
-        public void openNetfee(string openId)
-        {
-            this.openId = openId;
-            MethodInvoker methInvo = new MethodInvoker(netfee);
-            this.BeginInvoke(methInvo); 
-        }
+        
+        
 
         public void openScreenLock()
         {
