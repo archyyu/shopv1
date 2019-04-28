@@ -39,6 +39,7 @@ load()->library('agent');
 load()->classs('db');
 load()->func('communication');
 load()->func('logging');
+load()->func('file');
 
 
 

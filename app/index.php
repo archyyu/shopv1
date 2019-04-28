@@ -22,7 +22,7 @@ if ($_W['setting']['copyright']['status'] == 1) {
 }
 $multiid = intval($_GPC['t']);
 if(empty($multiid)) {
-		$multiid = intval($unisetting['default_site']);
+    $multiid = intval($unisetting['default_site']);
 	unset($setting);
 }
 

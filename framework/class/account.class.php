@@ -488,14 +488,14 @@ class WeUtility {
 
 		global $_W;
 		static $file;
-				if (defined('IN_MOBILE')) {
+        if (defined('IN_MOBILE')) {
 			$file = IA_ROOT . "/addons/{$name}/mobile.php";
 			$classname = "{$name}ModuleMobile";
 			if (is_file($file)) {
 				require $file;
 			}
 		}
-				if (!defined('IN_MOBILE') || !class_exists($classname)) {
+        if (!defined('IN_MOBILE') || !class_exists($classname)) {
 			$classname = "{$name}ModuleSite";
 			if (!class_exists($classname)) {
 				$file = IA_ROOT . "/addons/{$name}/site.php";

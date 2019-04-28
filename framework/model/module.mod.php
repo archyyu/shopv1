@@ -365,7 +365,7 @@ function module_fetch($name, $enabled = true) {
 		}
 	}
 
-		if (!empty($module) && !empty($_W['uniacid'])) {
+	if (!empty($module) && !empty($_W['uniacid'])) {
 		$setting_cachekey = cache_system_key('module_setting', array('module_name' => $name, 'uniacid' => $_W['uniacid']));
 		$setting = cache_load($setting_cachekey);
 		if (empty($setting)) {

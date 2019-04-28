@@ -10,6 +10,7 @@ define('LOGGING_TRACE', 'trace');
 define('LOGGING_WARNING', 'warning');
 define('LOGGING_INFO', 'info');
 
+
 function logInfo($info){
     logging_run($info,"info","info");
 }
@@ -39,7 +40,7 @@ function logError($info,$e = NULL){
     }
 }
 
-function logging_run($log, $type = 'trace', $filename = 'run') {
+function logging_run($log, $type = 'info', $filename = 'info') {
 	global $_W;
 	$filename = IA_ROOT . '/data/logs/' . $filename . '_' . date('Ymd') . '.log';
 	
