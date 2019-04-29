@@ -2,7 +2,7 @@
 
 {literal}
 <div id="app">
-    <div class="page-wrap">
+    <div class="page-wrap" v-if="isLogin">
         <cube-tab-bar v-model="selectedLabel" show-slider>
             <cube-tab v-for="(item, index) in tabs" :icon="item.icon" :label="item.label" :key="item.label">
             </cube-tab>
@@ -16,7 +16,17 @@
             </cube-tab-panel>
         </cube-tab-panels>
     </div>
-    <div class="login"></div>
+    <div class="login-container" v-if="!isLogin">
+        <cube-form :model="loginMsg">
+            <cube-form-group>
+                <cube-form-item :field="fields[0]"></cube-form-item>
+                <cube-form-item :field="fields[1]"></cube-form-item>
+            </cube-form-group>
+            <cube-form-group>
+                <cube-button type="submit">登 录</cube-button>
+            </cube-form-group>
+        </cube-form>
+    </div>
 </div>
 
 {/literal}
@@ -27,36 +37,9 @@
 <script src="{$StaticRoot}/js/mobile/store.js"></script>
 <script src="{$StaticRoot}/js/mobile/urlHelper.js"></script>
 <script src="{$StaticRoot}/js/common/urlUtil.js"></script>
-{literal}
-<script>
-    var app = new Vue({
-        el: "#app",
-        data: function(){
-            return {
-                selectedLabel: 'shift',
-                tabs: [
-                    {
-                        label: 'shift',
-                        icon: 'cubeic-like',
-                    },
-                    {
-                        label: 'count',
-                        icon: 'cubeic-star',
-                    },
-                    {
-                        label: 'waterbar',
-                        icon: 'cubeic-star',
-                    }
-                ]
-            }
-        },
-        created() {
-            this.selectedLabel = UrlUtil.getQueryString("f").replace(/mobile/,"");
-        },
-        mounted() {},
-        methods: {}
-    })
-</script>
-{/literal}
+
+
+<script src="{$StaticRoot}/js/mobile/index.js"></script>
+
 
 {include file="./common/footer.tpl"}
