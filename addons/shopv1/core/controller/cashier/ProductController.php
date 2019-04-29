@@ -55,10 +55,31 @@ class ProductController extends \controller\Controller{
         $this->returnSuccess($list);
     }
     
-    public function mobileindex(){
+    public function loadProductInventory(){
         
-        $this->smarty->setTemplateDir(CASHROOT . 'template/mobile');
-        $this->smarty->display('mobilemain.tpl');
+        $shopid = $this->getParam("shopid");
+        $list = $this->productService->getProductListByShop($shopid);
+        $this->returnSuccess($list);
+    }
+    
+    //盘点
+    public function check(){
+        
+        $shopid = $this->getParam("shopid");
+        $userid = $this->getParam("userid");
+        logInfo("data：".$this->getParams("data"));
+        $productList = json_decode($this->getParams("data"), true);
+        $shop = $this->shopModel->findShopById($shopid);
+        
+        foreach($productList as $key=>$value){
+            
+            $this->productService->inventoryCheck($shop['uniacid'], $shopid, $value['id'], $value['actualinventory'],
+                $shop['defaultstoreid'], $userid);
+            
+        }
+        
+        $this->returnSuccess();
+        
     }
     
     public function mobileshift(){
@@ -78,6 +99,8 @@ class ProductController extends \controller\Controller{
         $this->smarty->setTemplateDir(CASHROOT . 'template/mobile');
         $this->smarty->display('mobilemain.tpl');
     }
+    
+    
     
     
     

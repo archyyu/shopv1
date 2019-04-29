@@ -12,7 +12,7 @@
             <div class="shift-info">
                 <div class="shift-info-item">
                     <span class="info-title">开始时间：</span>
-                    <p class="static-text">123456</p>
+                    <p class="static-text"></p>
                 </div>
                 <div class="shift-info-item">
                     <span class="info-title">当前时间：</span>
@@ -66,6 +66,7 @@
                     </table>
                 </div>
             </div>
+            <cube-button :primary="true" @click='check'>确 定</cube-button>
             </cube-scroll>
         </div>
     </div>
@@ -79,6 +80,22 @@ Vue.component('shift', {
     template: '#shift',
     data: function(){
         return {}
+    },
+    methods: {
+        
+        queryDutyInfo:function(){
+            
+        },
+
+        queryProductList:function(){
+            
+        },
+
+        check: function(){},
+        
+        info:function(){
+        }
+        
     }
 });
 </script>

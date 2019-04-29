@@ -99,34 +99,6 @@ namespace PcWaterbar
             
         }
 
-        private void testHttp()
-        {
-
-            IDictionary<string, string> parameters = new Dictionary<string, string>();
-
-            parameters.Add("loginname", "test");
-            parameters.Add("password", "test");
-
-            String body = JsonUtil.SerializeObject(parameters);
-
-            try
-            {
-
-                string result = HttpUtil.doPost("http://192.168.1.136:17000/test", body);
-                JObject json = JObject.Parse(result);
-
-                if (json["result"].ToString() == "success")
-                {
-                    LogHelper.WriteLog("ok");
-                }
-            }
-            catch (Exception ex)
-            {
-                LogHelper.WriteLog("err");
-            }
-
-        }
-
         internal AnchorStyles StopAanhor = AnchorStyles.None;
 
         private void mStopAnhor()

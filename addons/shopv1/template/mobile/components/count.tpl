@@ -21,19 +21,19 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr v-for="o in 50">
-                                <td>111</td>
-                                <td>12</td>
+                            <tr v-for="material in productInventory">
+                                <td>{{material.productname}}</td>
+                                <td>{{material.inventory}}</td>
                                 <td>
-                                    <cube-input></cube-input>
+                                    <cube-input v-model='material.actualinventory'></cube-input>
                                 </td>
-                                <td>12</td>
-                                <td>12</td>
+                                <td>{{material.actualinventory - material.inventory > 0 ?'报溢':'报损' }}</td>
+                                <td>{{material.actualinventory - material.inventory}}</td>
                             </tr>
                         </tbody>
                     </table>
                 </div>
-                <cube-button :primary="true">确 定</cube-button>
+                <cube-button :primary="true" @click='check'>确 定</cube-button>
             </cube-scroll>
         </div>
     </div>
@@ -46,7 +46,53 @@ Vue.component('count', {
     name: 'Count',
     template: '#count',
     data: function(){
-        return {}
+        return {
+            productInventory: []
+        }
+    },
+    created() {},
+    mounted() {
+        this.queryProductInventory();
+    },
+    methods: {
+        queryProductInventory: function () {
+            let params = Store.createParams();
+            let url = UrlHelper.createUrl("product", "loadProductInventory");
+
+            axios.post(url, params)
+                .then((res) => {
+                    res = res.data;
+                    if (res.state == 0) {
+                        this.productInventory = res.obj;
+                    } else {
+                        this.$message.error(res.msg);
+                    }
+                });
+
+        },
+        check: function () {
+
+            let params = Store.createParams();
+            params.data = JSON.stringify(this.productInventory);
+            console.log(params.data);
+            let url = UrlHelper.createUrl("product", "check");
+
+            axios.post(url, params)
+                .then((res) => {
+                    res = res.data;
+                    console.log(res);
+                    if (res.state == 0) {
+                        this.$message.success("盘点成功");
+                        this.queryProductInventory();
+                    } else {
+                        this.$message.error(res.msg);
+                    }
+                });
+
+        },
+        info: function () {
+
+        }
     }
 });
 </script>
