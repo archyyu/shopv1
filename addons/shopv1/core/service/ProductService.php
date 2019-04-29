@@ -67,6 +67,28 @@ class ProductService extends Service{
         
     }
     
+    public function getProductListByShop($shopid){
+        
+        $shop = $this->shopModel->findShopById($shopid);
+        
+        $list = $this->productModel->findProductByUniacid($shop['uniacid']);
+        
+        $result = array();
+        foreach($list as $key=>$product){
+            
+            if($product['producttype'] == 2 || $product['producttype'] == 0){
+                $product['inventory'] = $this->calculateTheInventory($shop, $product);
+                $product['actualinventory'] = $product['inventory'];
+                
+                $result[] = $product;
+            }
+            
+        }
+        
+        return $result;
+        
+    }
+    
     private function calculateTheInventory($shop,$product){
         if($product['producttype'] == ProductType::VirtualProduct){
             return 10000;
