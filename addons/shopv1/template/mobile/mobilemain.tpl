@@ -24,6 +24,8 @@
 {include file="./components/shift.tpl"}
 {include file="./components/count.tpl"}
 
+<script src="{$StaticRoot}/js/mobile/store.js"></script>
+<script src="{$StaticRoot}/js/mobile/urlHelper.js"></script>
 <script src="{$StaticRoot}/js/common/urlUtil.js"></script>
 {literal}
 <script>
