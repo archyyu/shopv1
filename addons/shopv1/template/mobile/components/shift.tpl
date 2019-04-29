@@ -1,7 +1,6 @@
-{include file="./common/header.tpl"}
-
-<div id="app">
-    <div class="page-wrap shift">
+<script type="text/x-template" id="shift">
+    {literal}
+    <div class="shift">
         <header class="header">
             <i class="cubeic-back"></i>
             <div class="title">
@@ -72,13 +71,16 @@
     </div>
 </div>
 
-<script>
-    var app = new Vue({
-        el: "#app",
-        data: {},
-        created() {},
-        mounted() {},
-        methods: {}
-    })
 </script>
-{include file="./common/footer.tpl"}
+
+<script>
+Vue.component('shift', {
+    name: 'Shift',
+    template: '#shift',
+    data: function(){
+        return {}
+    }
+});
+</script>
+
+{/literal}

@@ -1,7 +1,6 @@
-{include file="./common/header.tpl"}
-
-<div id="app">
-    <div class="page-wrap count">
+<script type="text/x-template" id="count">
+    {literal}
+    <div class="count">
         <header class="header">
             <i class="cubeic-back"></i>
             <div class="title">
@@ -38,15 +37,18 @@
             </cube-scroll>
         </div>
     </div>
-</div>
+    </div>
+
+</script>
 
 <script>
-    var app = new Vue({
-        el: "#app",
-        data: {},
-        created() {},
-        mounted() {},
-        methods: {}
-    })
+Vue.component('count', {
+    name: 'Count',
+    template: '#count',
+    data: function(){
+        return {}
+    }
+});
 </script>
-{include file="./common/footer.tpl"}
+
+{/literal}

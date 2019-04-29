@@ -11,6 +11,16 @@
   height: 100%;
 }
 
+.page-wrap .cube-tab-bar {
+  display: none;
+}
+
+.page-wrap .cube-tab-panels,
+.page-wrap .cube-tab-panels-group,
+.page-wrap .cube-tab-panel {
+  height: 100%;
+}
+
 .page-wrap .header {
   position: relative;
   height: 44px;
@@ -58,6 +68,10 @@
   border: 1px solid #ddd;
 }
 
+.shift {
+  height: 100%;
+}
+
 .shift .shift-info {
   border: 1px solid rgba(0, 0, 0, 0.1);
   border-radius: 4px;
@@ -99,6 +113,10 @@
 .shift .product-list h5 {
   margin-top: 15px;
   margin-bottom: 15px;
+}
+
+.count {
+  height: 100%;
 }
 
 .count .count-table {

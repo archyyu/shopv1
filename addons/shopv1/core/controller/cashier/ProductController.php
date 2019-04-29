@@ -55,16 +55,28 @@ class ProductController extends \controller\Controller{
         $this->returnSuccess($list);
     }
     
-    public function clientshift(){
+    public function mobileindex(){
         
         $this->smarty->setTemplateDir(CASHROOT . 'template/mobile');
-        $this->smarty->display('shift.tpl');
+        $this->smarty->display('mobilemain.tpl');
     }
     
-    public function clientcount(){
+    public function mobileshift(){
         
         $this->smarty->setTemplateDir(CASHROOT . 'template/mobile');
-        $this->smarty->display('count.tpl');
+        $this->smarty->display('mobilemain.tpl');
+    }
+    
+    public function mobilecount(){
+        
+        $this->smarty->setTemplateDir(CASHROOT . 'template/mobile');
+        $this->smarty->display('mobilemain.tpl');
+    }
+    
+    public function mobilewaterbar(){
+        
+        $this->smarty->setTemplateDir(CASHROOT . 'template/mobile');
+        $this->smarty->display('mobilemain.tpl');
     }
     
     
