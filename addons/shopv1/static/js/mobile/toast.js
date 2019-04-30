@@ -8,17 +8,17 @@
 var Toast={
   
     success:function(content){ 
-//        this.$createToast({
-//          txt: content,
-//          type: 'correct'
-//        }).show();
+        app.$createToast({
+          txt: content,
+          type: 'correct'
+        }).show();
     },
     
     error:function(content){
-//        this.$createToast({
-//          txt: content,
-//          type: 'error'
-//        }).show();
+        app.$createToast({
+          txt: content,
+          type: 'error'
+        }).show();
     },
     
     info:function(){

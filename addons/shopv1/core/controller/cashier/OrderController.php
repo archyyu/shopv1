@@ -17,6 +17,8 @@ class OrderController extends \controller\Controller{
     
     private $orderService;
     
+    private $payService;
+    
     private $orderModel;
     
     private $productTypeModel;
@@ -25,6 +27,7 @@ class OrderController extends \controller\Controller{
         parent::__construct();
         $this->productTypeModel = new \model\ShopProductType();
         $this->orderService = new \service\OrderService();
+        $this->payService = new \service\PayService();
         $this->orderModel = new \model\ShopOrder(); 
     }
     
@@ -46,9 +49,21 @@ class OrderController extends \controller\Controller{
             $this->returnFail("订单错误");
         }
         
-        if($ordersource == 0){
+        if($ordersource == 0 && $paytype == 0){
             $this->orderService->payOrder($shopid, $orderid);
         }
+        
+        if($paytype == 1 || $paytype == 2){
+            
+            $order = $this->orderModel->findOrderById($orderid);
+            
+            $payurl = $this->payService->getPayUrl($order);
+            
+            logInfo("payurl:".$payurl);
+            
+            $this->returnSuccess($payurl);
+        }
+        
         
         $this->returnSuccess();
         
