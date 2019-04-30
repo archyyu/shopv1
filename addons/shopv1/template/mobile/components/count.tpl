@@ -48,7 +48,7 @@ Vue.component('count', {
     data: function(){
         return {
             productInventory: []
-        }
+        };
     },
     created() {},
     mounted() {
@@ -75,17 +75,17 @@ Vue.component('count', {
             let params = Store.createParams();
             params.data = JSON.stringify(this.productInventory);
             console.log(params.data);
-            let url = UrlHelper.createUrl("product", "check");
+            let url = UrlHelper.createUrl("product", "inventorycheck");
 
             axios.post(url, params)
                 .then((res) => {
                     res = res.data;
                     console.log(res);
                     if (res.state == 0) {
-                        this.$message.success("盘点成功");
-                        this.queryProductInventory();
+                        Toast.success("盘点成功");
+                        //this.queryProductInventory();
                     } else {
-                        this.$message.error(res.msg);
+                        Toast.error(res.msg);
                     }
                 });
 

@@ -162,6 +162,7 @@ class OrderService extends Service{
         $duty['productcash'] = $productcash/100;
         $duty['productwechat'] = $productwechat/100;
         $duty['productalipay'] = $productalipay/100;
+        $duty['ordersize'] = count($orderList);
         $duty['productsum'] = ($productcash + $productwechat + $productalipay)/100;
         
         return $duty;

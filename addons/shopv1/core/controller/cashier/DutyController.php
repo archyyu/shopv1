@@ -49,6 +49,7 @@ class DutyController extends \controller\Controller{
         $duty['uniacid'] = $uniacid;
         
         unset($duty['productsum']);
+        unset($duty["ordersize"]);
         
         if($this->dutyModel->saveDuty($duty)){
             $this->returnSuccess();

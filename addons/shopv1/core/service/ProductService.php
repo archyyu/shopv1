@@ -221,6 +221,11 @@ class ProductService extends Service{
         
         $materialInventory = $this->findInventoryBy($shopid,$productid, $storeId);
         
+        //如果库存相同，则exit
+        if($inventory == $materialInventory["inventory"]){
+            return ;
+        }
+        
         $data = array();
         $data['inventory'] = $inventory;
         $this->productInventoryModel->updateProductInventory($data, $productid,$storeId);

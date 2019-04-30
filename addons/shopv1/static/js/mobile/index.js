@@ -30,19 +30,19 @@ var app = new Vue({
                   }
                 }
             ],
-            selectedLabel: 'shift',
+            selectedLabel: 'count',
             tabs: [
                 {
                     label: 'shift',
-                    icon: 'cubeic-like',
+                    icon: 'cubeic-like'
                 },
                 {
                     label: 'count',
-                    icon: 'cubeic-star',
+                    icon: 'cubeic-star'
                 },
                 {
                     label: 'waterbar',
-                    icon: 'cubeic-star',
+                    icon: 'cubeic-star'
                 }
             ]
         }
@@ -51,5 +51,26 @@ var app = new Vue({
         this.selectedLabel = UrlUtil.getQueryString("f").replace(/mobile/,"");
     },
     mounted() {},
-    methods: {}
+    methods: {
+        login:function(){
+            
+            var url = UrlHelper.createUrl('user','login');
+            axios.post(url,this.loginMsg)
+                    .then((res)=>{
+                        res = res.data;
+                        if(res.state == 0){
+                            Toast.success("登录成功");
+                            Store.initLoginInfo(res.obj);
+                            this.isLogin = true;
+                        }
+                        else{
+                            Toast.error(res.msg);
+                        }
+                    });
+            
+        },
+        info:function(){
+            
+        }
+    }
 });

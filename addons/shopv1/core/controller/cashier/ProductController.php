@@ -63,12 +63,12 @@ class ProductController extends \controller\Controller{
     }
     
     //盘点
-    public function check(){
+    public function inventorycheck(){
         
         $shopid = $this->getParam("shopid");
         $userid = $this->getParam("userid");
-        logInfo("data：".$this->getParams("data"));
-        $productList = json_decode($this->getParams("data"), true);
+        //logInfo("data：". htmlspecialchars_decode($this->getParam("data")));
+        $productList = json_decode( htmlspecialchars_decode( $this->getParam("data") ), true);
         $shop = $this->shopModel->findShopById($shopid);
         
         foreach($productList as $key=>$value){

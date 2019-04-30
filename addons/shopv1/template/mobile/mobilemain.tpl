@@ -19,11 +19,11 @@
     <div class="login-container" v-if="!isLogin">
         <cube-form :model="loginMsg">
             <cube-form-group>
-                <cube-form-item :field="fields[0]"></cube-form-item>
-                <cube-form-item :field="fields[1]"></cube-form-item>
+                <cube-form-item v-model="loginMsg.account" :field="fields[0]"></cube-form-item>
+                <cube-form-item v-model="loginMsg.password" :field="fields[1]"></cube-form-item>
             </cube-form-group>
             <cube-form-group>
-                <cube-button type="submit">登 录</cube-button>
+                <cube-button @click="login" type="submit">登 录</cube-button>
             </cube-form-group>
         </cube-form>
     </div>
@@ -31,8 +31,9 @@
 
 {/literal}
 
-{include file="./components/shift.tpl"}
 {include file="./components/count.tpl"}
+{include file="./components/shift.tpl"}
+
 
 <script src="{$StaticRoot}/js/mobile/store.js"></script>
 <script src="{$StaticRoot}/js/mobile/urlHelper.js"></script>
@@ -40,6 +41,9 @@
 
 
 <script src="{$StaticRoot}/js/mobile/index.js"></script>
+<script src="{$StaticRoot}/js/mobile/toast.js"></script>
+<script src="{$StaticRoot}/js/cashier/dateUtil.js"></script>
+
 
 
 {include file="./common/footer.tpl"}

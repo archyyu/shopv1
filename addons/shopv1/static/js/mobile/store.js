@@ -7,17 +7,22 @@
 
 var Store={
     
-    userInfo : {},
-    shopInfo:{},
+    user : {},
+    shop:{},
     
     createParams:function(){
         let params = {};
-        params.shopid = 1;// userInfo.shopid;
-        params.userid = 1;// userInfo.id;
+        params.shopid = Store.shop.id;// userInfo.shopid;
+        params.userid = Store.user.id;// userInfo.id;
+        params.from = 1;
+        params.__uniacid = Store.shop.uniacid;
         return params;
     },
     
-    
+    initLoginInfo:function(msg){
+        Store.shop = msg.shop;
+        Store.user = msg.user;
+    },
     
     info:function(){
         
