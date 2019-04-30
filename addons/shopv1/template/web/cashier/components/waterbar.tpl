@@ -86,20 +86,20 @@
                                     <el-col @click.native="createOrder(0)" :span="8" class="cashpay">
                                         <iconfont>&#xe6d1;</iconfont> 现金
                                     </el-col>
-                                    <el-col :span="8" class="weipay">
+                                    <el-col @click.native="createOrder(1)" :span="8" class="weipay">
                                         <iconfont>&#xe669;</iconfont> 微信
                                     </el-col>
-                                    <el-col :span="8" class="alipay">
+                                    <el-col @click.native="createOrder(2)" :span="8" class="alipay">
                                         <iconfont>&#xe666;</iconfont> 支付宝
                                     </el-col>
                                 </el-row>
                             </div>
                         </div>
                         <div class="cart-qrcode" v-if="orderState == 0">
-                            <p class="order-id">123456789</p>
+                            <p class="order-id">{{}}</p>
                             <div class="qrcode"> <img src="http://placehold.it/150x150"> </div>
                             <p class="tips">若扫码未自动跳转，请确认付款后，点击确认支付！</p>
-                            <el-button type="primary" plain class="confirm-btn">确认支付</el-button>
+                            <el-button type="primary" @click="confirmOrder" plain class="confirm-btn">确认支付</el-button>
                         </div>
                         <div class="cart-checkout" v-if="orderState == 1">
                             <div class="check-icon">
@@ -157,6 +157,7 @@ Vue.component('waterbar', {
             productlist: [],
             cartlist: [],
             defaulttypeid:0,
+            orderid:"12365",
             attribute: '1' ,
             address:''
         };
@@ -188,14 +189,30 @@ Vue.component('waterbar', {
                         if(res.state == 0){
                             console.log("create order ok");
                             this.$message.success("下单成功");
-                            this.orderState = 1;
+                            
+                            if(paytype == 0){
+                                this.orderState = 1;
+                                
+                            }
+                            else if(paytype == 1 || paytype == 2){
+                                this.orderState=0;
+                                let payurl = res.obj;
+                                console.log(payurl);
+                            }
+                            
                             this.cartlist = [];
+                            
                         }
                         else{
                             this.$message.error(res.msg);
                         }
                         });
             
+        },
+        
+        confirmOrder:function(){
+            this.orderState = -1;
+            this.cartlist = [];
         },
 
         clearCart: function(){

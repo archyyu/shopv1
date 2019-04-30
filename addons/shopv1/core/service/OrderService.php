@@ -13,6 +13,8 @@ use model\ShopOrderproduct;
 
 use common\OrderType;
 
+use unionpay\AppUtil;
+
 /**
  * Description of OrderService
  *
@@ -28,7 +30,9 @@ class OrderService extends Service{
     
     private $shopDuty;
     
-    private $dutyModel;
+    private $wechatAccount;
+    
+    private $shopModel;
     
     public function __construct(){
         parent::__construct();
@@ -36,7 +40,8 @@ class OrderService extends Service{
         $this->shopOrderProduct = new ShopOrderproduct();
         $this->productService = new ProductService();
         $this->shopDuty = new \model\ShopDuty();
-        $this->dutyModel = new \model\ShopDuty();
+        $this->wechatAccount = new \model\WechatAccount();
+        $this->shopModel = new \model\Shop();
     }
     
     public function generateProductOrder($uniacid,$memberid,$userid,$shopid,$address,$productlist,$ordersource,$remark,$paytype){
@@ -167,5 +172,8 @@ class OrderService extends Service{
         
         return $duty;
     }
+    
+    
+	
     
 }
