@@ -3,16 +3,15 @@
 {literal}
 <div id="app">
     <div class="page-wrap" v-if="isLogin">
-        <cube-tab-bar v-model="selectedLabel" show-slider>
-            <cube-tab v-for="(item, index) in tabs" :icon="item.icon" :label="item.label" :key="item.label">
-            </cube-tab>
-        </cube-tab-bar>
         <cube-tab-panels v-model="selectedLabel">
             <cube-tab-panel label="shift">
                 <shift></shift>
             </cube-tab-panel>
             <cube-tab-panel label="count">
                 <count></count>
+            </cube-tab-panel>
+            <cube-tab-panel label="waterbar">
+                <waterbar></waterbar>
             </cube-tab-panel>
         </cube-tab-panels>
     </div>
@@ -33,6 +32,7 @@
 
 {include file="./components/count.tpl"}
 {include file="./components/shift.tpl"}
+{include file="./components/waterbar.tpl"}
 
 
 <script src="{$StaticRoot}/js/mobile/store.js"></script>

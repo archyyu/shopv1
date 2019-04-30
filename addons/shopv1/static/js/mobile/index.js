@@ -2,7 +2,7 @@ var app = new Vue({
     el: "#app",
     data: function(){
         return {
-            isLogin: false,
+            isLogin: true,
             loginMsg: {
                 account: '',
                 password: ''
@@ -30,7 +30,7 @@ var app = new Vue({
                   }
                 }
             ],
-            selectedLabel: 'count',
+            selectedLabel: 'waterbar',
             tabs: [
                 {
                     label: 'shift',
@@ -48,7 +48,7 @@ var app = new Vue({
         }
     },
     created() {
-        this.selectedLabel = UrlUtil.getQueryString("f").replace(/mobile/,"");
+        // this.selectedLabel = UrlUtil.getQueryString("f").replace(/mobile/,"");
     },
     mounted() {},
     methods: {

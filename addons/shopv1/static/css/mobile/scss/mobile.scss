@@ -1,23 +1,27 @@
-
 // common
-*{
+* {
   box-sizing: border-box;
 }
 
-#app, body, html {
+#app,
+body,
+html {
   height: 100%;
 }
 
-.page-wrap{
+.page-wrap {
   height: 100%;
-  .cube-tab-bar{
+
+  .cube-tab-bar {
     display: none;
   }
+
   .cube-tab-panels,
   .cube-tab-panels-group,
-  .cube-tab-panel{
+  .cube-tab-panel {
     height: 100%;
   }
+
   .header {
     position: relative;
     height: 44px;
@@ -27,6 +31,7 @@
     box-shadow: 0 1px 6px #ccc;
     backface-visibility: hidden;
     z-index: 5;
+
     .cubeic-back {
       position: absolute;
       top: 0;
@@ -34,11 +39,13 @@
       padding: 0 15px;
       color: #fc9153;
     }
-    + .container{
+
+    +.container {
       height: calc(100% - 44px);
     }
   }
-  .container{
+
+  .container {
     height: 100%;
     padding: 15px;
     overflow-x: hidden;
@@ -48,13 +55,14 @@
 
 
 // table
-.table{
+.table {
   width: 100%;
   margin-bottom: 20px;
-  > thead > tr > th,
-  > tbody > tr > th,
-  > thead > tr > td,
-  > tbody > tr > td{
+
+  >thead>tr>th,
+  >tbody>tr>th,
+  >thead>tr>td,
+  >tbody>tr>td {
     padding: 5px;
     line-height: 1.42857143;
     vertical-align: center;
@@ -66,55 +74,161 @@
 
 
 // shift
-.shift{
+.shift {
   height: 100%;
-  .shift-info{
-    border: 1px solid rgba(0,0,0,.1);
+
+  .shift-info {
+    border: 1px solid rgba(0, 0, 0, .1);
     border-radius: 4px;
     margin-bottom: 15px;
-    .shift-info-item{
-      border-bottom: 1px solid rgba(0,0,0,.1);
+
+    .shift-info-item {
+      border-bottom: 1px solid rgba(0, 0, 0, .1);
       display: flex;
       justify-content: space-between;
       align-items: stretch;
       padding: 0 15px;
       height: 40px;
-      &:last-child{
+
+      &:last-child {
         border-bottom-width: 0;
       }
-      > .info-title, > .static-text{
+
+      >.info-title,
+      >.static-text {
         display: flex;
 
         align-items: center;
       }
     }
   }
-  .product-list{
+
+  .product-list {
     padding-bottom: 10px;
-    h5{
+
+    h5 {
       margin-top: 15px;
       margin-bottom: 15px;
     }
-    .product-list-table{
-      
-    }
+
+    .product-list-table {}
   }
 }
 
 
 // count
-.count{
+.count {
   height: 100%;
-  .count-table{
+
+  .count-table {
     font-size: .8rem;
-    .cube-input{
-      input{
+
+    .cube-input {
+      input {
         width: 100px;
         padding: 2px;
       }
     }
   }
-  .cube-btn{
+
+  .cube-btn {
     padding: 10px;
+  }
+}
+
+
+// waterbar
+.waterbar {
+  height: 100%;
+
+  .container {
+    padding: 0;
+    display: flex;
+  }
+
+  .side-container {
+    flex: none;
+    width: 30%;
+    height: 100%;
+    border-right: 1px solid rgba(7, 17, 27, 0.1);
+  }
+
+  .product-container {
+    flex: none;
+    width: 70%;
+    height: 100%;
+
+    .foods-wrapper {
+      .food-item {
+        display: flex;
+        padding: 18px;
+        border-bottom: 1px solid rgba(7, 17, 27, .1);
+
+        &:last-child {
+          margin-bottom: 0
+        }
+
+        .icon {
+          flex: 0 0 57px;
+
+          margin-right: 10px;
+          >img {
+            width: 57px;
+            height: 57px;
+          }
+        }
+
+        .food-content {
+          flex: 1;
+
+          .name {
+            margin: 2px 0 8px;
+            height: 14px;
+            line-height: 14px;
+            font-size: 14px;
+            color: #07111b;
+          }
+
+          .description,
+          .extra {
+            line-height: 10px;
+            font-size: 10px;
+            color: #93999f
+          }
+
+          .description {
+            line-height: 12px;
+            margin-bottom: 8px
+          }
+
+          .extra .count {
+            margin-right: 12px;
+          }
+
+          .price {
+            font-weight: 700;
+            line-height: 24px;
+
+            .now {
+              margin-right: 8px;
+              font-size: 14px;
+              color: #f01414
+            }
+
+            .old {
+              text-decoration: line-through;
+              font-size: 10px;
+              color: #93999f
+            }
+          }
+
+          .cartcontrol-wrapper {
+            position: absolute;
+            right: 0;
+            bottom: 12px
+          }
+        }
+      }
+    }
   }
 }

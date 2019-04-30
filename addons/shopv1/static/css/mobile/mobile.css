@@ -3,7 +3,9 @@
           box-sizing: border-box;
 }
 
-#app, body, html {
+#app,
+body,
+html {
   height: 100%;
 }
 
@@ -97,7 +99,8 @@
   border-bottom-width: 0;
 }
 
-.shift .shift-info .shift-info-item > .info-title, .shift .shift-info .shift-info-item > .static-text {
+.shift .shift-info .shift-info-item > .info-title,
+.shift .shift-info .shift-info-item > .static-text {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -130,5 +133,110 @@
 
 .count .cube-btn {
   padding: 10px;
+}
+
+.waterbar {
+  height: 100%;
+}
+
+.waterbar .container {
+  padding: 0;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.waterbar .side-container {
+  -webkit-box-flex: 0;
+      -ms-flex: none;
+          flex: none;
+  width: 30%;
+  height: 100%;
+  border-right: 1px solid rgba(7, 17, 27, 0.1);
+}
+
+.waterbar .product-container {
+  -webkit-box-flex: 0;
+      -ms-flex: none;
+          flex: none;
+  width: 70%;
+  height: 100%;
+}
+
+.waterbar .product-container .foods-wrapper .food-item {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  padding: 18px;
+  border-bottom: 1px solid rgba(7, 17, 27, 0.1);
+}
+
+.waterbar .product-container .foods-wrapper .food-item:last-child {
+  margin-bottom: 0;
+}
+
+.waterbar .product-container .foods-wrapper .food-item .icon {
+  -webkit-box-flex: 0;
+      -ms-flex: 0 0 57px;
+          flex: 0 0 57px;
+  margin-right: 10px;
+}
+
+.waterbar .product-container .foods-wrapper .food-item .icon > img {
+  width: 57px;
+  height: 57px;
+}
+
+.waterbar .product-container .foods-wrapper .food-item .food-content {
+  -webkit-box-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
+}
+
+.waterbar .product-container .foods-wrapper .food-item .food-content .name {
+  margin: 2px 0 8px;
+  height: 14px;
+  line-height: 14px;
+  font-size: 14px;
+  color: #07111b;
+}
+
+.waterbar .product-container .foods-wrapper .food-item .food-content .description,
+.waterbar .product-container .foods-wrapper .food-item .food-content .extra {
+  line-height: 10px;
+  font-size: 10px;
+  color: #93999f;
+}
+
+.waterbar .product-container .foods-wrapper .food-item .food-content .description {
+  line-height: 12px;
+  margin-bottom: 8px;
+}
+
+.waterbar .product-container .foods-wrapper .food-item .food-content .extra .count {
+  margin-right: 12px;
+}
+
+.waterbar .product-container .foods-wrapper .food-item .food-content .price {
+  font-weight: 700;
+  line-height: 24px;
+}
+
+.waterbar .product-container .foods-wrapper .food-item .food-content .price .now {
+  margin-right: 8px;
+  font-size: 14px;
+  color: #f01414;
+}
+
+.waterbar .product-container .foods-wrapper .food-item .food-content .price .old {
+  text-decoration: line-through;
+  font-size: 10px;
+  color: #93999f;
+}
+
+.waterbar .product-container .foods-wrapper .food-item .food-content .cartcontrol-wrapper {
+  position: absolute;
+  right: 0;
+  bottom: 12px;
 }
 /*# sourceMappingURL=mobile.css.map */
