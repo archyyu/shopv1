@@ -4,7 +4,7 @@
         <header class="header">
             <i class="cubeic-back"></i>
             <div class="title">
-                <span>下单</span>
+                <span>点单</span>
             </div>
         </header>
         <div class="container">
@@ -17,7 +17,8 @@
             <div class="product-container">
                 <cube-scroll 
                     ref="scroll"
-                    :options="options"
+                    :data="productlist"
+                    :options="pullOptions"
                     @pulling-down="refresh"
                     @pulling-up="loadMore">
                     <ul class="foods-wrapper">
@@ -35,6 +36,8 @@
                     </ul>
                 </cube-scroll>
             </div>
+            <cube-toolbar :actions="cartItem"></cube-toolbar>
+            <cube-popup type="my-popup" position="bottom" :mask-closable="true" ref="cartPopup"><div>123<span>456</span></div></cube-popup>
         </div>
     </div>
     </div>
@@ -50,39 +53,36 @@ Vue.component('waterbar', {
             currentNav: {"id":"饮料"},
             navList: [],
             productlist:[],
-            pullDownRefresh: false,
-            pullDownRefreshThreshold: 60,
-            pullDownRefreshStop: 40,
-            pullUpLoad: false,
-            pullUpLoadThreshold: 0,
-            customPullDown: false
+            pullOptions: {
+                pullDownRefresh: {
+                    threshold: 60,
+                    txt: '刷新成功'
+                },
+                pullUpLoad: {
+                    threshold: 0,
+                    txt: {
+                        more: '加载更多',
+                        noMore: '没有数据了'
+                    }
+                },
+                scrollbar: true
+            },
+            cartItem: [
+                {
+                    text: 'cart',
+                    action: 'showCart'
+                },
+                {
+                    text: 'money'
+                },
+                {
+                    text: '去结算',
+                    action: 'checkout'
+                }
+            ]
         };
     },
     computed: {
-        options() {
-            return {
-                pullDownRefresh: this.pullDownRefreshObj,
-                pullUpLoad: this.pullUpLoadObj,
-                scrollbar: true
-            }
-        },
-        pullDownRefreshObj: function () {
-            return this.pullDownRefresh ? {
-                threshold: parseInt(this.pullDownRefreshThreshold),
-                // Do not need to set stop value, but you can if you want
-                // stop: parseInt(this.pullDownRefreshStop),
-                txt: '刷新成功'
-            } : false
-        },
-        pullUpLoadObj: function () {
-            return this.pullUpLoad ? {
-                threshold: parseInt(this.pullUpLoadThreshold),
-                txt: {
-                    more: '加载更多',
-                    noMore: '没有数据了'
-                }
-            } : false
-        }
     },
     mounted() {
         this.queryTypeList();
