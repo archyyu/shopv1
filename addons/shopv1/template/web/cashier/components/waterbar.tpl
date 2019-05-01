@@ -160,11 +160,16 @@ Vue.component('waterbar', {
             orderid:"12365",
             attribute: '1' ,
             address:'',
-            qrcodeurl:'weixin://wxpay/bizpayurl?pr=DNEDbUT'
+            qrcodeurl:''
         };
     },
     created: function () {
         this.queryTypeList();
+        
+        setInterval(()=>{
+                this.queryOrderState();
+                },2000);
+        
         //this.queryProductList(this.defaulttypeid);
     },
     methods: {
@@ -196,7 +201,7 @@ Vue.component('waterbar', {
                                 
                             }
                             else if(paytype == 1 || paytype == 2){
-                                this.orderState=0;
+                                this.orderState = 0;
                                 this.qrcodeurl = res.obj.payurl;
                                 this.orderid = res.obj.orderid;
                             }
@@ -230,6 +235,30 @@ Vue.component('waterbar', {
                     return;
                 }
             }
+            
+        },
+        
+        queryOrderState:function(){
+            
+            if(this.orderState != 0){
+                return;
+            }
+            
+            var params = Store.createParams();
+            params.orderid = this.orderid;
+            var url = UrlHelper.createUrl("order","queryOrderState");
+            axios.post(url,params)
+                .then((res)=>{
+                    res = res.data;
+                    console.log(res);
+                    if(res.state == 0){
+                        if(res.obj >= 0){
+                            this.$message.success("订单已经支付");
+                            this.orderState = 1;
+                        }
+                    }
+                });
+            
             
         },
         

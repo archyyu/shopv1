@@ -24,7 +24,7 @@
                         <li class="food-item" v-for="o in productlist">
                             <div class="icon"><img src="http://placehold.it/57x57">
                             </div>
-                            <div class="food-content">
+                            <div class="food-content" @click="">
                                 <h2 class="name">{{o.productname}}</h2>
                                 <p class="description"></p>
                                 <div class="price">
