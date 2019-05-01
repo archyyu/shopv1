@@ -66,7 +66,6 @@
             </cube-scroll>
         </div>
     </div>
-</div>
 
 </script>
 

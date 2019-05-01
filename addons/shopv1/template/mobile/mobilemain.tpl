@@ -35,15 +35,17 @@
 {include file="./components/waterbar.tpl"}
 
 
+
+
+<script src="{$StaticRoot}/js/cashier/dateUtil.js"></script>
 <script src="{$StaticRoot}/js/mobile/store.js"></script>
 <script src="{$StaticRoot}/js/mobile/urlHelper.js"></script>
 <script src="{$StaticRoot}/js/common/urlUtil.js"></script>
-
+<script src="{$StaticRoot}/js/common/vue-qrcode.js"></script>
+<script>Vue.component(VueQrcode.name, VueQrcode);</script>
 
 <script src="{$StaticRoot}/js/mobile/index.js"></script>
 <script src="{$StaticRoot}/js/mobile/toast.js"></script>
-<script src="{$StaticRoot}/js/cashier/dateUtil.js"></script>
-
 
 
 {include file="./common/footer.tpl"}

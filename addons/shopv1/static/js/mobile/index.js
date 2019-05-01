@@ -2,7 +2,7 @@ var app = new Vue({
     el: "#app",
     data: function(){
         return {
-            isLogin: true,
+            isLogin: false,
             loginMsg: {
                 account: '',
                 password: ''
@@ -62,6 +62,7 @@ var app = new Vue({
                             Toast.success("登录成功");
                             Store.initLoginInfo(res.obj);
                             this.isLogin = true;
+                            this.selectedLabel = "waterbar";
                         }
                         else{
                             Toast.error(res.msg);

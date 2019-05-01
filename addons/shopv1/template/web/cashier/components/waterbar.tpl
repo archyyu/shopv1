@@ -96,8 +96,8 @@
                             </div>
                         </div>
                         <div class="cart-qrcode" v-if="orderState == 0">
-                            <p class="order-id">{{}}</p>
-                            <div class="qrcode"> <img src="http://placehold.it/150x150"> </div>
+                            <p class="order-id">{{orderid}}</p>
+                            <qrcode :value="qrcodeurl"></qrcode>
                             <p class="tips">若扫码未自动跳转，请确认付款后，点击确认支付！</p>
                             <el-button type="primary" @click="confirmOrder" plain class="confirm-btn">确认支付</el-button>
                         </div>
@@ -159,7 +159,8 @@ Vue.component('waterbar', {
             defaulttypeid:0,
             orderid:"12365",
             attribute: '1' ,
-            address:''
+            address:'',
+            qrcodeurl:'weixin://wxpay/bizpayurl?pr=DNEDbUT'
         };
     },
     created: function () {
@@ -196,8 +197,8 @@ Vue.component('waterbar', {
                             }
                             else if(paytype == 1 || paytype == 2){
                                 this.orderState=0;
-                                let payurl = res.obj;
-                                console.log(payurl);
+                                this.qrcodeurl = res.obj.payurl;
+                                this.orderid = res.obj.orderid;
                             }
                             
                             this.cartlist = [];

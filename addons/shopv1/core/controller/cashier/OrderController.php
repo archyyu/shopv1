@@ -59,9 +59,11 @@ class OrderController extends \controller\Controller{
             
             $payurl = $this->payService->getPayUrl($order);
             
-            logInfo("payurl:".$payurl);
+            $result = array();
+            $result['orderid'] = $orderid;
+            $result["payurl"] = $payurl;
             
-            $this->returnSuccess($payurl);
+            $this->returnSuccess($result);
         }
         
         
