@@ -2,7 +2,7 @@
     {literal}
     <div class="count">
         <header class="header">
-            <i class="cubeic-back"></i>
+            <i class="cubeic-back" @click="backToMain"></i>
             <div class="title">
                 <span>盘点</span>
             </div>
@@ -55,6 +55,9 @@ Vue.component('count', {
         this.queryProductInventory();
     },
     methods: {
+        backToMain:function(){
+            this.$root.toIndex();
+        },
         queryProductInventory: function () {
             let params = Store.createParams();
             let url = UrlHelper.createUrl("product", "loadProductInventory");

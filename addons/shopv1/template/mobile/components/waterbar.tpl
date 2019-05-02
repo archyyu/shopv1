@@ -2,7 +2,7 @@
     {literal}
     <div class="waterbar">
         <header class="header">
-            <i class="cubeic-back"></i>
+            <i class="cubeic-back" @click="backToMain()"></i>
             <div class="title">
                 <span>点单</span>
             </div>
@@ -229,6 +229,10 @@ Vue.component('waterbar', {
         
         loadMore: function () {
             console.log('load');
+        },
+        
+        backToMain:function(){
+            this.$root.toIndex();
         },
         
         createOrder:function(paytype){
