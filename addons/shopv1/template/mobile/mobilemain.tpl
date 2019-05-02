@@ -4,6 +4,9 @@
 <div id="app">
     <div class="page-wrap" v-if="isLogin">
         <cube-tab-panels v-model="selectedLabel">
+            <cube-tab-panel label="index">
+                <index></index>
+            </cube-tab-panel>
             <cube-tab-panel label="shift">
                 <shift></shift>
             </cube-tab-panel>
@@ -31,6 +34,7 @@
 {/literal}
 
 {include file="./common/iconfont.tpl"}
+{include file="./components/mobileindex.tpl"}
 {include file="./components/count.tpl"}
 {include file="./components/shift.tpl"}
 {include file="./components/waterbar.tpl"}
