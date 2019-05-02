@@ -36,7 +36,7 @@ class ShopOrder extends Model{
     }
     
     public function findShopOrderList($shopid,$starttime,$endtime){
-        return $this->getList("*", ['shopid'=>$shopid,'paytime[>=]'=>$starttime,'paytime[<=]'=>$endtime,'orderstate[>=]'=>0]);
+        return $this->getList("*", ['shopid'=>$shopid,'orderstate[>=]'=>0,'paytime[>=]'=>$starttime,'paytime[<=]'=>$endtime]);
     }
     
 }
