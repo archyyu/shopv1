@@ -50,8 +50,15 @@ class PayService extends Service{
 	    $params["version"] = '11';
 	    $params["trxamt"] = $order['orderprice'];
 	    $params["reqsn"] = $order['id'];//订单号,自行生成
-	    $params["paytype"] = PayService::PAYTYPE_WECHAT_NATIVE;
-	    $params["randomstr"] =  rand(10000000,99999999);
+        
+        if($order['paytype'] == 1){
+            $params["paytype"] = PayService::PAYTYPE_WECHAT_NATIVE;
+        }
+        else if($order['paytype'] == 2){
+            $params["paytype"] = PayService::PAYTYPE_ALI_NATIVE;
+        }
+        
+        $params["randomstr"] =  rand(10000000,99999999);
 	    $params["body"] = "product";
 	    $params["remark"] = "remark";
 	    //$params["acct"] = "openid";
