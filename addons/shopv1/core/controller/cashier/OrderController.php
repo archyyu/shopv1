@@ -23,12 +23,15 @@ class OrderController extends \controller\Controller{
     
     private $productTypeModel;
     
+    private $wechatModel;
+    
     public function __construct() {
         parent::__construct();
         $this->productTypeModel = new \model\ShopProductType();
         $this->orderService = new \service\OrderService();
         $this->payService = new \service\PayService();
         $this->orderModel = new \model\ShopOrder(); 
+        $this->wechatModel = new \model\WechatAccount();
     }
     
     public function createOrder(){
@@ -72,6 +75,50 @@ class OrderController extends \controller\Controller{
     }
     
     public function payOrder(){
+        
+    }
+    
+    public function notify(){
+        //global $_POST;
+        foreach($_POST as $key=>$value){
+            logInfo("notify--key:$key value:$value");
+        }
+        
+        $params = array();
+        foreach($_POST as $key=>$val) {//动态遍历获取所有收到的参数,此步非常关键,因为收银宝以后可能会加字段,动态获取可以兼容由于收银宝加字段而引起的签名异常
+            $params[$key] = $val;
+        }
+        
+        unset($params["paykey"]);
+        unset($params["paytype"]);
+        
+        $orderid = $params["outtrxid"];
+        $order = $this->orderModel->findOrderById($orderid);
+        
+        $wechat = $this->wechatModel->findWechatAccountByUniacid($order["uniacid"]);
+        
+        //unset($params["signtype"]);
+        $result = $this->payService->notifyValidSign($params, $wechat["paykey"]);
+        if($result){
+            
+            if($order["orderstate"] >= 0){
+                exit("success");
+            }
+            
+            $this->orderService->payOrder($order['shopid'], $orderid);
+            
+            exit("success");
+        }
+        else{
+            exit("erro");
+        }
+    }
+    
+    public function queryOrderState(){
+        
+        $orderid = $this->getParam("orderid");
+        $order = $this->orderModel->findOrderById($orderid);
+        $this->returnSuccess($order['orderstate']);
         
     }
     

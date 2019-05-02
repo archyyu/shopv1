@@ -39,8 +39,6 @@ class PayService extends Service{
         
         //TODO
         
-        
-        
         $wechat = $this->wechatAccount->findWechatAccountByUniacid($order['uniacid']);
         
         logInfo("orderid:".$order['id']." uniacid:".$order['uniacid']." appid:".$wechat['allinappid']."   cusid:".$wechat['allincusid']."   paykey:".$wechat['paykey']);
@@ -48,16 +46,18 @@ class PayService extends Service{
         $params = array();
 		$params["cusid"] = $wechat['allincusid'];
 	    $params["appid"] = $wechat['allinappid'];
+        //$params["paykey"] = $wechat["paykey"];
 	    $params["version"] = '11';
 	    $params["trxamt"] = $order['orderprice'];
 	    $params["reqsn"] = $order['id'];//订单号,自行生成
 	    $params["paytype"] = PayService::PAYTYPE_WECHAT_NATIVE;
 	    $params["randomstr"] =  rand(10000000,99999999);
-	    $params["body"] = "商品名称";
-	    $params["remark"] = "备注信息";
+	    $params["body"] = "product";
+	    $params["remark"] = "remark";
 	    //$params["acct"] = "openid";
 	    $params["limit_pay"] = "no_credit";
-        $params["notify_url"] = "http://172.16.2.46:8080/vo-apidemo/OrderServlet";
+        //$params["notify_url"] = urlencode("http://pinshangy.com/web/cashier.php?__uniacid=1&f=notify&do=order");
+        $params["notify_url"] = "http://pinshangy.com/web/pay.php";
 	    $params["sign"] = $this->SignArray($params,$wechat['paykey']);//签名
 	    
 	    $paramsStr = $this->ToUrlParams($params);
@@ -103,6 +103,11 @@ class PayService extends Service{
     }
     
     public function validSign($array,$appKey){
+        
+        foreach($array as $key=>$value){
+            logInfo("valid sign: key:$key value:$value");
+        }
+        
         logInfo("retcode:".$array["retcode"]);
 		if("SUCCESS"==$array["retcode"]){
 			$signRsp = strtolower($array["sign"]);
@@ -124,10 +129,20 @@ class PayService extends Service{
 		return false;
 	}
     
+    public function notifyValidSign(array $array,$appkey){
+		$sign = $array['sign'];
+		unset($array['sign']);
+		$array['key'] = $appkey;
+		$mySign = $this->SignArray($array, $appkey);
+        logInfo("sign:$sign mysign:$mySign");
+		return strtolower($sign) == strtolower($mySign);
+	}
+    
     private function SignArray(array $array,$appkey){
 		$array['key'] = $appkey;// 将key放到数组中一起进行排序和组装
 		ksort($array);
 		$blankStr = $this->ToUrlParams($array);
+        logInfo("blackStr:$blankStr");
 		$sign = md5($blankStr);
 		return $sign;
 	}
