@@ -2,7 +2,7 @@ var app = new Vue({
     el: "#app",
     data: function(){
         return {
-            isLogin: false,
+            isLogin: true,
             loginMsg: {
                 account: '',
                 password: ''

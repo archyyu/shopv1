@@ -30,6 +30,7 @@
 
 {/literal}
 
+{include file="./common/iconfont.tpl"}
 {include file="./components/count.tpl"}
 {include file="./components/shift.tpl"}
 {include file="./components/waterbar.tpl"}

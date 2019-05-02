@@ -15,11 +15,7 @@
                 </cube-scroll-nav-bar>
             </div>
             <div class="product-container">
-                <cube-scroll 
-                    ref="scroll"
-                    :data="productlist"
-                    :options="pullOptions"
-                    @pulling-down="refresh"
+                <cube-scroll ref="scroll" :data="productlist" :options="pullOptions" @pulling-down="refresh"
                     @pulling-up="loadMore">
                     <ul class="foods-wrapper">
                         <li class="food-item" v-for="o in productlist">
@@ -36,10 +32,33 @@
                     </ul>
                 </cube-scroll>
             </div>
-            <cube-toolbar :actions="cartItem"></cube-toolbar>
-            <cube-popup type="my-popup" position="bottom" :mask-closable="true" ref="cartPopup"><div>123<span>456</span></div></cube-popup>
+            <div class="food-submit">
+                <div class="cart" @click="showCart"><iconfont iconclass="icon-home1"></iconfont></div>
+                <div class="price">￥888</div>
+                <div class="checkout">
+                    <cube-button :primary="true">去结算</cube-button>
+                </div>
+            </div>
+            <cube-popup type="my-popup" position="bottom" :mask-closable="true" ref="cartPopup">
+                <div class="cart-wrap">
+                    <div class="cart-header">
+                        <h5>已选商品</h5>
+                        <cube-button  :inline="true" :outline="true">清空</cube-button>
+                    </div>
+                    <div class="cart-content">
+                        <cube-scroll>
+                            <ul>
+                                <li v-for="item in 50">
+                                    <div class="pro-title">可乐</div>
+                                    <div class="pro-price">￥2</div>
+                                    <div class="pro-num">3</div>
+                                </li>
+                            </ul>
+                        </cube-scroll>
+                    </div>
+                </div>
+            </cube-popup>
         </div>
-    </div>
     </div>
 
 </script>
@@ -139,6 +158,10 @@ Vue.component('waterbar', {
         },
         loadMore: function () {
             console.log('load');
+        },
+
+        showCart: function(){
+            this.$refs.cartPopup.show();
         }
     }
 }); 

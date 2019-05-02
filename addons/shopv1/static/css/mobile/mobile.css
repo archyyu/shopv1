@@ -144,6 +144,8 @@ html {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
+  position: relative;
+  overflow-y: hidden;
 }
 
 .waterbar .side-container {
@@ -238,5 +240,104 @@ html {
   position: absolute;
   right: 0;
   bottom: 12px;
+}
+
+.waterbar .food-submit {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 101;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  height: 44px;
+  overflow: hidden;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  border-radius: 2px;
+  -webkit-box-shadow: 0 1px 6px rgba(0, 0, 0, 0.24);
+          box-shadow: 0 1px 6px rgba(0, 0, 0, 0.24);
+  background-color: #fcfcfc;
+}
+
+.waterbar .food-submit > div {
+  -webkit-box-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.waterbar .food-submit .price {
+  -webkit-box-flex: 2;
+      -ms-flex: 2;
+          flex: 2;
+}
+
+.waterbar .cube-popup {
+  position: absolute;
+}
+
+.waterbar .cart-wrap {
+  background-color: #fff;
+  padding-bottom: 45px;
+}
+
+.waterbar .cart-wrap .cart-header {
+  background-color: lightgray;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  padding: 8px 15px;
+}
+
+.waterbar .cart-wrap .cart-header .cube-btn:after {
+  border-width: 0;
+}
+
+.waterbar .cart-wrap .cart-content {
+  height: 14rem;
+}
+
+.waterbar .cart-wrap .cart-content ul li {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  padding: 10px 15px;
+}
+
+.waterbar .cart-wrap .cart-content ul > div {
+  -webkit-box-flex: 0;
+      -ms-flex: none;
+          flex: none;
+}
+
+.waterbar .cart-wrap .cart-content ul .pro-title {
+  width: 55%;
+}
+
+.waterbar .cart-wrap .cart-content ul .pro-price {
+  width: 20%;
+}
+
+.waterbar .cart-wrap .cart-content ul .pro-num {
+  width: 25%;
 }
 /*# sourceMappingURL=mobile.css.map */

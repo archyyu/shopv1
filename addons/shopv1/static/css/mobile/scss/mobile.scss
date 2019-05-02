@@ -144,6 +144,8 @@ html {
   .container {
     padding: 0;
     display: flex;
+    position: relative;
+    overflow-y: hidden;
   }
 
   .side-container {
@@ -227,6 +229,69 @@ html {
             right: 0;
             bottom: 12px
           }
+        }
+      }
+    }
+  }
+  .food-submit{
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 101;
+
+    display: flex;
+    height: 44px;
+    overflow: hidden;
+    box-sizing: border-box;
+    border-radius: 2px;
+    box-shadow: 0 1px 6px rgba(0,0,0,.24);
+    background-color: #fcfcfc;
+    >div{
+      flex: 1;
+      display: flex;
+      align-items: center;
+    }
+    .price{
+      flex: 2
+    }
+  }
+  .cube-popup{
+    position: absolute;
+  }
+  .cart-wrap{
+    background-color: #fff;
+    padding-bottom: 45px;
+    .cart-header{
+      background-color: lightgray;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 8px 15px;
+      .cube-btn:after{
+        border-width: 0;
+      }
+    }
+    .cart-content{
+      height: 14rem;
+      ul{
+        li{
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          padding: 10px 15px;
+        }
+        >div{
+          flex: none;
+        }
+        .pro-title{
+          width: 55%;
+        }
+        .pro-price{
+          width: 20%;
+        }
+        .pro-num{
+          width: 25%;
         }
       }
     }
