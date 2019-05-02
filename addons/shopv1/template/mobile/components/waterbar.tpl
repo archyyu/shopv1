@@ -21,7 +21,7 @@
                         <li class="food-item" v-for="o in productlist">
                             <div class="icon"><img src="http://placehold.it/57x57">
                             </div>
-                            <div class="food-content" @click="">
+                            <div class="food-content" @click="addCart(o.id,o.productname,o.memberprice,o.inventory)">
                                 <h2 class="name">{{o.productname}}</h2>
                                 <p class="description"></p>
                                 <div class="price">
@@ -34,24 +34,26 @@
             </div>
             <div class="food-submit">
                 <div class="cart" @click="showCart"><iconfont iconclass="icon-home1"></iconfont></div>
-                <div class="price">￥888</div>
+                <div class="price">￥{{getCartPrice()}}</div>
                 <div class="checkout">
-                    <cube-button :primary="true">去结算</cube-button>
+                    <cube-button :primary="true">现金</cube-button>
+                    <cube-button :primary="true">微信</cube-button>
+                    <cube-button :primary="true">支付宝</cube-button>
                 </div>
             </div>
             <cube-popup type="my-popup" position="bottom" :mask-closable="true" ref="cartPopup">
                 <div class="cart-wrap">
                     <div class="cart-header">
                         <h5>已选商品</h5>
-                        <cube-button  :inline="true" :outline="true">清空</cube-button>
+                        <cube-button  :inline="true" :outline="true" @click="clearCart">清空</cube-button>
                     </div>
                     <div class="cart-content">
                         <cube-scroll>
                             <ul>
-                                <li v-for="item in 50">
-                                    <div class="pro-title">可乐</div>
-                                    <div class="pro-price">￥2</div>
-                                    <div class="pro-num">3</div>
+                                <li v-for="item in cartlist">
+                                    <div class="pro-title">{{item.productname}}</div>
+                                    <div class="pro-price">￥{{item.price}}</div>
+                                    <div class="pro-num">{{item.num}}</div>
                                 </li>
                             </ul>
                         </cube-scroll>
@@ -72,6 +74,7 @@ Vue.component('waterbar', {
             currentNav: {"id":"饮料"},
             navList: [],
             productlist:[],
+            cartlist:[],
             pullOptions: {
                 pullDownRefresh: {
                     threshold: 60,
@@ -133,6 +136,51 @@ Vue.component('waterbar', {
                 });
         },
         
+        addCart: function (productid, productname, price,inventory) {
+
+            if(this.orderState != -1){
+                this.orderState = -1;
+            }
+                
+            this.editBtnShow = true;
+
+            if(inventory <= 0){
+                this.$message.error("库存不足,请进货或者调货");
+                return;
+            }
+            
+            Toast.success("已添加购物车");
+
+            for (var i = 0; i < this.cartlist.length; i++) {
+                if (this.cartlist[i].productid == productid) {
+                    this.cartlist[i].num += 1;
+                    this.cartlist[i].price += price / 100;
+                    return;
+                }
+            }
+
+            var cart = {};
+            cart.productid = productid;
+            cart.num = 1;
+            cart.price = price / 100;
+            cart.productname = productname;
+            this.cartlist.push(cart);
+            
+        },
+        
+        getCartPrice:function(){
+            let sum = 0;
+            for(let cart of this.cartlist){
+                sum += cart.price;
+            }
+            return sum;
+        },
+        
+        clearCart:function(){
+            this.cartlist = [];
+            Toast.success("购物车已经清空");
+        },
+        
         queryProductList: function (type) {
             let params = Store.createParams();
             params.type = type;
@@ -153,12 +201,16 @@ Vue.component('waterbar', {
         },
         
         
+        
         refresh: function () {
             console.log('refresh');
         },
+        
         loadMore: function () {
             console.log('load');
         },
+        
+        
 
         showCart: function(){
             this.$refs.cartPopup.show();

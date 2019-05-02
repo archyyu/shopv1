@@ -2,7 +2,7 @@ var app = new Vue({
     el: "#app",
     data: function(){
         return {
-            isLogin: true,
+            isLogin: false,
             loginMsg: {
                 account: '',
                 password: ''
@@ -45,7 +45,7 @@ var app = new Vue({
                     icon: 'cubeic-star'
                 }
             ]
-        }
+        };
     },
     created() {
         // this.selectedLabel = UrlUtil.getQueryString("f").replace(/mobile/,"");
