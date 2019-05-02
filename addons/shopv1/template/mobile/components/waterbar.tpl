@@ -233,6 +233,11 @@ Vue.component('waterbar', {
         
         createOrder:function(paytype){
             
+            if(this.cartlist.length <= 0){
+                this.$message.error("购物车为空");
+                return;
+            }
+            
             var url = UrlHelper.createUrl('order','createOrder');
             var params = Store.createParams();
             params.address = this.address;

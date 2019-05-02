@@ -180,6 +180,11 @@ Vue.component('waterbar', {
         
         createOrder:function(paytype){
             
+            if(this.cartlist.length <= 0){
+                Toast.error("购物车为空");
+                return ;
+            }
+            
             this.orderPrice = this.getCartSum();
             
             var url = UrlHelper.createUrl('order','createOrder');
