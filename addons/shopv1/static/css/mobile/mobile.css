@@ -70,6 +70,51 @@ html {
   border: 1px solid #ddd;
 }
 
+.index .container {
+  padding: 0;
+}
+
+.index .qrcode {
+  height: 180px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.index .func-btn:after {
+  content: "";
+  clear: both;
+}
+
+.index .func-btn .func-btn-item {
+  width: 33.3333%;
+  float: left;
+  height: 6rem;
+  padding: .5rem;
+}
+
+.index .func-btn .func-btn-item .func-btn-inner {
+  height: 100%;
+  width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  background-color: #4ed5c7;
+  color: #fff;
+}
+
 .shift {
   height: 100%;
 }

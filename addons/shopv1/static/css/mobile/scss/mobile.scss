@@ -72,6 +72,40 @@ html {
 
 // common end
 
+// index
+.index{
+  .container{
+    padding: 0;
+  }
+  .qrcode{
+    height: 180px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .func-btn{
+    &:after{
+      content: "";
+      clear: both;
+    }
+    .func-btn-item{
+      width: 33.3333%;
+      float: left;
+      height: 6rem;
+      padding: .5rem;
+      .func-btn-inner{
+        height: 100%;
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: #4ed5c7;
+        color: #fff;
+      }
+    }
+  }
+}
+
 
 // shift
 .shift {
