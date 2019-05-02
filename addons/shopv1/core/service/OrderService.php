@@ -123,7 +123,7 @@ class OrderService extends Service{
     public function queryLastDutyTime($shopid){
         $starttime = 631152000;
         
-        $lastDuty = $this->dutyModel->selectShopLastDuty($shopid);
+        $lastDuty = $this->shopDuty->selectShopLastDuty($shopid);
         if(isset($lastDuty)){
             $starttime = $lastDuty["endtime"];
         }

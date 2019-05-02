@@ -52,6 +52,19 @@ var Store = {
         return "未定义";
     },
     
+    paytypeToStr:function(paytype){
+        if(paytype == 0){
+            return "现金支付";
+        }
+        else if(paytype == 1){
+            return "微信支付";
+        }
+        else if(paytype == 2){
+            return "支付宝支付";
+        }
+        return "其他";
+    },
+    
     info:function(){
         
     }

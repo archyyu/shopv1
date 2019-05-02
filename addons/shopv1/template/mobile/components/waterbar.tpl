@@ -36,9 +36,9 @@
                 <div class="cart" @click="showCart"><iconfont iconclass="icon-home1"></iconfont></div>
                 <div class="price">￥{{getCartPrice()}}</div>
                 <div class="checkout">
-                    <cube-button :primary="true">现金</cube-button>
-                    <cube-button :primary="true">微信</cube-button>
-                    <cube-button :primary="true">支付宝</cube-button>
+                    <cube-button :primary="true" @click="createOrder(0)">现金</cube-button>
+                    <cube-button :primary="true" @click="createOrder(1)">微信</cube-button>
+                    <cube-button :primary="true" @click="createOrder(2)">支付宝</cube-button>
                 </div>
             </div>
             <cube-popup type="my-popup" position="bottom" :mask-closable="true" ref="cartPopup">
@@ -60,6 +60,17 @@
                     </div>
                 </div>
             </cube-popup>
+            <cube-popup type="my-popup" position="bottom" :mask-closable="true" ref="qrcodePopup">
+                <div class="cart-wrap">
+                    <div class="cart-header">
+                        <h5>请{{orderpaytype}}扫描下面二维码</h5>
+                        <cube-button  :inline="true" :outline="true" @click="closeQrcode">取消</cube-button>
+                    </div>
+                    <div class="cart-content">
+                        <qrcode :value="qrcodeurl"></qrcode>
+                    </div>
+                </div>
+            </cube-popup>
         </div>
     </div>
 
@@ -75,6 +86,10 @@ Vue.component('waterbar', {
             navList: [],
             productlist:[],
             cartlist:[],
+            qrcodeurl:'www.baidu.com',
+            orderstate:-1,
+            orderpaytype:"微信",
+            orderid:"",
             pullOptions: {
                 pullDownRefresh: {
                     threshold: 60,
@@ -105,6 +120,11 @@ Vue.component('waterbar', {
         };
     },
     computed: {
+    },
+    created:function(){
+        setInterval(()=>{
+                this.queryOrderState();
+                },2000);
     },
     mounted() {
         this.queryTypeList();
@@ -179,6 +199,7 @@ Vue.component('waterbar', {
         clearCart:function(){
             this.cartlist = [];
             Toast.success("购物车已经清空");
+            this.closeCart();
         },
         
         queryProductList: function (type) {
@@ -210,10 +231,93 @@ Vue.component('waterbar', {
             console.log('load');
         },
         
+        createOrder:function(paytype){
+            
+            var url = UrlHelper.createUrl('order','createOrder');
+            var params = Store.createParams();
+            params.address = this.address;
+            params.paytype = paytype;
+            params.productlist = JSON.stringify(this.cartlist);
+            
+            axios.post(url,params)
+                    .then((res)=>{
+                        res = res.data;
+                        console.log(res);
+                        if(res.state == 0){
+                            console.log("create order ok");
+                            Toast.success("下单成功");
+                            
+                            if(paytype == 0){
+                                this.orderState = 1;
+                                
+                            }
+                            else if(paytype == 1 || paytype == 2){
+                                this.orderState = 0;
+                                this.qrcodeurl = res.obj.payurl;
+                                this.orderid = res.obj.orderid;
+                                
+                                if(paytype == 1){
+                                    this.orderpaytype = "微信";
+                                }
+                                else if(paytype == 2){
+                                    this.orderpaytype = "支付宝";
+                                }
+                                
+                                this.orderstate = 0;
+                                
+                                this.showQrcode();
+                                
+                            }
+                            
+                            this.cartlist = [];
+                            
+                        }
+                        else{
+                            this.$message.error(res.msg);
+                        }
+                        });
+            
+        },
         
+        queryOrderState:function(){
+            
+            if(this.orderstate != 0){
+                return;
+            }
+            
+            var params = Store.createParams();
+            params.orderid = this.orderid;
+            var url = UrlHelper.createUrl("order","queryOrderState");
+            axios.post(url,params)
+                .then((res)=>{
+                    res = res.data;
+                    console.log(res);
+                    if(res.state == 0){
+                        if(res.obj >= 0){
+                            Toast.success("订单已经支付");
+                            this.closeQrcode();
+                            this.orderstate = -1;
+                        }
+                    }
+                });
+            
+            
+        },
 
         showCart: function(){
             this.$refs.cartPopup.show();
+        },
+        
+        closeCart:function(){
+            this.$refs.cartPopup.hide();
+        },
+        
+        showQrcode:function(){
+            this.$refs.qrcodePopup.show();
+        },
+        closeQrcode:function(){
+            this.orderstate = -1;
+            this.$refs.qrcodePopup.hide();
         }
     }
 }); 
