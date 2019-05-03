@@ -20,7 +20,7 @@
                 <waterbar></waterbar>
             </cube-tab-panel>
             <cube-tab-panel label="order">
-                <order></order>
+                <!-- <order></order> -->
             </cube-tab-panel>
             <cube-tab-panel label="card">
                 <card></card>

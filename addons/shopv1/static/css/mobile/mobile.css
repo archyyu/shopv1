@@ -70,6 +70,32 @@ html {
   border: 1px solid #ddd;
 }
 
+.my-popup-wrap {
+  background-color: #fff;
+}
+
+.my-popup-wrap .my-popup-header {
+  background-color: lightgray;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  padding: 8px 15px;
+}
+
+.my-popup-wrap .my-popup-header .cube-btn:after {
+  border-width: 0;
+}
+
+.my-popup-wrap .my-popup-content {
+  height: 14rem;
+}
+
 .index .container {
   padding: 0;
 }
@@ -393,6 +419,31 @@ html {
 }
 
 .waterbar .cart-wrap .scan-code {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.card {
+  height: 100%;
+}
+
+.card .container {
+  position: relative;
+  overflow-y: hidden;
+}
+
+.card .cube-popup {
+  position: absolute;
+}
+
+.card .cube-popup .scan-code {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
