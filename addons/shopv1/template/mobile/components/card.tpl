@@ -18,7 +18,7 @@
                                 <th>抵现</th>
                                 <th>有效时间</th>
                                 <th>有效金额</th>
-                                <th>操作</td>
+                                <th>操作</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -34,18 +34,18 @@
                     </table>
                 </div>
             </cube-scroll>
+            <cube-popup type="card-popup" position="bottom" :mask-closable="true" ref="cardqrcodePopup">
+                <div class="my-popup-wrap">
+                    <div class="my-popup-header">
+                        <h5>请 扫描下面二维码</h5>
+                        <cube-button  :inline="true" :outline="true" @click="closeQrcode">取消</cube-button>
+                    </div>
+                    <div class="my-popup-content scan-code">
+                        <qrcode :value="qrcodeurl"></qrcode>
+                    </div>
+                </div>
+            </cube-popup>
         </div>
-        <cube-popup type="my-popup" position="bottom" :mask-closable="true" ref="qrcodePopup">
-            <div class="cart-wrap">
-                <div class="cart-header">
-                    <h5>请{{orderpaytype}}扫描下面二维码</h5>
-                    <cube-button  :inline="true" :outline="true" @click="closeQrcode">取消</cube-button>
-                </div>
-                <div class="cart-content">
-                    <qrcode :value="qrcodeurl"></qrcode>
-                </div>
-            </div>
-        </cube-popup>
     </div>
     </div>
 
@@ -59,7 +59,8 @@ Vue.component('card', {
         return {
             Store:Store,
             DateUtil:DateUtil,
-            cardTypeList: []
+            cardTypeList: [],
+            qrcodeurl: "www.baidu.com"
         };
     },
     created() {},
@@ -84,8 +85,15 @@ Vue.component('card', {
             
         }, 
         showQrcode:function(){
-            this.$refs.qrcodePopup.show();
+            console.log("show")
+            console.log(this.$refs)
+            this.$refs.cardqrcodePopup.show();
         },
+        
+        closeQrcode:function(){
+            this.$refs.cardqrcodePopup.hide();
+        },
+
         info: function () {
 
         }

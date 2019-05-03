@@ -70,6 +70,24 @@ html {
   }
 }
 
+// popup
+.my-popup-wrap{
+  background-color: #fff;
+  .my-popup-header{
+    background-color: lightgray;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 15px;
+    .cube-btn:after{
+      border-width: 0;
+    }
+  }
+  .my-popup-content{
+    height: 14rem;
+  }
+}
+
 // common end
 
 // index
@@ -156,6 +174,7 @@ html {
   .cube-select{
     width: 50%;
     margin-bottom: 15px;
+    display: inline-block;
   }
   .count-table {
     font-size: .8rem;
@@ -332,6 +351,25 @@ html {
         }
       }
     }
+    .scan-code{
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+  }
+}
+
+
+// card
+.card{
+  height: 100%;
+  .container {
+    position: relative;
+    overflow-y: hidden;
+  }
+  .cube-popup{
+    position: absolute;
+    
     .scan-code{
       display: flex;
       justify-content: center;
