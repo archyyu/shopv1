@@ -24,6 +24,30 @@ var Store={
         Store.user = msg.user;
     },
     
+    paytypeStr:function(type){
+        if(type == 0){
+            return "现金";
+        }
+        else if(type==1){
+            return "微信";
+        }
+        else if(type == 2){
+            return "支付宝";
+        }
+    },
+    
+    ordersourceStr:function(source){
+        if(source == 0){
+            return "收银端";
+        }
+        else if(source == 1){
+            return "手机端";
+        }
+        else if(source == 2){
+            return "客户端";
+        }
+    },
+    
     info:function(){
         
     }

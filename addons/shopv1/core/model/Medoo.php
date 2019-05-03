@@ -1443,7 +1443,7 @@ class Model{
             return false;
         }
         if ($pdoStateResult->rowCount() > 0) {
-            $data['lastInsertId'] = $this->id();
+            $data['lastInsertId'] = Model::$medoo->id();
             return true;
         } else {
             logInfoWithArr("add error", $pdoStateResult->errorInfo());

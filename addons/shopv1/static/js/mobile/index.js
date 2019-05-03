@@ -47,6 +47,14 @@ var app = new Vue({
                 {
                     label: 'waterbar',
                     icon: 'cubeic-star'
+                },
+                {
+                    label: 'order',
+                    icon: 'cubeic-star'
+                },
+                {
+                    label: 'card',
+                    icon: 'cubeic-star'
                 }
             ]
         };
@@ -84,7 +92,7 @@ var app = new Vue({
             this.selectedLabel = "count";
         },
         toOrder:function(){
-            
+            this.selectedLabel = "order";
         },
         toCard:function(){
             this.selectedLabel = "card";

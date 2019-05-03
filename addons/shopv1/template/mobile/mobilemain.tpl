@@ -52,7 +52,7 @@
 {include file="./components/waterbar.tpl"}
 {include file="./components/card.tpl"}
 {include file="./components/member.tpl"}
-
+{include file="./components/order.tpl"}
 
 
 <script src="{$StaticRoot}/js/cashier/dateUtil.js"></script>
