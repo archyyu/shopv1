@@ -32,7 +32,7 @@
                 </div>
                 <div class="shift-info-item">
                     <span class="info-title">现金收入：</span>
-                    <p class="static-text">{{duty.productcash/100}}</p>
+                    <p class="static-text">{{duty.productcash}}</p>
                 </div>
                 <div class="shift-info-item">
                     <span class="info-title">订单数量：</span>
