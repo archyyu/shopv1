@@ -86,6 +86,12 @@ var app = new Vue({
         toOrder:function(){
             
         },
+        toCard:function(){
+            this.selectedLabel = "card";
+        },
+        toMember:function(){
+            this.selectedLabel = "member";
+        },
         toWaterbar:function(){
             this.selectedLabel = "waterbar";
         },

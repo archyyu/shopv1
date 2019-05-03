@@ -30,9 +30,6 @@ namespace Cashier
 		private ClientForm clientForm = null;
 
 		private PrinterUtil printerUtil = new PrinterUtil();
-
-        private Thread m_syncThread = null;
-        private Thread m_printerThread = null;
         
 		/// <summary>
 		/// 显示窗体委托
@@ -47,22 +44,12 @@ namespace Cashier
         /// 定义事件处理委托
         /// </summary>
         public delegate void InvokeDelegate();
-
-        /// <summary>
-        /// 显示调试窗口
-        /// </summary>
-        private bool m_bIsShowDev=false;
-        // 键盘钩子
-        private  KeyboardHook k_hook;
-       
+        
 
         public MainForm()
         {
             InitializeComponent();
             this.WindowState = FormWindowState.Maximized;
-            k_hook = new KeyboardHook();
-            k_hook.KeyDownEvent += new System.Windows.Forms.KeyEventHandler(hook_KeyDown);
-            k_hook.Start();
         }
 
 
@@ -83,7 +70,7 @@ namespace Cashier
             this.btnTest.Visible = ServerUtil.Debug;
             this.ShowFrm = new DelageteShowFrm(ShowClientForm);
 
-            string url = ServerUtil.ClientUrl + ServerUtil.currentUser.shopid;
+            string url = ServerUtil.ClientUrl + "1";
 
 #if DEBUG
             ClientForm frm = new ClientForm(url);
@@ -127,7 +114,6 @@ namespace Cashier
             if (result == DialogResult.No)
             {
                 e.Cancel = true;
-                k_hook.Stop();
             }
             else
             {
@@ -144,45 +130,7 @@ namespace Cashier
         {
             this.webCom.ShowDevTools();
         }
-
-        /// <summary>
-        /// 调试
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void hook_KeyDown(object sender, KeyEventArgs e)
-        {
-            try
-            {
-
-                if (e.KeyValue == (int)Keys.D && (int)Control.ModifierKeys == (int)Keys.Alt)
-                {
-                    if (this.m_bIsShowDev)
-                    {
-                        if (this.webCom.IsBrowserInitialized)
-                        {
-                            this.webCom.CloseDevTools();
-                            this.m_bIsShowDev = false;
-                        }
-                    }
-                    else
-                    {
-                        if (this.webCom.IsBrowserInitialized)
-                        {
-                            this.webCom.ShowDevTools();
-                            this.m_bIsShowDev = true;
-                        }
-                    }
-
-                }
-               
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("按键处理函数失败,失败原因:" + ex.Message);
-                LogHelper.WriteLog("按键调试失败!", ex);
-            }
-        }
+        
         
 
         /// <summary>

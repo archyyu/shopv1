@@ -25,11 +25,20 @@ class ProductController extends \controller\Controller{
     
     private $productModel;
     
+    private $shopStock;
+    
+    private $shopStockProduct;
+    
+    private $cardTypeModel;
+    
     public function __construct() {
         parent::__construct();
         $this->productService = new ProductService();
         $this->productTypeModel = new ShopProductType();
         $this->productModel = new ShopProduct();
+        $this->shopStock = new \model\ShopStock();
+        $this->shopStockProduct = new \model\ShopStockProduct();
+        $this->cardTypeModel = new \model\ShopCardtype();
     }
     
     public function index(){
@@ -79,7 +88,12 @@ class ProductController extends \controller\Controller{
         }
         
         $this->returnSuccess();
-        
+    }
+    
+    public function queryCardTypeList(){
+        $uniacid = $this->getUniacid();
+        $cardTypeList = $this->cardTypeModel->getCardTypeList($uniacid);
+        $this->returnSuccess($cardTypeList);
     }
     
     public function mobileshift(){

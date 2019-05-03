@@ -18,4 +18,23 @@ class ShopMemberCard extends Model{
     
     protected $table = "shopv1_membercard";
     
+    public function getMemberList($uid,$useflag = 0){
+        
+        $where = array();
+        $where['uid'] = $uid;
+        $where["useflag"] = $useflag;
+        
+        return $this->getList("*", $where);
+    }
+    
+    public function addMemberCard($data){
+        return $this->add($data);
+    }
+    
+    public function saveMemberCard($data){
+        $id = $data["id"];
+        unset($data['id']);
+        return $this->save($data,['id'=>$id]);
+    }
+    
 }

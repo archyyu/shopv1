@@ -168,8 +168,24 @@ class Shopv1ModuleSite extends WeModuleSite{
         }
     }
     
-    
+    //
+    //$_W["openid"]
+    //$_W["member"]
+    // ["uid"]=> string(1) "1" ["realname"]=> string(0) "" ["mobile"]=> string(11) "18633919531" ["email"]=> string(0) "" ["groupid"]=> string(1) "2" ["credit1"]=> string(4) "0.00" ["credit2"]=> string(4) "0.00" ["credit6"]=> string(4) "0.00" ["groupname"]=> string(15) "默认会员组"
+    //
     public function doMobileMobile(){
+        mc_oauth_userinfo();
+        
+        global $_GPC;
+        try{
+            $mobileController = new \controller\mobile\MobileController;
+            $f = $_GPC['f'];
+            $mobileController->$f();
+        }
+        catch (Exception $ex){
+            logInfo("ex:".$ex->getMessage());
+        }
+        
         
     }
     

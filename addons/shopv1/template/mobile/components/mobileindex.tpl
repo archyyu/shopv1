@@ -23,7 +23,13 @@
                         <div class="func-btn-inner" @click="toOrder()">订单</div>
                     </div>
                     <div class="func-btn-item">
-                        <div class="func-btn-inner" @click="toWaterbar">点餐</div>
+                        <div class="func-btn-inner" @click="toWaterbar()">点餐</div>
+                    </div>
+                    <div class="func-btn-item">
+                        <div class="func-btn-inner" @click="toCard()">卡券</div>
+                    </div>
+                   <div class="func-btn-item">
+                        <div class="func-btn-inner" @click="toMember()">会员</div>
                     </div>
                 </div>
             </cube-scroll>
@@ -53,6 +59,9 @@ Vue.component('index', {
         },
         toOrder:function(){
             this.$root.toOrder();
+        },
+        toCard:function(){
+            this.$root.toCard();
         },
         info:function(){
         }

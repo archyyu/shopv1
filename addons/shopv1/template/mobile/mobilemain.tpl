@@ -16,6 +16,15 @@
             <cube-tab-panel label="waterbar">
                 <waterbar></waterbar>
             </cube-tab-panel>
+            <cube-tab-panel label="order">
+                <order></order>
+            </cube-tab-panel>
+            <cube-tab-panel label="card">
+                <card></card>
+            </cube-tab-panel>
+            <cube-tab-panel label="member">
+                <member></member>
+            </cube-tab-panel>
         </cube-tab-panels>
     </div>
     <div class="login-container" v-if="!isLogin">
@@ -38,7 +47,8 @@
 {include file="./components/count.tpl"}
 {include file="./components/shift.tpl"}
 {include file="./components/waterbar.tpl"}
-
+{include file="./components/card.tpl"}
+{include file="./components/member.tpl"}
 
 
 

@@ -986,7 +986,7 @@ class Medoo {
         }
     }
 
-    protected function select($table, $join, $columns = null, $where = null) {
+    public function select($table, $join, $columns = null, $where = null) {
         $map = [];
         $stack = [];
         $column_map = [];
@@ -1186,7 +1186,7 @@ class Medoo {
         return false;
     }
 
-    protected function get($table, $join = null, $columns = null, $where = null) {
+    public function get($table, $join = null, $columns = null, $where = null) {
         $map = [];
         $stack = [];
         $column_map = [];
@@ -1367,6 +1367,18 @@ class Medoo {
             $this->logs
         );
     }
+    
+    public function beginTransaction(){
+        $this->pdo->beginTransaction();
+    }
+    
+    public function commit(){
+        $this->pdo->commit();
+    }
+    
+    public function rollback(){
+        $this->pdo->rollBack();
+    }
 
     public function info() {
         $output = [
@@ -1387,39 +1399,46 @@ class Medoo {
     }
 }
 
-class Model extends Medoo {
+class Model{
 
     protected $table;
+    
+    private static $medoo;
 
     public function __construct() {
         global $_W;
+        
+        if(Model::$medoo == NULL){
+            $options = [
+                'database_type' => 'mysql',
+                'database_name' => $_W['config']['db']['master']['database'],
+                'server' => $_W['config']['db']['master']['host'],
+                'username' => $_W['config']['db']['master']['username'],
+                'password' => $_W['config']['db']['master']['password'],
+                'charset' => $_W['config']['db']['master']['charset'],
 
-        $options = [
-            'database_type' => 'mysql',
-            'database_name' => $_W['config']['db']['master']['database'],
-            'server' => $_W['config']['db']['master']['host'],
-            'username' => $_W['config']['db']['master']['username'],
-            'password' => $_W['config']['db']['master']['password'],
-            'charset' => $_W['config']['db']['master']['charset'],
+                //可选：端口
+                'port' => $_W['config']['db']['master']['port'],
 
-            //可选：端口
-            'port' => $_W['config']['db']['master']['port'],
+                //可选：表前缀
+                'prefix' => $_W['config']['db']['master']['tablepre']]; 
+            
+            Model::$medoo = new Medoo($options);
+        }
 
-            //可选：表前缀
-            'prefix' => $_W['config']['db']['master']['tablepre']];
-        parent::__construct($options);
+        
     }
 
     protected function getList($join, $columns = null, $where = null) {
-        return $this->select($this->table, $join, $columns, $where);
+        return Model::$medoo->select($this->table, $join, $columns, $where);
     }
 
     protected function getOne($join, $columns = null, $where = null) {
-        return $this->get($this->table, $join, $columns, $where);
+        return Model::$medoo->get($this->table, $join, $columns, $where);
     }
 
     protected function add(&$data) {
-        $pdoStateResult = $this->insert($this->table, $data);
+        $pdoStateResult = Model::$medoo->insert($this->table, $data);
         if ($pdoStateResult == false) {
             return false;
         }
@@ -1434,7 +1453,7 @@ class Model extends Medoo {
     }
 
     protected function save($data, $where) {
-        $pdoStateResult = $this->update($this->table, $data, $where);
+        $pdoStateResult = Model::$medoo->update($this->table, $data, $where);
         if ($pdoStateResult == false) {
             return false;
         }
@@ -1447,7 +1466,7 @@ class Model extends Medoo {
     }
     
     protected function remove($where){
-        $pdoStateResult = $this->delete($this->table, $where);
+        $pdoStateResult = Model::$medoo->delete($this->table, $where);
         if($pdoStateResult == false){
             return false;
         }
@@ -1463,28 +1482,27 @@ class Model extends Medoo {
     }
 
     public function beginTransaction(){
-        $this->pdo->beginTransaction();
+        Model::$medoo->beginTransaction();
     }
     
     public function commit(){
-        $this->pdo->commit();
+        Model::$medoo->commit();
     }
     
     public function rollback(){
-        $this->pdo->rollBack();
+        Model::$medoo->rollBack();
     }
     
 
     public function reSelect($columns, $where) {
-        return $this->select($this->table, $columns, $where);
+        return Model::$medoo->select($this->table, $columns, $where);
     }
     
     public function countNum($column, $where) {
-        return $this->count($this->table, $column, $where);
+        return Model::$medoo->count($this->table, $column, $where);
     }
     
     public function page($offset,$limit, $field, $where, $order = '', $join = '') {
-        
         
         $data['total'] = $this->countNum($field, $where);
         $where['LIMIT'] = [$offset, $limit];

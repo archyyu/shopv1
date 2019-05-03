@@ -9,17 +9,13 @@
 namespace model;
 
 /**
- * Description of ShopStock
+ * Description of ShopMember
  *
  * @author YJP
  */
-class ShopStock extends Model{
+class ShopMember extends Model{
     
-    protected $table = "shopv1_stock";
-    
-    public function addStock($data){
-        return $this->add($data);
-    }
+    protected $table = "mc_members";
     
     
     

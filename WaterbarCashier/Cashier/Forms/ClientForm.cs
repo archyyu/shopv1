@@ -45,7 +45,6 @@ namespace Cashier.Forms
 			}
 			catch (Exception ex)
 			{
-
 				MessageBox.Show("初始化浏览器出错,错误:\n"+ex.Message);
 			}
             

@@ -9,17 +9,12 @@
 namespace model;
 
 /**
- * Description of ShopStock
+ * Description of ShopFans
  *
  * @author YJP
  */
-class ShopStock extends Model{
-    
-    protected $table = "shopv1_stock";
-    
-    public function addStock($data){
-        return $this->add($data);
-    }
+class ShopFans extends Model{
+    protected $table = "mc_mapping_fans";
     
     
     
