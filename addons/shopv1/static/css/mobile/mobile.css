@@ -167,6 +167,12 @@ html {
   height: 100%;
 }
 
+.count .cube-select {
+  width: 50%;
+  margin-bottom: 15px;
+  display: inline-block;
+}
+
 .count .count-table {
   font-size: .8rem;
 }

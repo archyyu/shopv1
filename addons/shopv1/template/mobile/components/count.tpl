@@ -9,6 +9,11 @@
         </header>
         <div class="container">
             <cube-scroll>
+                <span>仓库：</span>
+                <cube-select
+                    v-model="selectWarehouse"
+                    :options="warehouseList">
+                </cube-select>
                 <div class="count-table">
                     <table class="table">
                         <thead>
@@ -47,7 +52,9 @@ Vue.component('count', {
     template: '#count',
     data: function(){
         return {
-            productInventory: []
+            productInventory: [],
+            warehouseList: [2013, 2014, 2015, 2016, 2017, 2018],
+            selectWarehouse: 2018
         };
     },
     created() {},
