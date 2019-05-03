@@ -64,6 +64,9 @@ Vue.component('index', {
         toCard:function(){
             this.$root.toCard();
         },
+        toMember:function(){
+            this.$root.toMember();
+        },
         info:function(){
         }
     }

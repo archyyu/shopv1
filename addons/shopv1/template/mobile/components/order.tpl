@@ -34,8 +34,27 @@
                     </table>
                 </div>
             </cube-scroll>
-        </div>
         
+        <cube-popup type="my-popup" position="bottom" :mask-closable="true" ref="cartPopup">
+            <div class="cart-wrap">
+                <div class="cart-header">
+                    <h5>商品详情</h5>
+                    <cube-button  :inline="true" :outline="true" @click="clearCart">关闭</cube-button>
+                </div>
+                <div class="cart-content">
+                    <cube-scroll>
+                        <ul>
+                            <li v-for="item in orderproductlist">
+                                <div class="pro-title">{{item.productname}}</div>
+                                <div class="pro-price">￥{{item.price}}</div>
+                                <div class="pro-num">{{item.num}}</div>
+                            </li>
+                        </ul>
+                    </cube-scroll>
+                </div>
+            </div>
+        </cube-popup>
+        </div>
     </div>
     </div>
 
@@ -65,6 +84,10 @@ Vue.component('order', {
         lookOrderDetail:function(orderProductList){
             console.log(orderProductList);
             this.orderproductlist = orderProductList;
+            this.$refs.cartPopup.show();
+        },
+        closeCart:function(){
+            this.$refs.cartPopup.hide();
         },
         queryOrderList:function(){
             let params = Store.createParams();
@@ -79,9 +102,6 @@ Vue.component('order', {
                         }
                         });
             
-        }, 
-        showQrcode:function(){
-            this.$refs.qrcodePopup.show();
         },
         info: function () {
 
