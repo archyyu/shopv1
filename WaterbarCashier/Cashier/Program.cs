@@ -29,11 +29,7 @@ namespace Cashier
                 Application.EnableVisualStyles();
                 Application.SetCompatibleTextRenderingDefault(false);
                 log4net.Config.XmlConfigurator.Configure();
-                LoginForm loginForm = new LoginForm();
-                if (loginForm.ShowDialog() == DialogResult.OK)
-                {
-                    Application.Run(new MainForm());
-                }
+                Application.Run(new MainForm()); 
                 instance.ReleaseMutex();
             }
             else

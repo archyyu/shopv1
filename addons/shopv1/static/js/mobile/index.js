@@ -30,8 +30,12 @@ var app = new Vue({
                   }
                 }
             ],
-            selectedLabel: 'waterbar',
+            selectedLabel: 'index',
             tabs: [
+                {
+                    label: 'index',
+                    icon: 'cubeic-like'
+                },
                 {
                     label: 'shift',
                     icon: 'cubeic-like'
@@ -62,13 +66,28 @@ var app = new Vue({
                             Toast.success("登录成功");
                             Store.initLoginInfo(res.obj);
                             this.isLogin = true;
-                            this.selectedLabel = "waterbar";
+                            this.selectedLabel = "index";
                         }
                         else{
                             Toast.error(res.msg);
                         }
                     });
             
+        },
+        toIndex:function(){
+            this.selectedLabel = "index";
+        },
+        toShift:function(){
+            this.selectedLabel = "shift";
+        },
+        toCount:function(){
+            this.selectedLabel = "count";
+        },
+        toOrder:function(){
+            
+        },
+        toWaterbar:function(){
+            this.selectedLabel = "waterbar";
         },
         info:function(){
             

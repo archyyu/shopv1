@@ -2,7 +2,7 @@
     {literal}
     <div class="shift">
         <header class="header">
-            <i class="cubeic-back"></i>
+            <i class="cubeic-back" @click="backToMain"></i>
             <div class="title">
                 <span>交班</span>
             </div>
@@ -32,7 +32,7 @@
                 </div>
                 <div class="shift-info-item">
                     <span class="info-title">现金收入：</span>
-                    <p class="static-text">{{duty.productcash/100}}</p>
+                    <p class="static-text">{{duty.productcash}}</p>
                 </div>
                 <div class="shift-info-item">
                     <span class="info-title">订单数量：</span>
@@ -86,6 +86,10 @@ Vue.component('shift', {
         this.queryProductList();
     },
     methods: {
+        
+        backToMain:function(){
+            this.$root.toIndex();
+        },
         
         queryDutyInfo:function(){
             var url = UrlHelper.createUrl('duty','queryDuty');

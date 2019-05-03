@@ -6,10 +6,7 @@ load()->web('template');
 load()->func('file');
 header('Content-Type: text/html; charset=UTF-8');
 $uniacid = intval($_GPC['__uniacid']);
-if (empty($uniacid)) 
-{
-	exit('Access Denied.');
-}
+
 $site = WeUtility::createModuleSite('shopv1');
 $_GPC['c'] = 'site';
 $_GPC['a'] = 'entry';

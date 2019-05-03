@@ -86,7 +86,6 @@ namespace Cashier
             string url = ServerUtil.ClientUrl + ServerUtil.currentUser.shopid;
 
 #if DEBUG
-            // string url = ServerUtil.YunAddr + "/cashier/waterbarview/backside?shopid=" + ServerUtil.currentUser.shopid;
             ClientForm frm = new ClientForm(url);
             frm.MinimizeBox = true;
             frm.MaximizeBox = true;
@@ -118,7 +117,6 @@ namespace Cashier
                 }
 #endif
             this.InitChromeBrowser();
-            this.InitPrinter();
 
         }
 
@@ -273,7 +271,7 @@ namespace Cashier
 		private void InitChromeBrowser()
 		{
 
-            String loadUrl = "http://pinshangy.com/web/cashier.php?__uniacid=1&f=index&do=Product";
+            String loadUrl = "http://pinshangy.com/web/cashier.php?f=index&do=Product";
 			this.webCom = new CefSharp.WinForms.ChromiumWebBrowser(loadUrl);
 			this.webCom.MenuHandler = new CashierLibrary.Model.MenuHandler();
 			this.webCom.BrowserSettings.WebSecurity = CefState.Disabled;
@@ -290,86 +288,10 @@ namespace Cashier
 			this.webCom.RegisterJsObject("player", new PlayerUtil());
 			this.webCom.RegisterJsObject("clientForm", this.clientForm);
             this.webCom.RegisterJsObject("cashier",this);
-            this.webCom.RegisterJsObject("iniUtil",new IniUtil());
 
 		}
         
-
-        /// <summary>
-        /// 启动定时器线程
-        /// </summary>
-        private void InitPrinter()
-        {
-            if (null == this.m_printerThread)
-            {
-                ParameterizedThreadStart startDelegete = new ParameterizedThreadStart(this.HandlePrint);
-                this.m_printerThread = new Thread(startDelegete);
-                this.m_printerThread.IsBackground = true;
-                this.m_printerThread.Start(this);
-            }
-        }
-
-        /// <summary>
-        /// 将窗体函数传入处理
-        /// </summary>
-        /// <param name="obj"></param>
-        private void HandlePrint(Object obj)
-        {
-            MainForm mform = (MainForm)obj;
-            while (true)
-            {
-                try
-                {
-                    mform.HandlePrinter();
-                }
-                catch (Exception ex)
-                {
-                    LogHelper.WriteLog("error", ex);
-                }
-                Thread.Sleep(2000);
-                
-            }
-            
-        }
-
-        /// <summary>
-        /// 处理打印机
-        /// </summary>
-        public void HandlePrinter()
-        {
-            try
-            {
-                User user = ServerUtil.currentUser;
-                IDictionary<string, string> parameters = HttpUtil.initParams();
-                parameters.Add("shopid", user.shopid + "");
-
-                string str = HttpUtil.doPost(ServerUtil.PrintRequestUrl, parameters);
-                JObject result = JObject.Parse(str);
-                if (result["result"].ToString().Equals("success"))
-                {
-                    Packet pack = JsonUtil.DeserializeJsonToObject<Packet>(result["body"].ToString());
-
-                    if (pack.cmd.Equals("print"))
-                    {
-
-                        Order order = JsonUtil.DeserializeJsonToObject<Order>(pack.cmdParms);
-                        this.printerUtil.PrintOrder(order, ServerUtil.printerName);
-                        
-                    }
-
-                }
-                else
-                {
-
-                }
-            }
-            catch (Exception ex)
-            {
-
-                LogHelper.WriteLog("error", ex);
-            }
-        }
-
+        
         /// <summary>
         /// 调用js
         /// </summary>

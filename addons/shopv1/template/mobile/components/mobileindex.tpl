@@ -14,16 +14,16 @@
                 </div>
                 <div class="func-btn">
                     <div class="func-btn-item">
-                        <div class="func-btn-inner">交班</div>
+                        <div class="func-btn-inner" @click="toShift()">交班</div>
                     </div>
                     <div class="func-btn-item">
-                        <div class="func-btn-inner">盘点</div>
+                        <div class="func-btn-inner" @click="toCount()">盘点</div>
                     </div>
                     <div class="func-btn-item">
-                        <div class="func-btn-inner">订单</div>
+                        <div class="func-btn-inner" @click="toOrder()">订单</div>
                     </div>
                     <div class="func-btn-item">
-                        <div class="func-btn-inner">点餐</div>
+                        <div class="func-btn-inner" @click="toWaterbar">点餐</div>
                     </div>
                 </div>
             </cube-scroll>
@@ -42,7 +42,21 @@ Vue.component('index', {
         };
     },
     methods: {
+        toShift:function(){
+            this.$root.toShift();
+        },
         
+        toCount:function(){
+            this.$root.toCount();
+        },
+        toWaterbar:function(){
+            this.$root.toWaterbar();
+        },
+        toOrder:function(){
+            this.$root.toOrder();
+        },
+        info:function(){
+        }
     }
 });
 </script>
