@@ -10,7 +10,7 @@
         <div class="container">
             <cube-scroll>
                 <div class="qrcode">
-                    <img src="http://placehold.it/100x100" alt="">
+                    <qrcode :value="qrcodeurl"></qrcode>
                 </div>
                 <div class="func-btn">
                     <div class="func-btn-item">
@@ -44,7 +44,8 @@ Vue.component('index', {
     template: '#index',
     data: function(){
         return {
-            };
+            qrcodeurl:'www.baidu.com'
+        };
     },
     methods: {
         toShift:function(){

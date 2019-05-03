@@ -153,7 +153,10 @@ html {
 // count
 .count {
   height: 100%;
-
+  .cube-select{
+    width: 50%;
+    margin-bottom: 15px;
+  }
   .count-table {
     font-size: .8rem;
 
@@ -328,6 +331,11 @@ html {
           width: 25%;
         }
       }
+    }
+    .scan-code{
+      display: flex;
+      justify-content: center;
+      align-items: center;
     }
   }
 }

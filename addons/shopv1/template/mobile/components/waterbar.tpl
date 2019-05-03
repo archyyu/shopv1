@@ -66,7 +66,7 @@
                         <h5>请{{orderpaytype}}扫描下面二维码</h5>
                         <cube-button  :inline="true" :outline="true" @click="closeQrcode">取消</cube-button>
                     </div>
-                    <div class="cart-content">
+                    <div class="cart-content scan-code">
                         <qrcode :value="qrcodeurl"></qrcode>
                     </div>
                 </div>
