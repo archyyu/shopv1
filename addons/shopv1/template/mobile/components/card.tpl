@@ -85,8 +85,8 @@ Vue.component('card', {
             
         }, 
         showQrcode:function(){
-            console.log("show")
-            console.log(this.$refs)
+            console.log("show");
+            console.log(this.$refs);
             this.$refs.cardqrcodePopup.show();
         },
         

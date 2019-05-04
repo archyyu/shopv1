@@ -18,6 +18,7 @@
                                 <th>会员身份证</th>
                                 <th>会员余额</th>
                                 <th>会员积分</th>
+                                <th>操作</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -27,6 +28,9 @@
                                 <td>{{member.idcard}}</td>
                                 <td>{{member.credit1}}</td>
                                 <td>{{member.credit2}}</td>
+                                <td><cube-button :inline="true" >详情
+                                    </cube-button>
+                                </td>
                             </tr>
                         </tbody>
                     </table>
@@ -49,13 +53,29 @@ Vue.component('member', {
     },
     created() {},
     mounted() {
-        this.queryProductInventory();
+        this.queryMemberList();
     },
     methods: {
         backToMain:function(){
             this.$root.toIndex();
         },
         queryMemberList:function(){
+            
+            let params = Store.createParams();
+            let url = UrlHelper.createUrl("member","queryMemberList");
+            
+            axios.post(url,params)
+                    .then((res)=>{
+                       console.log(res);
+                       res = res.data;
+
+                       if(res.state == 0){
+                           this.memberList = res.obj;
+                       }
+                       else{
+                           
+                       }
+                    });
             
         }, 
         info: function () {
