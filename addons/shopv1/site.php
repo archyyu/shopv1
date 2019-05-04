@@ -156,6 +156,19 @@ class Shopv1ModuleSite extends WeModuleSite{
         }
     }
     
+    public function doCashiermember(){
+        global $_GPC;
+        try{
+            $f = $_GPC['f'];
+            $memberController = new controller\cashier\MemberController();
+            $memberController->$f();
+        }
+        catch (Exception $ex){
+            logInfo("ex:".$ex->getMessage());
+        }
+        
+    }
+    
     public function doCashieruser(){
         global $_GPC;
         try{

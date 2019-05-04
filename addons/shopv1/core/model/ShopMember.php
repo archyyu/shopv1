@@ -17,6 +17,8 @@ class ShopMember extends Model{
     
     protected $table = "mc_members";
     
-    
+    public function queryMemberList($where){
+        return $this->getList("*", $where);
+    }
     
 }
