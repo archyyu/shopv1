@@ -65,6 +65,7 @@ Vue.component('count', {
         backToMain:function(){
             this.$root.toIndex();
         },
+        
         queryProductInventory: function () {
             let params = Store.createParams();
             let url = UrlHelper.createUrl("product", "loadProductInventory");
