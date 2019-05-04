@@ -114,6 +114,12 @@ class ProductController extends \controller\Controller{
         $this->smarty->display('mobilemain.tpl');
     }
     
+    public function clientsidebar(){
+        
+        $this->smarty->setTemplateDir(CASHROOT . 'template/client');
+        $this->smarty->display('sidebar.tpl');
+    }
+    
     
     
     
