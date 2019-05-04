@@ -27,6 +27,8 @@ class ProductController extends \controller\Controller{
     
     private $shopStock;
     
+    private $shopStore;
+    
     private $shopStockProduct;
     
     private $cardTypeModel;
@@ -36,6 +38,7 @@ class ProductController extends \controller\Controller{
         $this->productService = new ProductService();
         $this->productTypeModel = new ShopProductType();
         $this->productModel = new ShopProduct();
+        $this->shopStore = new \model\ShopStore();
         $this->shopStock = new \model\ShopStock();
         $this->shopStockProduct = new \model\ShopStockProduct();
         $this->cardTypeModel = new \model\ShopCardtype();
@@ -62,6 +65,20 @@ class ProductController extends \controller\Controller{
         $list = $this->productService->getProductList($shopid, $typeid);
         
         $this->returnSuccess($list);
+    }
+    
+    public function queryShopStoreList(){
+        
+        $shopid = $this->getParam("shopid");
+        
+        $shop = $this->shopModel->findShopById($shopid);
+        $storeList = $this->shopStore->getStoreListByShopid($shopid);
+        
+        $result = array();
+        $result["list"] = $storeList;
+        $result["defaultstoreid"] = $shop["defaultstoreid"];
+        
+        $this->returnSuccess($result);
     }
     
     public function loadProductInventory(){

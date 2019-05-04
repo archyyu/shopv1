@@ -22,6 +22,10 @@ class ShopStore extends Model{
         return $this->getList('*', ['uniacid'=>$uniacid]);
     }
     
+    public function getStoreListByShopid($shopid){
+        return $this->getList("*",["shopid"=>$shopid]);
+    }
+    
     public function getStoreMapByUnacid($uniacid){
         $list = $this->getList("*",['uniacid'=>$uniacid]);
         

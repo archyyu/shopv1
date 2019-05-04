@@ -11,7 +11,7 @@
             <cube-scroll>
                 <span>仓库：</span>
                 <cube-select
-                    v-model="selectWarehouse"
+                    v-model="selectWarehouse" @change="warehousechange"
                     :options="warehouseList">
                 </cube-select>
                 <div class="count-table">
@@ -53,11 +53,13 @@ Vue.component('count', {
     data: function(){
         return {
             productInventory: [],
-            warehouseList: [2013, 2014, 2015, 2016, 2017, 2018],
-            selectWarehouse: 2018
+            warehouseList: [],
+            selectWarehouse: 0
         };
     },
-    created() {},
+    created() {
+        this.queryShopStoreList();
+    },
     mounted() {
         this.queryProductInventory();
     },
@@ -66,10 +68,43 @@ Vue.component('count', {
             this.$root.toIndex();
         },
         
+        queryShopStoreList:function(){
+            let params = Store.createParams();
+            let url = UrlHelper.createUrl("product","queryShopStoreList");
+            
+            axios.post(url,params)
+                    .then((res)=>{
+                        res = res.data;
+                        if(res.state == 0){
+                            
+                            let list = res.obj.list;
+                            
+                            for(let i=0;i<list.length;i++){
+                                let item = {};
+                                item.value = list[i].id;
+                                item.text = list[i].storename;
+                                this.warehouseList.push(item);
+                            }
+                            
+                            this.selectWarehouse = res.obj.defaultstoreid;
+                            
+                        }
+                        else{
+                            
+                        }
+                        });
+            
+        },
+        
+        warehousechange:function(value, index, text){
+            this.selectWarehouse = value;
+        },
+        
         queryProductInventory: function () {
             let params = Store.createParams();
+            params.storeid = this.selectWarehouse;
             let url = UrlHelper.createUrl("product", "loadProductInventory");
-
+            
             axios.post(url, params)
                 .then((res) => {
                     res = res.data;
@@ -84,10 +119,13 @@ Vue.component('count', {
         check: function () {
 
             let params = Store.createParams();
+            params.storeid = this.selectWarehouse;
             params.data = JSON.stringify(this.productInventory);
             console.log(params.data);
             let url = UrlHelper.createUrl("product", "inventorycheck");
-
+            
+            
+            
             axios.post(url, params)
                 .then((res) => {
                     res = res.data;
