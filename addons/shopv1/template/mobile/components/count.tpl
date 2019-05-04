@@ -59,9 +59,12 @@ Vue.component('count', {
     },
     created() {},
     mounted() {
-        this.queryProductInventory();
+        
     },
     methods: {
+        open: function(){
+            this.queryProductInventory();
+        },
         backToMain:function(){
             this.$root.toIndex();
         },

@@ -109,7 +109,9 @@ var app = new Vue({
             this.selectedLabel = "waterbar";
         },
         tabsChange(newTab, oldTab){
-            console.log(newTab, oldTab);
+            if(this.$refs[newTab]){
+                this.$refs[newTab].open();
+            }
         },
         info:function(){
             

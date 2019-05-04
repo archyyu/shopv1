@@ -5,28 +5,25 @@
     <div class="page-wrap" v-if="isLogin">
         <cube-tab-panels v-model="selectedLabel">
             <cube-tab-panel label="index">
-                <index></index>
+                <index ref="index"></index>
             </cube-tab-panel>
             <cube-tab-panel label="shift">
-                <shift></shift>
+                <shift ref="shift"></shift>
             </cube-tab-panel>
             <cube-tab-panel label="count">
-                <count></count>
+                <count ref="count"></count>
             </cube-tab-panel>
             <cube-tab-panel label="order">
-                <order></order>
+                <order ref="order"></order>
             </cube-tab-panel>
             <cube-tab-panel label="waterbar">
-                <waterbar></waterbar>
-            </cube-tab-panel>
-            <cube-tab-panel label="order">
-                <!-- <order></order> -->
+                <waterbar ref="waterbar"></waterbar>
             </cube-tab-panel>
             <cube-tab-panel label="card">
-                <card></card>
+                <card ref="card"></card>
             </cube-tab-panel>
             <cube-tab-panel label="member">
-                <member></member>
+                <member ref="member"></member>
             </cube-tab-panel>
         </cube-tab-panels>
     </div>
