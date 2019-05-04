@@ -1,0 +1,227 @@
+* {
+    user-select: none;
+    -webkit-user-select: none;
+    box-sizing: border-box;
+}
+
+html,
+body {
+    height: 754px;
+    width: 345px;
+}
+
+body {
+    overflow: hidden;
+    font-family: "Microsoft YaHei";
+    margin: 0 auto;
+}
+
+/*
+   * sidebar
+   */
+
+.sidebar {
+    background-image: url("../../img/client/oldsidebar_bg.jpg");
+    background-repeat: no-repeat;
+    background-size: contain;
+    height: 754px;
+    width: 345px;
+    padding: 1px 24px;
+    h4 {
+        color: #fcd538;
+        font-size: 14px;
+        margin-top: 17px;
+        text-align: center;
+        margin-top: 14px;
+    }
+    .line1 {
+        margin-top: 22px;
+        .avatar img {
+            border: 3px solid rgba(133, 133, 133, .4);
+            border-radius: 50%;
+            width: 90px;
+            height: 90px;
+        }
+        .info {
+            margin: 0 auto;
+            color: #c4ae7c;
+            display: flex;
+            justify-content: space-around;
+            padding: 0 6px;
+            .name {
+                display: table;
+                height: 90px;
+                margin-left: 8px;
+                >div {
+                    display: table-cell;
+                    vertical-align: middle;
+                }
+                p {
+                    font-size: 14px;
+                    height: 26px;
+                    margin-bottom: 0;
+                    &:first-child {
+                        font-weight: bold;
+                        margin-bottom: 10px;
+                    }
+                }
+            }
+        }
+    }
+    .line2 {
+        margin-top: 20px;
+        .onlineInfo {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        p, div.balanceText {
+            background-color: #27221a;
+            border-radius: 6px;
+            color: #949494;
+            font-family: hybq, "Microsoft YaHei";
+            font-weight: normal;
+            text-align: center;
+            text-shadow: 0px 3px 0px black;
+            margin: inherit;
+            width: 86px;
+            padding: 8px 0;
+        }
+        p span, div.used_money {
+            color: #c4ae7c;
+            display: block;
+            font-size: 16px;
+        }
+    }
+    .lock1 {
+        margin-top: 22px;
+        height: 168px;
+        position: relative;
+        .lock_bg {
+            background-image: url("../../img/client/lock_bg.png");
+            background-repeat: no-repeat;
+            background-size: contain;
+            background-position: center;
+            height: 200px;
+            width: 100%;
+            position: absolute;
+            top: -50px;
+            z-index: 6;
+        }
+        >div.scancode {
+            background: white;
+            width: 108px;
+            height: 108px;
+            padding: 4px;
+            margin: 0 auto;
+            position: relative;
+            top: 18px;
+            z-index: 8;
+        }
+        p {
+            color: #fff;
+            position: relative;
+            top: 46px;
+            text-align: center;
+            z-index: 8;
+            margin-top: 0;
+        }
+    }
+    .line3 {
+        background-image: url("../../img/client/unlock_text.png");
+        background-repeat: no-repeat;
+        background-position: center;
+        height: 256px;
+        margin-top: 10px;
+        padding-top: 40px;
+        >div.scancode {
+            background: white;
+            width: 100px;
+            height: 100px;
+            padding: 4px;
+            margin: 66px auto;
+        }
+        >div.btn_list {
+            margin: 0 auto;
+            width: 220px;
+        }
+        >div>a {
+            background-repeat: no-repeat;
+            background-size: cover;
+            display: inline-block;
+            height: 47px;
+            width: 220px;
+            margin-top: 18px;
+            &:hover {
+                background-position: bottom;
+            }
+            &.water_btn {
+                background-image: url("../clientImages/sidebar/btn_water.webp");
+            }
+        }
+    }
+    .line3a {
+        margin-top: 15px;
+        display: flex;
+        justify-content: space-between;
+        >a {
+            background-color: #27221a;
+            border-radius: 6px;
+            height: 130px;
+            width: 134px;
+            text-decoration: none;
+            cursor: pointer;
+            padding-top: 22px;
+            position: relative;
+            >p {
+                color: #fffde9;
+                font-size: 20px;
+                text-align: center;
+            }
+        }
+        .buy_btn>span.iconfont{
+            color: #fbf078;
+            display: block;
+            font-size: 50px;
+            text-align: center;
+            line-height: 40px;
+        }
+    }
+    .lock2 {
+        height: 256px;
+        margin-top: 10px;
+        padding-top: 40px;
+        img {
+            display: block;
+            margin: 0 auto;
+        }
+    }
+    .line4 {
+        margin: 0 auto;
+        margin-top: 10px;
+        width: 297px;
+        div {
+            display: flex;
+            justify-content: space-between;
+            >a {
+                background-color: #27221a;
+                border: 1px solid #1e1a13;
+                border-radius: 6px;
+                color: #d4d5d7;
+                width: 80px;
+                font-size: 12px;
+                text-align: center;
+                cursor: pointer;
+                padding: 10px;
+                &:hover {
+                    color: #e0ac01;
+                    text-decoration: none;
+                }
+                >span.iconfont {
+                    display: block;
+                    font-size: 30px;
+                }
+            }
+        }
+    }
+}

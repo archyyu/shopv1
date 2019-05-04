@@ -1,0 +1,280 @@
+* {
+  -moz-user-select: none;
+   -ms-user-select: none;
+       user-select: none;
+  -webkit-user-select: none;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+}
+
+html,
+body {
+  height: 754px;
+  width: 345px;
+}
+
+body {
+  overflow: hidden;
+  font-family: "Microsoft YaHei";
+  margin: 0 auto;
+}
+
+/*
+   * sidebar
+   */
+.sidebar {
+  background-image: url("../../img/client/oldsidebar_bg.jpg");
+  background-repeat: no-repeat;
+  background-size: contain;
+  height: 754px;
+  width: 345px;
+  padding: 1px 24px;
+}
+
+.sidebar h4 {
+  color: #fcd538;
+  font-size: 14px;
+  margin-top: 17px;
+  text-align: center;
+  margin-top: 14px;
+}
+
+.sidebar .line1 {
+  margin-top: 22px;
+}
+
+.sidebar .line1 .avatar img {
+  border: 3px solid rgba(133, 133, 133, 0.4);
+  border-radius: 50%;
+  width: 90px;
+  height: 90px;
+}
+
+.sidebar .line1 .info {
+  margin: 0 auto;
+  color: #c4ae7c;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
+  padding: 0 6px;
+}
+
+.sidebar .line1 .info .name {
+  display: table;
+  height: 90px;
+  margin-left: 8px;
+}
+
+.sidebar .line1 .info .name > div {
+  display: table-cell;
+  vertical-align: middle;
+}
+
+.sidebar .line1 .info .name p {
+  font-size: 14px;
+  height: 26px;
+  margin-bottom: 0;
+}
+
+.sidebar .line1 .info .name p:first-child {
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.sidebar .line2 {
+  margin-top: 20px;
+}
+
+.sidebar .line2 .onlineInfo {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+
+.sidebar .line2 p, .sidebar .line2 div.balanceText {
+  background-color: #27221a;
+  border-radius: 6px;
+  color: #949494;
+  font-family: hybq, "Microsoft YaHei";
+  font-weight: normal;
+  text-align: center;
+  text-shadow: 0px 3px 0px black;
+  margin: inherit;
+  width: 86px;
+  padding: 8px 0;
+}
+
+.sidebar .line2 p span, .sidebar .line2 div.used_money {
+  color: #c4ae7c;
+  display: block;
+  font-size: 16px;
+}
+
+.sidebar .lock1 {
+  margin-top: 22px;
+  height: 168px;
+  position: relative;
+}
+
+.sidebar .lock1 .lock_bg {
+  background-image: url("../../img/client/lock_bg.png");
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: center;
+  height: 200px;
+  width: 100%;
+  position: absolute;
+  top: -50px;
+  z-index: 6;
+}
+
+.sidebar .lock1 > div.scancode {
+  background: white;
+  width: 108px;
+  height: 108px;
+  padding: 4px;
+  margin: 0 auto;
+  position: relative;
+  top: 18px;
+  z-index: 8;
+}
+
+.sidebar .lock1 p {
+  color: #fff;
+  position: relative;
+  top: 46px;
+  text-align: center;
+  z-index: 8;
+  margin-top: 0;
+}
+
+.sidebar .line3 {
+  background-image: url("../../img/client/unlock_text.png");
+  background-repeat: no-repeat;
+  background-position: center;
+  height: 256px;
+  margin-top: 10px;
+  padding-top: 40px;
+}
+
+.sidebar .line3 > div.scancode {
+  background: white;
+  width: 100px;
+  height: 100px;
+  padding: 4px;
+  margin: 66px auto;
+}
+
+.sidebar .line3 > div.btn_list {
+  margin: 0 auto;
+  width: 220px;
+}
+
+.sidebar .line3 > div > a {
+  background-repeat: no-repeat;
+  background-size: cover;
+  display: inline-block;
+  height: 47px;
+  width: 220px;
+  margin-top: 18px;
+}
+
+.sidebar .line3 > div > a:hover {
+  background-position: bottom;
+}
+
+.sidebar .line3 > div > a.water_btn {
+  background-image: url("../clientImages/sidebar/btn_water.webp");
+}
+
+.sidebar .line3a {
+  margin-top: 15px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+
+.sidebar .line3a > a {
+  background-color: #27221a;
+  border-radius: 6px;
+  height: 130px;
+  width: 134px;
+  text-decoration: none;
+  cursor: pointer;
+  padding-top: 22px;
+  position: relative;
+}
+
+.sidebar .line3a > a > p {
+  color: #fffde9;
+  font-size: 20px;
+  text-align: center;
+}
+
+.sidebar .line3a .buy_btn > span.iconfont {
+  color: #fbf078;
+  display: block;
+  font-size: 50px;
+  text-align: center;
+  line-height: 40px;
+}
+
+.sidebar .lock2 {
+  height: 256px;
+  margin-top: 10px;
+  padding-top: 40px;
+}
+
+.sidebar .lock2 img {
+  display: block;
+  margin: 0 auto;
+}
+
+.sidebar .line4 {
+  margin: 0 auto;
+  margin-top: 10px;
+  width: 297px;
+}
+
+.sidebar .line4 div {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+
+.sidebar .line4 div > a {
+  background-color: #27221a;
+  border: 1px solid #1e1a13;
+  border-radius: 6px;
+  color: #d4d5d7;
+  width: 80px;
+  font-size: 12px;
+  text-align: center;
+  cursor: pointer;
+  padding: 10px;
+}
+
+.sidebar .line4 div > a:hover {
+  color: #e0ac01;
+  text-decoration: none;
+}
+
+.sidebar .line4 div > a > span.iconfont {
+  display: block;
+  font-size: 30px;
+}
+/*# sourceMappingURL=client.css.map */
