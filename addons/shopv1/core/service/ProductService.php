@@ -60,14 +60,14 @@ class ProductService extends Service{
         $list = $this->productModel->findProductByType($typeid);
         
         foreach($list as $key=>$product){
-            $list[$key]['inventory'] = $this->calculateTheInventory($shop,$product);
+            $list[$key]['inventory'] = $this->calculateTheInventory($shop,$product,$shop['defaultstoreid']);
         }
         
         return $list;
         
     }
     
-    public function getProductListByShop($shopid){
+    public function getProductListByShop($shopid,$storeid){
         
         $shop = $this->shopModel->findShopById($shopid);
         
@@ -77,7 +77,7 @@ class ProductService extends Service{
         foreach($list as $key=>$product){
             
             if($product['producttype'] == 2 || $product['producttype'] == 0){
-                $product['inventory'] = $this->calculateTheInventory($shop, $product);
+                $product['inventory'] = $this->calculateTheInventory($shop, $product,$storeid);
                 $product['actualinventory'] = $product['inventory'];
                 
                 $result[] = $product;
@@ -89,13 +89,13 @@ class ProductService extends Service{
         
     }
     
-    private function calculateTheInventory($shop,$product){
+    private function calculateTheInventory($shop,$product,$storeid){
         if($product['producttype'] == ProductType::VirtualProduct){
             return 10000;
         }
         
         if($product['producttype'] == ProductType::FinishProduct){
-            return $this->findInventoryBy($shop['id'], $product['id'], $shop['defaultstoreid'])["inventory"];
+            return $this->findInventoryBy($shop['id'], $product['id'], $storeid)["inventory"];
         }
         
         if($product['producttype'] == ProductType::SelfMadeProduct){
@@ -104,7 +104,7 @@ class ProductService extends Service{
             $productMaterialList = json_decode($product['productlink'],true);
             foreach($productMaterialList as $key=>$value){
                 
-                $inventory = $this->findInventoryBy($shop['id'], $value['materialid'], $shop['defaultstoreid']);
+                $inventory = $this->findInventoryBy($shop['id'], $value['materialid'], $storeid);
                 
                 if($value['num'] == 0){
                     continue;

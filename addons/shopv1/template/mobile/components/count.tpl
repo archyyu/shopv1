@@ -58,12 +58,15 @@ Vue.component('count', {
         };
     },
     created() {
-        this.queryShopStoreList();
+        
     },
     mounted() {
-        this.queryProductInventory();
+        this.queryShopStoreList();
     },
     methods: {
+        open: function(){
+            this.queryProductInventory();
+        },
         backToMain:function(){
             this.$root.toIndex();
         },
@@ -98,6 +101,7 @@ Vue.component('count', {
         
         warehousechange:function(value, index, text){
             this.selectWarehouse = value;
+            this.queryProductInventory();
         },
         
         queryProductInventory: function () {

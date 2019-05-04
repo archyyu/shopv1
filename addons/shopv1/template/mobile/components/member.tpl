@@ -53,9 +53,12 @@ Vue.component('member', {
     },
     created() {},
     mounted() {
-        this.queryMemberList();
+        
     },
     methods: {
+        open:function(){
+            this.queryMemberList();
+        },
         backToMain:function(){
             this.$root.toIndex();
         },

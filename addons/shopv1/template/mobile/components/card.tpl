@@ -65,9 +65,12 @@ Vue.component('card', {
     },
     created() {},
     mounted() {
-        this.queryCardTypeList();
+        
     },
     methods: {
+        open:function(){
+            this.queryCardTypeList();
+        },
         backToMain:function(){
             this.$root.toIndex();
         },

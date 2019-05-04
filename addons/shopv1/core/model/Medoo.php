@@ -1099,7 +1099,7 @@ class Medoo {
         return $this->exec('INSERT INTO ' . $this->tableQuote($table) . ' (' . implode(', ', $fields) . ') VALUES ' . implode(', ', $stack), $map);
     }
 
-    protected function update($table, $data, $where = null) {
+    public function update($table, $data, $where = null) {
         $fields = [];
         $map = [];
 

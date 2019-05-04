@@ -82,13 +82,17 @@ Vue.component('shift', {
             };
     },
     mounted(){
-        this.queryDutyInfo();
-        this.queryProductList();
+        
     },
     methods: {
         
         backToMain:function(){
             this.$root.toIndex();
+        },
+        
+        open:function(){
+            this.queryDutyInfo();
+            this.queryProductList();
         },
         
         queryDutyInfo:function(){

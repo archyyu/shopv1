@@ -51,7 +51,9 @@ Vue.component('index', {
         toShift:function(){
             this.$root.toShift();
         },
-        
+        open:function(){
+            
+        },
         toCount:function(){
             this.$root.toCount();
         },

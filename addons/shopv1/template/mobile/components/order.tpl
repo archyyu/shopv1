@@ -87,13 +87,15 @@ Vue.component('order', {
     },
     created() {},
     mounted() {
-        this.queryOrderList();
+        
     },
     methods: {
         backToMain:function(){
             this.$root.toIndex();
         },
-        
+        open:function(){
+            this.queryOrderList();
+        },
         lookOrderDetail:function(orderProductList){
             console.log(orderProductList);
             this.orderproductlist = JSON.parse(orderProductList);

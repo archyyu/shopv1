@@ -84,7 +84,8 @@ class ProductController extends \controller\Controller{
     public function loadProductInventory(){
         
         $shopid = $this->getParam("shopid");
-        $list = $this->productService->getProductListByShop($shopid);
+        $storeid = $this->getParam("storeid");
+        $list = $this->productService->getProductListByShop($shopid,$storeid);
         $this->returnSuccess($list);
     }
     
@@ -93,6 +94,7 @@ class ProductController extends \controller\Controller{
         
         $shopid = $this->getParam("shopid");
         $userid = $this->getParam("userid");
+        $storeid = $this->getParam("storeid");
         //logInfo("data：". htmlspecialchars_decode($this->getParam("data")));
         $productList = json_decode( htmlspecialchars_decode( $this->getParam("data") ), true);
         $shop = $this->shopModel->findShopById($shopid);
@@ -100,7 +102,7 @@ class ProductController extends \controller\Controller{
         foreach($productList as $key=>$value){
             
             $this->productService->inventoryCheck($shop['uniacid'], $shopid, $value['id'], $value['actualinventory'],
-                $shop['defaultstoreid'], $userid);
+                $storeid, $userid);
             
         }
         
@@ -129,6 +131,12 @@ class ProductController extends \controller\Controller{
         
         $this->smarty->setTemplateDir(CASHROOT . 'template/mobile');
         $this->smarty->display('mobilemain.tpl');
+    }
+    
+    public function clientsidebar(){
+        
+        $this->smarty->setTemplateDir(CASHROOT . 'template/client');
+        $this->smarty->display('sidebar.tpl');
     }
     
     
