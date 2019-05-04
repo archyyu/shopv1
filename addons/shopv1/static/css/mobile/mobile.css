@@ -55,6 +55,20 @@ html {
   overflow-y: auto;
 }
 
+.horizontal-scroll-list-wrap .cube-scroll-content {
+  display: inline-block;
+}
+
+.horizontal-scroll-list-wrap .list-wrapper {
+  padding: 0 10px;
+  line-height: 60px;
+  white-space: nowrap;
+}
+
+.horizontal-scroll-list-wrap .list-item {
+  display: inline-block;
+}
+
 .table {
   width: 100%;
   margin-bottom: 20px;
@@ -66,7 +80,7 @@ html {
 .table > tbody > tr > td {
   padding: 5px;
   line-height: 1.42857143;
-  vertical-align: center;
+  vertical-align: middle;
   border: 1px solid #ddd;
 }
 
@@ -453,5 +467,18 @@ html {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
+}
+
+.order {
+  height: 100%;
+}
+
+.order .container {
+  position: relative;
+  overflow-y: hidden;
+}
+
+.order .cube-popup {
+  position: absolute;
 }
 /*# sourceMappingURL=mobile.css.map */

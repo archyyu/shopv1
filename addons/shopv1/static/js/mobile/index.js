@@ -59,6 +59,11 @@ var app = new Vue({
             ]
         };
     },
+    watch: {
+        selectedLabel: function(newV, oldV){
+            this.tabsChange(newV,oldV);
+        }
+    },
     created() {
         // this.selectedLabel = UrlUtil.getQueryString("f").replace(/mobile/,"");
     },
@@ -68,18 +73,18 @@ var app = new Vue({
             
             var url = UrlHelper.createUrl('user','login');
             axios.post(url,this.loginMsg)
-                    .then((res)=>{
-                        res = res.data;
-                        if(res.state == 0){
-                            Toast.success("登录成功");
-                            Store.initLoginInfo(res.obj);
-                            this.isLogin = true;
-                            this.selectedLabel = "index";
-                        }
-                        else{
-                            Toast.error(res.msg);
-                        }
-                    });
+            .then((res)=>{
+                res = res.data;
+                if(res.state == 0){
+                    Toast.success("登录成功");
+                    Store.initLoginInfo(res.obj);
+                    this.isLogin = true;
+                    this.selectedLabel = "index";
+                }
+                else{
+                    Toast.error(res.msg);
+                }
+            });
             
         },
         toIndex:function(){
@@ -102,6 +107,9 @@ var app = new Vue({
         },
         toWaterbar:function(){
             this.selectedLabel = "waterbar";
+        },
+        tabsChange(newTab, oldTab){
+            console.log(newTab, oldTab);
         },
         info:function(){
             

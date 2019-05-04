@@ -1,6 +1,6 @@
 <script type="text/x-template" id="order">
     {literal}
-    <div class="count">
+    <div class="order">
         <header class="header">
             <i class="cubeic-back" @click="backToMain"></i>
             <div class="title">
@@ -8,12 +8,15 @@
             </div>
         </header>
         <div class="container">
-            <cube-scroll>
-                <div class="count-table">
-                    <table class="table">
+            <cube-scroll 
+                direction="horizontal"
+                class="horizontal-scroll-list-wrap"
+                :options="{eventPassthrough:vertical}">
+            <div class="list-wrapper">
+                    <table class="table list-item">
                         <thead>
                             <tr>
-                                <th>订单Id</th>
+                                <th class="orderIdTh">订单Id</th>
                                 <th>价格</th>
                                 <th>支付方式</th>
                                 <th>订单来源</th>
@@ -23,37 +26,39 @@
                         </thead>
                         <tbody>
                             <tr v-for="order in orderList">
-                                <td>{{order.id}}</td>
+                                <td class="orderIdTd">{{order.id}}</td>
                                 <td>{{order.orderprice/100}}元</td>
                                 <td>{{Store.paytypeStr(order.paytype)}}</td>
                                 <td>{{Store.ordersourceStr(order.ordersource)}}</td>
-                                <td>{{DateUtil.parseTimeInYmdHms(order.paytime)}}</td>
-                                <td><cube-button @click="lookOrderDetail(order.orderdetail)">商品详情</cube-button></td>
+                                <td class="orderTimeTd">{{DateUtil.parseTimeInYmdHms(order.paytime)}}</td>
+                                <td><cube-button :inline="true" @click="lookOrderDetail(order.orderdetail)">商品详情</cube-button></td>
                             </tr>
                         </tbody>
                     </table>
                 </div>
             </cube-scroll>
-            <cube-popup type="my-popup" position="bottom" :mask-closable="true" ref="cartPopup">
-                <div class="cart-wrap">
-                    <div class="cart-header">
-                        <h5>商品详情</h5>
-                        <cube-button  :inline="true" :outline="true" @click="clearCart">关闭</cube-button>
-                    </div>
-                    <div class="cart-content">
-                        <cube-scroll>
-                            <ul>
-                                <li v-for="item in orderproductlist">
-                                    <div class="pro-title">{{item.productname}}</div>
-                                    <div class="pro-price">￥{{item.price}}</div>
-                                    <div class="pro-num">{{item.num}}</div>
-                                </li>
-                            </ul>
-                        </cube-scroll>
-                    </div>
+
+        <cube-popup position="bottom" :mask-closable="true" ref="proDetailPopup">
+            <div class="my-popup-wrap">
+                <div class="my-popup-header">
+                    <h5>商品详情</h5>
+                    <cube-button  :inline="true" :outline="true" @click="closepopup">关闭</cube-button>
+                </div>
+                <div class="my-popup-content">
+                    <cube-scroll>
+                        <ul>
+                            <li v-for="item in orderproductlist">
+                                <div class="pro-title">{{item.productname}}</div>
+                                <div class="pro-price">￥{{item.price}}</div>
+                                <div class="pro-num">{{item.num}}</div>
+                            </li>
+                        </ul>
+                    </cube-scroll>
+                    
+                </div>
                 </div>
             </cube-popup>
-        </div>
+        
     </div>
     </div>
 
@@ -82,11 +87,11 @@ Vue.component('order', {
         
         lookOrderDetail:function(orderProductList){
             console.log(orderProductList);
-            this.orderproductlist = orderProductList;
-            this.$refs.cartPopup.show();
+            this.orderproductlist = JSON.parse(orderProductList);
+            this.$refs.proDetailPopup.show();
         },
-        clearCart:function(){
-            this.$refs.cartPopup.hide();
+        clearCart:function(){ 
+            this.$refs.proDetailPopup.hide(); 
         },
         queryOrderList:function(){
             let params = Store.createParams();
