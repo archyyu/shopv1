@@ -53,6 +53,11 @@ html {
   padding: 15px;
   overflow-x: hidden;
   overflow-y: auto;
+  position: relative;
+}
+
+.page-wrap .container > .cube-popup {
+  position: absolute;
 }
 
 .horizontal-scroll-list-wrap .cube-scroll-content {
