@@ -8,10 +8,10 @@
             </div>
         </header>
         <div class="container">
-            <cube-scroll 
+            <cube-scroll
                 direction="horizontal"
                 class="horizontal-scroll-list-wrap"
-                :options="{eventPassthrough:vertical}">
+                :options="scrollOptions">
             <div class="list-wrapper">
                     <table class="table list-item">
                         <thead>
@@ -45,8 +45,13 @@
                     <cube-button  :inline="true" :outline="true" @click="closepopup">关闭</cube-button>
                 </div>
                 <div class="my-popup-content">
-                    <cube-scroll>
+                    <cube-scroll :options="{scrollbar:true}">
                         <ul>
+                            <li>
+                                <div class="pro-title">商品名称</div>
+                                <div class="pro-price">总价</div>
+                                <div class="pro-num">数量</div>
+                            </li>
                             <li v-for="item in orderproductlist">
                                 <div class="pro-title">{{item.productname}}</div>
                                 <div class="pro-price">￥{{item.price}}</div>
@@ -70,6 +75,10 @@ Vue.component('order', {
     template: '#order',
     data: function(){
         return {
+            scrollOptions:{
+                freeScroll: true,
+                eventPassthrough:'vertical'
+            },
             Store:Store,
             DateUtil:DateUtil,
             orderList: [],
@@ -90,7 +99,7 @@ Vue.component('order', {
             this.orderproductlist = JSON.parse(orderProductList);
             this.$refs.proDetailPopup.show();
         },
-        clearCart:function(){ 
+        closepopup:function(){ 
             this.$refs.proDetailPopup.hide(); 
         },
         queryOrderList:function(){

@@ -61,7 +61,6 @@ html {
 
 .horizontal-scroll-list-wrap .list-wrapper {
   padding: 0 10px;
-  line-height: 60px;
   white-space: nowrap;
 }
 
@@ -478,7 +477,44 @@ html {
   overflow-y: hidden;
 }
 
+.order .container .horizontal-scroll-list-wrap {
+  overflow-y: auto;
+}
+
 .order .cube-popup {
   position: absolute;
+}
+
+.order .cube-popup ul li {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  padding: 10px 15px;
+}
+
+.order .cube-popup ul > div {
+  -webkit-box-flex: 0;
+      -ms-flex: none;
+          flex: none;
+}
+
+.order .cube-popup ul .pro-title {
+  width: 55%;
+}
+
+.order .cube-popup ul .pro-price {
+  width: 20%;
+  text-align: center;
+}
+
+.order .cube-popup ul .pro-num {
+  width: 25%;
+  text-align: center;
 }
 /*# sourceMappingURL=mobile.css.map */
