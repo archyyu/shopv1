@@ -12,6 +12,7 @@
   <link rel="stylesheet" href="{$StaticRoot}/css/mobile/mobile.css">
 
   <script src="{$StaticRoot}/js/dist/vue.js"></script>
+  <script src="https://unpkg.com/vue-router/dist/vue-router.js"></script>
   <script src="{$StaticRoot}/plugins/cube-ui/cube.min.js"></script>
   <script src="{$StaticRoot}/js/dist/axios/axios.min.js"></script>
   <script src="{$StaticRoot}/js/dist/axios/qs.js"></script>

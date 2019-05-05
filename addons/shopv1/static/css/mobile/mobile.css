@@ -23,6 +23,17 @@ html {
   height: 100%;
 }
 
+.page-wrap.user-page .cube-tab-panels {
+  height: calc(100% - 50px);
+}
+
+.page-wrap.user-page .cube-tab-bar {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  height: 50px;
+}
+
 .page-wrap .header {
   position: relative;
   height: 44px;

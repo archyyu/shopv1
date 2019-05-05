@@ -22,6 +22,17 @@ html {
     height: 100%;
   }
 
+  &.user-page{
+    .cube-tab-panels{
+      height: calc(100% - 50px);
+    }
+    .cube-tab-bar{
+      display: flex;
+      height: 50px;
+    }
+
+  }
+
   .header {
     position: relative;
     height: 44px;
