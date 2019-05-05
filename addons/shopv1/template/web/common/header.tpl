@@ -35,6 +35,7 @@
   
   <script src="{$StaticRoot}/js/common/urlUtil.js" ></script>
   <script src="{$StaticRoot}/js/common/tipsUtil.js" ></script>
+  <script src="{$StaticRoot}/js/common/ImagePreview.js"></script>
   
     {literal}
     <script>

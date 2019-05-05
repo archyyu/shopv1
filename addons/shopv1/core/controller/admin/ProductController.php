@@ -217,6 +217,18 @@ class ProductController extends Controller{
         
         $data = array();
         
+        if ($_FILES) {
+            $upload_res = $this->upload($_FILES['productimg'], 'productlogo');
+            if ($upload_res['state'] == 0) {
+                $data['productimg'] = $upload_res['saveName'];
+            } else {
+                $this->ajaxReturn(Code::err($upload_res['msg']));
+            }
+        }
+        else{
+            
+        }
+        
         $data["uniacid"] = $this->getUniacid();
         $data["productname"] = $productname;
         $data["productcode"] = $productcode;

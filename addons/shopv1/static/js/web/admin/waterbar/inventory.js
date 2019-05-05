@@ -302,6 +302,7 @@ var Inventory = {
           $("#addProductModal [name=normalprice]").val(obj.normalprice);
           $("#addProductModal [name=memberprice]").val(obj.memberprice);
           $("#addProductModal [name=index]").val(obj.index);
+          $("#previewImg").attr("src", UrlUtil.getWebBaseUrl() + obj.productimg);
           $("#addProductModal [name=attributes]").val(obj.attributes);
           $("#addProductModal [name=unit]").val(obj.unit);
           $("#addProductModal [name=typeid]").selectpicker('val',obj.typeid);
@@ -374,19 +375,25 @@ var Inventory = {
       
       var url = UrlUtil.createWebUrl("product",'saveProduct');
       
-      var params = {};
+      var params = new FormData();
       
-      params.productid = $("#addProductModal [name=productid]").val();
-      params.productname = $("#addProductModal [name=productname]").val();
-      params.productcode = $("#addProductModal [name=productcode]").val();
-      params.make = $("#addProductModal [name=make]").val();
-      params.producttype = $("#addProductModal [name=producttype]:checked").val();
-      params.normalprice = $("#addProductModal [name=normalprice]").val();
-      params.memberprice = $("#addProductModal [name=memberprice]").val();
-      params.index = $("#addProductModal [name=index]").val();
-      params.attributes = $("#addProductModal [name=attributes]").val();
-      params.unit = $("#addProductModal [name=unit]").val();
-      params.typeid = $("#addProductModal [name=typeid]").val();
+      params.append("productid",$("#addProductModal [name=productid]").val());
+      params.append("productname",$("#addProductModal [name=productname]").val());
+      params.append("productcode",$("#addProductModal [name=productcode]").val());
+      params.append("make",$("#addProductModal [name=make]").val());
+      params.append("producttype",$("#addProductModal [name=producttype]:checked").val());
+      params.append("normalprice",$("#addProductModal [name=normalprice]").val());
+      params.append("memberprice",$("#addProductModal [name=memberprice]").val());
+      params.append("index",$("#addProductModal [name=index]").val());
+      params.append("attributes",$("#addProductModal [name=attributes]").val());
+      params.append("unit",$("#addProductModal [name=unit]").val());
+      params.append("typeid",$("#addProductModal [name=typeid]").val());
+      try{
+          params.append("productimg",document.getElementById("logoInput").files[0]);
+      }
+      catch (ex){
+          
+      }
       
       var list = [];
       $("#addProductModal [name=associalproduct]").each(function(){
@@ -397,20 +404,28 @@ var Inventory = {
           list.push(item);
       });
       
-      params.link = JSON.stringify(list);
+      params.append("link",JSON.stringify(list));
       
-      $.post(url,params,function(data){
-            
-            if(data.state == 0){
-                Tips.successTips("保存成功");
-                $("#addProductModal").modal("hidden");
-                Inventory.goodsTableReload();
-            }
-            else{
-                Tips.failTips(data.msg);
-            }
-            
-      });
+      $.ajax({
+                url: url,
+                type: 'POST',
+                dataType: 'json',
+                data: params,
+                async: false,
+                processData: false,
+                contentType: false,
+                success: function (data) {
+                    if(data.state == 0){
+                        Tips.successTips("保存成功");
+                        $("#addProductModal").modal("hidden");
+                        Inventory.goodsTableReload();
+                    }
+                    else{
+                        Tips.failTips(data.msg);
+                    }
+                }
+                
+            }); 
       
       
   },
@@ -637,6 +652,12 @@ var Inventory = {
   selectProduct:function(){
       $('#addStockMaterial').modal('show');
   },
+  
+  uploadLogo: function(iputId, imgId, width, height){
+    setMultiImagePreview(iputId,imgId,width,height);
+    $(".upload-area").addClass('show-pic');
+  },
+  
   
   info : function(){
       
