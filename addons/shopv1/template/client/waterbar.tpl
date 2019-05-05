@@ -3,7 +3,7 @@
 <div id="app">
     <div class="water_content">
         <div class="class">
-            <div class="logo"><img src="/clientImages/water/aidalogo.png"></div>
+            <div class="logo"><img src="http://placehold.it/100x66"></div>
             <div id="typeNav" class="class_nav">
                 <el-menu
                     default-active="1">
@@ -14,7 +14,7 @@
         </div>
         <div class="content">
             <div class="banner">
-                <img src="/clientImages/water/water_banner1.png">
+                <img src="{$StaticRoot}/img/client/water_banner.png">
             </div>
             <div id="productList" class="product">
 
@@ -23,7 +23,7 @@
         <div class="checkout">
             <div class="water_info">
                 <div id="memberInfo" class="clearfix">
-                    <div class="water_avatar"><img id="headImgUrl" src="/clientImages/sidebar/avatar.jpg"></div>
+                    <div class="water_avatar"><img id="headImgUrl" src="http://placehold.it/60x60"></div>
                     <div id="purseBalance" class="balance">
                         <p>
                             <font id="balanceTitle"></font><span><em id="balance">0</em> 元</span>
@@ -32,7 +32,6 @@
                 </div>
                 <!-- user ditail hover-->
                 <div class="user_detail">
-                    <!-- <div class="user_avatar"><img src=""></div> -->
                     <p class="user_name text-center">亲爱的会员<span id="memberName" memberid=""></span></p>
                     <div class="user_class">
                         <p id="memberTypeName"></p>

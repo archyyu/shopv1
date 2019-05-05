@@ -192,7 +192,7 @@ body {
 }
 
 .sidebar .line3 > div > a.water_btn {
-  background-image: url("../clientImages/sidebar/btn_water.webp");
+  background-image: url("../../img/client/btn_water.webp");
 }
 
 .sidebar .line3a {
@@ -276,5 +276,457 @@ body {
 .sidebar .line4 div > a > span.iconfont {
   display: block;
   font-size: 30px;
+}
+
+.water_content {
+  width: 1064px;
+  height: 680px;
+  /*height: 725px;*/
+  padding: 20px;
+  position: relative;
+}
+
+.water_content > div {
+  float: left;
+  height: 640px;
+}
+
+.water_content .closeWindow {
+  position: absolute;
+  top: 26px;
+  right: 22px;
+  background-color: rgba(0, 0, 0, 0.5);
+  border-radius: 50%;
+  color: white;
+  width: 26px;
+  height: 26px;
+  line-height: 26px;
+  text-align: center;
+  font-size: 16px;
+  cursor: pointer;
+  z-index: 1;
+}
+
+.water_content > h4,
+.netfee > h4,
+.help > h4,
+.mission > h4 {
+  color: #fcd538;
+  font-size: 15px;
+  margin-top: 6px;
+  margin-bottom: 27px;
+  text-align: center;
+}
+
+.water_content > h4 button,
+.netfee > h4 button,
+.help > h4 button,
+.mission > h4 button {
+  border: 0;
+  background: initial;
+  letter-spacing: 4px;
+}
+
+.class {
+  width: 172px;
+}
+
+.class .logo {
+  background-repeat: no-repeat;
+  background-size: contain;
+  height: 66px;
+  width: 100%;
+  padding: 8px 8px 20px 8px;
+  margin-bottom: 10px;
+}
+
+.class .logo img {
+  display: block;
+  max-width: 100%;
+  max-height: 100%;
+  margin: 0 auto;
+}
+
+.class .class_nav {
+  padding: 0 20px;
+  text-align: center;
+  font-size: 14px;
+  height: calc(100% - 86px);
+  overflow-y: auto;
+}
+
+.class .nav > li > a {
+  border-radius: 0;
+  height: 48px;
+  line-height: 48px;
+  padding: 0;
+}
+
+.class .nav > li.active > a,
+.class .nav > li > a:hover {
+  font-weight: bold;
+  font-size: 16px;
+}
+
+.content {
+  width: calc(100% - 395px);
+  padding: 0 15px;
+}
+
+.content .banner {
+  height: 100px;
+  width: 100%;
+  border-radius: 0 0 10px 10px;
+  /*opacity: .1;
+    position: relative;
+  
+    margin-left: 15px;*/
+  margin-top: 10px;
+  margin-bottom: 10px;
+  -webkit-box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.4);
+          box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.4);
+}
+
+.content .banner .banner_text {
+  border-radius: 0 0 10px 10px;
+  -webkit-box-shadow: 0 1px 8px #3a3227;
+          box-shadow: 0 1px 8px #3a3227;
+  position: absolute;
+  width: 597px;
+  height: 100px;
+  top: -8px;
+  left: -15px;
+}
+
+.content .product {
+  height: calc(100% - 146px);
+  overflow-y: auto;
+}
+
+.content .product > div.list {
+  display: inline-block;
+  float: left;
+  margin-left: 3px;
+  margin-bottom: 6px;
+  position: relative;
+}
+
+.content .product > div.list .discountTips {
+  position: absolute;
+  top: 0;
+  right: 0;
+  background-color: rgba(241, 102, 102, 0.9);
+  color: white;
+  padding: 2px 4px;
+  font-size: 12px;
+  min-width: 40px;
+  text-align: center;
+}
+
+.content .product > div.list > a,
+.content .product > div.list > a:hover,
+.content .product > div.list > a:focus {
+  text-decoration: none !important;
+}
+
+.content .product > div.list .pro_img {
+  overflow: hidden;
+}
+
+.content .product > div.list img {
+  height: 116px;
+  width: 116px;
+}
+
+.content .product > div.list img:hover {
+  -webkit-transform: scale(1.2);
+          transform: scale(1.2);
+  -webkit-transition-duration: 0.5s;
+          transition-duration: 0.5s;
+  /*box-shadow: 0 0 8px 1px #000;*/
+}
+
+.content .product > div.list .pro_title {
+  height: 40px;
+  width: 116px;
+}
+
+.content .product .pro_title p {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-size: 12px;
+  margin: 0;
+  font-weight: 200;
+  padding: 4px;
+}
+
+.content .product .pro_title p span {
+  display: block;
+  text-align: right;
+  font-weight: initial;
+  padding-right: 4px;
+}
+
+.checkout {
+  width: 223px;
+  padding: 10px;
+  position: relative;
+}
+
+.checkout .water_info {
+  height: 76px;
+}
+
+.checkout .water_info > div.clearfix {
+  width: 168px;
+  margin: 15px auto;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+
+.checkout .water_avatar img {
+  height: 60px;
+  width: 60px;
+}
+
+.checkout .balance {
+  text-align: center;
+  color: white;
+  font-weight: bold;
+  font-size: 18px;
+  margin-left: 10px;
+  display: table;
+}
+
+.checkout .balance p {
+  display: table-cell;
+  font-size: 24px;
+  vertical-align: middle;
+  height: 60px;
+}
+
+.checkout .balance span {
+  display: block;
+  font-family: nsimsun;
+  font-weight: normal;
+  font-size: 14px;
+}
+
+.checkout .checkout_content {
+  height: 436px;
+  margin-bottom: 26px;
+  margin-top: 6px;
+  overflow-y: auto;
+}
+
+.checkout .checkout_content .checkout_list {
+  padding: 5px;
+  background-color: #4e4131;
+  position: relative;
+  margin-top: 4px;
+}
+
+.checkout .checkout_content .checkout_list > div {
+  float: left;
+}
+
+.checkout .checkout_content .checkout_img > img {
+  height: 65px;
+  width: 65px;
+}
+
+.checkout .checkout_content .checkout_name {
+  color: white;
+  font-size: 12px;
+  width: 118px;
+  font-family: nsimsun;
+}
+
+.checkout .checkout_content .checkout_name > p {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  padding-left: 10px;
+  padding-top: 10px;
+  margin-bottom: 0;
+}
+
+.checkout .checkout_content .product_num p {
+  margin-bottom: 0;
+  font-size: 16px;
+}
+
+.checkout .checkout_content .delete_list {
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+
+.checkout .checkout_content .delete_list span {
+  font-size: 20px;
+}
+
+.checkout .meal_tips {
+  height: 24px;
+  width: 220px;
+  position: absolute;
+  left: 0;
+  bottom: 72px;
+  padding: 0 8px;
+}
+
+.checkout .meal_tips p {
+  margin-bottom: 0;
+  font-size: 10px;
+  display: inline-block;
+  height: 24px;
+  line-height: 24px;
+}
+
+.checkout .meal_tips button {
+  float: right;
+  font-size: 10px;
+  height: 24px;
+  line-height: 24px;
+  padding: 0;
+  color: white;
+}
+
+.checkout .submit {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  padding-top: 18px;
+}
+
+.checkout .submit p {
+  color: white;
+  font-size: 16px;
+  line-height: 32px;
+  margin-bottom: 0;
+}
+
+.checkout .submit span {
+  color: #f16666;
+}
+
+.checkout .submit .next_btn {
+  width: 84px;
+  height: 36px;
+  line-height: 32px;
+  font-size: 16px;
+  text-align: center;
+  letter-spacing: 2px;
+  padding: 0;
+}
+
+.checkout .user_detail {
+  border: 1px solid #3b3227;
+  display: none;
+  position: absolute;
+  top: 24px;
+  left: -190px;
+  background-color: white;
+  width: 200px;
+  padding: 10px;
+  -webkit-box-shadow: 0 0 8px 1px black;
+          box-shadow: 0 0 8px 1px black;
+}
+
+.checkout .user_detail .user_name {
+  font-size: 12px;
+}
+
+.checkout .user_detail .user_name span {
+  display: block;
+  font-size: 16px;
+  font-weight: bold;
+  letter-spacing: 2px;
+}
+
+.checkout .user_detail .user_class,
+.checkout .user_detail .user_coupon {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+
+.checkout .user_detail .user_coupon p {
+  margin-bottom: 0;
+}
+
+.water_content {
+  background-image: url("../../img/client/water_bg.png");
+  background-repeat: no-repeat;
+  background-size: contain;
+}
+
+.content .banner {
+  background-color: #3B3125;
+}
+
+.content .banner .banner_text {
+  background-color: #221a11;
+  -webkit-box-shadow: 0 1px 8px #3a3227;
+          box-shadow: 0 1px 8px #3a3227;
+}
+
+.content .product > div.list .pro_title {
+  background-color: #4e4131;
+}
+
+.content .product .pro_title p {
+  color: white;
+}
+
+.checkout .water_info {
+  border-bottom: 1px solid #221a11;
+}
+
+.checkout .checkout_content .checkout_list {
+  background-color: #4e4131;
+}
+
+.checkout .checkout_content .product_num p {
+  color: #6c6c6c;
+}
+
+.checkout .checkout_content .product_num button {
+  color: #6c6c6c;
+}
+
+.checkout .checkout_content .product_num button:hover,
+.checkout .checkout_content .product_num button:focus {
+  color: lightgray;
+}
+
+.checkout .checkout_content .delete_list {
+  color: #dedede;
+}
+
+.checkout .checkout_content .delete_list > button {
+  color: #dedede;
+}
+
+.checkout .meal_tips {
+  background-color: #fcd538;
+}
+
+.checkout .submit .next_btn {
+  background-image: url("../clientImages/water/next.png");
+  background-repeat: no-repeat;
+  background-size: contain;
+  color: white;
 }
 /*# sourceMappingURL=client.css.map */
