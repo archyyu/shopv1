@@ -120,4 +120,38 @@ class Controller {
         $params['uniacid'] = $this->getUniacid();
         return $params;
     }
+    
+    public function upload($fileParams, $savePath) {
+        if (!$fileParams) {
+            return ['state' => -1, 'msg' => '上传文件名错误或未上传任何文件'];
+        }
+        if ($fileParams['error']) {
+            return ['state' => -1, 'msg' => $fileParams['error']];
+        }
+        $ext_arr = explode('/', $fileParams['type']);
+        $ext = end($ext_arr);
+        
+        
+        if ($fileParams['size'] > 200 * 1048576) {
+            return ['state' => -1, 'msg' => '上传文件太大'];
+        }
+        
+        $file_name = '/' . rand(10000, 99999) . time() . '.' . $ext;
+        $savePath = trim($savePath, '/');
+        $filePath = IA_ROOT ."/attachment/images/". $savePath;
+        if (!is_dir($filePath)) {
+            mkdir($filePath);
+        }
+        if (file_exists($filePath . $file_name)) {
+            return ['state' => -1, 'msg' => '上传文件已存在'];
+        } else {
+            $res = move_uploaded_file($fileParams['tmp_name'], $filePath . $file_name);
+            if ($res) {
+                return ['state' => 0, 'msg' => 'success', 'saveName' => "attachment/images/". $savePath . $file_name];
+            } else {
+                return ['state' => -1, 'msg' => 'error'];
+            }
+        }
+    }
+    
 }

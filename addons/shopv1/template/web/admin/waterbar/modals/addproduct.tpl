@@ -33,9 +33,23 @@
                   <input type="text" name="productcode" class="input-sm form-control" placeholder="请扫描商品条形码">
                 </div>
               </div>
+                
               <div class="form-group form-group-sm">
                 <label class="col-sm-3 control-label">
-                  <span style="color: red;"> * </span>所属类型：
+                  商品LOGO：
+                </label>
+                <div class="col-sm-8">
+                  <label class="upload-area">
+                    <span class="iconfont icon-add"></span>
+                    <img id="previewImg" alt="logo">
+                    <input type="file" class="logo-input" name="logo" id="logoInput" onchange="Inventory.uploadLogo('logoInput','previewImg',120,120)">
+                  </label>
+                </div>
+              </div>
+                
+              <div class="form-group form-group-sm">
+                <label class="col-sm-3 control-label">
+                  <span style="color: red;"> * </span>类型：
                 </label>
                 <div class="col-sm-8">
                   <select class="form-control selectpicker" name="typeid" id="addTypeId">
@@ -97,7 +111,7 @@
                 <div class="col-sm-8">
                   <div class="input-group">
                     <input type="text" class="form-control" name="normalprice" placeholder="请输入售价">
-                    <span class="input-group-addon">(元)</span>
+                    <span class="input-group-addon">(分)</span>
                   </div>
                 </div>
               </div>
@@ -106,7 +120,7 @@
                 <div class="col-sm-8">
                   <div class="input-group">
                     <input type="text" class="form-control" name="memberprice" placeholder="请输入售价">
-                    <span class="input-group-addon">(元)</span>
+                    <span class="input-group-addon">(分)</span>
                   </div>
                 </div>
               </div>

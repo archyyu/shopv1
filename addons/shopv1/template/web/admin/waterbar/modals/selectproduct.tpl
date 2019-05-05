@@ -27,10 +27,14 @@
                                 </p>
                                 <div class="checkboxs" id="selectProductList">
                                     {foreach $productlist as $product}
+                                        
+                                        {if $product.producttype != 1}
+                                        
                                         <div class="checkself">
                                             <input type="checkbox" productid={$product.id} />
                                             <span>{$product.productname}</span> 
                                         </div>
+                                        {/if}
                                     {/foreach}
                                 </div>
                             </div>

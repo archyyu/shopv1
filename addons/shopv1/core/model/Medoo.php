@@ -1152,7 +1152,7 @@ class Medoo {
         return $this->exec('UPDATE ' . $this->tableQuote($table) . ' SET ' . implode(', ', $fields) . $this->whereClause($where, $map), $map);
     }
 
-    protected function delete($table, $where) {
+    public function delete($table, $where) {
         $map = [];
 
         return $this->exec('DELETE FROM ' . $this->tableQuote($table) . $this->whereClause($where, $map), $map);

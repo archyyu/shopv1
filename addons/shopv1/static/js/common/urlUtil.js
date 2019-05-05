@@ -15,6 +15,16 @@ var UrlUtil = {
     return url;
   },
   
+  getWebBaseUrl:function(){
+      let url = window.location.href.split("web")[0];
+      return url;
+  },
+  
+  getAppBaseUrl:function(){
+      let url = window.location.href.split("app")[0];
+      return url;
+  },
+  
   createWebUrlWithParams: function (controller, func, params) {
     var str = '';
     if (params) {
