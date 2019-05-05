@@ -145,6 +145,12 @@ class ProductController extends \controller\Controller{
         $this->smarty->display('waterbar.tpl');
     }
     
+    public function backside(){
+        
+        $this->smarty->setTemplateDir(CASHROOT . 'template/backside');
+        $this->smarty->display('backside.tpl');
+    }
+    
     
     
     
