@@ -19,7 +19,7 @@
                     @pulling-up="loadMore">
                     <ul class="foods-wrapper">
                         <li class="food-item" v-for="o in productlist">
-                            <div class="icon"><img src="http://placehold.it/57x57">
+                            <div class="icon"><img src="http://pinshangy.com/{{o.productimg}}">
                             </div>
                             <div class="food-content" @click="addCart(o.id,o.productname,o.memberprice,o.inventory)">
                                 <h2 class="name">{{o.productname}}</h2>
