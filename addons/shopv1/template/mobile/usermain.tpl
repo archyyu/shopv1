@@ -19,7 +19,7 @@
         </cube-tab-panels>
         <cube-tab-bar
             v-model="selectedLabel"
-            v-if="tabbarShow"
+            v-if="tabbarShow" 
             :data="tabs">
         </cube-tab-bar>
     </div>
