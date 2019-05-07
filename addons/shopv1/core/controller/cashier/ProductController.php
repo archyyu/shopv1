@@ -145,7 +145,7 @@ class ProductController extends \controller\Controller{
         $this->smarty->display('sidebar.tpl');
     }
     
-    public function clientwaterbar(){
+    public function clientwaterbar(){ 
         
         $this->smarty->setTemplateDir(CASHROOT . 'template/client');
         $this->smarty->display('waterbar.tpl');

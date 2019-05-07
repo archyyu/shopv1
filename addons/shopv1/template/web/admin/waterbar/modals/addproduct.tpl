@@ -55,7 +55,9 @@
                   <select class="form-control selectpicker" name="typeid" id="addTypeId">
                     <option value="">请选择</option>
                     {foreach $typelist as $type}
+                        
                         <option value='{$type.id}'  >{$type.typename}</option>
+                        
                     {/foreach}
                   </select>
                 </div>

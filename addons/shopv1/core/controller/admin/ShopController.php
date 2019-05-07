@@ -22,10 +22,13 @@ class ShopController extends Controller{
     
     private $storeModel;
     
+    private $bannerModel;
+    
     public function __construct() {
         parent::__construct();
         $this->userModel = new \model\ShopUser();
         $this->storeModel = new \model\ShopStore();
+        $this->bannerModel = new \model\ShopBanner();
     }
     
     public function index(){
@@ -34,6 +37,52 @@ class ShopController extends Controller{
     
     public function staffIndex(){
         $this->smarty->display('admin/staff.tpl');
+    }
+    
+    public function bannerIndex(){
+        $this->smarty->display("admin/banner.tpl");
+    }
+    
+    public function loadBannerList(){
+        
+        $shopid = $this->getParam("shopid");
+        $list = $this->bannerModel->getBannerList($shopid);
+        $this->returnSuccess($list);
+        
+    }
+    
+    public function saveBanner(){
+        
+        $index = $this->getParam("index");
+        $shopid = $this->getParam("shopid");
+        
+        $data = array();
+        $data['index'] = $index;
+        $data['shopid'] = $shopid;
+        
+        if ($_FILES) {
+            $upload_res = $this->upload($_FILES['imgurl'], 'banner');
+            if ($upload_res['state'] == 0) {
+                $data['imgurl'] = $upload_res['saveName'];
+            } else {
+                $this->ajaxReturn(Code::err($upload_res['msg']));
+            }
+        }
+        else{
+            $this->returnFail("请选择图片");
+        }
+        
+        $this->bannerModel->addBanner($data);
+        $this->returnSuccess();
+        
+    }
+    
+    public function removeBanner(){
+        
+        $id = $this->getParam("id");
+        $this->bannerModel->removeBanner($id);
+        $this->returnSuccess();
+        
     }
     
     public function loadStaffList(){
@@ -135,7 +184,7 @@ class ShopController extends Controller{
         
         if(isset($sid) == false){
             //新建门店
-            $sid = $data["lastInsertId"];
+            $sid = $this->shopModel->getLastInsertId();
             //创建默认库房
             
             $storeid = $this->storeModel->addStore($shopname."的库房", $sid,  $data['uniacid']);

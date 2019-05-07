@@ -55,6 +55,10 @@ var app = new Vue({
                 {
                     label: 'card',
                     icon: 'cubeic-star'
+                },
+                {
+                    label: 'member',
+                    icon: 'cubeic-star'
                 }
             ]
         };

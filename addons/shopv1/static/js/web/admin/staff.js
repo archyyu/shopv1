@@ -103,7 +103,7 @@ var Staff = {
         
         $.post(url,params,function(data){
             if(data.state == 0){
-                $("#addStaffModal").modal("hidden");
+                $("#addStaffModal").modal("hide");
                 Tips.successTips("保存成功");
                 Staff.staffTableReload();
             }

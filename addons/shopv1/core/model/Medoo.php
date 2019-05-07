@@ -1451,6 +1451,10 @@ class Model{
         }
 
     }
+    
+    public function getLastInsertId(){
+        return Model::$medoo->id();
+    }
 
     protected function save($data, $where) {
         $pdoStateResult = Model::$medoo->update($this->table, $data, $where);
