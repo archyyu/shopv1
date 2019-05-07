@@ -2,7 +2,6 @@
     {literal}
     <div class="order">
         <header class="header">
-            <i class="cubeic-back" @click="backToMain"></i>
             <div class="title">
                 <span>订单列表</span>
             </div>
@@ -23,13 +22,13 @@
                         </thead>
                         <tbody>
                             <tr v-for="order in orderList">
-                                <td>{{order.id}}</td>
-                                <td>{{order.orderprice/100}}元</td>
-                                <td>{{Store.paytypeStr(order.paytype)}}</td>
-                                <td>{{Store.ordersourceStr(order.ordersource)}}</td>
-                                <td class="orderTimeTd">{{DateUtil.parseTimeInYmdHms(order.paytime)}}</td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
                                 <td>
-                                    <cube-button :inline="true" @click="lookOrderDetail(order.orderdetail)">商品详情
+                                    <cube-button :inline="true">商品详情
                                     </cube-button>
                                 </td>
                             </tr>
@@ -52,10 +51,10 @@
                                     <div class="pro-price">总价</div>
                                     <div class="pro-num">数量</div>
                                 </li>
-                                <li v-for="item in orderproductlist">
-                                    <div class="pro-title">{{item.productname}}</div>
-                                    <div class="pro-price">￥{{item.price}}</div>
-                                    <div class="pro-num">{{item.num}}</div>
+                                <li>
+                                    <div class="pro-title"></div>
+                                    <div class="pro-price"></div>
+                                    <div class="pro-num"></div>
                                 </li>
                             </ul>
                         </cube-scroll>
@@ -90,33 +89,10 @@ Vue.component('order', {
         
     },
     methods: {
-        backToMain:function(){
-            this.$root.toIndex();
-        },
         open:function(){
-            this.queryOrderList();
-        },
-        lookOrderDetail:function(orderProductList){
-            console.log(orderProductList);
-            this.orderproductlist = JSON.parse(orderProductList);
-            this.$refs.proDetailPopup.show();
         },
         closepopup:function(){ 
             this.$refs.proDetailPopup.hide(); 
-        },
-        queryOrderList:function(){
-            let params = Store.createParams();
-            let url = UrlHelper.createUrl("order", "cashierQueryOrder");
-            
-            axios.post(url,params)
-                    .then((res)=>{
-                        res = res.data;
-                        console.log(res);
-                        if(res.state == 0){
-                            this.orderList = res.obj;
-                        }
-                        });
-            
         },
         info: function () {
 
