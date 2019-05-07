@@ -19,7 +19,7 @@
                     @pulling-up="loadMore">
                     <ul class="foods-wrapper">
                         <li class="food-item" v-for="o in productlist">
-                            <div class="icon"><img src="http://pinshangy.com/{{o.productimg}}">
+                            <div class="icon"><img :src="getImgUrl(o)">
                             </div>
                             <div class="food-content" @click="addCart(o.id,o.productname,o.memberprice,o.inventory)">
                                 <h2 class="name">{{o.productname}}</h2>
@@ -140,6 +140,10 @@ Vue.component('waterbar', {
             this.queryProductList(this.defaulttypeid);
         },
         
+        getImgUrl:function(p){
+            return UrlHelper.getWebBaseUrl() + p.productimg;
+        },
+        
         queryTypeList: function () {
             var params = Store.createParams();
             //params.shopid = typeid;
@@ -197,7 +201,7 @@ Vue.component('waterbar', {
             for(let cart of this.cartlist){
                 sum += cart.price;
             }
-            return sum;
+            return sum.toFixed(2);
         },
         
         clearCart:function(){
@@ -242,7 +246,7 @@ Vue.component('waterbar', {
         createOrder:function(paytype){
             
             if(this.cartlist.length <= 0){
-                this.$message.error("购物车为空");
+                Toast.error("购物车为空");
                 return;
             }
             

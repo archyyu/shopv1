@@ -2,7 +2,6 @@
     {literal}
     <div class="waterbar">
         <header class="header">
-            <i class="cubeic-back" @click="backToMain()"></i>
             <div class="title">
                 <span>点单</span>
             </div>
@@ -19,7 +18,7 @@
                     @pulling-up="loadMore">
                     <ul class="foods-wrapper">
                         <li class="food-item" v-for="o in productlist">
-                            <div class="icon"><img src="http://pinshangy.com/{{o.productimg}}">
+                            <div class="icon"><img src="getImgUrl(o)">
                             </div>
                             <div class="food-content" @click="addCart(o.id,o.productname,o.memberprice,o.inventory)">
                                 <h2 class="name">{{o.productname}}</h2>
@@ -35,10 +34,8 @@
             <div class="food-submit">
                 <div class="cart" @click="showCart"><iconfont iconclass="icon-home1"></iconfont></div>
                 <div class="price">￥{{getCartPrice()}}</div>
-                <div class="checkout">
-                    <cube-button :primary="true" @click="createOrder(0)">现金</cube-button>
-                    <cube-button :primary="true" @click="createOrder(1)">微信</cube-button>
-                    <cube-button :primary="true" @click="createOrder(2)">支付宝</cube-button>
+                <div class="checkout"> 
+                    <cube-button :primary="true" @click="createOrder(1)">支付</cube-button>
                 </div>
             </div>
             <cube-popup type="my-popup" position="bottom" :mask-closable="true" ref="cartPopup">
@@ -136,8 +133,12 @@ Vue.component('waterbar', {
             this.queryProductList(this.defaulttypeid);
         },
         
+        getImgUrl:function(p){
+            return UrlHelper.getWebBaseUrl() + p.productimg;
+        },
+        
         queryTypeList: function () {
-            // var params = Store.createParams();
+            var params = Store.createParams();
             //params.shopid = typeid;
             axios.post(UrlHelper.createUrl('product','loadProductTypeList'), params)
                 .then((res) => {
@@ -193,7 +194,7 @@ Vue.component('waterbar', {
             for(let cart of this.cartlist){
                 sum += cart.price;
             }
-            return sum;
+            return sum.toFixed(2);
         },
         
         clearCart:function(){
@@ -203,7 +204,7 @@ Vue.component('waterbar', {
         },
         
         queryProductList: function (type) {
-            // let params = Store.createParams();
+            let params = Store.createParams();
             params.type = type;
             if(type){
                 this.activeNav = type;

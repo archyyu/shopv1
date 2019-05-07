@@ -55,7 +55,9 @@
                   <select class="form-control selectpicker" name="typeid" id="addTypeId">
                     <option value="">请选择</option>
                     {foreach $typelist as $type}
+                        
                         <option value='{$type.id}'  >{$type.typename}</option>
+                        
                     {/foreach}
                   </select>
                 </div>
@@ -81,9 +83,9 @@
                   <label class="radio-inline" id="commodity">
                     <input type="radio" name="producttype" onclick="Inventory.selectProductType();" value="0" checked="checked"> 成品
                   </label>
-                  <label class="radio-inline">
+                  {*<label class="radio-inline">
                     <input type="radio" name="producttype" onclick="Inventory.selectProductType();" value="1"> 自制
-                  </label>
+                  </label>*}
                   <label class="radio-inline">
                     <input type="radio" name="producttype" onclick="Inventory.selectProductType();" value="2"> 原料
                   </label>

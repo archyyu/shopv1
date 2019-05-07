@@ -32,8 +32,15 @@
 {include file="./components/userorder.tpl"}
 {include file="./components/usermine.tpl"}
 
+
+<script src="{$StaticRoot}/js/cashier/dateUtil.js"></script>
+<script src="{$StaticRoot}/js/mobile/store.js"></script>
+<script src="{$StaticRoot}/js/mobile/urlHelper.js"></script>
+<script src="{$StaticRoot}/js/common/urlUtil.js"></script>
 <script src="{$StaticRoot}/js/common/vue-qrcode.js"></script>
+<script>Vue.component(VueQrcode.name, VueQrcode);</script>
 <script src="{$StaticRoot}/js/mobile/user.js"></script>
+<script src="{$StaticRoot}/js/mobile/toast.js"></script>
 
 
 {include file="./common/footer.tpl"}

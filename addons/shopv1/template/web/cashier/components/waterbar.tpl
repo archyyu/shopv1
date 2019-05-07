@@ -175,7 +175,7 @@ Vue.component('waterbar', {
     methods: {
         
         open:function(){
-            
+                
         },
         
         createOrder:function(paytype){
@@ -315,7 +315,7 @@ Vue.component('waterbar', {
             for(let cart of this.cartlist){
                 sum += cart.price;
             }
-            return sum;
+            return sum.toFixed(2);
         },
 
         queryTypeList: function () {

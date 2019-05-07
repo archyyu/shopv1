@@ -3,7 +3,7 @@
 
 <div class="container-fluid">
   <div class="row">
-    <button class="btn btn-success add-shop" data-toggle="modal" name="add_shop">新增门店</button>
+    <button class="btn btn-success add-shop" data-toggle="modal" name="add_shop"  onclick="Shop.openShopModal(0,null)">新增门店</button>
   </div>
   <div class="row">
     <table id="shopList" class="table table-bordered">

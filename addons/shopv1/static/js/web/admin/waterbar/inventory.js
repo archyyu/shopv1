@@ -417,7 +417,7 @@ var Inventory = {
                 success: function (data) {
                     if(data.state == 0){
                         Tips.successTips("保存成功");
-                        $("#addProductModal").modal("hidden");
+                        $("#addProductModal").modal("hide");
                         Inventory.goodsTableReload();
                     }
                     else{

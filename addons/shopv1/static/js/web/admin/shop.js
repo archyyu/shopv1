@@ -113,7 +113,7 @@ var Shop = {
         
         $.post(url,params,function(data){
            if(data.state == 0){
-               $("#addShop").modal("hidden");
+               $("#addShop").modal("hide");
                Tips.successTips("保存成功");
                Shop.reloadShopTable();
            } 
