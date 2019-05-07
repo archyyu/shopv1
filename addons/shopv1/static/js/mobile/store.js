@@ -12,10 +12,10 @@ var Store={
     
     createParams:function(){
         let params = {};
-        params.shopid = Store.shop.id;// userInfo.shopid;
-        params.userid = Store.user.id;// userInfo.id;
+        params.shopid = 1;//Store.shop.id;// userInfo.shopid;
+        params.userid = 1;//Store.user.id;// userInfo.id;
         params.from = 1;
-        params.__uniacid = Store.shop.uniacid;
+        params.__uniacid = 1;//Store.shop.uniacid;
         return params;
     },
     

@@ -197,7 +197,7 @@ Vue.component('waterbar', {
             for(let cart of this.cartlist){
                 sum += cart.price;
             }
-            return sum;
+            return sum.toFixed(2);
         },
         
         clearCart:function(){

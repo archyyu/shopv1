@@ -10,7 +10,7 @@ var app = new Vue({
                     label: 'waterbar'
                 },
                 {
-                    label: 'shift'
+                    label: 'order'
                 },
                 {
                     label: 'count'

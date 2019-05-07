@@ -2,7 +2,6 @@
     {literal}
     <div class="order">
         <header class="header">
-            <i class="cubeic-back" @click="backToMain"></i>
             <div class="title">
                 <span>订单列表</span>
             </div>
