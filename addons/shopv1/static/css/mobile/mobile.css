@@ -374,9 +374,16 @@ html {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
+}
+
+.waterbar .food-submit .cart > .iconfont {
+  font-size: 20px;
 }
 
 .waterbar .food-submit .price {
@@ -445,6 +452,26 @@ html {
 
 .waterbar .cart-wrap .cart-content ul .pro-num {
   width: 25%;
+  display: -webkit-inline-box;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.waterbar .cart-wrap .cart-content ul .pro-num > .cube-btn {
+  width: 1.5rem;
+  height: 1.5rem;
+  padding: 0;
+  line-height: 1.5rem;
+}
+
+.waterbar .cart-wrap .cart-content ul .pro-num > .cube-btn:after {
+  border-radius: 50%;
 }
 
 .waterbar .cart-wrap .scan-code {

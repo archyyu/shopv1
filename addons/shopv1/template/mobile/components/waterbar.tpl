@@ -33,12 +33,12 @@
                 </cube-scroll>
             </div>
             <div class="food-submit">
-                <div class="cart" @click="showCart"><iconfont iconclass="icon-home1"></iconfont></div>
+                <div class="cart" @click="showCart"><iconfont iconclass="icon-shopcar"></iconfont></div>
                 <div class="price">￥{{getCartPrice()}}</div>
                 <div class="checkout">
                     <cube-button :primary="true" @click="createOrder(0)">现金</cube-button>
-                    <cube-button :primary="true" @click="createOrder(1)">微信</cube-button>
-                    <cube-button :primary="true" @click="createOrder(2)">支付宝</cube-button>
+                    <cube-button class="weipay-btn" :primary="true" @click="createOrder(1)">微信</cube-button>
+                    <cube-button class="alipay-btn" :primary="true" @click="createOrder(2)">支付宝</cube-button>
                 </div>
             </div>
             <cube-popup type="my-popup" position="bottom" :mask-closable="true" ref="cartPopup">
@@ -53,7 +53,11 @@
                                 <li v-for="item in cartlist">
                                     <div class="pro-title">{{item.productname}}</div>
                                     <div class="pro-price">￥{{item.price}}</div>
-                                    <div class="pro-num">{{item.num}}</div>
+                                    <div class="pro-num">
+                                        <cube-button  :inline="true" :outline="true" @click="{{item.num>0?item.num--:0}}">-</cube-button>
+                                        <span>{{item.num}}</span>
+                                        <cube-button  :inline="true" :outline="true" @click="{{item.num++}}">+</cube-button>
+                                    </div>
                                 </li>
                             </ul>
                         </cube-scroll>

@@ -337,10 +337,24 @@ html {
     >div{
       flex: 1;
       display: flex;
+      justify-content: center;
       align-items: center;
+    }
+    .cart{
+      >.iconfont{
+        font-size: 20px;
+      }
     }
     .price{
       flex: 2
+    }
+    .checkout{
+      // .weipay-btn{
+      //   background-color: #2ca339;
+      // }
+      // .alipay-btn{
+      //   background-color: #019fe8;
+      // }
     }
   }
   .cube-popup{
@@ -379,6 +393,18 @@ html {
         }
         .pro-num{
           width: 25%;
+          display: inline-flex;
+          justify-content: space-between;
+          align-items: center;
+          >.cube-btn{
+            width: 1.5rem;
+            height: 1.5rem;
+            padding: 0;
+            line-height: 1.5rem;
+            &:after{
+              border-radius: 50%;
+            }
+          }
         }
       }
     }
