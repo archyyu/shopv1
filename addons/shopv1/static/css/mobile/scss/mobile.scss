@@ -474,3 +474,16 @@ html {
   .table{
   }
 }
+
+
+// member
+.member{
+  height: 100%;
+  .container {
+    position: relative;
+    overflow-y: hidden;
+    .horizontal-scroll-list-wrap{
+      overflow-y: auto;
+    }
+  }
+}

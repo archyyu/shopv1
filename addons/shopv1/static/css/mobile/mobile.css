@@ -560,4 +560,17 @@ html {
   width: 25%;
   text-align: center;
 }
+
+.member {
+  height: 100%;
+}
+
+.member .container {
+  position: relative;
+  overflow-y: hidden;
+}
+
+.member .container .horizontal-scroll-list-wrap {
+  overflow-y: auto;
+}
 /*# sourceMappingURL=mobile.css.map */
