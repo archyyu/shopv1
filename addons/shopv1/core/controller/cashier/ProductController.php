@@ -33,6 +33,8 @@ class ProductController extends \controller\Controller{
     
     private $cardTypeModel;
     
+    private $bannerModel;
+    
     public function __construct() {
         parent::__construct();
         $this->productService = new ProductService();
@@ -42,6 +44,7 @@ class ProductController extends \controller\Controller{
         $this->shopStock = new \model\ShopStock();
         $this->shopStockProduct = new \model\ShopStockProduct();
         $this->cardTypeModel = new \model\ShopCardtype();
+        $this->bannerModel = new \model\ShopBanner();
     }
     
     public function index(){
@@ -152,13 +155,17 @@ class ProductController extends \controller\Controller{
     }
     
     public function backside(){
-        
         $this->smarty->setTemplateDir(CASHROOT . 'template/backside');
         $this->smarty->display('backside.tpl');
     }
     
-    
-    
+    public function loadbanner(){
+        
+        $shopid = $this->getParam("shopid");
+        $list = $this->bannerModel->getBannerList($shopid);
+        $this->returnSuccess($list);
+        
+    }
     
     
 }

@@ -11,6 +11,16 @@ var UrlHelper = {
         return "cashier.php?__uniacid=1&f=" + f + "&do=" + d;
     },
     
+    getWebBaseUrl:function(){
+        let url = window.location.href.split("web")[0];
+        return url;
+    },
+
+    getAppBaseUrl:function(){
+        let url = window.location.href.split("app")[0];
+        return url;
+    },
+    
     info:function(){
         
     }

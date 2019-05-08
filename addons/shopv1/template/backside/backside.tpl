@@ -3,13 +3,10 @@
 
 <div id="app">
     <div class="backside">
-        <header class="backside-header">
-            <h1 class="title"><span class="logo"><img src="http://placehold.it/1920x1080"></span>欢迎来到{{$shop->name}}</h1>
-        </header>
         <div class="backside-content">
-            <el-carousel trigger="click" height="100%" arrow="never">
-                <el-carousel-item v-for="item in 4" :key="item">
-                    <img src="http://placehold.it/1920x1080">
+            <el-carousel trigger="click" height="150px" arrow="never">
+                <el-carousel-item v-for="item in imgList" :key="item">
+                    <img :src="item" />
                 </el-carousel-item>
             </el-carousel>
         </div>
@@ -25,8 +22,63 @@
 
 
 <script src="{$StaticRoot}/js/common/vue-qrcode.js"></script>
+<script >
+Vue.component(VueQrcode.name, VueQrcode)
 
-<script src="{$StaticRoot}/js/backside/index.js"></script>
+var app = new Vue({
+    el: '#app',
+    data:function(){
+        return {
+            imgList:[],
+            showSlider: false,
+            qrcode: 'www.baidu.com'
+        };
+    },
+    created() {
+        
+    },
+    methods: {
+        
+        
+        queryBannerList:function(shopid){
+            let url = UrlHelper.createUrl("product","loadbanner");
+            
+            let params = {};
+            params.shopid = shopid;
+            
+            axios.post(url,params)
+                    .then((res)=>{
+                        res = res.data;
+                        if(res.state == 0){
+                            console.log(res.obj);
+                            
+                            for(let item of res.obj){
+                                this.imgList.push(UrlHelper.getWebBaseUrl() + item.imgurl);
+                            }
+                            
+                        }
+                        else{
+                            
+                        }
+                });
+            
+        },
+
+        showQrcode:function(title,qrcodeurl){
+            this.showSlider = true;
+        },
+        
+        hideQrcode:function(title,qrcodeurl){
+            this.showSlider = false;
+        },
+
+        info:function(){
+            
+        }
+        
+    }
+});
+</script>
 
 
 

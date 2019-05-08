@@ -11,7 +11,7 @@
 
         </div>
     </div>
-
+    {/literal}
 </script>
 
 <script>
