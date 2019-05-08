@@ -29,32 +29,13 @@
                                 <td>{{member.credit1}}</td>
                                 <td>{{member.credit2}}</td>
                                 <td>
-                                    <cube-button :inline="true" >详情</cube-button>
+                                    <cube-button :inline="true" @click="toMemberDetail(member)">详情</cube-button>
                                 </td>
                             </tr>
                         </tbody>
                     </table>
                 </div>
             </cube-scroll>
-            <bottom-popup label="onlineDetail" title="" height="auto" ref="detailPopup">
-                <template v-slot:content>
-                    <cube-form :model="detailModel">
-                        <cube-form-item :field="detailForm[0]">
-                            {{ store.memberOnlineState(memberInfo) }}
-                        </cube-form-item>
-                        <cube-form-item :field="detailForm[1]">
-                            {{memberInfo.netbarOnline.onlinefee/100}} 元
-                        </cube-form-item>
-                        <cube-form-item :field="detailForm[2]">
-                            {{DateUtil.parseTimeInYmdHms(memberInfo.netbarOnline.onlinestarttime)}}
-                        </cube-form-item>
-                        <cube-form-item :field="detailForm[3]">
-                            {{DateUtil.timeSpanFrom(memberInfo.netbarOnline.onlinestarttime)}}
-                        </cube-form-item>
-                        <cube-form-item :field="detailForm[4]"></cube-form-item>
-                    </cube-form>
-                </template>
-            </bottom-popup>
         </div>
     </div>
 
@@ -102,7 +83,11 @@ Vue.component('member', {
                        }
                     });
             
-        }, 
+        },
+        toMemberDetail: function(member){
+            this.$root.$refs.memberDetail.member = member
+            this.$root.toMemberDetail();
+        },
         info: function () {
 
         }
