@@ -18,7 +18,31 @@
 </div>
 
 
-<script src="{$StaticRoot}/js/backside/index.js"></script>
+<script >
+var app = new Vue({
+    el: '#app',
+    data:{},
+    methods: {
+        
+        queryBannerList:function(shopid){
+        
+        },
+
+        showQrcode:function(){
+            
+        },
+        
+        hideQrcode:function(){
+            
+        },
+
+        info:function(){
+            
+        }
+        
+    }
+});
+</script>
 
 
 

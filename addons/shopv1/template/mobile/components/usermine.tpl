@@ -29,7 +29,7 @@
                             </div>
                             <div class="weui-cell__ft">5000</div>
                         </div>
-                        <div class="weui-cell weui-cell_access">
+                        <div class="weui-cell weui-cell_access" @click="toCard">
                             <div class="weui-cell__bd">
                                 <p>卡券</p>
                             </div>
@@ -53,6 +53,9 @@ Vue.component('mine', {
     },
     methods: {
         open:function(){
+        },
+        toCard:function(){
+            this.$root.selectedLabel = 'card';
         },
         info: function () {
 

@@ -5,7 +5,7 @@ var app = new Vue({
     data: function(){
         return {
             tabbarShow: true,
-            selectedLabel: 'waterbar',
+            selectedLabel: 'cardList',
             tabs: [
                 {
                     label: '点餐',
@@ -43,10 +43,10 @@ var app = new Vue({
     mounted() {},
     methods: {
         tabsChange: function (newV,oldV) {
-            console.log(newV, oldV)
+            console.log(newV, oldV);
         },
         toIndex: function () {
-            this.$root.$refs.selectedLabel = 'waterbar'
+            this.$root.$refs.selectedLabel = 'waterbar';
         }
     }
 });
