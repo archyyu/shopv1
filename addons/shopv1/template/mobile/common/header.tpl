@@ -23,42 +23,64 @@
   <script src="{$StaticRoot}/js/dist/moment-zh-cn.js"></script>
 
   <script>
-    {* // Global Loading setting
-    var loading = null;
-    function startLoading (){
-      loading = app.$createToast({
-        mask: true,
-        time:0,
-        text: '页面加载中'
-      });
-      loading.show()
-    }
-    function stopLoading (){
-      loading.hide();
-    }
-    // request interceptor
-    axios.interceptors.request.use(function(config){
-      startLoading();
-      return config;
-    }, function(error){
-      return Promise.reject(error);
-    });
-    // response interceptor
-    axios.interceptors.response.use(function(res){
-      stopLoading();
-      return res;
-    }, function(error){
-      console.log('err');
-      stopLoading();
-      app.$message.error('网络连接失败');
-      return Promise.reject(error);
-    }); *}
+  //axios.defaults.baseURL = ""
+  axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
+  axios.defaults.transformRequest = [function (data) {
+    return Qs.stringify(data);
+  }];
 
-    //axios.defaults.baseURL = ""
-    axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
-    axios.defaults.transformRequest = [function (data) {
-      return Qs.stringify(data);
-    }];
+
+  var Loading = null;
+
+  class LoadingType {
+    static ToastLoading() {
+      return {
+        data: {
+          hideMask: true
+        }
+      }
+    };
+
+    static hideLoading() {
+      return {
+        data: {
+          hideLoading: true
+        }
+      }
+    }
+  }
+
+  axios.interceptors.request.use(config => {
+    console.log(config)
+    var hideLoading = Boolean(Qs.parse(config.data).hideLoading);
+    if (hideLoading) {
+      return config;
+    }
+
+    var showToast = Boolean(Qs.parse(config.data).hideMask);
+    Loading = app.$createToast({
+      txt: '页面加载中...',
+      time: 0,
+      mask: !showToast
+    });
+    Loading.show();
+    return config;
+  }, (error) => {
+    return Promise.reject(error);
+  });
+  // response interceptor
+  axios.interceptors.response.use(res => {
+    Loading.hide();
+    return res
+  }, (error) => {
+    console.log('err');
+    Loading.hide();
+    app.$createToast({
+      txt: '网络连接失败',
+      type: 'error'
+    }).show();
+    return Promise.reject(error)
+  });
   </script>
 </head>
 <body>
