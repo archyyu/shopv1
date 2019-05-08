@@ -49,7 +49,7 @@
                             <ul>
                                 <li v-for="item in cartlist">
                                     <div class="pro-title">{{item.productname}}</div>
-                                    <div class="pro-price">￥{{item.price}}</div>
+                                    <div class="pro-price">￥{{(item.price*item.num).toFixed(2)}}</div>
                                     <div class="pro-num">
                                         <cube-button  :inline="true" :outline="true" @click="{{item.num>0?item.num--:0}}">-</cube-button>
                                         <span>{{item.num}}</span>
@@ -179,7 +179,6 @@ Vue.component('waterbar', {
             for (var i = 0; i < this.cartlist.length; i++) {
                 if (this.cartlist[i].productid == productid) {
                     this.cartlist[i].num += 1;
-                    this.cartlist[i].price += price / 100;
                     return;
                 }
             }
@@ -196,7 +195,7 @@ Vue.component('waterbar', {
         getCartPrice:function(){
             let sum = 0;
             for(let cart of this.cartlist){
-                sum += cart.price;
+                sum += cart.price*cart.num;
             }
             return sum.toFixed(2);
         },

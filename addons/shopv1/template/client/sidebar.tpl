@@ -37,27 +37,52 @@
                 <p>购买饮品</p>
             </a>
         </div>
-        <div v-if="!lock">
+        {*<div v-if="!lock">
             <div class="line3">
                 <div class="scancode">
                 </div>
             </div>
-        </div>
-        <div v-if="lock">
+        </div>*}
+        {*<div v-if="lock">
             <div class="lock2">
                 <img src="{$StaticRoot}/img/client/lock_text.png">
             </div>
-        </div>
+        </div>*}
         <div class="line4">
             <div>
-                <a><span class="iconfont">&#xe63b;</span> 呼叫网管</a>
-                <a><span class="iconfont">&#xe63c;</span> 留言</a>
-                <a><span class="iconfont">&#xe661;</span> 挂机</a>
+                <a><span class="iconfont" @click="callService">&#xe63b;</span> 呼叫网管</a>
+                <a><span class="iconfont" @click="leaveMsg">&#xe63c;</span> 留言</a>
+                <a><span class="iconfont" @click="lock">&#xe661;</span> 挂机</a>
             </div>
         </div>
     </div>
 </div>
 
-<script src="{$StaticRoot}/js/client/index.js"></script>
+<script>
+var app = new Vue({
+    el: '#app',
+    data:{
+        lock: false;
+        memberInfo:{},
+    },
+    methods: {
+        callService:function(){
+            
+            let url = UrlHelper.createUrl("product","call");
+            
+            
+            
+        },
+        leaveMsg:function(){
+            this.$message.success("leaveMsg");
+        },
+        lock:function(){
+            this.$message.success("lock");
+        },
+        info:function(){
+        }
+    }
+});
+</script>
 
 {include file="./common/footer.tpl"}

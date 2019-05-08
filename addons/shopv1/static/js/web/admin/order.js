@@ -80,16 +80,23 @@ var Order = {
                 field:'orderdetail',
                 title:'订单详情',
                 formatter:function(value,row,index){
-                    var detail = JSON.parse(value);
                     
-                    var str = "";
+                    try{
                     
-                    for(let i=0;i<detail.length;i++){
-                        str += detail[i]['productname'] + "*" + detail[i]['num'] + "  ";
+                        var detail = JSON.parse(value);
+
+                        var str = "";
+
+                        for(let i=0;i<detail.length;i++){
+                            str += detail[i]['productname'] + "*" + detail[i]['num'] + "  ";
+                        }
+
+                        return str;
                     }
-                    
-                    return str;
-                    
+                    catch (ex){
+                        return "";
+                    }
+                
                 }
             }]
         });

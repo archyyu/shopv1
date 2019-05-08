@@ -13,7 +13,7 @@
         <transition name="el-zoom-in-left">
             <div class="backside-slider" v-show="showSlider">
                 <qrcode :value="qrcode" :options="{ width: 160 }"></qrcode>
-                <p>请扫描上方二维码</p>
+                <p>{{title}}</p>
             </div>
         </transition>
         
@@ -31,11 +31,12 @@ var app = new Vue({
         return {
             imgList:[],
             showSlider: false,
-            qrcode: 'www.baidu.com'
+            qrcode: 'www.baidu.com',
+            title:""
         };
     },
     created() {
-        
+        this.queryBannerList(1);
     },
     methods: {
         
@@ -66,10 +67,13 @@ var app = new Vue({
 
         showQrcode:function(title,qrcodeurl){
             this.showSlider = true;
+            this.title = title;
+            this.qrcode = qrcodeurl;
         },
         
-        hideQrcode:function(title,qrcodeurl){
+        hideQrcode:function(){
             this.showSlider = false;
+            
         },
 
         info:function(){
