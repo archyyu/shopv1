@@ -8,6 +8,10 @@
                 <el-menu
                     default-active="1">
                     <el-menu-item index="1" title="123">
+                        123
+                    </el-menu-item>
+                    <el-menu-item index="1" title="123">
+                        1234
                     </el-menu-item>
                 </el-menu>
             </div>
@@ -17,7 +21,7 @@
                 <img src="{$StaticRoot}/img/client/water_banner.png">
             </div>
             <div id="productList" class="product">
-
+                
             </div>
         </div>
         <div class="checkout">

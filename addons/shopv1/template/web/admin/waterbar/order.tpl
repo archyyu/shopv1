@@ -11,8 +11,42 @@
 	{/foreach}
     
   </select>
-</div>
-
+</div> 
+    <div class="search-group">
+        <div class="form-inline">
+            <div class="form-group form-group-sm">
+                <label class="control-label">时间起止</label>
+                <input type="text" class="form-control range-picker-js">
+            </div>
+            <div class="form-group form-group-sm">
+                <label class="control-label">卡券类型</label>
+                <select class="form-control input-sm selectpicker">
+                    <option value="">请选择</option>
+                </select>
+            </div>
+            
+            <div class="form-group form-group-sm">
+                <label class="control-label">卡券名称</label>
+                <select class="form-control input-sm selectpicker">
+                    <option value="">请选择</option>
+                </select>
+            </div>
+            <div class="form-group form-group-sm">
+                <label class="control-label">订单状态</label>
+                <labelclass="radio-inline">
+                    <input type="radio"> 全部
+                </label>
+                <labelclass="radio-inline">
+                    <input type="radio"> 已使用
+                </label>
+                <labelclass="radio-inline">
+                    <input type="radio"> 未使用
+                </label>
+            </div>
+            <button class="btn btn-sm btn-primary">搜索</button>
+        </div>
+    </div> 
+    
 <div class="staff-list">
   <div class="staff">
       <div class="staff-group-table">

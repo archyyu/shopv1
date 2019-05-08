@@ -150,6 +150,17 @@ class ProductController extends \controller\Controller{
     
     public function clientwaterbar(){ 
         
+        global $_W;
+        $config = $_W['config']['setting']['redis'];
+        
+        echo $config['server'];
+		echo $config['port'];
+        
+//      $redis = new \Redis();
+//		$redis->connect($config['server'], $config['port']);
+//      $redis->set("foo", "bar");
+        
+        
         $this->smarty->setTemplateDir(CASHROOT . 'template/client');
         $this->smarty->display('waterbar.tpl');
     }
