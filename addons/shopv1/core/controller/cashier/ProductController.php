@@ -159,7 +159,7 @@ class ProductController extends \controller\Controller{
         $this->smarty->display('backside.tpl');
     }
     
-    public function getBannerList(){
+    public function loadbanner(){
         
         $shopid = $this->getParam("shopid");
         $list = $this->bannerModel->getBannerList($shopid);

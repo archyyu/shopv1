@@ -10,10 +10,10 @@ var UrlUtil = {
   },
 
   createWebUrl: function (doing, func) {
-
     var url = "./index.php?c=site&a=entry&m=shopv1&do=" + doing + "&f=" + func;
     return url;
   },
+  
   
   getWebBaseUrl:function(){
       let url = window.location.href.split("web")[0];
