@@ -92,7 +92,7 @@
                                     <el-col @click.native="createOrder(2)" :span="8" class="alipay">
                                         <iconfont>&#xe666;</iconfont> 支付宝
                                     </el-col>
-                                    <el-col @click.native="createOrder(3)" :span="8" class="alipay">
+                                    <el-col @click.native="waitScan()" :span="8" class="alipay">
                                         <iconfont>&#xe666;</iconfont> 扫码
                                     </el-col>
                                 </el-row>
@@ -180,6 +180,10 @@ Vue.component('waterbar', {
         open:function(){
                 
         },
+
+        waitScan:function(){
+            this.orderstate = 5;
+        },
         
         createOrder:function(paytype){
             
@@ -203,7 +207,7 @@ Vue.component('waterbar', {
                         if(res.state == 0){
                             console.log("create order ok");
                             this.$message.success("下单成功");
-                            
+                            this.orderid = res.obj.orderid;
                             if(paytype == 0){
                                 this.orderState = 1;
                                 
@@ -211,7 +215,7 @@ Vue.component('waterbar', {
                             else if(paytype == 1 || paytype == 2){
                                 this.orderState = 0;
                                 this.qrcodeurl = res.obj.payurl;
-                                this.orderid = res.obj.orderid;
+                                
                                 
                                 let title = "请使用微信扫码";
                                 
@@ -223,7 +227,9 @@ Vue.component('waterbar', {
                                 
                             }
                             else if(paytype == 3){
-                                //
+                                //等待扫码
+                                //this.$message.success("请用户扫付款码");
+                                this.orderstate = 1;
                             }
                             
                             this.cartlist = [];
@@ -369,6 +375,38 @@ Vue.component('waterbar', {
                         this.productlist = res.obj;
                     }
                 });
+        },
+                
+        
+        scanCode:function(code){
+            
+            if(this.orderstate == 5){
+                this.scanPay(code);
+            }
+            else{
+                this.queryProductByCode(code);
+            }
+        },
+        
+        scanPay:function(code){
+            
+            let params = Store.createParams();
+            params.code = code;
+            params.orderid = this.orderid;
+            
+            axios.post(UrlHelper.createUrl('product','scanPay'),params)
+                    .then((res)=>{
+                        
+                        res = res.data;
+                        if(res.state == 0){
+                            this.$message.success("支付成功");
+                            this.orderState = -1;
+                        }
+                        else{
+                            this.$message.error("支付失败");
+                        
+                        });
+            
         },
                 
                 

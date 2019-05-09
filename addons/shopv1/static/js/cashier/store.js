@@ -36,13 +36,23 @@ var Store = {
     },
     
     showQrcode:function(title,qrcode){
-        let js = "app.showQrcode('" +title+ "','" + qrcode + "');";
-        cashier.callJsBackSide(js);
+        try{
+            let js = "app.showQrcode('" +title+ "','" + qrcode + "');";
+            cashier.callJsBackSide(js);
+        }
+        catch (ex){
+            
+        }
     },
     
     hideQrcode:function(){
-        let js = "app.hideQrcode();";
-        cashier.callJsBackSide(js);
+        try{
+            let js = "app.hideQrcode();";
+            cashier.callJsBackSide(js);
+        }
+        catch (ex){
+            
+        }
     },
     
     sourceToStr:function(source){

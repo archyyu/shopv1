@@ -72,22 +72,30 @@ class OrderController extends \controller\Controller{
         //扫码枪
         if($paytype == 3){
             
-            $order = $this->orderModel->findOrderById($orderid);
-            
-            $result = $this->payService->scanPay($order);
-            
-            if($result){
-                $this->returnSuccess();
-            }
-            else{
-                $this->returnFail("失败");
-            }
-            
         }
         
+        $result = array();
+        $result["orderid"] = $orderid;
         
-        $this->returnSuccess();
+        $this->returnSuccess($orderid);
         
+    }
+    
+    public function scanPay(){
+        
+        $orderid = $this->getParam("orderid");
+        $code = $this->getParam("code");
+        
+        $order = $this->orderModel->findOrderById($orderid);
+        $order["authcode"] = $code;
+        $result = $this->payService->scanPay($order);
+
+        if($result){
+            $this->returnSuccess();
+        }
+        else{
+            $this->returnFail("失败");
+        }
     }
     
     public function payOrder(){
