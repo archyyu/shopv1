@@ -19,9 +19,17 @@ body {
   margin: 0 auto;
 }
 
+.el-scrollbar {
+  height: 100%;
+}
+
+.el-scrollbar .el-scrollbar__wrap {
+  overflow-x: hidden;
+}
+
 /*
-   * sidebar
-   */
+  * sidebar
+  */
 .sidebar {
   background-image: url("../../img/client/oldsidebar_bg.jpg");
   background-repeat: no-repeat;
@@ -278,10 +286,12 @@ body {
   font-size: 30px;
 }
 
+/*
+  * waterbar
+  */
 .water_content {
   width: 1064px;
   height: 680px;
-  /*height: 725px;*/
   padding: 20px;
   position: relative;
 }
@@ -355,17 +365,27 @@ body {
   overflow-y: auto;
 }
 
-.class .nav > li > a {
+.class .nav {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
+.class .nav > li {
   border-radius: 0;
   height: 48px;
   line-height: 48px;
   padding: 0;
+  border-bottom: 1px solid #221A11;
+  color: #c26202;
 }
 
-.class .nav > li.active > a,
-.class .nav > li > a:hover {
+.class .nav > li.active,
+.class .nav > li:hover {
   font-weight: bold;
   font-size: 16px;
+  color: #eed001;
+  background-color: initial;
 }
 
 .content {
@@ -403,7 +423,7 @@ body {
   overflow-y: auto;
 }
 
-.content .product > div.list {
+.content .product .product-item {
   display: inline-block;
   float: left;
   margin-left: 3px;
@@ -411,7 +431,7 @@ body {
   position: relative;
 }
 
-.content .product > div.list .discountTips {
+.content .product .product-item .discountTips {
   position: absolute;
   top: 0;
   right: 0;
@@ -423,22 +443,22 @@ body {
   text-align: center;
 }
 
-.content .product > div.list > a,
-.content .product > div.list > a:hover,
-.content .product > div.list > a:focus {
+.content .product .product-item > a,
+.content .product .product-item > a:hover,
+.content .product .product-item > a:focus {
   text-decoration: none !important;
 }
 
-.content .product > div.list .pro_img {
+.content .product .product-item .pro_img {
   overflow: hidden;
 }
 
-.content .product > div.list img {
+.content .product .product-item img {
   height: 116px;
   width: 116px;
 }
 
-.content .product > div.list img:hover {
+.content .product .product-item img:hover {
   -webkit-transform: scale(1.2);
           transform: scale(1.2);
   -webkit-transition-duration: 0.5s;
@@ -446,7 +466,7 @@ body {
   /*box-shadow: 0 0 8px 1px #000;*/
 }
 
-.content .product > div.list .pro_title {
+.content .product .product-item .pro_title {
   height: 40px;
   width: 116px;
 }
