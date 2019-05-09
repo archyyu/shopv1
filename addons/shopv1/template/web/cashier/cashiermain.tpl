@@ -5,7 +5,7 @@
     <el-tabs value="waterbar" type="card" @tab-click="tab"  v-if="isLogin">
         <el-tab-pane name="waterbar" class="waterbar">
             <span slot="label"><iconfont iconclass="icon-wangdianguanli"></iconfont> 水吧</span>
-            <waterbar></waterbar>
+            <waterbar ref="waterbar"></waterbar>
         </el-tab-pane>
         {*<el-tab-pane name="broadcast">
             <span slot="label"><iconfont iconclass="icon-xingxiaoxiaoguo"></iconfont> 语音播报</span>
@@ -13,11 +13,11 @@
         </el-tab-pane>*}
         <el-tab-pane name="shift">
             <span slot="label"><iconfont iconclass="icon-shouzhiliushuizhang"></iconfont> 交班</span>
-            <shift></shift>
+            <shift ref="shift"></shift>
         </el-tab-pane>
         <el-tab-pane name="order">
             <span slot="label"><iconfont iconclass="icon-liushui"></iconfont> 订单管理</span>
-            <order></order>
+            <order ref="order"></order>
         </el-tab-pane>
     </el-tabs>
 
