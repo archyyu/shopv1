@@ -135,18 +135,6 @@ class ProductController extends \controller\Controller{
         $this->returnSuccess($cardTypeList);
     }
     
-    public function mobileshift(){
-        
-        $this->smarty->setTemplateDir(CASHROOT . 'template/mobile');
-        $this->smarty->display('mobilemain.tpl');
-    }
-    
-    public function mobilecount(){
-        
-        $this->smarty->setTemplateDir(CASHROOT . 'template/mobile');
-        $this->smarty->display('mobilemain.tpl');
-    }
-    
     public function mobilewaterbar(){
         
         $this->smarty->setTemplateDir(CASHROOT . 'template/mobile');

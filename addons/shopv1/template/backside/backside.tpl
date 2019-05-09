@@ -1,5 +1,5 @@
 {include file="./common/header.tpl"}
-
+{literal}
 
 <div id="app">
     <div class="backside">
@@ -84,6 +84,6 @@ var app = new Vue({
 });
 </script>
 
-
+{/literal}
 
 {include file="./common/footer.tpl"}

@@ -15,11 +15,11 @@
                     <cube-form-item :field="memberForm[1]">
                     </cube-form-item>
                     <cube-form-item :field="memberForm[2]">
-                    {{member.idcard}}
+                    
                     </cube-form-item>
                     <cube-form-item :field="memberForm[3]"></cube-form-item>
                     <cube-form-item :field="memberForm[4]"></cube-form-item>
-                    <cube-form-item :field="memberForm[5]"></cube-form-item>
+                    <cube-form-item :field="memberForm[5]" @click.native="updateMemberInfo"></cube-form-item>
                 </cube-form>
             </cube-scroll>
         </div>
@@ -46,18 +46,21 @@ Vue.component('member-detail', {
                     label: '会员手机号'
                 },
                 {
+                    type:'input',
                     modelKey: 'idcard',
                     label: '会员身份证'
                 },
                 {
                     type: 'input',
-                    modelKey: 'balance',
-                    label: '会员余额'
+                    modelKey: 'credit1',
+                    label: '会员余额',
+                    readonly:true
                 },
                 {
                     type: 'input',
-                    modelKey: 'socer',
-                    label: '会员积分'
+                    modelKey: 'credit2',
+                    label: '会员积分',
+                    readonly:true
                 },
                 {
                     type: 'submit',
@@ -70,10 +73,34 @@ Vue.component('member-detail', {
         open:function(){
         },
         backToMain:function(){
-            this.$root.toIndex();
+            this.$root.toMember();
+        },
+        updateMemberInfo:function(){
+            
+            let url =UrlHelper.createUrl("member","updateMemberInfo");
+            
+            let params = Store.createParams();
+            params.uid = this.member.uid;
+            params.phone = this.member.mobile;
+            params.idcard = this.member.idcard;
+            
+            axios.post(url,params)
+                    .then((res)=>{
+                        
+                        res = res.data;
+                        console.log(res);
+                        if(res.state == 0){
+                            Toast.success("保存成功");
+                        }
+                        else{
+                            Toast.success("保存失败");
+                        }
+                        
+                    });
+            
         },
         info: function () {
-
+                
         }
     }
 });

@@ -21,4 +21,8 @@ class ShopMember extends Model{
         return $this->getList("*", $where);
     }
     
+    public function saveMember($data,$uid){
+        return $this->save($data, ["uid"=>$uid]);
+    }
+    
 }
