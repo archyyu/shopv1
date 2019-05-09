@@ -25,6 +25,9 @@
             <cube-tab-panel label="member">
                 <member ref="member"></member>
             </cube-tab-panel>
+            <cube-tab-panel label="memberDetail">
+                <member-detail ref="memberDetail"></member-detail>
+            </cube-tab-panel>
         </cube-tab-panels>
     </div>
     <div class="login-container" v-if="!isLogin">
@@ -49,6 +52,7 @@
 {include file="./components/waterbar.tpl"}
 {include file="./components/card.tpl"}
 {include file="./components/member.tpl"}
+{include file="./components/memberdetail.tpl"}
 {include file="./components/order.tpl"}
 
 

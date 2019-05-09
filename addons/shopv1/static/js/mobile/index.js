@@ -109,6 +109,9 @@ var app = new Vue({
         toMember:function(){
             this.selectedLabel = "member";
         },
+        toMemberDetail:function(){
+            this.selectedLabel = "memberDetail";
+        },
         toWaterbar:function(){
             this.selectedLabel = "waterbar";
         },
