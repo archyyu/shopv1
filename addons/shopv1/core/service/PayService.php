@@ -100,18 +100,12 @@ class PayService extends Service{
 	    $params["trxamt"] = $order['orderprice'];
 	    $params["reqsn"] = $order['id'];//订单号,自行生成
         
-        if($order['paytype'] == 1){
-            $params["paytype"] = PayService::PAYTYPE_WECHAT_NATIVE;
-        }
-        else if($order['paytype'] == 2){
-            $params["paytype"] = PayService::PAYTYPE_ALI_NATIVE;
-        }
-        
         $params["randomstr"] =  rand(10000000,99999999);
 	    $params["body"] = "product";
 	    $params["remark"] = "remark";
 	    //$params["acct"] = "openid";
 	    $params["limit_pay"] = "no_credit";
+        $params["authcode"] = $order["authcode"];
         //$params["notify_url"] = urlencode("http://pinshangy.com/web/cashier.php?__uniacid=1&f=notify&do=order");
         $params["notify_url"] = "http://pinshangy.com/web/pay.php";
 	    $params["sign"] = $this->SignArray($params,$wechat['paykey']);//签名

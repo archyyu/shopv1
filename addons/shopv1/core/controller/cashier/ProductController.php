@@ -70,11 +70,11 @@ class ProductController extends \controller\Controller{
         $this->returnSuccess($list);
     }
     
-    public function findProduct(){
+    public function queryProductByCode(){
         
         $uniacid = $this->getUniacid();
         $shopid = $this->getParam("shopid");
-        $barcode = $this->getParam("barcode");
+        $barcode = $this->getParam("code");
         
         $one = $this->productService->getProduct($shopid, $barcode);
         

@@ -24,6 +24,35 @@ var Store = {
     initLoginMsg: function(msg){
         Store.shopInfo = msg.shop;
         Store.userInfo = msg.user;
+        
+        try{
+            let js = "app.queryBannerList(" + msg.shop.id + ");";
+            cashier.callJsBackSide(js);
+        }
+        catch (ex){
+
+        }
+        
+    },
+    
+    showQrcode:function(title,qrcode){
+        try{
+            let js = "app.showQrcode('" +title+ "','" + qrcode + "');";
+            cashier.callJsBackSide(js);
+        }
+        catch (ex){
+            
+        }
+    },
+    
+    hideQrcode:function(){
+        try{
+            let js = "app.hideQrcode();";
+            cashier.callJsBackSide(js);
+        }
+        catch (ex){
+            
+        }
     },
     
     sourceToStr:function(source){

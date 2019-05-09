@@ -22,6 +22,9 @@ var app = new Vue({
                 if (data.state === 0) {
                     Store.initLoginMsg(data.obj);
                     this.isLogin = true;
+                    
+                    
+                    
                 } else{
                     this.$message.error(data.des);
                 }
@@ -30,6 +33,8 @@ var app = new Vue({
                 this.$message.error('登录失败')
             });
         },
+        
+        
 
         tab(tab){
             console.log(tab);
