@@ -153,8 +153,8 @@ class ProductController extends \controller\Controller{
         global $_W;
         $config = $_W['config']['setting']['redis'];
         
-        echo $config['server'];
-		echo $config['port'];
+        // echo $config['server'];
+		// echo $config['port'];
         
 //      $redis = new \Redis();
 //		$redis->connect($config['server'], $config['port']);
