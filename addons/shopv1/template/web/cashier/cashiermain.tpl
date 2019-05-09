@@ -13,11 +13,11 @@
         </el-tab-pane>*}
         <el-tab-pane name="shift">
             <span slot="label"><iconfont iconclass="icon-shouzhiliushuizhang"></iconfont> 交班</span>
-            <shift></shift>
+            <shift ref="shift"></shift>
         </el-tab-pane>
         <el-tab-pane name="order">
             <span slot="label"><iconfont iconclass="icon-liushui"></iconfont> 订单管理</span>
-            <order></order>
+            <order ref="order"></order>
         </el-tab-pane>
     </el-tabs>
 
