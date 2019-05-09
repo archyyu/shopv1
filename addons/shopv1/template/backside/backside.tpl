@@ -36,7 +36,7 @@ var app = new Vue({
         };
     },
     created() {
-        this.queryBannerList(1);
+        //this.queryBannerList(1);
     },
     methods: {
         

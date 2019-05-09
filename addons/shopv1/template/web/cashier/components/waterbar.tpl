@@ -212,6 +212,15 @@ Vue.component('waterbar', {
                                 this.orderState = 0;
                                 this.qrcodeurl = res.obj.payurl;
                                 this.orderid = res.obj.orderid;
+                                
+                                let title = "请使用微信扫码";
+                                
+                                if(paytype == 2){
+                                    title = "请使用支付宝扫码";
+                                }
+                                
+                                Store.showQrcode(title,this.qrcodeurl);
+                                
                             }
                             else if(paytype == 3){
                                 //
@@ -229,6 +238,7 @@ Vue.component('waterbar', {
         
         confirmOrder:function(){
             this.orderState = -1;
+            Store.hideQrcode();
             this.cartlist = [];
         },
 
@@ -264,6 +274,7 @@ Vue.component('waterbar', {
                     console.log(res);
                     if(res.state == 0){
                         if(res.obj >= 0){
+                            Store.hideQrcode();
                             this.$message.success("订单已经支付");
                             this.orderState = 1;
                         }
@@ -291,6 +302,7 @@ Vue.component('waterbar', {
 
             if(this.orderState != -1){
                 this.orderState = -1;
+                Store.hideQrcode();
             }
                 
             this.editBtnShow = true;
@@ -358,6 +370,29 @@ Vue.component('waterbar', {
                     }
                 });
         },
+                
+                
+        queryProductByCode:function(productcode){
+            
+            let params = Store.createParams();
+            params.code = productcode;
+            
+            axios.post(UrlHelper.createUrl('product','queryProductByCode'),params)
+                    .then((res)=>{
+                        res = res.data;
+                        console.log(res);
+                        if(res.state == 0){
+                            let product = res.obj;
+                            this.addCart(product.id,product.productname,product.memberprice,product.inventory);
+                            //(productid, productname, price,inventory)
+                        }
+                        else{
+                            this.$message.error("商品不存在");
+                        }
+                    });
+            
+        },
+                                
         
         info:function(){
         }
