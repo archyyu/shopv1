@@ -5,7 +5,7 @@
     <el-tabs value="waterbar" type="card" @tab-click="tab"  v-if="isLogin">
         <el-tab-pane name="waterbar" class="waterbar">
             <span slot="label"><iconfont iconclass="icon-wangdianguanli"></iconfont> 水吧</span>
-            <waterbar></waterbar>
+            <waterbar ref="waterbar"></waterbar>
         </el-tab-pane>
         {*<el-tab-pane name="broadcast">
             <span slot="label"><iconfont iconclass="icon-xingxiaoxiaoguo"></iconfont> 语音播报</span>
