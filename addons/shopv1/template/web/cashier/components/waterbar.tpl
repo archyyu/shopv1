@@ -92,6 +92,9 @@
                                     <el-col @click.native="createOrder(2)" :span="8" class="alipay">
                                         <iconfont>&#xe666;</iconfont> 支付宝
                                     </el-col>
+                                    <el-col @click.native="createOrder(3)" :span="8" class="alipay">
+                                        <iconfont>&#xe666;</iconfont> 扫码
+                                    </el-col>
                                 </el-row>
                             </div>
                         </div>
@@ -209,6 +212,9 @@ Vue.component('waterbar', {
                                 this.orderState = 0;
                                 this.qrcodeurl = res.obj.payurl;
                                 this.orderid = res.obj.orderid;
+                            }
+                            else if(paytype == 3){
+                                //
                             }
                             
                             this.cartlist = [];

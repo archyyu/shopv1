@@ -70,6 +70,23 @@ class ProductController extends \controller\Controller{
         $this->returnSuccess($list);
     }
     
+    public function findProduct(){
+        
+        $uniacid = $this->getUniacid();
+        $shopid = $this->getParam("shopid");
+        $barcode = $this->getParam("barcode");
+        
+        $one = $this->productService->getProduct($shopid, $barcode);
+        
+        if(isset($one)){
+            $this->returnSuccess($one);
+        }
+        
+        $this->returnFail("不存在");
+        
+    }
+
+    
     public function queryShopStoreList(){
         
         $shopid = $this->getParam("shopid");
@@ -116,18 +133,6 @@ class ProductController extends \controller\Controller{
         $uniacid = $this->getUniacid();
         $cardTypeList = $this->cardTypeModel->getCardTypeList($uniacid);
         $this->returnSuccess($cardTypeList);
-    }
-    
-    public function mobileshift(){
-        
-        $this->smarty->setTemplateDir(CASHROOT . 'template/mobile');
-        $this->smarty->display('mobilemain.tpl');
-    }
-    
-    public function mobilecount(){
-        
-        $this->smarty->setTemplateDir(CASHROOT . 'template/mobile');
-        $this->smarty->display('mobilemain.tpl');
     }
     
     public function mobilewaterbar(){

@@ -69,6 +69,22 @@ class OrderController extends \controller\Controller{
             $this->returnSuccess($result);
         }
         
+        //扫码枪
+        if($paytype == 3){
+            
+            $order = $this->orderModel->findOrderById($orderid);
+            
+            $result = $this->payService->scanPay($order);
+            
+            if($result){
+                $this->returnSuccess();
+            }
+            else{
+                $this->returnFail("失败");
+            }
+            
+        }
+        
         
         $this->returnSuccess();
         

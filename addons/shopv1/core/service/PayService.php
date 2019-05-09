@@ -38,7 +38,6 @@ class PayService extends Service{
     public function getPayUrl($order){
         
         //TODO
-        
         $wechat = $this->wechatAccount->findWechatAccountByUniacid($order['uniacid']);
         
         logInfo("orderid:".$order['id']." uniacid:".$order['uniacid']." appid:".$wechat['allinappid']."   cusid:".$wechat['allincusid']."   paykey:".$wechat['paykey']);
@@ -82,6 +81,66 @@ class PayService extends Service{
 	    }
         else{
             return "";
+        }
+        
+    }
+    
+    public function scanPay($order){
+        
+        //TODO
+        $wechat = $this->wechatAccount->findWechatAccountByUniacid($order['uniacid']);
+        
+        logInfo("orderid:".$order['id']." uniacid:".$order['uniacid']." appid:".$wechat['allinappid']."   cusid:".$wechat['allincusid']."   paykey:".$wechat['paykey']);
+        
+        $params = array();
+		$params["cusid"] = $wechat['allincusid'];
+	    $params["appid"] = $wechat['allinappid'];
+        //$params["paykey"] = $wechat["paykey"];
+	    $params["version"] = '11';
+	    $params["trxamt"] = $order['orderprice'];
+	    $params["reqsn"] = $order['id'];//订单号,自行生成
+        
+        if($order['paytype'] == 1){
+            $params["paytype"] = PayService::PAYTYPE_WECHAT_NATIVE;
+        }
+        else if($order['paytype'] == 2){
+            $params["paytype"] = PayService::PAYTYPE_ALI_NATIVE;
+        }
+        
+        $params["randomstr"] =  rand(10000000,99999999);
+	    $params["body"] = "product";
+	    $params["remark"] = "remark";
+	    //$params["acct"] = "openid";
+	    $params["limit_pay"] = "no_credit";
+        //$params["notify_url"] = urlencode("http://pinshangy.com/web/cashier.php?__uniacid=1&f=notify&do=order");
+        $params["notify_url"] = "http://pinshangy.com/web/pay.php";
+	    $params["sign"] = $this->SignArray($params,$wechat['paykey']);//签名
+	    
+	    $paramsStr = $this->ToUrlParams($params);
+	    $url = "https://vsp.allinpay.com/apiweb/unitorder/scanpay";
+	    $rsp = $this->request($url, $paramsStr);
+	    
+	    $rspArray = json_decode($rsp, true); 
+	    if($this->validSign($rspArray,$wechat['paykey'])){
+            
+            foreach ($rspArray as $key=>$value){
+                logInfo("key:$key,value:$value");
+            }
+            
+            if($rspArray["retcode"] == "SUCCESS"){
+                
+                if($rspArray["trxstatus"] == "0000"){
+                    //支付成功
+                    return true;
+                }
+                
+            }
+            
+            return false;
+            
+	    }
+        else{
+            return false;
         }
         
     }

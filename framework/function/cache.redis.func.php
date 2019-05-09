@@ -10,6 +10,7 @@ function cache_redis() {
 	global $_W;
 	static $redisobj;
 	if (!extension_loaded('redis')) {
+        logInfo("Class Redis is not found");
 		return error(1, 'Class Redis is not found');
 	}
 	if (empty($redisobj)) {
@@ -25,6 +26,7 @@ function cache_redis() {
 				$auth = $redisobj->auth($config['auth']);
 			}
 		} catch (Exception $e) {
+            logInfo("redis连接失败，错误信息");
 			return error(-1,'redis连接失败，错误信息：'.$e->getMessage());
 		}
 	}

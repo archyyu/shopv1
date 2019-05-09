@@ -33,4 +33,23 @@ class MemberController extends \controller\Controller{
         $this->returnSuccess($list);
     }
     
+    public function updateMemberInfo(){
+        
+        $uid = $this->getParam("uid");
+        $phone = $this->getParam("phone");
+        $idcard = $this->getParam("idcard");
+        
+        $data = array();
+        $data["mobile"] = $phone;
+        $data["idcard"] = $idcard;
+        
+        $result = $this->memberModel->saveMember($data,$uid);
+        if($result){
+            $this->returnSuccess();
+        }
+        else{
+            $this->returnFail("修改失败");
+        }
+    }
+    
 }

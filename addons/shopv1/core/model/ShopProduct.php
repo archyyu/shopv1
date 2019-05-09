@@ -23,6 +23,11 @@ class ShopProduct extends Model{
         return $list;
     }
     
+    public function findProductByBarcode($uniacid,$barcode){
+        $one = $this->getOne("*", ["uniacid"=>$uniacid,"productcode"=>$barcode]);
+        return $one;
+    }
+    
     public function findProductMapByUniacid($uniacid){
         $list = $this->getList("*",['uniacid'=>$uniacid]);
         $map = array();

@@ -55,6 +55,19 @@ class ProductService extends Service{
         return $list;
     }
     
+    public function getProduct($shopid,$barcode){
+        $shop = $this->shopModel->findShopById($shopid);
+        $one = $this->productModel->findProductByBarcode($shop['uniacid'], $barcode);
+        
+        if(isset($one)){
+            $one['inventory'] = $this->calculateTheInventory($shop,$one,$shop['defaultstoreid']);
+            return $one;
+        }
+        
+        
+    }
+    
+    
     public function getProductList($shopid,$typeid){
         $shop = $this->shopModel->findShopById($shopid);
         $list = $this->productModel->findProductByType($typeid);
