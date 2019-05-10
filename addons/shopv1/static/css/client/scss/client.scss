@@ -1,4 +1,3 @@
-
 $mainColor: #409EFF;
 
 @mixin waterbar-title {
@@ -39,595 +38,808 @@ body {
   */
 
 .sidebar {
-    background-image: url("../../img/client/oldsidebar_bg.jpg");
-    background-repeat: no-repeat;
-    background-size: contain;
-    height: 754px;
-    width: 345px;
-    padding: 1px 24px;
-    h4 {
-        color: #fcd538;
-        font-size: 14px;
-        margin-top: 17px;
-        text-align: center;
-        margin-top: 14px;
+  background-image: url("../../img/client/oldsidebar_bg.jpg");
+  background-repeat: no-repeat;
+  background-size: contain;
+  height: 754px;
+  width: 345px;
+  padding: 1px 24px;
+
+  h4 {
+    color: #fcd538;
+    font-size: 14px;
+    margin-top: 17px;
+    text-align: center;
+    margin-top: 14px;
+  }
+
+  .line1 {
+    margin-top: 22px;
+
+    .avatar img {
+      border: 3px solid rgba(133, 133, 133, .4);
+      border-radius: 50%;
+      width: 90px;
+      height: 90px;
     }
-    .line1 {
-        margin-top: 22px;
-        .avatar img {
-            border: 3px solid rgba(133, 133, 133, .4);
-            border-radius: 50%;
-            width: 90px;
-            height: 90px;
+
+    .info {
+      margin: 0 auto;
+      color: #c4ae7c;
+      display: flex;
+      justify-content: space-around;
+      padding: 0 6px;
+
+      .name {
+        display: table;
+        height: 90px;
+        margin-left: 8px;
+
+        >div {
+          display: table-cell;
+          vertical-align: middle;
         }
-        .info {
-            margin: 0 auto;
-            color: #c4ae7c;
-            display: flex;
-            justify-content: space-around;
-            padding: 0 6px;
-            .name {
-                display: table;
-                height: 90px;
-                margin-left: 8px;
-                >div {
-                    display: table-cell;
-                    vertical-align: middle;
-                }
-                p {
-                    font-size: 14px;
-                    height: 26px;
-                    margin-bottom: 0;
-                    &:first-child {
-                        font-weight: bold;
-                        margin-bottom: 10px;
-                    }
-                }
-            }
-        }
-    }
-    .line2 {
-        margin-top: 20px;
-        .onlineInfo {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-        }
-        p, div.balanceText {
-            background-color: #27221a;
-            border-radius: 6px;
-            color: #949494;
-            font-family: hybq, "Microsoft YaHei";
-            font-weight: normal;
-            text-align: center;
-            text-shadow: 0px 3px 0px black;
-            margin: inherit;
-            width: 86px;
-            padding: 8px 0;
-        }
-        p span, div.used_money {
-            color: #c4ae7c;
-            display: block;
-            font-size: 16px;
-        }
-    }
-    .lock1 {
-        margin-top: 22px;
-        height: 168px;
-        position: relative;
-        .lock_bg {
-            background-image: url("../../img/client/lock_bg.png");
-            background-repeat: no-repeat;
-            background-size: contain;
-            background-position: center;
-            height: 200px;
-            width: 100%;
-            position: absolute;
-            top: -50px;
-            z-index: 6;
-        }
-        >div.scancode {
-            background: white;
-            width: 108px;
-            height: 108px;
-            padding: 4px;
-            margin: 0 auto;
-            position: relative;
-            top: 18px;
-            z-index: 8;
-        }
+
         p {
-            color: #fff;
-            position: relative;
-            top: 46px;
-            text-align: center;
-            z-index: 8;
-            margin-top: 0;
+          font-size: 14px;
+          height: 26px;
+          margin-bottom: 0;
+
+          &:first-child {
+            font-weight: bold;
+            margin-bottom: 10px;
+          }
         }
+      }
     }
-    .line3 {
-        background-image: url("../../img/client/unlock_text.png");
-        background-repeat: no-repeat;
-        background-position: center;
-        height: 256px;
-        margin-top: 10px;
-        padding-top: 40px;
-        >div.scancode {
-            background: white;
-            width: 100px;
-            height: 100px;
-            padding: 4px;
-            margin: 66px auto;
-        }
-        >div.btn_list {
-            margin: 0 auto;
-            width: 220px;
-        }
-        >div>a {
-            background-repeat: no-repeat;
-            background-size: cover;
-            display: inline-block;
-            height: 47px;
-            width: 220px;
-            margin-top: 18px;
-            &:hover {
-                background-position: bottom;
-            }
-            &.water_btn {
-                background-image: url("../../img/client/btn_water.webp");
-            }
-        }
+  }
+
+  .line2 {
+    margin-top: 20px;
+
+    .onlineInfo {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
     }
-    .line3a {
-        margin-top: 15px;
-        display: flex;
-        justify-content: space-between;
-        >a {
-            background-color: #27221a;
-            border-radius: 6px;
-            height: 130px;
-            width: 134px;
-            text-decoration: none;
-            cursor: pointer;
-            padding-top: 22px;
-            position: relative;
-            >p {
-                color: #fffde9;
-                font-size: 20px;
-                text-align: center;
-            }
-        }
-        .buy_btn>span.iconfont{
-            color: #fbf078;
-            display: block;
-            font-size: 50px;
-            text-align: center;
-            line-height: 40px;
-        }
+
+    p,
+    div.balanceText {
+      background-color: #27221a;
+      border-radius: 6px;
+      color: #949494;
+      font-family: hybq, "Microsoft YaHei";
+      font-weight: normal;
+      text-align: center;
+      text-shadow: 0px 3px 0px black;
+      margin: inherit;
+      width: 86px;
+      padding: 8px 0;
     }
-    .lock2 {
-        height: 256px;
-        margin-top: 10px;
-        padding-top: 40px;
-        img {
-            display: block;
-            margin: 0 auto;
-        }
+
+    p span,
+    div.used_money {
+      color: #c4ae7c;
+      display: block;
+      font-size: 16px;
     }
-    .line4 {
-        margin: 0 auto;
-        margin-top: 10px;
-        width: 297px;
-        div {
-            display: flex;
-            justify-content: space-between;
-            >a {
-                background-color: #27221a;
-                border: 1px solid #1e1a13;
-                border-radius: 6px;
-                color: #d4d5d7;
-                width: 80px;
-                font-size: 12px;
-                text-align: center;
-                cursor: pointer;
-                padding: 10px;
-                &:hover {
-                    color: #e0ac01;
-                    text-decoration: none;
-                }
-                >span.iconfont {
-                    display: block;
-                    font-size: 30px;
-                }
-            }
-        }
+  }
+
+  .lock1 {
+    margin-top: 22px;
+    height: 168px;
+    position: relative;
+
+    .lock_bg {
+      background-image: url("../../img/client/lock_bg.png");
+      background-repeat: no-repeat;
+      background-size: contain;
+      background-position: center;
+      height: 200px;
+      width: 100%;
+      position: absolute;
+      top: -50px;
+      z-index: 6;
     }
+
+    >div.scancode {
+      background: white;
+      width: 108px;
+      height: 108px;
+      padding: 4px;
+      margin: 0 auto;
+      position: relative;
+      top: 18px;
+      z-index: 8;
+    }
+
+    p {
+      color: #fff;
+      position: relative;
+      top: 46px;
+      text-align: center;
+      z-index: 8;
+      margin-top: 0;
+    }
+  }
+
+  .line3 {
+    background-image: url("../../img/client/unlock_text.png");
+    background-repeat: no-repeat;
+    background-position: center;
+    height: 256px;
+    margin-top: 10px;
+    padding-top: 40px;
+
+    >div.scancode {
+      background: white;
+      width: 100px;
+      height: 100px;
+      padding: 4px;
+      margin: 66px auto;
+    }
+
+    >div.btn_list {
+      margin: 0 auto;
+      width: 220px;
+    }
+
+    >div>a {
+      background-repeat: no-repeat;
+      background-size: cover;
+      display: inline-block;
+      height: 47px;
+      width: 220px;
+      margin-top: 18px;
+
+      &:hover {
+        background-position: bottom;
+      }
+
+      &.water_btn {
+        background-image: url("../../img/client/btn_water.webp");
+      }
+    }
+  }
+
+  .line3a {
+    margin-top: 15px;
+    display: flex;
+    justify-content: space-between;
+
+    >a {
+      background-color: #27221a;
+      border-radius: 6px;
+      height: 130px;
+      width: 134px;
+      text-decoration: none;
+      cursor: pointer;
+      padding-top: 22px;
+      position: relative;
+
+      >p {
+        color: #fffde9;
+        font-size: 20px;
+        text-align: center;
+      }
+    }
+
+    .buy_btn>span.iconfont {
+      color: #fbf078;
+      display: block;
+      font-size: 50px;
+      text-align: center;
+      line-height: 40px;
+    }
+  }
+
+  .lock2 {
+    height: 256px;
+    margin-top: 10px;
+    padding-top: 40px;
+
+    img {
+      display: block;
+      margin: 0 auto;
+    }
+  }
+
+  .line4 {
+    margin: 0 auto;
+    margin-top: 10px;
+    width: 297px;
+
+    div {
+      display: flex;
+      justify-content: space-between;
+
+      >a {
+        background-color: #27221a;
+        border: 1px solid #1e1a13;
+        border-radius: 6px;
+        color: #d4d5d7;
+        width: 80px;
+        font-size: 12px;
+        text-align: center;
+        cursor: pointer;
+        padding: 10px;
+
+        &:hover {
+          color: #e0ac01;
+          text-decoration: none;
+        }
+
+        >span.iconfont {
+          display: block;
+          font-size: 30px;
+        }
+      }
+    }
+  }
 }
 
 
 /*
   * waterbar
   */
-.water_content{
-    width: 1064px;
-    height: 680px;
-    padding: 20px;
-    position: relative;
-  }
-  .water_content>div{
-    float: left;
-    height: 640px;
-  }
-  .water_content .closeWindow{
-    position: absolute;
-    top: 26px;
-    right: 22px;
-    background-color: rgba(0,0,0,.5);
-    border-radius: 50%;
-    color: white;
-    width: 26px;
-    height: 26px;
-    line-height: 26px;
-    text-align: center;
-    font-size: 16px;
-    cursor: pointer;
-    z-index: 1;
-  }
-  .water_content>h4,
-  .netfee>h4,
-  .help>h4,
-  .mission>h4{
-    color: #fcd538;;
-    font-size: 15px;
-    margin-top: 6px;
-    margin-bottom: 27px;
-    text-align: center;
-  }
-  .water_content>h4 button,
-  .netfee>h4 button,
-  .help>h4 button,
-  .mission>h4 button{
-    border: 0;
-    background: initial;
-    letter-spacing: 4px;
-  }
-  .class{
-    width: 172px;
-  }
-  .class .logo{
-    background-repeat: no-repeat;
-    background-size: contain;
-    height:66px;
-    width: 100%;
-    padding: 8px 8px 20px 8px;
-    margin-bottom: 10px;
-  }
-  .class .logo img{
-    display: block;
-    max-width: 100%;
-    max-height: 100%;
-    margin: 0 auto;
-  }
-  .class .class_nav{
-    padding: 0 20px;
-    text-align: center;
-    font-size: 14px;
-    height: calc(100% - 86px);
-    overflow-y: auto;
-  }
-  .class .nav{
-    padding: 0;
-    margin: 0;
-    list-style: none;
-  }
-  .class .nav>li{
-    border-radius: 0;
-    height: 48px;
-    line-height: 48px;
-    padding: 0;
-    border-bottom: 1px solid #221A11;
-    color: #c26202;
-  }
-  .class .nav>li.active,
-  .class .nav>li:hover{
-    font-weight: bold;
-    font-size: 16px;
-    color: #eed001;
-    background-color: initial;
-  }
-  .content{
-    width: calc(100% - 395px);
-    padding: 0 15px;
-  }
-  .content .banner{
-    height: 100px;
-    width: 100%;
-    border-radius: 0 0 10px 10px;
-    /*opacity: .1;
+.water_content {
+  width: 1064px;
+  height: 680px;
+  padding: 20px;
+  position: relative;
+}
+
+.water_content>div {
+  float: left;
+  height: 640px;
+}
+
+.water_content .closeWindow {
+  position: absolute;
+  top: 26px;
+  right: 22px;
+  background-color: rgba(0, 0, 0, .5);
+  border-radius: 50%;
+  color: white;
+  width: 26px;
+  height: 26px;
+  line-height: 26px;
+  text-align: center;
+  font-size: 16px;
+  cursor: pointer;
+  z-index: 1;
+}
+
+.water_content>h4,
+.netfee>h4,
+.help>h4,
+.mission>h4 {
+  color: #fcd538;
+  ;
+  font-size: 15px;
+  margin-top: 6px;
+  margin-bottom: 27px;
+  text-align: center;
+}
+
+.water_content>h4 button,
+.netfee>h4 button,
+.help>h4 button,
+.mission>h4 button {
+  border: 0;
+  background: initial;
+  letter-spacing: 4px;
+}
+
+.class {
+  width: 172px;
+}
+
+.class .logo {
+  background-repeat: no-repeat;
+  background-size: contain;
+  height: 66px;
+  width: 100%;
+  padding: 8px 8px 20px 8px;
+  margin-bottom: 10px;
+}
+
+.class .logo img {
+  display: block;
+  max-width: 100%;
+  max-height: 100%;
+  margin: 0 auto;
+}
+
+.class .class_nav {
+  padding: 0 20px;
+  text-align: center;
+  font-size: 14px;
+  height: calc(100% - 86px);
+  overflow-y: auto;
+}
+
+.class .nav {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
+.class .nav>li {
+  border-radius: 0;
+  height: 48px;
+  line-height: 48px;
+  padding: 0;
+  border-bottom: 1px solid #221A11;
+  color: #c26202;
+}
+
+.class .nav>li.active,
+.class .nav>li:hover {
+  font-weight: bold;
+  font-size: 16px;
+  color: #eed001;
+  background-color: initial;
+}
+
+.content {
+  width: calc(100% - 395px);
+  padding: 0 15px;
+}
+
+.content .banner {
+  height: 100px;
+  width: 100%;
+  border-radius: 0 0 10px 10px;
+  /*opacity: .1;
     position: relative;
   
     margin-left: 15px;*/
-    margin-top: 10px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.4);
+
+}
+
+.content .banner .banner_text {
+  border-radius: 0 0 10px 10px;
+  box-shadow: 0 1px 8px #3a3227;
+  position: absolute;
+  width: 597px;
+  height: 100px;
+  top: -8px;
+  left: -15px;
+}
+
+.content .product {
+  height: calc(100% - 146px);
+  overflow-y: auto;
+}
+
+.content .product .product-item {
+  display: inline-block;
+  float: left;
+  margin-left: 3px;
+  margin-bottom: 6px;
+  position: relative;
+}
+
+.content .product .product-item .discountTips {
+  position: absolute;
+  top: 0;
+  right: 0;
+  background-color: rgba(241, 102, 102, .9);
+  color: white;
+  padding: 2px 4px;
+  font-size: 12px;
+  min-width: 40px;
+  text-align: center;
+}
+
+.content .product .product-item>a,
+.content .product .product-item>a:hover,
+.content .product .product-item>a:focus {
+  text-decoration: none !important;
+}
+
+.content .product .product-item .pro_img {
+  overflow: hidden;
+}
+
+.content .product .product-item img {
+  height: 116px;
+  width: 116px;
+}
+
+.content .product .product-item img:hover {
+  transform: scale(1.2);
+  transition-duration: 0.5s;
+  /*box-shadow: 0 0 8px 1px #000;*/
+}
+
+.content .product .product-item .pro_title {
+  height: 40px;
+  width: 116px;
+}
+
+.content .product .pro_title p {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-size: 12px;
+  margin: 0;
+  font-weight: 200;
+  padding: 4px;
+}
+
+.content .product .pro_title p span {
+  display: block;
+  text-align: right;
+  font-weight: initial;
+  padding-right: 4px;
+}
+
+.checkout {
+  width: 223px;
+  padding: 10px;
+  position: relative;
+}
+
+.checkout .water_info {
+  height: 76px;
+}
+
+.checkout .water_info>div.clearfix {
+  width: 168px;
+  margin: 15px auto;
+  display: flex;
+  justify-content: space-between;
+}
+
+.checkout .water_avatar img {
+  height: 60px;
+  width: 60px;
+}
+
+.checkout .balance {
+  text-align: center;
+  color: white;
+  font-weight: bold;
+  font-size: 18px;
+  margin-left: 10px;
+  display: table;
+}
+
+.checkout .balance p {
+  display: table-cell;
+  font-size: 24px;
+  vertical-align: middle;
+  height: 60px;
+}
+
+.checkout .balance span {
+  display: block;
+  font-family: nsimsun;
+  font-weight: normal;
+  font-size: 14px;
+}
+
+.checkout .checkout_content {
+  height: 436px;
+  margin-bottom: 26px;
+  margin-top: 6px;
+  overflow-y: auto;
+}
+
+.checkout .checkout_content .cart-item {
+  padding: 5px;
+  background-color: #4e4131;
+  position: relative;
+  margin-top: 4px;
+
+  &:after {
+    content: "";
+    display: block;
+    clear: both;
+  }
+}
+
+.checkout .checkout_content .cart-item>div {
+  float: left;
+}
+
+.checkout .checkout_content .checkout_img>img {
+  height: 65px;
+  width: 65px;
+}
+
+.checkout .checkout_content .checkout_name {
+  color: white;
+  font-size: 12px;
+  width: 118px;
+  font-family: nsimsun;
+}
+
+.checkout .checkout_content .checkout_name>p {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  padding-left: 10px;
+  padding-top: 10px;
+  margin: 0;
+}
+
+.checkout .checkout_content .product_num p {
+  margin-bottom: 0;
+  font-size: 16px;
+}
+
+.checkout .checkout_content .delete_list {
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+
+.checkout .meal_tips {
+  height: 24px;
+  width: 220px;
+  position: absolute;
+  left: 0;
+  bottom: 72px;
+  padding: 0 8px;
+}
+
+.checkout .meal_tips p {
+  margin: 0;
+  font-size: 10px;
+  display: inline-block;
+  height: 24px;
+  line-height: 24px;
+}
+
+.checkout .meal_tips button {
+  float: right;
+  font-size: 10px;
+  height: 24px;
+  line-height: 24px;
+  padding: 0;
+  color: white;
+}
+
+.checkout .submit {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  padding-top: 18px;
+  height: 62px;
+}
+
+.checkout .submit p {
+  color: white;
+  font-size: 16px;
+  line-height: 32px;
+  margin: 0;
+}
+
+.checkout .submit .next_btn {
+  width: 84px;
+  height: 36px;
+  line-height: 32px;
+  font-size: 16px;
+  text-align: center;
+  letter-spacing: 2px;
+  padding: 0;
+}
+
+.checkout .user_detail {
+  border: 1px solid #3b3227;
+  display: none;
+  position: absolute;
+  top: 24px;
+  left: -190px;
+  background-color: white;
+  width: 200px;
+  padding: 10px;
+  box-shadow: 0 0 8px 1px black;
+}
+
+.checkout .user_detail .user_name {
+  font-size: 12px;
+}
+
+.checkout .user_detail .user_name span {
+  display: block;
+  font-size: 16px;
+  font-weight: bold;
+  letter-spacing: 2px;
+}
+
+.checkout .user_detail .user_class,
+.checkout .user_detail .user_coupon {
+  display: flex;
+  justify-content: space-between;
+}
+
+.checkout .user_detail .user_coupon p {
+  margin-bottom: 0;
+}
+
+.water_content {
+  background-image: url("../../img/client/water_bg.png");
+  background-repeat: no-repeat;
+  background-size: contain;
+}
+
+.content .banner {
+  background-color: #3B3125;
+
+}
+
+.content .banner .banner_text {
+  background-color: #221a11;
+  box-shadow: 0 1px 8px #3a3227;
+}
+
+.content .product .product-item .pro_title {
+  background-color: #4e4131;
+}
+
+.content .product .pro_title p {
+  color: white;
+}
+
+.checkout .water_info {
+  border-bottom: 1px solid #221a11;
+}
+
+.checkout .checkout_content .cart-item {
+  background-color: #4e4131;
+}
+
+.checkout .checkout_content .product_num {
+  padding-left: 10px;
+}
+
+.checkout .checkout_content .product_num p {
+  color: #6c6c6c;
+}
+
+.checkout .checkout_content .product_num button {
+  color: #6c6c6c;
+}
+
+.checkout .checkout_content .product_num button:hover,
+.checkout .checkout_content .product_num button:focus {
+  color: lightgray;
+}
+
+.checkout .checkout_content .delete_list {
+  color: #dedede;
+}
+
+.checkout .checkout_content .delete_list>button {
+  color: #dedede;
+}
+
+.checkout .meal_tips {
+  background-color: #fcd538;
+}
+
+.checkout .submit .next_btn {
+  background-image: url("../clientImages/water/next.png");
+  background-repeat: no-repeat;
+  background-size: contain;
+  color: white;
+}
+
+.confirm-order {
+  background-color: #efefef;
+  .el-dialog__body{
+    padding-bottom: 0;
+    padding-top: 5px;
+  }
+  .pro_list{
+    border-radius: 10px;
+    background-color: white;
     margin-bottom: 10px;
-    box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.4);
-  
-  }
-  .content .banner .banner_text{
-    border-radius: 0 0 10px 10px;
-    box-shadow: 0 1px 8px #3a3227;
-    position: absolute;
-    width: 597px;
-    height: 100px;
-    top: -8px;
-    left: -15px;
-  }
-  .content .product{
-    height: calc(100% - 146px);
-    overflow-y: auto;
-  }
-  .content .product .product-item{
-    display: inline-block;
-    float: left;
-    margin-left: 3px;
-    margin-bottom: 6px;
-    position: relative;
-  }
-  .content .product .product-item .discountTips{
-    position: absolute;
-    top: 0;
-    right: 0;
-    background-color: rgba(241, 102, 102,.9);
-    color: white;
-    padding: 2px 4px;
-    font-size: 12px;
-    min-width: 40px;
-    text-align: center;
-  }
-  .content .product .product-item>a,
-  .content .product .product-item>a:hover,
-  .content .product .product-item>a:focus{
-    text-decoration: none !important;
-  }
-  .content .product .product-item .pro_img{
-    overflow: hidden;
-  }
-  .content .product .product-item img{
-    height: 116px;
-    width: 116px;
-  }
-  .content .product .product-item img:hover{
-   transform: scale(1.2);
-    transition-duration:0.5s;
-    /*box-shadow: 0 0 8px 1px #000;*/
-  }
-  .content .product .product-item .pro_title{
-    height: 40px;
-    width: 116px;
-  }
-  .content .product .pro_title p{
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    font-size: 12px;
-    margin: 0;
-    font-weight: 200;
-    padding: 4px;
-  }
-  .content .product .pro_title p span{
-    display: block;
-    text-align: right;
-    font-weight: initial;
-    padding-right: 4px;
-  }
-  .checkout{
-    width: 223px;
-    padding: 10px;
-    position: relative;
-  }
-  .checkout .water_info{
-    height: 76px;
-  }
-  .checkout .water_info>div.clearfix{
-    width: 168px;
-    margin: 15px auto;
-    display: flex;
-    justify-content: space-between;
-  }
-  .checkout .water_avatar img{
-    height: 60px;
-    width: 60px;
-  }
-  .checkout .balance{
-    text-align: center;
-    color: white;
-    font-weight: bold;
-    font-size: 18px;
-    margin-left: 10px;
-    display: table;
-  }
-  .checkout .balance p{
-    display: table-cell;
-    font-size: 24px;
-    vertical-align: middle;
-    height: 60px;
-  }
-  .checkout .balance span{
-    display: block;
-    font-family: nsimsun;
-    font-weight: normal;
-    font-size: 14px;
-  }
-  .checkout .checkout_content{
-    height: 436px;
-    margin-bottom: 26px;
-    margin-top: 6px;
-    overflow-y: auto;
-  }
-  .checkout .checkout_content .cart-item{
-    padding: 5px;
-    background-color: #4e4131;
-    position: relative;
-    margin-top: 4px;
-    &:after{
-      content: "";
-      display: block;
-      clear: both;
+    .order_number{
+      display: flex;
+      justify-content: space-between;
+      background-color: #dedede;
+      border-radius: 10px 10px 0 0;
+      padding: 0 15px;
+      height: 30px;
+      p{
+        margin: 0;
+        line-height: 30px;
+        font-size: 12px;
+      }
+    }
+    .order_list {
+      padding: 15px 10px 10px;
+      .el-scrollbar{
+        height: auto;
+        width: 100%;
+        .el-scrollbar__wrap{
+          overflow-x: scroll;
+          overflow-y: hidden;
+          margin-right: 0 !important;
+        }
+        .el-scrollbar__view{
+          display: flex;
+          padding-left: 10px;
+          padding-right: 10px;
+        }
+      }
+    }
+    .order_item{
+      width: 80px;
+      margin-right: 8px;
+      position: relative;
+      margin-bottom: 5px;
+      img {
+        height: 80px;
+        width: 80px;
+      }
+      p {
+        margin-bottom: 0;
+        height: 20px;
+        line-height: 20px;
+        margin-top: 5px;
+        text-align: center;
+      }
+      .pro_number {
+        position: absolute;
+        top: 58px;
+        right: 2px;
+        height: 20px;
+        width: 20px;
+        border-radius: 10px;
+        background-color: white;
+        line-height: 20px;
+        font-size: 12px;
+        text-align: center;
+      }
     }
   }
-  .checkout .checkout_content .cart-item>div{
-    float: left;
-  }
-  .checkout .checkout_content .checkout_img>img{
-    height: 65px;
-    width: 65px;
-  }
-  .checkout .checkout_content .checkout_name{
-    color: white;
-    font-size: 12px;
-    width: 118px;
-    font-family: nsimsun;
-  }
-  .checkout .checkout_content .checkout_name>p{
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    padding-left: 10px;
-    padding-top: 10px;
-    margin: 0;
-  }
-  .checkout .checkout_content .product_num p{
-    margin-bottom: 0;
-    font-size: 16px;
-  }
-  .checkout .checkout_content .delete_list{
-    position: absolute;
-    top: 0;
-    right: 0;
-  }
-  .checkout .meal_tips{
-    height: 24px;
-    width: 220px;
-    position: absolute;
-    left: 0;
-    bottom: 72px;
-    padding: 0 8px;
-  }
-  .checkout .meal_tips p{
-    margin: 0;
-    font-size: 10px;
-    display: inline-block;
-    height: 24px;
-    line-height: 24px;
-  }
-  .checkout .meal_tips button{
-    float: right;
-    font-size: 10px;
-    height: 24px;
-    line-height: 24px;
-    padding: 0;
-    color: white;
-  }
-  .checkout .submit{
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-end;
-    padding-top: 18px;
-    height: 62px;
-  }
-  .checkout .submit p{
-    color: white;
-    font-size: 16px;
-    line-height: 32px;
-    margin: 0;
-  }
-  .checkout .submit .next_btn{
-    width: 84px;
-    height: 36px;
-    line-height: 32px;
-    font-size: 16px;
-    text-align: center;
-    letter-spacing: 2px;
-    padding: 0;
-  }
-  .checkout .user_detail{
-    border:1px solid #3b3227;
-    display: none;
-    position: absolute;
-    top: 24px;
-    left: -190px;
+  .remark{
+    height: 54px;
+    width: 490px;
     background-color: white;
-    width: 200px;
-    padding: 10px;
-    box-shadow: 0 0 8px 1px black;
+    margin-bottom: 10px;
+    padding: 0 15px;
+    display: flex;
+    align-items: center;
+    >span{
+      width: 80px;
+      text-align: right;
+    }
+    .el-input{
+      width: calc(100% - 80px);
+    }
   }
-  .checkout .user_detail .user_name{
-    font-size: 12px;
-  }
-  .checkout .user_detail .user_name span{
-    display: block;
-    font-size: 16px;
-    font-weight: bold;
-    letter-spacing: 2px;
-  }
-  .checkout .user_detail .user_class,
-  .checkout .user_detail .user_coupon{
+  .socer,.real_pay{
+    height: 54px;
+    width: 490px;
+    background-color: white;
+    margin-bottom: 10px;
+    padding: 0 15px;
     display: flex;
     justify-content: space-between;
+    align-items: center;
   }
-  .checkout .user_detail .user_coupon p{
-    margin-bottom: 0;
+  .socer{
+    .el-checkbox{
+      display: flex;
+      align-items: center;
+    }
+    .el-checkbox__label{
+      order: -1;
+      margin-right: 8px;
+    }
   }
- .water_content{
-    background-image: url("../../img/client/water_bg.png");
-    background-repeat: no-repeat;
-    background-size: contain;
+  .real_pay .real_money {
+    color: #FF3743;
+    font-weight: bold;
   }
-  .content .banner{
-    background-color: #3B3125;
-  
-  }
-  .content .banner .banner_text{
-    background-color: #221a11;
-    box-shadow: 0 1px 8px #3a3227;
-  }
-  .content .product .product-item .pro_title{
-    background-color: #4e4131;
-  }
-  .content .product .pro_title p{
-    color: white;
-  }
-  .checkout .water_info{
-    border-bottom: 1px solid #221a11;
-  }
-  .checkout .checkout_content .cart-item{
-    background-color: #4e4131;
-  }
-  .checkout .checkout_content .product_num{
-    padding-left: 10px;
-  }
-  .checkout .checkout_content .product_num p{
-    color: #6c6c6c;
-  }
-  .checkout .checkout_content .product_num button{
-    color: #6c6c6c;
-  }
-  .checkout .checkout_content .product_num button:hover,
-  .checkout .checkout_content .product_num button:focus{
-    color: lightgray;
-  }
-  .checkout .checkout_content .delete_list{
-    color: #dedede;
-  }
-  .checkout .checkout_content .delete_list>button{
-    color: #dedede;
-  }
-  .checkout .meal_tips{
-    background-color: #fcd538;
-  }
-  .checkout .submit .next_btn{
-    background-image: url("../clientImages/water/next.png");
-    background-repeat: no-repeat;
-    background-size: contain;
-    color: white;
-  }
-  
+}

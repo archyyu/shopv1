@@ -36,28 +36,26 @@
                 <div id="memberInfo" v-popover:popover1>
                     <div class="water_avatar"><img id="headImgUrl" src="http://placehold.it/60x60"></div>
                     <div class="balance">
-                        <p>
-                           
-                        </p>
+                        <p></p>
                     </div>
                 </div>
                 <el-popover
-                ref="popover1"
-                placement="left-start"
-                :title="popoverTitle"
-                width="200"
-                trigger="hover">
-                <div class="user_detail">
-                    <div class="user_class">
-                        <p></p>
-                        <p></p>
+                    ref="popover1"
+                    placement="left-start"
+                    :title="popoverTitle"
+                    width="200"
+                    trigger="hover">
+                    <div class="user_detail">
+                        <div class="user_class">
+                            <p></p>
+                            <p></p>
+                        </div>
+                        <p>积分：0</p>
+                        <div class="user_coupon">
+                            <p>兑换券：0张</p>
+                            <el-button type="info" size="mini" plain>查看兑换</el-button>
+                        </div>
                     </div>
-                    <p>积分：0</p>
-                    <div class="user_coupon">
-                        <p>兑换券：0张</p>
-                        <el-button type="info" size="mini" plain>查看兑换</el-button>
-                    </div>
-                </div>
               </el-popover>
             </div>
             <div class="checkout_content">
@@ -83,10 +81,51 @@
             </div>
             <div class="submit">
                 <p>总价：<span id="totalPrice">{{getCartPrice()}}</span>元</p>
-                <el-button type="warning" size="mini" round>下一步</el-button>
+                <el-button type="warning" size="mini" round @click="confirmOrderShow = true">下一步</el-button>
             </div>
         </div>
     </div>
+    <el-dialog
+        title="确认订单"
+        :visible.sync="confirmOrderShow"
+        width="530px"
+        custom-class="confirm-order"
+        :close-on-click-modal="false"
+        center>
+        <div class="pro_list">
+            <div class="order_number">
+                <p>应支付：￥</p>
+            </div>
+            <div class="order_list">
+                <el-scrollbar>
+                    <div class="order_item" v-for="item in 20">
+                        <img src="http://placehold.it/80x80">
+                        <p>￥8</p>
+                        <div class="pro_number cartNum">1</div>
+                    </div>
+                </el-scrollbar>
+            </div>
+        </div>
+        <div class="remark">
+            <span>填写备注：</span>
+            <el-input v-model="remark" label="填写备注："></el-input>
+        </div>
+        <div class="socer">
+            <p>积分抵现</p>
+            <div>
+                <el-checkbox v-model="useSocer">￥8.00</el-checkbox>
+            </div>
+        </div>
+        <div class="real_pay">
+            <p>实际支付</p>
+            <p class="real_money">￥10.00</p>
+        </div>
+        <span slot="footer" class="dialog-footer">
+            <el-button class="btn weipay"><span class="iconfont">&#xe66d;</span>微信支付</el-button>
+            <el-button class="btn alipay"><span class="iconfont">&#xe938;</span>支付宝支付</el-button>
+            <el-button class="btn netfeepay"><span class="iconfont">&#xe630;</span>网费余额支付</el-button>
+        </span>
+    </el-dialog>
     {/literal}
 </div>
 
@@ -107,7 +146,10 @@ var app = new Vue({
             typelist: [],
             productlist: [],
             cartlist: [],
-            defaulttypeid:0
+            defaulttypeid:0,
+            confirmOrderShow: false,
+            remark: '',
+            useSocer: ''
         };
     },
     computed: {
