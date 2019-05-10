@@ -70,10 +70,11 @@
                             <div class="checkout_name">
                                 <p>精品双人餐</p>
                                 <div class="product_num">
-                                    <p> <button class="btn btn-sm btn-link btn-text"
-                                            onclick="Product.removeProductFromCartByOne(9607,'精品双人餐')">&lt;</button>
-                                        <em>1</em> <button class="btn btn-sm btn-link btn-text"
-                                            onclick="Product.addProductToCartByOne(9607,'精品双人餐')">&gt;</button> </p>
+                                    <p>
+                                        <el-button type="text">&lt;</el-button>
+                                        <span>1</span>
+                                        <el-button type="text">&gt;</el-button>
+                                    </p>
                                 </div>
                             </div>
                         </div>
