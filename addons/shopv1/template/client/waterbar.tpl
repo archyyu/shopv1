@@ -75,12 +75,15 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="delete_list">
+                            <el-button type="text"><span class="el-icon-close"></span></el-button>
+                        </div>
                     </div>
                 </el-scrollbar>
             </div>
             <div class="submit">
                 <p>总价：<span id="totalPrice">{{getCartPrice()}}</span>元</p>
-                <el-button type="primary" size="mini" round>下一步</el-button>
+                <el-button type="warning" size="mini" round>下一步</el-button>
             </div>
         </div>
     </div>
