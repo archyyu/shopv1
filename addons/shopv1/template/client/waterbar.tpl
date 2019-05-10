@@ -1,10 +1,10 @@
 {include file="./common/header.tpl"}
 
 <div id="app">
-        {literal}
+    {literal}
     <div class="water_content">
         <div class="class">
-            <div class="logo"><img src="http://placehold.it/100x66"></div>
+            <div class="logo"></div>
             <div class="class_nav">
                 <el-scrollbar>
                     <ul class="nav">
@@ -22,10 +22,10 @@
             </div>
             <div class="product">
                 <el-scrollbar>
-                    <div class="product-item" v-for="product in 10">
-                        <div class="pro_img"> <img src="http://placehold.it/116x116"> </div>
+                    <div class="product-item" v-for="o in productlist">
+                        <div class="pro_img" @click="addCart(o.id,o.productname,o.memberprice,o.inventory)"> <img :src="getImgUrl(o)"> </div>
                         <div class="pro_title">
-                            <p title="西瓜汁">西瓜汁<span><em> ￥0.01 </em></span></p>
+                            <p title="西瓜汁">{{o.productname}}<span><em> ￥{{o.memberprice/100}} </em></span></p>
                         </div>
                     </div>
                 </el-scrollbar>
@@ -62,30 +62,23 @@
             </div>
             <div class="checkout_content">
                 <el-scrollbar>
-                    <div class="cart-item" v-for="cart in 10">
-                        <div class="checkout_img">
-                            <img src="http://placehold.it/65x65">
-                        </div>
+                    <div class="cart-item" v-for="item in cartlist">
                         <div class="checkout_text">
                             <div class="checkout_name">
-                                <p>精品双人餐</p>
+                                <p>{{item.productname}}</p>
                                 <div class="product_num">
                                     <p> <button class="btn btn-sm btn-link btn-text"
-                                            onclick="Product.removeProductFromCartByOne(9607,'精品双人餐')">&lt;</button>
-                                        <em>1</em> <button class="btn btn-sm btn-link btn-text"
-                                            onclick="Product.addProductToCartByOne(9607,'精品双人餐')">&gt;</button> </p>
+                                            onclick="{{item.num>0?item.num--:0}}">&lt;</button>
+                                        <em>{{item.num}}</em> <button class="btn btn-sm btn-link btn-text"
+                                            onclick="{{item.num++}}">&gt;</button> </p>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </el-scrollbar>
-                <!-- <div class="meal_tips" id="mealTips" style="display:none;">
-                    <p>您有1个订单正在路上...</p>
-                    <button class="btn btn-xs btn-link btn-text">查看订单</button>
-                </div> -->
             </div>
             <div class="submit">
-                <p>总价：<span id="totalPrice">0</span>元</p>
+                <p>总价：<span id="totalPrice">{{getCartPrice()}}</span>元</p>
                 <el-button type="primary" size="mini" round>下一步</el-button>
             </div>
         </div>
@@ -96,6 +89,7 @@
 <script src="{$StaticRoot}/js/cashier/urlHelper.js"></script>
 <script src="{$StaticRoot}/js/cashier/dateUtil.js"></script>
 <script src="{$StaticRoot}/js/common/vue-qrcode.js"></script>
+<script src="{$StaticRoot}/js/client/clientStore.js"></script>
 
 {literal}
 <script>
@@ -106,43 +100,15 @@ var app = new Vue({
         return {
             memberName: 'name',
             activeNav: 1,
-            typelist: [{
-                    "id": "1",
-                    "typename": "测试分类2",
-                    "uniacid": "1",
-                    "pos": "0",
-                    "deleteflag": "0",
-                    "visible": "0"
-                }, {
-                    "id": "2",
-                    "typename": "测试分类4",
-                    "uniacid": "1",
-                    "pos": "3",
-                    "deleteflag": "0",
-                    "visible": "0"
-                }, {
-                    "id": "3",
-                    "typename": "测试4",
-                    "uniacid": "1",
-                    "pos": "0",
-                    "deleteflag": "0",
-                    "visible": "0"
-                }, {
-                    "id": "4",
-                    "typename": "坚果类1",
-                    "uniacid": "1",
-                    "pos": "0",
-                    "deleteflag": "0",
-                    "visible": "0"
-                }],
+            typelist: [],
             productlist: [],
             cartlist: [],
-            defaulttypeid:0,
-        }
+            defaulttypeid:0
+        };
     },
     computed: {
         popoverTitle: function(){
-            return `亲爱的会员${this.memberName}`
+            return `亲爱的会员${this.memberName}`;
         }
     },
     created: function () {
@@ -150,7 +116,7 @@ var app = new Vue({
     },
     methods: {
         queryTypeList: function () {
-            // var params = Store.createParams();
+            var params = ClientStore.createParams();
             axios.post(UrlHelper.createUrl('product','loadProductTypeList'), params)
                 .then((res) => {
                     console.log(res);
@@ -163,9 +129,11 @@ var app = new Vue({
                     }
                 });
         },
-
+        getImgUrl:function(p){
+            return UrlHelper.getWebBaseUrl() + p.productimg;
+        },
         queryProductList: function (type) {
-            // let params = Store.createParams();
+            let params = ClientStore.createParams();
             params.type = type;
             if(type){
                 this.activeNav = type;
@@ -182,6 +150,49 @@ var app = new Vue({
                     }
                 });
         },
+        
+        addCart: function (productid, productname, price,inventory) {
+
+            if(this.orderState != -1){
+                this.orderState = -1;
+            }
+                
+            this.editBtnShow = true;
+
+            if(inventory <= 0){
+                this.$message.error("库存不足,请进货或者调货");
+                return;
+            }
+            
+            this.$message.success("已添加购物车");
+
+            for (var i = 0; i < this.cartlist.length; i++) {
+                if (this.cartlist[i].productid == productid) {
+                    this.cartlist[i].num += 1;
+                    return;
+                }
+            }
+
+            var cart = {};
+            cart.productid = productid;
+            cart.num = 1;
+            cart.price = price / 100;
+            cart.productname = productname;
+            this.cartlist.push(cart);
+            
+        },
+        
+        getCartPrice:function(){
+            let sum = 0;
+            for(let cart of this.cartlist){
+                sum += cart.price*cart.num;
+            }
+            return sum.toFixed(2);
+        },
+        
+        info:function(){
+            
+        }
     }
 });
 </script>

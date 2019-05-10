@@ -5,14 +5,13 @@
  */
 
 
-var UrlHelper = {
+class ClientStore{
     
-    createUrl:function(d,f){
-        return "cashier.php?__uniacid=1&f=" + f + "&do=" + d;
-    },
-    
-    info:function(){
-        
+    static createParams(){
+        let params = {};
+        params.shopid = 1;
+        params.source = 2;
+        return params;
     }
     
 };
