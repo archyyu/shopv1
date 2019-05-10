@@ -182,7 +182,7 @@ Vue.component('waterbar', {
         },
 
         waitScan:function(){
-            this.orderstate = 5;
+            this.createOrder(3);
         },
         
         createOrder:function(paytype){
@@ -229,7 +229,7 @@ Vue.component('waterbar', {
                             else if(paytype == 3){
                                 //等待扫码
                                 //this.$message.success("请用户扫付款码");
-                                this.orderstate = 1;
+                                this.orderstate = 5;
                             }
                             
                             this.cartlist = [];
@@ -394,7 +394,7 @@ Vue.component('waterbar', {
             params.code = code;
             params.orderid = this.orderid;
             
-            axios.post(UrlHelper.createUrl('product','scanPay'),params)
+            axios.post(UrlHelper.createUrl('order','scanPay'),params)
                     .then((res)=>{
                         
                         res = res.data;
@@ -405,7 +405,8 @@ Vue.component('waterbar', {
                         else{
                             this.$message.error("支付失败");
                         
-                        });
+                        }}
+                            );
             
         },
                 

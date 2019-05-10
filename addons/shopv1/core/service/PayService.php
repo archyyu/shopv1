@@ -90,7 +90,7 @@ class PayService extends Service{
         //TODO
         $wechat = $this->wechatAccount->findWechatAccountByUniacid($order['uniacid']);
         
-        logInfo("orderid:".$order['id']." uniacid:".$order['uniacid']." appid:".$wechat['allinappid']."   cusid:".$wechat['allincusid']."   paykey:".$wechat['paykey']);
+        logInfo("scanpay:orderid:".$order['id']." uniacid:".$order['uniacid']." appid:".$wechat['allinappid']."   cusid:".$wechat['allincusid']."   paykey:".$wechat['paykey']);
         
         $params = array();
 		$params["cusid"] = $wechat['allincusid'];
@@ -104,15 +104,17 @@ class PayService extends Service{
 	    $params["body"] = "product";
 	    $params["remark"] = "remark";
 	    //$params["acct"] = "openid";
-	    $params["limit_pay"] = "no_credit";
+	    $params["limit_pay"] = "";
         $params["authcode"] = $order["authcode"];
         //$params["notify_url"] = urlencode("http://pinshangy.com/web/cashier.php?__uniacid=1&f=notify&do=order");
-        $params["notify_url"] = "http://pinshangy.com/web/pay.php";
+        //$params["notify_url"] = "http://pinshangy.com/web/pay.php";
 	    $params["sign"] = $this->SignArray($params,$wechat['paykey']);//签名
 	    
 	    $paramsStr = $this->ToUrlParams($params);
 	    $url = "https://vsp.allinpay.com/apiweb/unitorder/scanpay";
 	    $rsp = $this->request($url, $paramsStr);
+        
+        logInfo("rsp:".$rsp);
 	    
 	    $rspArray = json_decode($rsp, true); 
 	    if($this->validSign($rspArray,$wechat['paykey'])){

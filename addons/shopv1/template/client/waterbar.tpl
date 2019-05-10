@@ -68,9 +68,9 @@
                                 <p>{{item.productname}}</p>
                                 <div class="product_num">
                                     <p> <button class="btn btn-sm btn-link btn-text"
-                                            onclick="{{item.num>0?item.num--:0}}">&lt;</button>
+                                            @click="{{item.num>0?item.num--:0}}">&lt;</button>
                                         <em>{{item.num}}</em> <button class="btn btn-sm btn-link btn-text"
-                                            onclick="{{item.num++}}">&gt;</button> </p>
+                                            @click="{{item.num++}}">&gt;</button> </p>
                                 </div>
                             </div>
                         </div>
