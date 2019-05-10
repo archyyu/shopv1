@@ -77,7 +77,7 @@ class OrderController extends \controller\Controller{
         $result = array();
         $result["orderid"] = $orderid;
         
-        $this->returnSuccess($orderid);
+        $this->returnSuccess($result);
         
     }
     
