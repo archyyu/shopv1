@@ -7,11 +7,7 @@
 
 var UrlHelper = {
 
-  createUrl: function (d, f) {
-    return "cashier.php?__uniacid=1&f=" + f + "&do=" + d;
-  },
-
-  createFullUrl: function (f, d) {
+  createUrl: function (f, d) {
     let url = window.location.href;
     let hrefreg = function (name) {
       return new RegExp("(&)" + name + "=([^&]*)(&|$)", "i");

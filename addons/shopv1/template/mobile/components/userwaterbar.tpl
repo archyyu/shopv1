@@ -74,7 +74,7 @@
             </cube-popup>
         </div>
     </div>
-
+    {/literal}
 </script>
 
 <script>
@@ -83,7 +83,7 @@ Vue.component('waterbar', {
     template: '#waterbar',
     data: function () {
         return {
-            currentNav: {"id":"饮料"},
+            currentNav: {},
             navList: [],
             productlist:[],
             cartlist:[],
@@ -336,4 +336,4 @@ Vue.component('waterbar', {
 }); 
 </script>
 
-{/literal}
+

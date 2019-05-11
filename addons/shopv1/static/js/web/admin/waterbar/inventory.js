@@ -67,11 +67,17 @@ var Inventory = {
         },
         {
           field: 'normalprice',
-          title: '正常价(分)'
+          title: '正常价(元)',
+          formatter:function(value,row,index){
+              return (value/100).toFixed(2);
+          }
         },
         {
           field: 'memberprice',
-          title: '会员价(分)'
+          title: '会员价(元)',
+          formatter:function(value,row,index){
+              return (value/100).toFixed(2);
+          }
         },
         {
           field: 'salenum',
@@ -177,6 +183,7 @@ var Inventory = {
          if(data.state == 0){
              Tips.successTips('调货成功');
              $("#transferModal").modal('hide');
+             Inventory.goodsTableReload();
          } 
          else{
              Tips.failTips("失败");
@@ -214,6 +221,7 @@ var Inventory = {
          if(data.state == 0){
              Tips.successTips('盘点成功');
              $("#stockModal").modal('hide');
+             Inventory.goodsTableReload();
          } 
          else{
              Tips.failTips(data.msg);
@@ -234,6 +242,7 @@ var Inventory = {
          if(data.state == 0){
              Tips.successTips("进货成功");
              $("#proInModal").modal('hide');
+             Inventory.goodsTableReload();
          } 
          else{
              Tips.failTips(data.msg);
@@ -299,8 +308,8 @@ var Inventory = {
           $("#addProductModal [name=productname]").val(obj.productname);
           $("#addProductModal [name=productcode]").val(obj.productcode);
           $("#addProductModal [name=make]").selectpicker('val', obj.make);
-          $("#addProductModal [name=normalprice]").val(obj.normalprice);
-          $("#addProductModal [name=memberprice]").val(obj.memberprice);
+          $("#addProductModal [name=normalprice]").val((obj.normalprice/100).toFixed(2));
+          $("#addProductModal [name=memberprice]").val((obj.memberprice/100).toFixed(2));
           $("#addProductModal [name=index]").val(obj.index);
           $("#previewImg").attr("src", UrlUtil.getWebBaseUrl() + obj.productimg);
           $("#addProductModal [name=attributes]").val(obj.attributes);
@@ -377,13 +386,18 @@ var Inventory = {
       
       var params = new FormData();
       
-      params.append("productid",$("#addProductModal [name=productid]").val());
+      let productid = $("#addProductModal [name=productid]").val();
+      
+      if(productid != 0){
+          params.append("productid",productid);
+      }
+      
       params.append("productname",$("#addProductModal [name=productname]").val());
       params.append("productcode",$("#addProductModal [name=productcode]").val());
       params.append("make",$("#addProductModal [name=make]").val());
       params.append("producttype",$("#addProductModal [name=producttype]:checked").val());
-      params.append("normalprice",$("#addProductModal [name=normalprice]").val());
-      params.append("memberprice",$("#addProductModal [name=memberprice]").val());
+      params.append("normalprice",$("#addProductModal [name=normalprice]").val()*100);
+      params.append("memberprice",$("#addProductModal [name=memberprice]").val()*100);
       params.append("index",$("#addProductModal [name=index]").val());
       params.append("attributes",$("#addProductModal [name=attributes]").val());
       params.append("unit",$("#addProductModal [name=unit]").val());
@@ -509,6 +523,7 @@ var Inventory = {
           if(data.state==0){
               Tips.successTips("变更成功");
               $("#damageModal").modal('hide');
+              Inventory.goodsTableReload();
           }
           else{
               Tips.failTips(data.msg);

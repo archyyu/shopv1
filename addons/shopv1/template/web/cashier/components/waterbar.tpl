@@ -286,8 +286,6 @@ Vue.component('waterbar', {
                         }
                     }
                 });
-            
-            
         },
         
         cartDeduct:function(productid){

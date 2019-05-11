@@ -113,7 +113,7 @@
                 <div class="col-sm-8">
                   <div class="input-group">
                     <input type="text" class="form-control" name="normalprice" placeholder="请输入售价">
-                    <span class="input-group-addon">(分)</span>
+                    <span class="input-group-addon">(元)</span>
                   </div>
                 </div>
               </div>
@@ -122,7 +122,7 @@
                 <div class="col-sm-8">
                   <div class="input-group">
                     <input type="text" class="form-control" name="memberprice" placeholder="请输入售价">
-                    <span class="input-group-addon">(分)</span>
+                    <span class="input-group-addon">(元)</span>
                   </div>
                 </div>
               </div>
