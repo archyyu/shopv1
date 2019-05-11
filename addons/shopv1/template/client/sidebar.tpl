@@ -68,11 +68,18 @@ var app = new Vue({
     methods: {
         callService:function(){
             
-            let url = UrlHelper.createUrl("product","call");
+            //let url = UrlHelper.createUrl("product","call");
+            
+            this.$message.success("call service");
+            
+        },
+        
+        queryMemberInfo:function(){
             
             
             
         },
+        
         leaveMsg:function(){
             this.$message.success("leaveMsg");
         },

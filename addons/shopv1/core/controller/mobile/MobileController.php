@@ -49,6 +49,8 @@ class MobileController extends \controller\Controller{
         return $this->returnSuccess($_W);
     }
     
+    
+    
     public function getCard(){
         
         $id = $this->getParam("activityid");

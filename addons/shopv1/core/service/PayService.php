@@ -18,12 +18,12 @@ class PayService extends Service{
     
     const PAYTYPE_WECHAT_NATIVE = "W01";
     //微信js pay
-	const PAYTYPE_WECHAT_JSAPI = "W02";
+    const PAYTYPE_WECHAT_JSAPI = "W02";
     //支付宝二维码
-	const PAYTYPE_ALI_NATIVE = "A01";
+    const PAYTYPE_ALI_NATIVE = "A01";
     //阿里js pay
-	const PAYTYPE_ALI_JSAPI = "A02";
-	const PAYTYPE_UNIONPAY_NATIVE = "U01";
+    const PAYTYPE_ALI_JSAPI = "A02";
+    const PAYTYPE_UNIONPAY_NATIVE = "U01";
     
     private $wechatAccount;
     

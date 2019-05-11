@@ -44,6 +44,18 @@ class OrderService extends Service{
         $this->shopModel = new \model\Shop();
     }
     
+    //memberid => uid
+    public function getOrderListByMemberid($memberid){
+        
+        $where = array();
+        $where['memberid'] = $memberid;
+        
+        return $this->shopOrder->findOrders($where);
+    }
+    
+    
+    
+    
     public function generateProductOrder($uniacid,$memberid,$userid,$shopid,$address,$productlist,$ordersource,$remark,$paytype){
         
         $order = array();
@@ -115,6 +127,8 @@ class OrderService extends Service{
         }
         
     }
+    
+    
     
     public function cancelOrder(){
         

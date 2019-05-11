@@ -53,8 +53,11 @@ class ProductController extends \controller\Controller{
     }
     
     public function loadProductTypeList(){
-        $shopid = $this->getParam('shopid');
-        $uniacid = $this->productService->getUniacidByShopId($shopid);
+        
+        $uniacid = $this->getUniacid();
+        
+        //$shopid = $this->getParam('shopid');
+        //$uniacid = $this->productService->getUniacidByShopId($shopid);
         
         $list = $this->productTypeModel->getProductTypeList($uniacid);
         $this->returnSuccess($list);
