@@ -843,3 +843,11 @@ body {
     font-weight: bold;
   }
 }
+.qrcode-dialog{
+  .el-dialog__body{
+    text-align: center;
+    p{
+      margin-top: 0;
+    }
+  }
+}
