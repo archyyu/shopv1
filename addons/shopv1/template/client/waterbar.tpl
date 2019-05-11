@@ -119,13 +119,13 @@
         </span>
          <el-dialog
             width="260px"
-            title="扫码支付"
+            :title="title"
             custom-class="qrcode-dialog"
             :visible.sync="showQrcode"
             append-to-body
             center>
-            <qrcode :value="qrcode" :options="{ width: 150 }"></qrcode>
-            <p>点单号：123456</p>
+            <qrcode :value="qrcodeurl" :options="{ width: 150 }"></qrcode>
+            <p>点单号：{{orderId}}</p>
             </el-dialog>
         </el-dialog
     </el-dialog>
@@ -145,12 +145,16 @@ var app = new Vue({
     data: function(){
         return {
             memberName: 'name',
+            memberid:0,
             activeNav: 1,
             typelist: [],
             productlist: [],
             cartlist: [],
             defaulttypeid:0,
             orderState:-1,
+            orderId:'',
+            qrcodeurl:"",
+            title:"请使用微信扫码",
             confirmOrderShow: false,
             showQrcode: false,
             remark: '',
@@ -187,19 +191,45 @@ var app = new Vue({
        getImgUrl:function(p){
             return UrlHelper.getWebBaseUrl() + p.productimg;
         },
-        
+        queryOrderState:function(){
+            
+            if(this.orderState != 0){
+                return;
+            }
+            
+            if(this.showQrcode == false){
+                return;
+            }
+            
+            var params = ClientStore.createParams();
+            params.orderid = this.orderId;
+            var url = UrlHelper.createUrl("order","queryOrderState");
+            axios.post(url,params)
+                .then((res)=>{
+                    res = res.data;
+                    console.log(res);
+                    if(res.state == 0){
+                        if(res.obj >= 0){
+                            this.showQrcode = false;
+                            this.$message.success("订单已经支付");
+                            this.orderState = 1;
+                        }
+                    }
+                });
+        },
         createOrder:function(paytype){
             if(this.cartlist.length <= 0){
                 Toast.error("购物车为空");
                 return ;
             }
             
-            this.orderPrice = this.getCartSum();
+            this.orderPrice = this.getCartPrice();
             
             var url = UrlHelper.createUrl('order','createOrder');
-            var params = Store.createParams();
+            var params = ClientStore.createParams();
             params.address = this.address;
             params.paytype = paytype;
+            params.memberid = this.memberid;
             params.productlist = JSON.stringify(this.cartlist);
             
             axios.post(url,params)
@@ -209,26 +239,17 @@ var app = new Vue({
                         if(res.state == 0){
                             console.log("create order ok");
                             this.$message.success("下单成功");
-                            this.orderid = res.obj.orderid;
-                            if(paytype == 0){
-                                this.orderState = 1;
-                                
-                            }
-                            else if(paytype == 1 || paytype == 2){
-                                this.orderState = 0;
-                                this.qrcodeurl = res.obj.payurl;
-                                
-                                
-                                let title = "请使用微信扫码";
-                                
-                                if(paytype == 2){
-                                    title = "请使用支付宝扫码";
-                                }
-                                
-                                Store.showQrcode(title,this.qrcodeurl);
-                                
+                            this.orderId = res.obj.orderid;
+                            
+                            this.orderState = 0;
+                            this.qrcodeurl = res.obj.payurl;
+
+                            if(paytype == 2){
+                                this.title = "请使用支付宝扫码";
                             }
                             
+                            this.confirmOrderShow = false;
+                            this.showQrcode = true;
                             this.cartlist = [];
                             
                         }
