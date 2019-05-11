@@ -94,16 +94,7 @@
         center>
         <div class="pro_list">
             <div class="order_number">
-                <p>应支付：￥</p>
-            </div>
-            <div class="order_list">
-                <el-scrollbar>
-                    <div class="order_item" v-for="item in 20">
-                        <img src="http://placehold.it/80x80">
-                        <p>￥8</p>
-                        <div class="pro_number cartNum">1</div>
-                    </div>
-                </el-scrollbar>
+                <p>应支付：￥{{getCartPrice()}}</p>
             </div>
         </div>
         <div class="remark">
@@ -113,17 +104,16 @@
         <div class="socer">
             <p>积分抵现</p>
             <div>
-                <el-checkbox v-model="useSocer">￥8.00</el-checkbox>
+                <el-checkbox v-model="useSocer">￥0.00</el-checkbox>
             </div>
         </div>
         <div class="real_pay">
             <p>实际支付</p>
-            <p class="real_money">￥10.00</p>
+            <p class="real_money">￥{{getCartPrice()}}</p>
         </div>
         <span slot="footer" class="dialog-footer">
-            <el-button class="btn weipay"><span class="iconfont">&#xe66d;</span>微信支付</el-button>
-            <el-button class="btn alipay"><span class="iconfont">&#xe938;</span>支付宝支付</el-button>
-            <el-button class="btn netfeepay"><span class="iconfont">&#xe630;</span>网费余额支付</el-button>
+            <el-button class="btn weipay" @click="createOrder(1)"><span class="iconfont">&#xe66d;</span>微信支付</el-button>
+            <el-button class="btn alipay" @click="createOrder(2)"><span class="iconfont">&#xe938;</span>支付宝支付</el-button>
         </span>
     </el-dialog>
     {/literal}
@@ -147,6 +137,7 @@ var app = new Vue({
             productlist: [],
             cartlist: [],
             defaulttypeid:0,
+            orderState:-1,
             confirmOrderShow: false,
             remark: '',
             useSocer: ''
@@ -159,6 +150,9 @@ var app = new Vue({
     },
     created: function () {
         this.queryTypeList();
+        setInterval(()=>{
+                this.queryOrderState();
+                },2000);
     },
     methods: {
         queryTypeList: function () {
@@ -175,9 +169,62 @@ var app = new Vue({
                     }
                 });
         },
-        getImgUrl:function(p){
+        
+       getImgUrl:function(p){
             return UrlHelper.getWebBaseUrl() + p.productimg;
         },
+        
+        createOrder:function(paytype){
+            if(this.cartlist.length <= 0){
+                Toast.error("购物车为空");
+                return ;
+            }
+            
+            this.orderPrice = this.getCartSum();
+            
+            var url = UrlHelper.createUrl('order','createOrder');
+            var params = Store.createParams();
+            params.address = this.address;
+            params.paytype = paytype;
+            params.productlist = JSON.stringify(this.cartlist);
+            
+            axios.post(url,params)
+                    .then((res)=>{
+                        res = res.data;
+                        console.log(res);
+                        if(res.state == 0){
+                            console.log("create order ok");
+                            this.$message.success("下单成功");
+                            this.orderid = res.obj.orderid;
+                            if(paytype == 0){
+                                this.orderState = 1;
+                                
+                            }
+                            else if(paytype == 1 || paytype == 2){
+                                this.orderState = 0;
+                                this.qrcodeurl = res.obj.payurl;
+                                
+                                
+                                let title = "请使用微信扫码";
+                                
+                                if(paytype == 2){
+                                    title = "请使用支付宝扫码";
+                                }
+                                
+                                Store.showQrcode(title,this.qrcodeurl);
+                                
+                            }
+                            
+                            this.cartlist = [];
+                            
+                        }
+                        else{
+                            this.$message.error(res.msg);
+                        }
+                        });
+            
+        },
+        
         queryProductList: function (type) {
             let params = ClientStore.createParams();
             params.type = type;

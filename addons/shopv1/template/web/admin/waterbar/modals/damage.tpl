@@ -24,7 +24,7 @@
                                     <input class="form-control" name="num">
                                 </div>
                                 <div class="col-sm-9 col-sm-offset-3">
-                                    <span class="help-block">正数表示报损，负数表示报溢</span>
+                                    <span class="help-block">正数表示报溢，负数表示报损</span>
                                 </div>
                             </div>
                             <div class="form-group">
