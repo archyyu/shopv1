@@ -187,7 +187,7 @@ class Shopv1ModuleSite extends WeModuleSite{
     // ["uid"]=> string(1) "1" ["realname"]=> string(0) "" ["mobile"]=> string(11) "18633919531" ["email"]=> string(0) "" ["groupid"]=> string(1) "2" ["credit1"]=> string(4) "0.00" ["credit2"]=> string(4) "0.00" ["credit6"]=> string(4) "0.00" ["groupname"]=> string(15) "默认会员组"
     //
     public function doMobileMobile(){
-        mc_oauth_userinfo();
+        //mc_oauth_userinfo();
         
         global $_GPC;
         try{
@@ -199,7 +199,30 @@ class Shopv1ModuleSite extends WeModuleSite{
             logInfo("ex:".$ex->getMessage());
         }
         
-        
+    }
+    
+    public function doMobileProduct(){
+        global $_GPC;
+        try{
+            $controller = new \controller\cashier\ProductController();
+            $f = $_GPC['f'];
+            $controller->$f();
+        }
+        catch (Exception $ex){
+            logInfo("ex:".$ex->getMessage());
+        }
+    }
+    
+    public function doMobileOrder(){
+        global $_GPC;
+        try{
+            $f = $_GPC['f'];
+            $controller = new \controller\cashier\OrderController();
+            $controller->$f();
+        }
+        catch (Exception $ex){
+            logInfo("ex:".$ex->getMessage());
+        }
     }
     
     public function payResult($params){
