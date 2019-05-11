@@ -15,6 +15,21 @@ namespace controller\mobile;
  */
 class UserController extends \controller\Controller{
     
+    private $memberModel;
+    
+    public function __construct() {
+        parent::__construct();
+        
+        $this->memberModel = new \model\ShopMember();
+        
+    }
+    
+    public function index(){
+        
+        
+        
+    }
+    
     
     
 }

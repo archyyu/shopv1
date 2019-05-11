@@ -112,9 +112,22 @@
             <p class="real_money">￥{{getCartPrice()}}</p>
         </div>
         <span slot="footer" class="dialog-footer">
+
             <el-button class="btn weipay" @click="createOrder(1)"><span class="iconfont">&#xe66d;</span>微信支付</el-button>
             <el-button class="btn alipay" @click="createOrder(2)"><span class="iconfont">&#xe938;</span>支付宝支付</el-button>
+
         </span>
+         <el-dialog
+            width="260px"
+            title="扫码支付"
+            custom-class="qrcode-dialog"
+            :visible.sync="showQrcode"
+            append-to-body
+            center>
+            <qrcode :value="qrcode" :options="{ width: 150 }"></qrcode>
+            <p>点单号：123456</p>
+            </el-dialog>
+        </el-dialog
     </el-dialog>
     {/literal}
 </div>
@@ -139,6 +152,7 @@ var app = new Vue({
             defaulttypeid:0,
             orderState:-1,
             confirmOrderShow: false,
+            showQrcode: false,
             remark: '',
             useSocer: ''
         };

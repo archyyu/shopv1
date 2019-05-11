@@ -985,7 +985,7 @@ class Medoo {
             }
         }
     }
-
+    
     public function select($table, $join, $columns = null, $where = null) {
         $map = [];
         $stack = [];
