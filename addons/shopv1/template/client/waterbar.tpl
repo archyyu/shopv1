@@ -110,11 +110,19 @@
             <span>填写备注：</span>
             <el-input v-model="remark" label="填写备注："></el-input>
         </div>
-        <div class="socer">
+        <!-- <div class="socer">
             <p>积分抵现</p>
             <div>
                 <el-checkbox v-model="useSocer">￥8.00</el-checkbox>
             </div>
+        </div> -->
+        <div class="remark">
+            <span>选择卡券：</span>
+            <el-select v-model="cardId" placeholder="">
+              <el-option
+                label="item.label"
+                value="item.value"></el-option>
+            </el-select>
         </div>
         <div class="real_pay">
             <p>实际支付</p>
@@ -134,8 +142,7 @@
             center>
             <qrcode :value="qrcode" :options="{ width: 150 }"></qrcode>
             <p>点单号：123456</p>
-            </el-dialog>
-        </el-dialog
+        </el-dialog>
     </el-dialog>
     {/literal}
 </div>
@@ -161,7 +168,8 @@ var app = new Vue({
             confirmOrderShow: false,
             showQrcode: false,
             remark: '',
-            useSocer: ''
+            useSocer: '',
+            cardId: ''
         };
     },
     computed: {
