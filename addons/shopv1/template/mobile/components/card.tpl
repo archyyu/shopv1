@@ -28,13 +28,28 @@
                                 <td>{{cardtype.exchange/100}}元</td>
                                 <td>{{cardtype.effectiveday}}天</td>
                                 <td>{{cardtype.effectiveprice/100}}元</td>
-                                <td><cube-button @click="showQrcode">发放</cube-button></td>
+                                <td><cube-button @click="sendCard">发放</cube-button></td>
                             </tr>
                         </tbody>
                     </table>
                 </div>
             </cube-scroll>
-            <cube-popup type="card-popup" position="bottom" :mask-closable="true" ref="cardqrcodePopup">
+
+            <cube-popup type="card-popup" position="bottom" :mask-closable="true" ref="sendCardPopup">
+                <div class="my-popup-wrap">
+                    <div class="my-popup-header">
+                        <h5>发送卡券</h5>
+                        <cube-button  :inline="true" :outline="true" @click="closeSendCard">取消</cube-button>
+                    </div>
+                    <div class="my-popup-content">
+                        <cube-form
+                            :model="cardModel"
+                            :schema="cardForm"></cube-form>
+                    </div>
+                </div>
+            </cube-popup>
+
+            <!-- <cube-popup type="card-popup" position="bottom" :mask-closable="true" ref="cardqrcodePopup">
                 <div class="my-popup-wrap">
                     <div class="my-popup-header">
                         <h5>请 扫描下面二维码</h5>
@@ -44,7 +59,7 @@
                         <qrcode :value="qrcodeurl"></qrcode>
                     </div>
                 </div>
-            </cube-popup>
+            </cube-popup> -->
         </div>
     </div>
     </div>
@@ -60,7 +75,35 @@ Vue.component('card', {
             Store:Store,
             DateUtil:DateUtil,
             cardTypeList: [],
-            qrcodeurl: "www.baidu.com"
+            qrcodeurl: "www.baidu.com",
+            cardModel: {
+                phone: "",
+                num: "",
+            },
+            cardForm: {
+                fields: [
+                    {
+                        type: 'input',
+                        modelKey: 'phone',
+                        label: '手机号',
+                        props: {
+                            placeholder: '请填写手机号'
+                        }
+                    },
+                    {
+                        type: 'input',
+                        modelKey: 'num',
+                        label: '数量',
+                        props: {
+                            placeholder: '请填写卡券数量'
+                        }
+                    },
+                    {
+                        type: 'submit',
+                        label: '发送卡券'
+                    }
+                ]
+            }
         };
     },
     created() {},
@@ -87,12 +130,16 @@ Vue.component('card', {
                         });
             
         }, 
-        showQrcode:function(){
-            console.log("show");
-            console.log(this.$refs);
-            this.$refs.cardqrcodePopup.show();
+        sendCard:function(){
+            this.$refs.sendCardPopup.show();
         },
-        
+        closeSendCard:function(){
+            this.$refs.sendCardPopup.hide();
+        },
+
+        showQrcode:function(){
+            this.$refs.cardqrcodePopup.show();
+        },         
         closeQrcode:function(){
             this.$refs.cardqrcodePopup.hide();
         },
