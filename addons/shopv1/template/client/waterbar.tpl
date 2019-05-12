@@ -109,9 +109,9 @@
         <div class="remark">
             <span>选择卡券：</span>
             <el-select v-model="cardId" placeholder="">
-              <el-option
-                label="item.label"
-                value="item.value"></el-option>
+              <el-option v-for="item in cardlist"
+                :label="item.cardname"
+                :value="item.id"></el-option>
             </el-select>
         </div>
         <div class="real_pay">
@@ -197,7 +197,7 @@ var app = new Vue({
             }
             
             params.memberid = this.memberid;
-            let url = UrlHelper.createUrl("member","queryMemberList");
+            let url = UrlHelper.createUrl("member","getMemberCardList");
             
             axios.post(url,params)
                     .then((res)=>{
@@ -272,6 +272,7 @@ var app = new Vue({
             params.address = this.address;
             params.remark = this.remark;
             params.productlist = JSON.stringify(this.cartlist);
+            params.membercardid = this.cardId;
             
             axios.post(url,params)
                     .then((res)=>{
@@ -351,11 +352,35 @@ var app = new Vue({
             
         },
         
+        findMemberCard:function(id){
+            
+            for(let item of this.cardlist){
+                if(item.id == id){
+                    return item;
+                }
+            }
+            
+        },
+        
         getCartPrice:function(){
             let sum = 0;
+            
+            let card = this.findMemberCard(this.cardId);
+            
             for(let cart of this.cartlist){
-                sum += cart.price*cart.num;
+                
+                let discount = 100;
+                if(card){
+                    discount = card.discount;
+                }
+                
+                sum += cart.price*cart.num*(discount/100);
             }
+            
+            if(card){
+                sum -= card.exchange/100;
+            }
+            
             return sum.toFixed(2);
         },
         

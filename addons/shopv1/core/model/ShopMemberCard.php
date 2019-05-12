@@ -21,9 +21,9 @@ class ShopMemberCard extends Model{
     public function getMemberList($uid,$useflag = 0){
         
         $where = array();
-        $where['uid'] = $uid;
+        $where['memberid'] = $uid;
         $where["useflag"] = $useflag;
-        $where["expiretime[<]"] = time();
+        $where["expiretime[>]"] = time();
         
         return $this->getList("*", $where);
     }
@@ -33,7 +33,7 @@ class ShopMemberCard extends Model{
     }
     
     public function getMemberCard($id){
-        return $this->getOne("*",['id'=>$id]);
+        return $this->getOne("*",['id'=>$id,"useflag"=>0]);
     }
     
     public function useMemberCard($id){

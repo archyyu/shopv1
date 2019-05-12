@@ -39,6 +39,8 @@ class ProductController extends \controller\Controller{
     
     private $cardService;
     
+    private $cardModel;
+    
     public function __construct() {
         parent::__construct();
         $this->productService = new ProductService();
@@ -51,6 +53,7 @@ class ProductController extends \controller\Controller{
         $this->bannerModel = new \model\ShopBanner();
         $this->memberModel = new \model\ShopMember();
         $this->cardService = new \service\CardService();
+        $this->cardModel = new \model\ShopMemberCard();
     }
     
     public function index(){

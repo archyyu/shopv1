@@ -36,7 +36,7 @@ class MemberController extends \controller\Controller{
         $this->returnSuccess($list);
     }
     
-    public function getMemberList(){
+    public function getMemberCardList(){
         
         $memberid = $this->getParam("memberid");
         $list = $this->memberCardModel->getMemberList($memberid);

@@ -70,7 +70,7 @@ class OrderService extends Service{
         
         if($membercardid != 0){
             
-            $membercard = $this->cardModel->getMemberCard($membercard);
+            $membercard = $this->cardModel->getMemberCard($membercardid);
             
         }
         
@@ -101,16 +101,12 @@ class OrderService extends Service{
                 $discount = $membercard['discount'];
             }
             
-            
             $price += ($value['price']*$value['num']*100)*($discount/100);
-            
             
         }
         
         if($membercard){
-            
             $price -= $membercard['exchange'];
-            
         }
         
         $order['orderprice'] = $price;
