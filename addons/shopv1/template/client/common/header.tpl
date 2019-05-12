@@ -22,7 +22,6 @@
   <script src="{$StaticRoot}/js/common/urlUtil.js"></script>
   
 
-
   <script>
     // Global Loading setting
     var loading = null;

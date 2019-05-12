@@ -154,8 +154,10 @@ var app = new Vue({
             memberName: 'name',
             memberid:0,
             activeNav: 1,
+            address:'',
             typelist: [],
             productlist: [],
+            cardlist:[],
             cartlist: [],
             defaulttypeid:0,
             orderState:-1,
@@ -175,13 +177,41 @@ var app = new Vue({
         }
     },
     created: function () {
+        
         this.memberid = UrlHelper.getQueryString("memberid");
+        this.address = UrlHelper.getQueryString("address");
+        this.queryMemberCardList();
         this.queryTypeList();
         setInterval(()=>{
                 this.queryOrderState();
                 },2000);
     },
     methods: {
+        
+        queryMemberCardList:function(){
+            
+            let params = ClientStore.createParams();
+            
+            if(this.memberid == 0){
+                return ;
+            }
+            
+            params.memberid = this.memberid;
+            let url = UrlHelper.createUrl("member","queryMemberList");
+            
+            axios.post(url,params)
+                    .then((res)=>{
+                        res = res.data;
+                        if(res.state == 0){
+                            this.cardlist = res.obj;
+                        }
+                        else{
+                            
+                        }
+                    });
+            
+        },
+        
         queryTypeList: function () {
             var params = ClientStore.createParams();
             axios.post(UrlHelper.createUrl('product','loadProductTypeList'), params)
@@ -239,6 +269,8 @@ var app = new Vue({
             params.address = this.address;
             params.paytype = paytype;
             params.memberid = this.memberid;
+            params.address = this.address;
+            params.remark = this.remark;
             params.productlist = JSON.stringify(this.cartlist);
             
             axios.post(url,params)

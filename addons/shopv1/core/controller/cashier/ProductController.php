@@ -56,9 +56,10 @@ class ProductController extends \controller\Controller{
         
         $uniacid = $this->getUniacid();
         
-        //$shopid = $this->getParam('shopid');
-        //$uniacid = $this->productService->getUniacidByShopId($shopid);
-        
+        if(isset($uniacid) == false){
+            $shopid = $this->getParam('shopid');
+            $uniacid = $this->productService->getUniacidByShopId($shopid);
+        }
         $list = $this->productTypeModel->getProductTypeList($uniacid);
         $this->returnSuccess($list);
     }
