@@ -19,7 +19,9 @@
   <script src="{$StaticRoot}/fonts/iconfont.js"></script>
   <script src="{$StaticRoot}/js/dist/moment.min.js"></script>
   <script src="{$StaticRoot}/js/dist/moment-zh-cn.js"></script>
-  <script src="{$StaticRoot}/js/cashier/urlHelper.js"></script>
+  <script src="{$StaticRoot}/js/common/urlUtil.js"></script>
+  
+
 
   <script>
     // Global Loading setting

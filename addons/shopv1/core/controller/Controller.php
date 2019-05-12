@@ -24,9 +24,9 @@ class Controller {
     function __construct() {
 
         $this->smarty = new \Smarty();
-        $this->smarty->debugging = true;
+        $this->smarty->debugging = false;
         $this->smarty->caching = false;
-        $this->smarty->cache_lifetime = 10;
+        $this->smarty->cache_lifetime = 0;
         $this->smarty->assign("StaticRoot", StaticRoot);
         $this->smarty->setTemplateDir(CASHROOT . 'template/web');
         

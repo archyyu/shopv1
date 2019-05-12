@@ -47,7 +47,7 @@
 </div>
 
 <script src="{$StaticRoot}/js/cashier/store.js"></script>
-<script src="{$StaticRoot}/js/cashier/urlHelper.js"></script>
+<script src="{$StaticRoot}/js/common/urlUtil.js"></script>
 <script src="{$StaticRoot}/js/cashier/dateUtil.js"></script>
 <script src="{$StaticRoot}/js/common/vue-qrcode.js"></script>
 <script>Vue.component(VueQrcode.name, VueQrcode);</script>

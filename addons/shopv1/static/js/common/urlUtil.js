@@ -10,20 +10,52 @@ var UrlUtil = {
   },
 
   createWebUrl: function (doing, func) {
-    var url = "./index.php?c=site&a=entry&m=shopv1&do=" + doing + "&f=" + func;
-    return url;
+    return UrlUtil.createUrl(func,doing);
   },
   
-  
-  getWebBaseUrl:function(){
-      let url = window.location.href.split("web")[0];
-      return url;
+  createShortUrl:function(f){
+      return UrlUtil.createUrl(null,f);
   },
   
-  getAppBaseUrl:function(){
-      let url = window.location.href.split("app")[0];
-      return url;
-  },
+  createUrl: function (d, f) {
+        
+        let url = window.location.href;
+        let hrefreg = function (name) {
+          return new RegExp("(&)" + name + "=([^&]*)(&|$)", "i");
+        };
+        let urlreg = function (name) {
+          return new RegExp(name, "i");
+        };
+        
+        if (f) {
+          let oldf = window.location.search.substr(1).match(hrefreg('f'));
+          let fArr = oldf[0].split("=");
+          fArr[1] = f + "&";
+          let newf = fArr.join("=");
+          url = url.replace(urlreg(oldf[0]), newf);
+        }
+        
+        if (d) {
+          let oldDo = window.location.search.substr(1).match(hrefreg('do'));
+          let doArr = oldDo[0].split("=");
+          doArr[1] = d + "&";
+          let newDo = doArr.join("=");
+          url = url.replace(urlreg(oldDo[0]), newDo);
+        }
+        
+        return url;
+      },
+    
+    getWebBaseUrl:function(){
+        let url = window.location.href.split("web")[0];
+        return url;
+    },
+
+    getAppBaseUrl:function(){
+        let url = window.location.href.split("app")[0];
+        return url;
+    },
+  
   
   createWebUrlWithParams: function (controller, func, params) {
     var str = '';
@@ -39,3 +71,4 @@ var UrlUtil = {
   }
 
 };
+var UrlHelper = UrlUtil;

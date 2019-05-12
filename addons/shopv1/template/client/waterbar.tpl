@@ -1,5 +1,4 @@
 {include file="./common/header.tpl"}
-
 <div id="app">
     {literal}
     <div class="water_content">
@@ -167,6 +166,7 @@ var app = new Vue({
         }
     },
     created: function () {
+        this.memberid = UrlHelper.getQueryString("memberid");
         this.queryTypeList();
         setInterval(()=>{
                 this.queryOrderState();

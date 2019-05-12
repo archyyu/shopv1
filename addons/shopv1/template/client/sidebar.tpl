@@ -62,7 +62,7 @@
 var app = new Vue({
     el: '#app',
     data:{
-        lock: false;
+        lock: false,
         memberInfo:{},
     },
     methods: {
