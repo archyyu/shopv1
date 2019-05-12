@@ -22,4 +22,5 @@ class ShopMessage extends Model{
     }
     
     
+    
 }

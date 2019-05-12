@@ -2,7 +2,7 @@
 
 <div id="app">
     <div class="sidebar">
-        <h4>默认001</h4>
+        <h4>{{address}}</h4>
         <div v-if="!lock">
             <div class="line1">
                 <div class="info">
@@ -64,25 +64,106 @@ var app = new Vue({
     data:{
         lock: true,
         memberInfo:{},
+        address:"",
+        tag:"",
+        shopid:0
+    },
+    created:{
+        
+        this.address = UrlHelper.getQueryString("address");
+        this.shopid = UrlHelper.getQueryString("shopid");
+        this.tag = this.address + this.shopid;
+        
+        setInterval(()=>{
+            this.queryMemberInfo();
+        },5000);
+        
+        
     },
     methods: {
-        callService:function(){
-            this.$message.success("call service");
-        },
         
         queryMemberInfo:function(){
+            
+            if(this.lock == false){
+                return false;
+            }
+            
+            let url = UrlHelper.createUrl("member","queryMemberInfoBytag");
+            
+            let params = {};
+            params.shopid = this.shopid;
+            params.address = this.address;
+            params.tag = this.tag;
+            
+            
+            axios.post(url,params)
+                    .then((res)=>{
+                        res = res.data;
+                        if(res.state == 0){
+                            this.memberInfo = res.obj;
+                            this.lock = false;
+                        }
+                    });
             
         },
         
         openWaterbar:function(){
+            let url = UrlHelper.createShortUrl("ckientsidebar");
+            
+            url += "&shopid=" + this.shopid;
+            url += "&address=" + this.address;
+            url += "&memberid=" + this.memberInfo.uid;
+            
+            mainForm.openContent(url);
             
         },
         
         leaveMsg:function(){
-            this.$message.success("leaveMsg");
+            
+            let params = {};
+            params.shopid = this.shopid;
+            params.address = this.address;
+            params.memberid = this.memberInfo.uid;
+            
+            let url = UrlHelper.createUrl("member","leaveMsg");
+            
+            axios.post(url,params)
+                    .then((res)=>{
+                        res = res.data;
+                if(res.state == 0){
+                    this.$message.success("留言成功");
+                }
+                else{
+                    this.$message.error(res.msg);
+                }
+            });
+            
         },
+        
+        callService:function(){
+            
+            let params = {};
+            params.shopid = this.shopid;
+            params.address = this.address;
+            params.memberid = this.memberInfo.uid;
+            
+            let url = UrlHelper.createUrl("member","callService");
+            
+            axios.post(url,params)
+                    .then((res)=>{
+                        res = res.data;
+                if(res.state == 0){
+                    this.$message.success("留言成功");
+                }
+                else{
+                    
+                }
+            });
+            
+        },
+                
         lock:function(){
-            this.$message.success("lock");
+            mainForm.lockScreen(""):
         },
         info:function(){
         }

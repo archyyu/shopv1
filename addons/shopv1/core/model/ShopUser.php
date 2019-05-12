@@ -22,6 +22,10 @@ class ShopUser extends Model{
         return $list;
     }
     
+    public function getShopUserById($userid){
+        return $this->getOne("*",['id'=>$userid]);
+    }
+    
     public function getUserMap($uniacid){
         $list = $this->getList('*',['uniacid'=>$uniacid]);
         $map = array();

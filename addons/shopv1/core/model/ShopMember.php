@@ -25,6 +25,10 @@ class ShopMember extends Model{
         return $this->save($data, ["uid"=>$uid]);
     }
     
+    public function queryMemberByUid($uid){
+        return $this->getOne("*", ['uid'=>$uid]);
+    }
+    
     public function quertyMember($uniacid,$phone){
         
         $where = array();

@@ -12,6 +12,15 @@ var app = new Vue({
         loading: false,
         isLogin: false
     },
+    created:function(){
+        
+        setInterval(()=>{
+            
+            this.queryPrintMsg();
+            
+        },5000);
+        
+    },
     methods: {
         login() {
             
@@ -34,8 +43,22 @@ var app = new Vue({
             });
         },
         
+        queryPrintMsg:function(){
+            
+            let url = UrlHelper.createUrl("order","queryPrintMsg");
+            
+            let params = Store.createParams();
+            
+            axios.post(url,params)
+                    .then((res)=>{
+                        res = res.data;
+                if(res.state == 0){
+                    printUtil.print(res.obj);
+                }
+                    });
+            
+        },
         
-
         tab(tab){
             console.log(tab);
             if(tab.$children[0].open){

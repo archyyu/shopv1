@@ -29,6 +29,15 @@ class RedisService extends Service{
         
     }
     
+    public function getMemberIdByTag($tag){
+        return $this->redis->get("tag:".$tag);
+    }
+    
+    public function setMemberid($tag,$memberid){
+        return $this->redis->set("tag:".$tag,$memberid);
+    }
+    
+    
     public function pushPrintMsg($order){
         
         $data = array();
@@ -44,6 +53,8 @@ class RedisService extends Service{
         return $this->redis->rPop("print:".$shopid);
         
     }
+    
+    
    
     public function pushNotify($shopid,$msg){
        

@@ -34,6 +34,8 @@ class OrderService extends Service{
     
     private $shopModel;
     
+    private $userModel;
+    
     private $redisService;
     
     private $cardModel;
@@ -47,6 +49,7 @@ class OrderService extends Service{
         $this->shopDuty = new \model\ShopDuty();
         $this->wechatAccount = new \model\WechatAccount();
         $this->shopModel = new \model\Shop();
+        $this->userModel = \model\ShopUser();
         $this->redisService = new RedisService();
         $this->cardModel = new \model\ShopMemberCard();
     }
@@ -163,14 +166,17 @@ class OrderService extends Service{
         }
         
         $order = $this->shopOrder->findOrderById($orderid);
-        $this->redisService->pushPrintMsg($order);
+        $this->printOrder($order);
         
     }
     
     public function printOrder($order){
         
-        //TODO
+        $order["shopname"] = $this->shopModel->findShopById($order['shopid'])["shopname"];
+        $order["username"] = $this->userModel->getShopUserById($order['userid'])['username'];
         
+        
+        $this->redisService->pushPrintMsg($order);
     }
     
     public function cancelOrder(){

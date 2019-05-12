@@ -244,4 +244,18 @@ class OrderController extends \controller\Controller{
         
     }
     
+    public function queryPrintMsg(){
+        
+        $shopid = $this->getParam("shopid");
+        
+        $obj = $this->redisService->popPrintMsg($shopid);
+        
+        if(isset($obj)){
+            $this->returnSuccess($obj);
+        }
+        else{
+            $this->returnFail("no");
+        }
+    }
+    
 }

@@ -27,6 +27,8 @@ class MobileController extends \controller\Controller{
     
     private $cardService;
     
+    private $redisService;
+    
     public function __construct() {
         parent::__construct();
         $this->cardService = new \service\CardService();
@@ -35,6 +37,7 @@ class MobileController extends \controller\Controller{
         $this->shopFansModel = new \model\ShopFans();
         $this->shopMemberModel = new \model\ShopMember();
         $this->shopCardActivity = new \model\ShopCardActivity();
+        $this->redisService = new \service\RedisService();
     }
     
     public function index(){
@@ -47,6 +50,18 @@ class MobileController extends \controller\Controller{
     public function getMemberInfo(){
         global $_W;
         return $this->returnSuccess($_W);
+    }
+    
+    
+    public function tag(){
+        global $_W;
+        $uid = $_W['uid'];
+        
+        $tag = $this->getParam("tag");
+        
+        $this->redisService->setMemberid($tag, $uid);
+        
+        exit("登陆成功");
     }
     
     
