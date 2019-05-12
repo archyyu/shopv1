@@ -34,6 +34,9 @@ class OrderService extends Service{
     
     private $shopModel;
     
+    private $redisService;
+    
+    
     public function __construct(){
         parent::__construct();
         $this->shopOrder = new ShopOrder();
@@ -42,6 +45,7 @@ class OrderService extends Service{
         $this->shopDuty = new \model\ShopDuty();
         $this->wechatAccount = new \model\WechatAccount();
         $this->shopModel = new \model\Shop();
+        $this->redisService = new RedisService();
     }
     
     //memberid => uid
@@ -56,7 +60,8 @@ class OrderService extends Service{
     
     
     
-    public function generateProductOrder($uniacid,$memberid,$userid,$shopid,$address,$productlist,$ordersource,$remark,$paytype){
+    public function generateProductOrder($uniacid,$memberid,$userid,$shopid,$address,$productlist,
+            $ordersource,$remark,$paytype,$membercardid){
         
         $order = array();
         $order['id'] = $this->generateOrderId();
@@ -73,6 +78,8 @@ class OrderService extends Service{
         $order['memberid'] = $memberid;
         $order['paytype'] = $paytype; 
         $order['orderdetail'] = json_encode($productlist);
+        
+        
         
         $price = 0;
         foreach($productlist as $key=>$value){
@@ -126,9 +133,16 @@ class OrderService extends Service{
             $this->productService->updateProdudctInventory($shopid, $value['productid'], $value['num'], OrderType::InventoryChangeOrderPay,"订单号".$orderid);
         }
         
+        $order = $this->shopOrder->findOrderById($orderid);
+        $this->redisService->pushPrintMsg($order);
+        
     }
     
-    
+    public function printOrder($order){
+        
+        //TODO
+        
+    }
     
     public function cancelOrder(){
         
