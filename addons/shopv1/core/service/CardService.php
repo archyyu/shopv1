@@ -47,7 +47,7 @@ class CardService extends Service{
             return ;
         }
         
-        for($i = 0;$i < num;$i++){
+        for($i = 0;$i < $num;$i++){
             
             $membercard = array();
             $membercard["cardtype"] = $cardtypeid;

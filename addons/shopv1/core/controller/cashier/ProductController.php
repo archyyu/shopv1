@@ -154,7 +154,7 @@ class ProductController extends \controller\Controller{
         $cardtypeid = $this->getParam("cardtypeid");
         $num = $this->getParam("num");
         
-        $member = $this->memberModel->quertyMember($uniacid, $phone);
+        $member = $this->memberModel->quertyMember(2, $phone);
         
         if(isset($member)){
             
