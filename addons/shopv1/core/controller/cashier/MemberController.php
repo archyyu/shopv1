@@ -17,9 +17,12 @@ class MemberController extends \controller\Controller{
     
     private $memberModel;
     
+    private $memberCardModel;
+    
     public function __construct() {
         parent::__construct();
         $this->memberModel = new \model\ShopMember();
+        $this->memberCardModel = new \model\ShopMemberCard();
     }
     
     public function queryMemberList(){
@@ -31,6 +34,14 @@ class MemberController extends \controller\Controller{
         
         $list = $this->memberModel->queryMemberList($where);
         $this->returnSuccess($list);
+    }
+    
+    public function getMemberList(){
+        
+        $memberid = $this->getParam("memberid");
+        $list = $this->memberCardModel->getMemberList($memberid);
+        $this->returnSuccess($list);
+        
     }
     
     public function updateMemberInfo(){

@@ -33,4 +33,10 @@ class ShopCardtype extends Model{
         }
     }
     
+    public function getCard($id){
+        
+        return $this->getOne("*", ['id'=>$id]);
+        
+    }
+    
 }

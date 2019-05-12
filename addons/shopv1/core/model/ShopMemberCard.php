@@ -31,6 +31,18 @@ class ShopMemberCard extends Model{
         return $this->add($data);
     }
     
+    public function getMemberCard($id){
+        return $this->getOne("*",['id'=>$id]);
+    }
+    
+    public function useMemberCard($id){
+        
+        $data = array();
+        $data["useflag"] = 1;
+        return $this->save($data, ['id'=>$id]);
+        
+    }
+    
     public function saveMemberCard($data){
         $id = $data["id"];
         unset($data['id']);

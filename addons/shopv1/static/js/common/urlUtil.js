@@ -18,32 +18,31 @@ var UrlUtil = {
   },
   
   createUrl: function (d, f) {
-        
-        let url = window.location.href;
+        let location = window.location;
+        let searchStr = window.location.search;
         let hrefreg = function (name) {
-          return new RegExp("(&)" + name + "=([^&]*)(&|$)", "i");
+          return new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
         };
         let urlreg = function (name) {
           return new RegExp(name, "i");
         };
         
         if (f) {
-          let oldf = window.location.search.substr(1).match(hrefreg('f'));
+          let oldf = location.search.substr(1).match(hrefreg('f'));
           let fArr = oldf[0].split("=");
-          fArr[1] = f + "&";
+          fArr[1] = fArr[1].indexOf("&")<0?f:f + "&";
           let newf = fArr.join("=");
-          url = url.replace(urlreg(oldf[0]), newf);
+          searchStr = searchStr.replace(urlreg(oldf[0]), newf);
         }
         
         if (d) {
-          let oldDo = window.location.search.substr(1).match(hrefreg('do'));
+          let oldDo = location.search.substr(1).match(hrefreg('do'));
           let doArr = oldDo[0].split("=");
-          doArr[1] = d + "&";
+          doArr[1] = doArr[1].indexOf("&")<0?d:d + "&";
           let newDo = doArr.join("=");
-          url = url.replace(urlreg(oldDo[0]), newDo);
+          searchStr = searchStr.replace(urlreg(oldDo[0]), newDo);
         }
-        
-        return url;
+        return location.origin + location.pathname + searchStr;
       },
     
     getWebBaseUrl:function(){

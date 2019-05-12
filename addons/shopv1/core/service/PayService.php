@@ -29,6 +29,7 @@ class PayService extends Service{
     
     private $shopModel;
     
+    
     public function __construct() {
         parent::__construct();
         $this->wechatAccount = new \model\WechatAccount();
