@@ -15,7 +15,7 @@ namespace model;
  */
 class ShopMessage extends Model{
     
-    private $table = "shopv1_message";
+    protected $table = "shopv1_message";
     
     public function addMsg($data){
         $this->add($data);
