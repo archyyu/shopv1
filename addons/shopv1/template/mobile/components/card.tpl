@@ -44,7 +44,10 @@
                     <div class="my-popup-content">
                         <cube-form
                             :model="cardModel"
-                            :schema="cardForm"></cube-form>
+                            :schema="cardForm"
+                            ref="sendCardForm"
+                            @submit="submitCard"></cube-form>
+                            <cube-button @click="{{$refs.sendCardForm.submit(true)}}">发送卡券</cube-button>
                     </div>
                 </div>
             </cube-popup>
@@ -97,10 +100,6 @@ Vue.component('card', {
                         props: {
                             placeholder: '请填写卡券数量'
                         }
-                    },
-                    {
-                        type: 'submit',
-                        label: '发送卡券'
                     }
                 ]
             }
@@ -135,6 +134,10 @@ Vue.component('card', {
         },
         closeSendCard:function(){
             this.$refs.sendCardPopup.hide();
+        },
+        submitCard: function(e,model){
+            
+            console.log(e,model)
         },
 
         showQrcode:function(){
