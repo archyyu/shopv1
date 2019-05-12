@@ -23,7 +23,7 @@ body {
   height: 100%;
 }
 
-.el-scrollbar .el-scrollbar__wrap {
+.el-scrollbar .el-scrollbar__wrap:not(.el-select-dropdown__wrap) {
   overflow-x: hidden;
 }
 
