@@ -23,6 +23,7 @@ class ShopMemberCard extends Model{
         $where = array();
         $where['uid'] = $uid;
         $where["useflag"] = $useflag;
+        $where["expiretime[<]"] = time();
         
         return $this->getList("*", $where);
     }
@@ -39,8 +40,8 @@ class ShopMemberCard extends Model{
         
         $data = array();
         $data["useflag"] = 1;
+        $data["usetime"] = time();
         return $this->save($data, ['id'=>$id]);
-        
     }
     
     public function saveMemberCard($data){

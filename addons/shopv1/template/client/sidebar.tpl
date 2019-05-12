@@ -9,17 +9,17 @@
                     <div class="avatar"><img src="http://placehold.it/90x90"></div>
                     <div class="name">
                         <div>
-                            <p>尊敬的 </p>
-                            <p>姓名：</p>
+                            <p>尊敬的{{memberInfo.membertype}}</p>
+                            <p>姓名：{{memberInfo.membername}}</p>
                         </div>
                     </div>
                 </div>
             </div>
             <div class="line2">
                 <div class="onlineInfo">
-                        <p><span>8888</span>积分</p>
+                        <p><span>{{memberInfo.credit2}}</span>积分</p>
                         <p><span>00:00</span>上机时间</p>
-                        <p><span>888 元</span>钱包余额</p>
+                        <p><span>{{memberInfo.credit1}} 元</span>钱包余额</p>
                 </div>
             </div>
         </div>
@@ -37,17 +37,17 @@
                 <p>购买饮品</p>
             </a>
         </div>
-        {*<div v-if="!lock">
+        <div v-if="!lock">
             <div class="line3">
                 <div class="scancode">
                 </div>
             </div>
-        </div>*}
-        {*<div v-if="lock">
+        </div>
+        <div v-if="lock">
             <div class="lock2">
                 <img src="{$StaticRoot}/img/client/lock_text.png">
             </div>
-        </div>*}
+        </div>
         <div class="line4">
             <div>
                 <a><span class="iconfont" @click="callService">&#xe63b;</span> 呼叫网管</a>
@@ -62,21 +62,19 @@
 var app = new Vue({
     el: '#app',
     data:{
-        lock: false,
+        lock: true,
         memberInfo:{},
     },
     methods: {
         callService:function(){
-            
-            //let url = UrlHelper.createUrl("product","call");
-            
             this.$message.success("call service");
-            
         },
         
         queryMemberInfo:function(){
             
-            
+        },
+        
+        openWaterbar:function(){
             
         },
         

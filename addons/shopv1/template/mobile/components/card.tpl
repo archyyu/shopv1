@@ -28,7 +28,7 @@
                                 <td>{{cardtype.exchange/100}}元</td>
                                 <td>{{cardtype.effectiveday}}天</td>
                                 <td>{{cardtype.effectiveprice/100}}元</td>
-                                <td><cube-button @click="sendCard">发放</cube-button></td>
+                                <td><cube-button @click="sendCard(cardtype)">发放</cube-button></td>
                             </tr>
                         </tbody>
                     </table>
@@ -43,10 +43,11 @@
                     </div>
                     <div class="my-popup-content">
                         <cube-form
+                            
                             :model="cardModel"
                             :schema="cardForm"
                             ref="sendCardForm"
-                            @submit="submitCard"></cube-form>
+                            @submit="sendMemberCard"></cube-form>
                             <cube-button @click="{{$refs.sendCardForm.submit(true)}}">发送卡券</cube-button>
                     </div>
                 </div>
@@ -79,9 +80,10 @@ Vue.component('card', {
             DateUtil:DateUtil,
             cardTypeList: [],
             qrcodeurl: "www.baidu.com",
+            cardtype:{},
             cardModel: {
                 phone: "",
-                num: "",
+                num: 1,
             },
             cardForm: {
                 fields: [
@@ -129,15 +131,34 @@ Vue.component('card', {
                         });
             
         }, 
-        sendCard:function(){
+        sendCard:function(cardtype){
+            this.cardtype = cardtype;
             this.$refs.sendCardPopup.show();
         },
+        
+        sendMemberCard:function(e,model){
+            
+            let url = UrlUtil.createUrl("product","sendMemberCard");
+            let params = Store.createParams();
+            params.phone = this.cardModel.phone;
+            params.num = this.cardModel.num;
+            params.cardtypeid = this.cardtype.id;
+            
+            axios.post(url,params)
+                    .then((res)=>{
+                        res = res.data;
+                        if(res.state == 0){
+                            Toast.success("发送成功");
+                        }
+                        else{
+                            Toast.error(res.msg);
+                        }
+                    });
+            
+        },
+        
         closeSendCard:function(){
             this.$refs.sendCardPopup.hide();
-        },
-        submitCard: function(e,model){
-            
-            console.log(e,model)
         },
 
         showQrcode:function(){
