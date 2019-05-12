@@ -17,6 +17,8 @@ class ShopMessage extends Model{
     
     protected $table = "shopv1_message";
     
+    //columns id uniacid shopid uid createtime address content state
+    
     public function addMsg($data){
         $this->add($data);
     }
