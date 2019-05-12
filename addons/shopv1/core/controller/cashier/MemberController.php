@@ -21,11 +21,17 @@ class MemberController extends \controller\Controller{
     
     private $redisService;
     
+    private $memberTagModel;
+    
+    private $memberMessage;
+    
     public function __construct() {
         parent::__construct();
         $this->memberModel = new \model\ShopMember();
         $this->memberCardModel = new \model\ShopMemberCard();
         $this->redisService = new \service\RedisService();
+        $this->memberTagModel = new \model\ShopMemberTag();
+        $this->memberMessage = new \model\ShopMessage();
     }
     
     public function queryMemberList(){
@@ -33,11 +39,25 @@ class MemberController extends \controller\Controller{
         $uniacid = $this->getUniacid();
         
         $where = array();
-        $where["uniacid"] = 2;
+        $where["uniacid"] = $uniacid;
         
         $list = $this->memberModel->queryMemberList($where);
         $this->returnSuccess($list);
     }
+    
+    //TODO
+    public function queryMemberInfo(){
+        
+        $uid = $this->getParam("uid");
+        
+        $obj = $this->memberModel->queryMemberByUid($uid);
+        $obj["taglist"] = $this->memberTagModel->getMemberTaglist($uid);
+        
+        $this->returnSuccess($obj);
+        
+    }
+    
+    
     
     public function getMemberCardList(){
         
@@ -74,11 +94,32 @@ class MemberController extends \controller\Controller{
         $address = $this->getParam("address");
         
         $msg = $address."呼叫网管";
-        //TODO
+        
+        $this->redisService->pushNotify($shopid, $msg);
+        
+        $this->returnSuccess();
+        
     }
     
     public function leaveMsg(){
-        //TODO
+        //columns id uniacid shopid uid createtime address content state
+        
+        $shopid = $this->getParam("shopid");
+        $uid = $this->getParam("uid");
+        $address = $this->getParam("address");
+        $content = $this->getParam("content");
+        
+        $data = array();
+        $data["shopid"] = $shopid;
+        $data["uid"] = $uid;
+        $data["createtime"] = time();
+        $data["address"] = $address;
+        $data["content"] = $content;
+        
+        $this->memberMessage->addMsg($data);
+        
+        $this->returnSuccess();
+        
     }
     
     public function updateMemberInfo(){
@@ -98,6 +139,35 @@ class MemberController extends \controller\Controller{
         else{
             $this->returnFail("修改失败");
         }
+    }
+    
+    public function addMemberTag(){
+        
+        $uid = $this->getParam("memberid");
+        $tag = $this->getParam("tag");
+        
+        $member = $this->memberModel->queryMemberByUid($uid);
+        
+        $data = array();
+        $data['memberid'] = $uid;
+        $data['tag'] = $tag;
+        $data['uniacid'] = $member['uniacid'];
+        $data['tagtype'] = 0;
+        
+        $this->memberTagModel->addMemberTag($data);
+        
+        $this->returnSuccess();
+        
+    }
+    
+    public function removeMemberTag(){
+        
+        $tagid = $this->getParam("tag");
+        
+        $this->memberTagModel->removeMemberTag($tagid);
+        
+        $this->returnSuccess();
+        
     }
     
 }

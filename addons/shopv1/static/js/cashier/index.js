@@ -52,9 +52,10 @@ var app = new Vue({
             axios.post(url,params)
                     .then((res)=>{
                         res = res.data;
-                if(res.state == 0){
-                    printUtil.print(res.obj);
-                }
+                        console.log(res);
+                        if(res.state == 0){
+                            printUtil.print(res.obj.obj);
+                        }
                     });
             
         },
