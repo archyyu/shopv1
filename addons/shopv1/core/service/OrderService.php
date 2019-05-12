@@ -36,6 +36,8 @@ class OrderService extends Service{
     
     private $redisService;
     
+    private $cardModel;
+    
     
     public function __construct(){
         parent::__construct();
@@ -46,6 +48,7 @@ class OrderService extends Service{
         $this->wechatAccount = new \model\WechatAccount();
         $this->shopModel = new \model\Shop();
         $this->redisService = new RedisService();
+        $this->cardModel = new \model\ShopMemberCard();
     }
     
     //memberid => uid
@@ -61,7 +64,15 @@ class OrderService extends Service{
     
     
     public function generateProductOrder($uniacid,$memberid,$userid,$shopid,$address,$productlist,
-            $ordersource,$remark,$paytype,$membercardid){
+            $ordersource,$remark,$paytype,$membercardid = 0){
+        
+        $membercard = null;
+        
+        if($membercardid != 0){
+            
+            $membercard = $this->cardModel->getMemberCard($membercard);
+            
+        }
         
         $order = array();
         $order['id'] = $this->generateOrderId();
@@ -83,7 +94,23 @@ class OrderService extends Service{
         
         $price = 0;
         foreach($productlist as $key=>$value){
-            $price += $value['price']*$value['num']*100;
+            
+            $discount = 100;
+            
+            if($membercard){
+                $discount = $membercard['discount'];
+            }
+            
+            
+            $price += ($value['price']*$value['num']*100)*($discount/100);
+            
+            
+        }
+        
+        if($membercard){
+            
+            $price -= $membercard['exchange'];
+            
         }
         
         $order['orderprice'] = $price;
@@ -92,6 +119,10 @@ class OrderService extends Service{
         if($orderResult == false){
             logError("create order error");
             return false;
+        }
+        
+        if($membercard){
+            $this->cardModel->useMemberCard($membercardid);
         }
         
         foreach ($productlist as $key=>$value){
@@ -105,6 +136,8 @@ class OrderService extends Service{
             $this->shopOrderProduct->addOrderProduct($orderProduct);
             
         }
+        
+        
         
         return $order['id'];
     }

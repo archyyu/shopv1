@@ -35,6 +35,10 @@ class ProductController extends \controller\Controller{
     
     private $bannerModel;
     
+    private $memberModel;
+    
+    private $cardService;
+    
     public function __construct() {
         parent::__construct();
         $this->productService = new ProductService();
@@ -45,6 +49,8 @@ class ProductController extends \controller\Controller{
         $this->shopStockProduct = new \model\ShopStockProduct();
         $this->cardTypeModel = new \model\ShopCardtype();
         $this->bannerModel = new \model\ShopBanner();
+        $this->memberModel = new \model\ShopMember();
+        $this->cardService = new \service\CardService();
     }
     
     public function index(){
@@ -137,6 +143,31 @@ class ProductController extends \controller\Controller{
         $cardTypeList = $this->cardTypeModel->getCardTypeList($uniacid);
         $this->returnSuccess($cardTypeList);
     }
+    
+    
+    public function sendMemberCard(){
+        
+        $uniacid = $this->getUniacid();
+        $userid = $this->getParam("userid");
+        $phone = $this->getParam("phone");
+        $cardtypeid = $this->getParam("cardtypeid");
+        $num = $this->getParam("num");
+        
+        $member = $this->memberModel->quertyMember($uniacid, $phone);
+        
+        if(isset($member)){
+            
+            $this->cardService->sendMemberCard($userid, $cardtypeid, $member['uid'],$num);
+            
+            $this->returnSuccess();
+            
+        }
+        else{
+            $this->returnFail("没有这个用户");
+        }
+        
+    }
+    
     
     public function mobilewaterbar(){
         
