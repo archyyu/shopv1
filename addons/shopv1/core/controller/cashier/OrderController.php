@@ -25,6 +25,10 @@ class OrderController extends \controller\Controller{
     
     private $wechatModel;
     
+    private $redisService;
+    
+    
+    
     public function __construct() {
         parent::__construct();
         $this->productTypeModel = new \model\ShopProductType();
@@ -32,6 +36,7 @@ class OrderController extends \controller\Controller{
         $this->payService = new \service\PayService();
         $this->orderModel = new \model\ShopOrder(); 
         $this->wechatModel = new \model\WechatAccount();
+        $this->redisService = new \service\RedisService();
     }
     
     public function createOrder(){
@@ -134,7 +139,7 @@ class OrderController extends \controller\Controller{
             exit("success");
         }
         else{
-            exit("erro");
+            exit("error");
         }
     }
     
@@ -212,6 +217,25 @@ class OrderController extends \controller\Controller{
         }
         
         $this->returnSuccess($list);
+    }
+    
+    public function callService(){
+        
+        $shopid = $this->getParam("shopid");
+        $uid = $this->getParam("uid");
+        $address = $this->getParam("address");
+        
+        $msg = $address + "需要网管服务";
+        
+        $this->redisService->pushNotify($shopid, $msg);
+        
+        $this->returnSuccess();
+    }
+    
+    public function leaveMsg(){
+        
+        
+        
     }
     
 }

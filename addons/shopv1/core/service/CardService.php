@@ -33,24 +33,39 @@ class CardService extends Service{
         
     }
     
-    public function memberGetCardFromActivity($activity,$uid,$userid){
+    public function getMemberCardList($memberid){
         
-        $activity["cardtype"];
-        
-        $activity["num"] += 1;
-        
-        
-        
-        $membercard = array();
-        $membercard["cardtype"] = $activity["cardtype"];
-        $membercard["activityid"] = $activity['id'];
-        $membercard["userid"] = $userid;
-        $membercard["uid"] = $uid;
-        $membercard['gettime'] = time();
-        
-        $this->memberCardModel->addMemberCard($membercard);
-        $this->cardActivityModel->updateActivity($activity);
+        $list = $this->memberCardModel->getMemberList($memberid);
+        return $list;
         
     }
+    
+    public function sendMemberCard($userid,$cardtypeid,$uid,$num = 1){
+        
+        $card = $this->cardTypeModel->getCard($cardtypeid);
+        if(isset($card) == FALSE){
+            return ;
+        }
+        
+        for($i = 0;$i < num;$i++){
+            
+            $membercard = array();
+            $membercard["cardtype"] = $cardtypeid;
+            $membercard['senduserid'] = $userid;
+            $membercard['memberid'] = $uid;
+            $membercard['gettime'] = time();
+            $membercard['cardname'] = $card['cardname'];
+            $membercard['expiretime'] = $membercard['gettime'] + ($card['effectiveday']*24*60*60);
+            $membercard['exchange'] = $card["exchange"];
+            $membercard['discount'] = $card["discount"];
+            $membercard['typeid'] = $card['typeid'];
+            $membercard['productid'] = $card['productid'];
+            
+            $this->memberCardModel->addMemberCard($membercard);
+            
+        }
+        
+    }
+    
     
 }
