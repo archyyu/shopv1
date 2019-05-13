@@ -54,7 +54,7 @@ Vue.component('count', {
         return {
             productInventory: [],
             warehouseList: [],
-            selectWarehouse: 0
+            selectWarehouse: 0,
         };
     },
     created() {

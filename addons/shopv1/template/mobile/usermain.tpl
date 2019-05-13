@@ -13,7 +13,7 @@
             <cube-tab-panel label="mine">
                 <mine></mine>
             </cube-tab-panel>
-            <cube-tab-panel label="cardList">
+            <cube-tab-panel label="cardList"> 
                 card list
             </cube-tab-panel>
         </cube-tab-panels>
