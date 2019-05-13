@@ -9,7 +9,7 @@ var UrlUtil = {
     return null;
   },
 
-  createWebUrl: function (doing, func) {
+  createWebUrl: function (func, doing) {
     return UrlUtil.createUrl(func,doing);
   },
   
