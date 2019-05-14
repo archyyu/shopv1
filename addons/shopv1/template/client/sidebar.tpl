@@ -1,5 +1,5 @@
 {include file="./common/header.tpl"}
-
+{literal}
 <div id="app">
     <div class="sidebar">
         <h4>{{address}}</h4>
@@ -45,16 +45,52 @@
         </div>
         <div v-if="lock">
             <div class="lock2">
+                {/literal}
                 <img src="{$StaticRoot}/img/client/lock_text.png">
+                {literal}
             </div>
         </div>
         <div class="line4">
             <div>
                 <a><span class="iconfont" @click="callService">&#xe63b;</span> 呼叫网管</a>
-                <a><span class="iconfont" @click="leaveMsg">&#xe63c;</span> 留言</a>
-                <a><span class="iconfont" @click="lock">&#xe661;</span> 挂机</a>
+                <a><span class="iconfont" @click="showMsg">&#xe63c;</span> 留言</a>
+                <a><span class="iconfont" @click="showLock">&#xe661;</span> 挂机</a>
             </div>
         </div>
+        <el-dialog
+            title="留言"
+            :visible.sync="msgDialog"
+            width="280px"
+            :before-close="handleClose">
+            <div class="msg-content">
+                <el-input type="textarea" :rows="3" v-model="msgText"></el-input>
+            </div>
+            <span slot="footer">
+                <!-- <p>最多输入40字</p> -->
+                <el-button type="default" round @click="msgDialog = false">关闭</el-button>
+                <el-button type="primary" round @click="leaveMsg">提交</el-button>
+            </span>
+        </el-dialog>
+        <el-dialog
+            title="锁屏"
+            :visible.sync="lockDialog"
+            width="280px"
+            :before-close="handleClose">
+            <div class="lock-content">
+                <el-form ref="form" :model="form" label-width="80px">
+                    <el-form-item label="锁屏密码">
+                      <el-input v-model="lock.password"></el-input>
+                    </el-form-item>
+                    <el-form-item label="确认密码">
+                      <el-input v-model="lock.confirmPassword"></el-input>
+                    </el-form-item>
+                </el-form>
+            </div>
+            <span slot="footer" class="dialog-footer">
+                <el-button @click="lockDialog = false">取 消</el-button>
+                <el-button type="primary" @click="lock">确 定</el-button>
+            </span>
+        </el-dialog>
     </div>
 </div>
 
@@ -66,9 +102,16 @@ var app = new Vue({
         memberInfo:{},
         address:"",
         tag:"",
-        shopid:0
+        shopid:0,
+        msgDialog: false,
+        lockDialog: false,
+        msgText: '',
+        lock: {
+            password: '',
+            confirmPassword: ''
+        }
     },
-    created:{
+    created: function(){
         
         this.address = UrlHelper.getQueryString("address");
         this.shopid = UrlHelper.getQueryString("shopid");
@@ -117,6 +160,10 @@ var app = new Vue({
             mainForm.openContent(url);
             
         },
+
+        showMsg: function(){
+            this.msgDialog = true;
+        },
         
         leaveMsg:function(){
             
@@ -128,14 +175,14 @@ var app = new Vue({
             let url = UrlHelper.createUrl("member","leaveMsg");
             
             axios.post(url,params)
-                    .then((res)=>{
-                        res = res.data;
-                if(res.state == 0){
-                    this.$message.success("留言成功");
-                }
-                else{
-                    this.$message.error(res.msg);
-                }
+            .then((res)=>{
+                res = res.data;
+            if(res.state == 0){
+                this.$message.success("留言成功");
+            }
+            else{
+                this.$message.error(res.msg);
+            }
             });
             
         },
@@ -150,8 +197,9 @@ var app = new Vue({
             let url = UrlHelper.createUrl("member","callService");
             
             axios.post(url,params)
-                    .then((res)=>{
-                        res = res.data;
+            .then((res)=>{
+                msgDialog = false;
+                res = res.data;
                 if(res.state == 0){
                     this.$message.success("留言成功");
                 }
@@ -161,14 +209,19 @@ var app = new Vue({
             });
             
         },
+
+        showLock:function(){
+            this.lockDialog = true;
+        },
                 
         lock:function(){
-            mainForm.lockScreen(""):
+            mainForm.lockScreen("");
+            lockDialog = false
         },
         info:function(){
         }
     }
 });
 </script>
-
+{/literal}
 {include file="./common/footer.tpl"}
