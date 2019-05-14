@@ -21,7 +21,7 @@
                         <li class="food-item" v-for="o in productlist">
                             <div class="icon"><img :src="getImgUrl(o)">
                             </div>
-                            <div class="food-content" @click="addCart(o.id,o.productname,o.memberprice,o.inventory)">
+                            <div class="food-content" @click="addCart(o.id,o.productname,o.memberprice,o.inventory,o.make,o.typeid)">
                                 <h2 class="name">{{o.productname}}</h2>
                                 <p class="description"></p>
                                 <div class="price">
@@ -54,9 +54,9 @@
                                     <div class="pro-title">{{item.productname}}</div>
                                     <div class="pro-price">￥{{(item.price*item.num).toFixed(2)}}</div>
                                     <div class="pro-num">
-                                        <cube-button  :inline="true" :outline="true" @click="{{item.num>0?item.num--:0}}">-</cube-button>
+                                        <cube-button  :inline="true" :outline="true" @click="cartDeduct(cart.productid)">-</cube-button>
                                         <span>{{item.num}}</span>
-                                        <cube-button  :inline="true" :outline="true" @click="{{item.num++}}">+</cube-button>
+                                        <cube-button  :inline="true" :outline="true" @click="cartAdd(cart.productid)">+</cube-button>
                                     </div>
                                 </li>
                             </ul>
@@ -164,15 +164,35 @@ Vue.component('waterbar', {
                 });
         },
         
-        subCart:function(productid){
+        
+        cartAdd:function(productid){
+        
+            
+            for (var i = 0; i < this.cartlist.length; i++) {
+                if (this.cartlist[i].productid == productid) {
+                    this.cartlist[i].num += 1;
+                    this.cartlist[i].price += this.cartlist[i].price;
+                    return;
+                }
+            }
             
         },
         
-        incCart:function(productid){
-            
+        cartDeduct:function(productid){
+            for (var i = 0; i < this.cartlist.length; i++) {
+                if (this.cartlist[i].productid == productid) {
+                    this.cartlist[i].num -= 1;
+                    
+                    if(this.cartlist[i].num == 0){
+                        this.cartlist.splice(i);
+                    }
+                    
+                    return;
+                }
+            }
         },
         
-        addCart: function (productid, productname, price,inventory) {
+        addCart: function (productid, productname, price,inventory,make,typeid) {
 
             if(this.orderState != -1){
                 this.orderState = -1;
@@ -199,6 +219,8 @@ Vue.component('waterbar', {
             cart.num = 1;
             cart.price = price / 100;
             cart.productname = productname;
+            cart.make = make;
+            cart.typeid = typeid;
             this.cartlist.push(cart);
             
         },

@@ -67,8 +67,8 @@
                 <div class="col-sm-8">
                   <select name="make" class="form-control selectpicker">
                     <option value="0">请选择</option>
-                    <option value="1">厨房制作</option>
-                    <option value="2">水吧制作</option>
+                    <option value="1">水吧制作</option>
+                    <option value="2">厨房制作</option>
                   </select>
                 </div>
               </div>

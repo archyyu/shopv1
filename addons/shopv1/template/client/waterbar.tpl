@@ -22,7 +22,7 @@
             <div class="product">
                 <el-scrollbar>
                     <div class="product-item" v-for="o in productlist">
-                        <div class="pro_img" @click="addCart(o.id,o.productname,o.memberprice,o.inventory)"> <img :src="getImgUrl(o)"> </div>
+                        <div class="pro_img" @click="addCart(o.id,o.productname,o.memberprice,o.inventory,o.make,o.typeid)"> <img :src="getImgUrl(o)"> </div>
                         <div class="pro_title">
                             <p title="西瓜汁">{{o.productname}}<span><em> ￥{{o.memberprice/100}} </em></span></p>
                         </div>
@@ -65,9 +65,9 @@
                                 <p>{{item.productname}}</p>
                                 <div class="product_num">
                                     <p>
-                                        <el-button type="text" @click="{{item.num>0?item.num--:0}}">&lt;</el-button>
+                                        <el-button type="text" @click="cartDeduct(cart.productid)">&lt;</el-button>
                                         <span>{{item.num}}</span>
-                                        <el-button type="text" @click="{{item.num++}}">&gt;</el-button>
+                                        <el-button type="text" @click="cartAdd(cart.productid)">&gt;</el-button>
                                     </p>
                                 </div>
                             </div>
@@ -321,7 +321,31 @@ var app = new Vue({
                 });
         },
         
-        addCart: function (productid, productname, price,inventory) {
+        cartAdd:function(productid){
+            
+            for (var i = 0; i < this.cartlist.length; i++) {
+                if (this.cartlist[i].productid == productid) {
+                    this.cartlist[i].num += 1;
+                    this.cartlist[i].price += this.cartlist[i].price;
+                    return;
+                }
+            }
+        },
+        
+        cartDeduct:function(productid){
+            for (var i = 0; i < this.cartlist.length; i++) {
+                if (this.cartlist[i].productid == productid) {
+                    this.cartlist[i].num -= 1;
+                    
+                    if(this.cartlist[i].num == 0){
+                        this.cartlist.splice(i);
+                    }
+                    return;
+                }
+            }
+        },
+        
+        addCart: function (productid, productname, price,inventory,make,typeid) {
 
             if(this.orderState != -1){
                 this.orderState = -1;
@@ -348,6 +372,8 @@ var app = new Vue({
             cart.num = 1;
             cart.price = price / 100;
             cart.productname = productname;
+            cart.make = make;
+            cart.typeid = typeid;
             this.cartlist.push(cart);
             
         },

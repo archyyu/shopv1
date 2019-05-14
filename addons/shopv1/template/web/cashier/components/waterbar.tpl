@@ -26,7 +26,7 @@
                     </div>
                     <el-row class="product-wrap">
                         <el-col :sm="8" :md="6" class="product-item" v-for="product in productlist" :class="{'less-item':product.inventory <= 0}">
-                            <div v-on:click='addCart(product.id,product.productname,product.memberprice,product.inventory)'>
+                            <div v-on:click='addCart(product.id,product.productname,product.memberprice,product.inventory,product.make,product.typeid)'>
                                 <h5>{{product.productname}}</h5>
                                 <p class="lack-pro"></p>
                                 <p class="pro-price">
@@ -252,18 +252,6 @@ Vue.component('waterbar', {
             this.cartlist = [];
         },
         
-        cartAdd:function(productid){
-        
-            
-            for (var i = 0; i < this.cartlist.length; i++) {
-                if (this.cartlist[i].productid == productid) {
-                    this.cartlist[i].num += 1;
-                    this.cartlist[i].price += this.cartlist[i].price;
-                    return;
-                }
-            }
-            
-        },
         
         queryOrderState:function(){
             
@@ -288,6 +276,18 @@ Vue.component('waterbar', {
                 });
         },
         
+        
+        cartAdd:function(productid){
+            
+            for (var i = 0; i < this.cartlist.length; i++) {
+                if (this.cartlist[i].productid == productid) {
+                    this.cartlist[i].num += 1;
+                    this.cartlist[i].price += this.cartlist[i].price;
+                    return;
+                }
+            }
+        },
+        
         cartDeduct:function(productid){
             for (var i = 0; i < this.cartlist.length; i++) {
                 if (this.cartlist[i].productid == productid) {
@@ -296,13 +296,12 @@ Vue.component('waterbar', {
                     if(this.cartlist[i].num == 0){
                         this.cartlist.splice(i);
                     }
-                    
                     return;
                 }
             }
         },
         
-        addCart: function (productid, productname, price,inventory) {
+        addCart: function (productid, productname, price,inventory,make,typeid) {
 
             if(this.orderState != -1){
                 this.orderState = -1;
@@ -329,6 +328,8 @@ Vue.component('waterbar', {
             cart.num = 1;
             cart.price = price / 100;
             cart.productname = productname;
+            cart.make = make;
+            cart.typeid = typeid;
             this.cartlist.push(cart);
         },
         
@@ -420,8 +421,8 @@ Vue.component('waterbar', {
                         console.log(res);
                         if(res.state == 0){
                             let product = res.obj;
-                            this.addCart(product.id,product.productname,product.memberprice,product.inventory);
-                            //(productid, productname, price,inventory)
+                            this.addCart(product.id,product.productname,product.memberprice,product.inventory,product.make,product.typeid);
+                            
                         }
                         else{
                             this.$message.error("商品不存在");
