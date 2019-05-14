@@ -83,16 +83,16 @@
                                     <el-col :span="24">合计：{{getCartSum()}} 元</el-col>
                                 </el-row>
                                 <el-row class="pay-ways">
-                                    <el-col @click.native="createOrder(0)" :span="8" class="cashpay">
+                                    <el-col @click.native="createOrder(0)" :span="6" class="cashpay">
                                         <iconfont>&#xe6d1;</iconfont> 现金
                                     </el-col>
-                                    <el-col @click.native="createOrder(1)" :span="8" class="weipay">
+                                    <el-col @click.native="createOrder(1)" :span="6" class="weipay">
                                         <iconfont>&#xe669;</iconfont> 微信
                                     </el-col>
-                                    <el-col @click.native="createOrder(2)" :span="8" class="alipay">
+                                    <el-col @click.native="createOrder(2)" :span="6" class="alipay">
                                         <iconfont>&#xe666;</iconfont> 支付宝
                                     </el-col>
-                                    <el-col @click.native="waitScan()" :span="8" class="alipay">
+                                    <el-col @click.native="waitScan()" :span="6" class="alipay">
                                         <iconfont>&#xe666;</iconfont> 扫码
                                     </el-col>
                                 </el-row>
@@ -163,7 +163,8 @@ Vue.component('waterbar', {
             orderid:"12365",
             attribute: '1' ,
             address:'',
-            qrcodeurl:''
+            qrcodeurl:'',
+            cartMain: true,
         };
     },
     created: function () {
