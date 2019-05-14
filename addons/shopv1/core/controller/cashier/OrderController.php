@@ -250,7 +250,7 @@ class OrderController extends \controller\Controller{
         
         $obj = $this->redisService->popPrintMsg($shopid);
         
-        if(isset($obj)){
+        if($obj){
             $this->returnSuccess($obj);
         }
         else{

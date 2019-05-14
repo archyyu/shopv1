@@ -40,11 +40,7 @@ class RedisService extends Service{
 
     public function pushPrintMsg($order){
 
-        $data = array();
-        $data["type"] = "print";
-        $data["obj"] = $order;
-
-        $this->redis->lPush("print:".$order["shopid"], json_encode($data));
+        $this->redis->lPush("print:".$order["shopid"], json_encode($order));
 
     }
 

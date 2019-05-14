@@ -475,7 +475,7 @@ var Inventory = {
           if(data.state == 0){
               obj.success(data.obj);
               
-          }  
+          }
           else{
               Tips.failTips(data.msg);
           }

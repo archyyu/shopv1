@@ -16,7 +16,7 @@ var app = new Vue({
         
         setInterval(()=>{
             
-            //this.queryPrintMsg();
+            this.queryPrintMsg();
             
         },5000);
         
@@ -54,7 +54,7 @@ var app = new Vue({
                         res = res.data;
                         console.log(res);
                         if(res.state == 0){
-                            printUtil.print(res.obj.obj);
+                            cashier.printOrder(res.obj);
                         }
                     });
             

@@ -22,7 +22,7 @@
                 </el-col>
                 <el-col :span="14" class="sale-product">
                     <div class="product-title">商品列表
-                        <el-button type="primary" size="mini" plain>打开钱箱</el-button>
+                        <el-button type="primary" size="mini" @click="openCash" plain>打开钱箱</el-button>
                     </div>
                     <el-row class="product-wrap">
                         <el-col :sm="8" :md="6" class="product-item" v-for="product in productlist" :class="{'less-item':product.inventory <= 0}">
@@ -429,7 +429,10 @@ Vue.component('waterbar', {
                     });
             
         },
-                                
+        
+        openCash:function(){
+            cashier.openCashBox();
+        },
         
         info:function(){
         }
