@@ -1,4 +1,4 @@
-$mainColor: #409EFF;
+$mainColor: #283444;
 
 @mixin waterbar-title {
   height: 30px;
@@ -23,6 +23,7 @@ body,
   border-bottom-width: 0;
   margin-bottom: 0;
   height: 70px;
+  background-color: #283444;
 
   .el-tabs__nav {
     border-width: 0 !important;
@@ -35,9 +36,15 @@ body,
     line-height: inherit;
     width: 97px;
     text-align: center;
-
+    color: #ffffff;
+    &.is-top{
+      border-left: none;
+    }
     &:last-child {
-      border-right: 1px solid #e4e7ed;
+      // border-right: 1px solid #e4e7ed;
+    }
+    &.is-active{
+      color: #fcba48;
     }
 
     >span {
@@ -86,6 +93,30 @@ body,
 
   .el-scrollbar__wrap {
     overflow-x: hidden;
+  }
+}
+
+// custum style
+.el-radio-button__orig-radio:checked + .el-radio-button__inner{
+  background-color: #283444;
+}
+.el-radio-button__inner:hover{
+  color: #283444;
+}
+.el-tabs__content{
+  .el-button--primary {
+  background-color:$mainColor;
+  border-color:$mainColor
+  }
+  .el-button--primary:focus,
+  .el-button--primary:hover {
+  background:#4f647f;
+  border-color:#4f647f;
+  }
+  .el-button--primary.is-active,
+  .el-button--primary:active {
+  background:#4f647f;
+  border-color:#4f647f;
   }
 }
 
@@ -223,6 +254,9 @@ body,
           float: right;
           padding-bottom: 5px;
           padding-top: 5px;
+          color: $mainColor;
+          border: 1px solid $mainColor;
+          background-color: #e0e0e0;
         }
       }
 
@@ -395,7 +429,7 @@ body,
           }
 
           .pay-sum {
-            background-color: #F2FCFF;
+            background-color: #e0e0e0;
             text-align: center;
             height: 30px;
             line-height: 30px;
@@ -408,6 +442,7 @@ body,
 
             >div {
               padding: 10px;
+              font-size: 12px;
 
               &.cashpay {
                 color: #fd5459;

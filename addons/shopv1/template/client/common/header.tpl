@@ -36,20 +36,57 @@
     function stopLoading (){
       loading.close();
     }
+    class LoadingType {
+      static ToastLoading() {
+        return {
+          data: {
+            hideMask: true
+          }
+        }
+      };
+
+      static fullLoading() {
+        return {
+          data: {
+            fullLoading: true
+          }
+        }
+      }
+    }
     // request interceptor
     axios.interceptors.request.use(function(config){
-      startLoading();
+      var showToast = Boolean(Qs.parse(config.data).hideMask);
+      if(showToast){
+        loading = app.$message({
+          message: '页面加载中',
+          center: true,
+          iconClass: 'el-icon-loading',
+          duration: 0
+        });
+      }
+      var fullLoading = Boolean(Qs.parse(config.data).fullLoading);
+      if(fullLoading){
+        startLoading();
+      }
+      
       return config;
     }, function(error){
       return Promise.reject(error);
     });
     // response interceptor
     axios.interceptors.response.use(function(res){
-      stopLoading();
+      var showToast = Boolean(Qs.parse(res.config.data).hideMask);
+      var fullLoading = Boolean(Qs.parse(res.config.data).fullLoading);
+      if(showToast || fullLoading){
+        stopLoading();
+      }
       return res;
     }, function(error){
       console.log('err');
-      stopLoading();
+      if(loading){
+        stopLoading();
+      }
+      
       app.$message.error('网络连接失败');
       return Promise.reject(error);
     });

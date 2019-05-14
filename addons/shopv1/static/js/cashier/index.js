@@ -10,7 +10,7 @@ var app = new Vue({
         },
         showPw: false,
         loading: false,
-        isLogin: false
+        isLogin: false,
     },
     created:function(){
         
