@@ -49,7 +49,7 @@ class OrderService extends Service{
         $this->shopDuty = new \model\ShopDuty();
         $this->wechatAccount = new \model\WechatAccount();
         $this->shopModel = new \model\Shop();
-        $this->userModel = \model\ShopUser();
+        $this->userModel = new \model\ShopUser();
         $this->redisService = new RedisService();
         $this->cardModel = new \model\ShopMemberCard();
     }
