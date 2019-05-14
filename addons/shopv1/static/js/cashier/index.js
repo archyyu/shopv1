@@ -16,7 +16,7 @@ var app = new Vue({
         
         setInterval(()=>{
             
-            this.queryPrintMsg();
+            //this.queryPrintMsg();
             
         },5000);
         

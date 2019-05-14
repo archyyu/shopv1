@@ -206,7 +206,7 @@ var app = new Vue({
                             this.cardlist = res.obj;
                         }
                         else{
-                            
+                            console.log("no card at all");
                         }
                     });
             
