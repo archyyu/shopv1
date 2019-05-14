@@ -14,6 +14,7 @@ namespace model;
  * @author YJP
  */
 class ShopUser extends Model{
+
     //put your code here
     protected $table = "shopv1_user";
     
