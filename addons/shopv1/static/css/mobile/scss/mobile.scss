@@ -1,3 +1,5 @@
+@import "./variables";
+
 // common
 * {
   box-sizing: border-box;
@@ -484,6 +486,44 @@ html {
     overflow-y: hidden;
     .horizontal-scroll-list-wrap{
       overflow-y: auto;
+    }
+  }
+}
+
+
+// user mine
+.user-mine{
+  height: 100%;
+  .mine-base{
+    display: flex;
+    align-items: center;
+    .avatar{
+      @include circle(3.125rem);
+      >img{
+        @include circle(3.125rem); 
+      }
+    }
+    .mine-name{
+      width: calc(100% - 3.125rem);
+      padding-left: 0.5rem;
+      position: relative;
+      .cube-btn{
+        position: absolute;
+        right: 0;
+        top: 0;
+      }
+    }
+  }
+  .my-popup-content{
+    .captcha-input{
+      display: flex;
+      align-items: center;
+      .cube-btn{
+        width: auto;
+      }
+    }
+    .add-btn{
+      margin-top: 1rem;
     }
   }
 }
