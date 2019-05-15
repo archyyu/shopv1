@@ -136,7 +136,9 @@ Vue.component('order', {
                     .then((res)=>{
                         res = res.data;
                         if(res.state == 0){
-                            this.orderList = res.obj;
+                            for(var i = 0;i<res.obj.length;i++){
+                                this.orderList.push(res.obj[i]);
+                            }
                         }
                         else{
 

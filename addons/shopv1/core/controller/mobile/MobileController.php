@@ -35,6 +35,10 @@ class MobileController extends \controller\Controller{
     
     private $orderModel;
     
+    private $productTypeModel;
+    
+    private $productService;
+    
     public function __construct() {
         parent::__construct();
         $this->cardService = new \service\CardService();
@@ -46,6 +50,8 @@ class MobileController extends \controller\Controller{
         $this->redisService = new \service\RedisService();
         $this->smsService = new \service\SmsService();
         $this->orderModel = new \model\ShopOrder();
+        $this->productTypeModel = new \model\ShopProductType();
+        $this->productService = new \service\ProductService();
     }
     
     public function index(){
@@ -63,13 +69,9 @@ class MobileController extends \controller\Controller{
     }
     
     public function loadProductTypeList(){
+        global $_W;
+        $uniacid = 1;//$_w["uniacid"];
         
-        $uniacid = $this->getUniacid();
-        
-        if(isset($uniacid) == false){
-            $shopid = $this->getParam('shopid');
-            $uniacid = $this->productService->getUniacidByShopId($shopid);
-        }
         
         $list = $this->productTypeModel->getProductTypeList($uniacid);
         $this->returnSuccess($list);
@@ -87,7 +89,7 @@ class MobileController extends \controller\Controller{
     
     public function tag(){
         global $_W;
-        $uid = $_W['uid'];
+        $uid = $_W['member']['uid'];
         
         $tag = $this->getParam("tag");
         
