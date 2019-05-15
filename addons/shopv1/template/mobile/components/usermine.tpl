@@ -7,15 +7,15 @@
             </div>
         </header>
         <div class="container">
-            <div class="mine-base">
-                <div class="avatar"><img src="" alt=""></div>
-                <div class="mine-name">
-                    <p class="name">姓名:{{memberInfo.nickname}}</p>
-                    <p class="cellphone">手机号:{{memberInfo.mobile}}</p>
-                    <cube-button :inline="true" @click="$refs.addPopup.show();">新建会员</cube-button>
-                </div>
-            </div>
             <cube-scroll>
+                <div class="mine-base">
+                    <div class="avatar"><img src="" alt=""></div>
+                    <div class="mine-name">
+                        <p class="name">姓名:{{memberInfo.nickname}}</p>
+                        <p class="cellphone">手机号:{{memberInfo.mobile}}</p>
+                        <cube-button :inline="true" @click="$refs.addPopup.show();">新建会员</cube-button>
+                    </div>
+                </div>
                 <div class="mine-info">
                     <div class="weui-cells">
                         <div class="weui-cell">
@@ -54,11 +54,13 @@
                             <cube-form-item :field="fields[0]"></cube-form-item>
                             <cube-form-item :field="fields[1]"></cube-form-item>
                             <cube-form-item :field="fields[2]">
-                            <cube-input v-modal="memberModel.verification"></cube-input>
-                            <cube-button>发送</cube-button>
+                                <div class="captcha-input">
+                                    <cube-input v-modal="memberModel.verification"></cube-input>
+                                    <cube-button>发送</cube-button>
+                                </div>
                             </cube-form-item>
                         </cube-form>
-                        <cube-button>新建会员</cube-button>
+                        <cube-button class="add-btn">新建会员</cube-button>
                     </div>
                 </div>
             </cube-popup>

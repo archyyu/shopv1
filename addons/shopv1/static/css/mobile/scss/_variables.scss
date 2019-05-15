@@ -1,0 +1,54 @@
+
+// mixins
+
+@mixin square($size) {
+  width: $size;
+  height: $size;
+}
+
+@mixin circle($size) {
+  @include square($size);
+  border-radius: 50%;
+}
+
+@mixin hexagon($size, $bgColor) {
+  background: $bgColor;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: $size;
+  height: $size*1.732;
+  position: relative;
+  &::before{
+    content: "";
+    background: $bgColor;
+    display: block;
+    width: $size;
+    height: $size*1.732;
+    transform: rotate(60deg);
+    position: absolute;
+  }
+  &::after{
+    content: "";
+    background: $bgColor;
+    display: block;
+    width: $size;
+    height: $size*1.732;
+    transform: rotate(120deg);
+    position: absolute;
+  }
+}
+
+@mixin hexagon-plain($size, $bdWidth, $bdColor) {
+  @include hexagon($size, initial);
+  border-top: $bdWidth solid $bdColor;
+  border-bottom: $bdWidth solid $bdColor;
+  &::before{
+    border-top: $bdWidth solid $bdColor;
+    border-bottom: $bdWidth solid $bdColor;
+  }
+  &::after{
+    border-top: $bdWidth solid $bdColor;
+    border-bottom: $bdWidth solid $bdColor;
+  }
+}
