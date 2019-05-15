@@ -19,12 +19,17 @@
             <input type="text" class="form-control range-picker-js">
         </div>
         <div class="form-group form-group-sm">
+            <label class="control-label">吧员</label>
+            <select class="form-control input-sm selectpicker">
+                <option value="">请选择</option>
+            </select>
+        </div>
+        <div class="form-group form-group-sm">
             <label class="control-label">卡券类型</label>
             <select class="form-control input-sm selectpicker">
                 <option value="">请选择</option>
             </select>
         </div>
-
         <div class="form-group form-group-sm">
             <label class="control-label">卡券名称</label>
             <select class="form-control input-sm selectpicker">
