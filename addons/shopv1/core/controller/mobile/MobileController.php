@@ -57,7 +57,9 @@ class MobileController extends \controller\Controller{
     
     public function getMemberInfo(){
         global $_W;
-        return $this->returnSuccess($_W);
+        
+        $member = $this->shopMemberModel->queryMemberByUid($_W["member"]["uid"]);
+        $this->returnSuccess($member);
     }
     
     public function loadProductTypeList(){
@@ -122,15 +124,18 @@ class MobileController extends \controller\Controller{
         $offset = $this->getParam("offset");
         $limit = $this->getParam("limit");
         
+        logInfo("getOrderList uid:$uid offset:$offset limit:$limit");
+        
         $where = array();
         $where["memberid"] = $uid;
         
-        $where['LIMIT'] = [$offset*$limit, $limit];
-        $where['ORDER'] = ["createtime" => 'DESC'];
+        //$where['LIMIT'] = [$offset*$limit,$limit];
+        //$where['ORDER'] = ["createtime" => 'DESC'];
         
         $list = $this->orderModel->findOrders($where);
-        
+        logInfo("getOrderList end");
         $this->returnSuccess($list);
+        
     }
     
     

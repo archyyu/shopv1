@@ -24,8 +24,8 @@
                             <tr v-for="order in orderList">
                                 <td class="orderIdTd">{{order.id}}</td>
                                 <td>{{order.orderprice/100}}元</td>
-                                <td>{{Store.paytypeStr(order.paytype)}}</td>
-                                <td>{{Store.ordersourceStr(order.ordersource)}}</td>
+                                <td>{{paytypeStr(order.paytype)}}</td>
+                                <td>{{ordersourceStr(order.ordersource)}}</td>
                                 <td class="orderTimeTd">{{DateUtil.parseTimeInYmdHms(order.paytime)}}</td>
                                 <td>
                                     <cube-button :inline="true" @click="lookOrderDetail(order.orderdetail)">商品详情
@@ -87,11 +87,11 @@ Vue.component('order', {
     },
     created() {},
     mounted() {
-        this.queryMemberOrder();
+       this.queryMemberOrder();
     },
     methods: {
         open:function(){
-            this.queryMemberOrder();
+            //this.queryMemberOrder();
         },
         closepopup:function(){ 
             this.$refs.proDetailPopup.hide(); 
@@ -100,6 +100,29 @@ Vue.component('order', {
             console.log(orderProductList);
             this.orderproductlist = JSON.parse(orderProductList);
             this.$refs.proDetailPopup.show();
+        },
+        paytypeStr:function(type){
+            if(type == 0){
+                return "现金";
+            }
+            else if(type==1){
+                return "微信";
+            }
+            else if(type == 2){
+                return "支付宝";
+            }
+        },
+    
+        ordersourceStr:function(source){
+            if(source == 0){
+                return "收银端";
+            }
+            else if(source == 1){
+                return "手机端";
+            }
+            else if(source == 2){
+                return "客户端";
+            }
         },
         queryMemberOrder:function(){
             
@@ -112,15 +135,12 @@ Vue.component('order', {
             axios.post(url,params)
                     .then((res)=>{
                         res = res.data;
-                if(res.state == 0){
-                    this.orderList = res.obj;
-                    for(let item of res.obj){
-                        this.orderList.push(item);
-                    }
-                }
-                else{
-                    
-                }
+                        if(res.state == 0){
+                            this.orderList = res.obj;
+                        }
+                        else{
+
+                        }
                     });
             
         },

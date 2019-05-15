@@ -13,7 +13,7 @@
                     <div class="mine-name">
                         <p class="name">姓名:{{memberInfo.nickname}}</p>
                         <p class="cellphone">手机号:{{memberInfo.mobile}}</p>
-                        <cube-button :inline="true" @click="$refs.addPopup.show();">新建会员</cube-button>
+                        <cube-button :inline="true" @click="$refs.addPopup.show();">编辑信息</cube-button>
                     </div>
                 </div>
                 <div class="mine-info">
@@ -38,7 +38,7 @@
                         </div>
                     </div>
                 </div>
-            </cube-scroll>
+            </cube-scroll>  
             
             <cube-popup type="add-popup" position="bottom" :mask-closable="true" ref="addPopup">
                 <div class="my-popup-wrap">
@@ -105,23 +105,26 @@ Vue.component('mine', {
             ]
         };
     },
+    mounted() {
+        this.queryMemberInfo();
+    },
     methods: {
         open:function(){
-            //this.queryMemberInfo();
+            this.queryMemberInfo();
         },
         toCard:function(){
             this.$root.selectedLabel = 'card';
         },
         queryMemberInfo:function(){
             let params = {};
-            let url = UrlHelper.createShortUrl("");
+            let url = UrlHelper.createShortUrl("getMemberInfo");
             
             axios.post(url,params)
                 .then((res)=>{
                     res = res.data;
-                    if(res.state = 0){
-                        console.log(res.data);
-                        this.memberInfo = res.data;
+                    if(res.state == 0){
+                        console.log(res.obj);
+                        this.memberInfo = res.obj;
                     }
                 });
         },
