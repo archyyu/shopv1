@@ -71,7 +71,16 @@ var app = new Vue({
     created() {
         // this.selectedLabel = UrlUtil.getQueryString("f").replace(/mobile/,"");
     },
-    mounted() {},
+    mounted() {
+        var account = Cookies.get('account');
+        var password = Cookies.get('pw');
+        console.log(account, password)
+        if(account && password){
+            this.loginMsg.account = account;
+            this.loginMsg.password = password;
+            this.login();
+        }
+    },
     methods: {
         login:function(){
             
@@ -81,7 +90,10 @@ var app = new Vue({
                 res = res.data;
                 if(res.state == 0){
                     Toast.success("登录成功");
+                    console.log(res)
                     Store.initLoginInfo(res.obj);
+                    Cookies.set('account', res.obj.user.account, { expires: 5 });
+                    Cookies.set('pw', this.loginMsg.password, { expires: 5 });
                     this.isLogin = true;
                     this.selectedLabel = "index";
                 }
@@ -90,6 +102,18 @@ var app = new Vue({
                 }
             });
             
+        },
+        logout: function(){
+            Cookies.remove('account');
+            Cookies.remove('pw');
+            this.loginMsg.account = '';
+            this.loginMsg.password = '';
+            this.isLogin = false;
+            this.$createToast({
+                type: 'success',
+                time: 1000,
+                txt: '退出成功'
+            }).show()
         },
         toIndex:function(){
             this.selectedLabel = "index";

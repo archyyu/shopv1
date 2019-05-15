@@ -21,6 +21,7 @@
   <script src="{$StaticRoot}/fonts/iconfont.js"></script>
   <script src="{$StaticRoot}/js/dist/moment.min.js"></script>
   <script src="{$StaticRoot}/js/dist/moment-zh-cn.js"></script>
+  <script src="{$StaticRoot}/js/dist/js.cookie.min.js"></script>
 
   <script>
   //axios.defaults.baseURL = ""
@@ -51,7 +52,6 @@
   }
 
   axios.interceptors.request.use(config => {
-    console.log(config)
     var hideLoading = Boolean(Qs.parse(config.data).hideLoading);
     if (hideLoading) {
       return config;

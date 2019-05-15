@@ -33,6 +33,10 @@
                     </div>
                 </div>
             </cube-scroll>
+            
+            <div class="logout-btn">
+                <cube-button @click="logout">退出登录</cube-button>
+            </div>
         </div>
     </div>
 
@@ -68,6 +72,30 @@ Vue.component('index', {
         },
         toMember:function(){
             this.$root.toMember();
+        },
+        logout: function() {
+            this.$createDialog({
+                type: 'confirm',
+                icon: 'cubeic-alert',
+                title: '退出登录？',
+                confirmBtn: {
+                    text: '确定退出',
+                    active: true,
+                    disabled: false,
+                    href: 'javascript:;'
+                },
+                cancelBtn: {
+                    text: '取消',
+                    active: false,
+                    disabled: false,
+                    href: 'javascript:;'
+                },
+                onConfirm: () => {
+                    this.$root.logout();
+                },
+                onCancel: () => {
+                }
+            }).show()
         },
         info:function(){
         }
