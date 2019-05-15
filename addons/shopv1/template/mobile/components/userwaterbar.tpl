@@ -51,9 +51,9 @@
                                     <div class="pro-title">{{item.productname}}</div>
                                     <div class="pro-price">￥{{(item.price*item.num).toFixed(2)}}</div>
                                     <div class="pro-num">
-                                        <cube-button  :inline="true" :outline="true" @click="{{item.num>0?item.num--:0}}">-</cube-button>
+                                        <cube-button  :inline="true" :outline="true" @click="cartdeduct(item.productid)">-</cube-button>
                                         <span>{{item.num}}</span>
-                                        <cube-button  :inline="true" :outline="true" @click="{{item.num++}}">+</cube-button>
+                                        <cube-button  :inline="true" :outline="true" @click="cartadd(item.productid)">+</cube-button>
                                     </div>
                                 </li>
                             </ul>
@@ -87,7 +87,7 @@ Vue.component('waterbar', {
             navList: [],
             productlist:[],
             cartlist:[],
-            qrcodeurl:'www.baidu.com',
+            qrcodeurl:'',
             orderstate:-1,
             orderpaytype:"微信",
             orderid:"",
@@ -142,9 +142,9 @@ Vue.component('waterbar', {
         },
         
         queryTypeList: function () {
-            let params = Store.createParams();
+            let params = {};
             //params.shopid = typeid;
-            axios.post(UrlHelper.createUrl('product','loadProductTypeList'), params)
+            axios.post(UrlHelper.createShortUrl('loadProductTypeList'), params)
                 .then((res) => {
                     res = res.data;
                     if (res.state == 0) {
@@ -155,13 +155,13 @@ Vue.component('waterbar', {
                         }
                         
                         console.log(this.navList);
-                        this.defaulttypeid = res.obj[0].id;
-                        this.queryProductList(this.defaulttypeid);
+                        //this.defaulttypeid = res.obj[0].id;
+                        //this.queryProductList(this.defaulttypeid);
                     }
                 });
         },
         
-        addCart: function (productid, productname, price,inventory) {
+        addCart: function (productid,productname,price,inventory) {
 
             if(this.orderState != -1){
                 this.orderState = -1;
@@ -200,6 +200,32 @@ Vue.component('waterbar', {
             return sum.toFixed(2);
         },
         
+        cartAdd:function(productid){
+        
+            for (var i = 0; i < this.cartlist.length; i++) {
+                if (this.cartlist[i].productid == productid) {
+                    this.cartlist[i].num += 1;
+                    this.cartlist[i].price += this.cartlist[i].price;
+                    return;
+                }
+            }
+            
+        },
+        
+        cartDeduct:function(productid){
+            for (var i = 0; i < this.cartlist.length; i++) {
+                if (this.cartlist[i].productid == productid) {
+                    this.cartlist[i].num -= 1;
+                    
+                    if(this.cartlist[i].num == 0){
+                        this.cartlist.splice(i);
+                    }
+                    
+                    return;
+                }
+            }
+        },
+        
         clearCart:function(){
             this.cartlist = [];
             Toast.success("购物车已经清空");
@@ -207,7 +233,7 @@ Vue.component('waterbar', {
         },
         
         queryProductList: function (type) {
-            let params = Store.createParams();
+            let params = {};
             params.type = type;
             if(type){
                 this.activeNav = type;
@@ -215,7 +241,7 @@ Vue.component('waterbar', {
             
             params.typeid = type;
             
-            axios.post(UrlHelper.createUrl('product','loadProduct'), params)
+            axios.post(UrlHelper.createShortUrl('loadProduct'), params)
                 .then((res) => {
                     res = res.data;
                     console.log(res);
@@ -262,7 +288,6 @@ Vue.component('waterbar', {
                             
                             if(paytype == 0){
                                 this.orderState = 1;
-                                
                             }
                             else if(paytype == 1 || paytype == 2){
                                 this.orderState = 0;
@@ -275,11 +300,8 @@ Vue.component('waterbar', {
                                 else if(paytype == 2){
                                     this.orderpaytype = "支付宝";
                                 }
-                                
                                 this.orderstate = 0;
-                                
                                 this.showQrcode();
-                                
                             }
                             
                             this.cartlist = [];
@@ -288,7 +310,7 @@ Vue.component('waterbar', {
                         else{
                             this.$message.error(res.msg);
                         }
-                        });
+                    });
             
         },
         

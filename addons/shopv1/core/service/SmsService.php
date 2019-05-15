@@ -30,12 +30,10 @@ class SmsService extends Service{
         curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
         //执行命令
         $data = curl_exec($curl);
-
         logInfo("send msg result:".$data);
-
         //关闭URL请求
         curl_close($curl);
-
+        return $data;
     }
 
 

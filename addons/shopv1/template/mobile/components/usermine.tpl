@@ -9,11 +9,11 @@
         <div class="container">
             <cube-scroll>
                 <div class="mine-base">
-                    <div class="avatar"><img src="http://placeholder.it/50x50" alt=""></div>
+                    <div class="avatar"><img src="" alt=""></div>
                     <div class="mine-name">
-                        <p class="name">姓名</p>
-                        <p class="cellphone">手机号</p>
-                        <cube-button :inline="true" @click="$refs.addPopup.show();">新建会员</cube-button>
+                        <p class="name">姓名:{{memberInfo.nickname}}</p>
+                        <p class="cellphone">手机号:{{memberInfo.mobile}}</p>
+                        <cube-button :inline="true" @click="$refs.addPopup.show();">编辑信息</cube-button>
                     </div>
                 </div>
                 <div class="mine-info">
@@ -22,23 +22,23 @@
                             <div class="weui-cell__bd">
                                 <p>身份证</p>
                             </div>
-                            <div class="weui-cell__ft">12345678910</div>
+                            <div class="weui-cell__ft">{{memberInfo.idcard}}</div>
                         </div>
                         <div class="weui-cell">
                             <div class="weui-cell__bd">
                                 <p>积分</p>
                             </div>
-                            <div class="weui-cell__ft">5000</div>
+                            <div class="weui-cell__ft">{{memberInfo.credit2}}</div>
                         </div>
                         <div class="weui-cell weui-cell_access" @click="toCard">
                             <div class="weui-cell__bd">
                                 <p>卡券</p>
                             </div>
-                            <div class="weui-cell__ft">5 张</div>
+                            <div class="weui-cell__ft">0 张</div>
                         </div>
                     </div>
                 </div>
-            </cube-scroll>
+            </cube-scroll>  
             
             <cube-popup type="add-popup" position="bottom" :mask-closable="true" ref="addPopup">
                 <div class="my-popup-wrap">
@@ -80,6 +80,7 @@ Vue.component('mine', {
                 phone: '',
                 verification: ''
             },
+            memberInfo:{},
             fields: [
                 {
                     type: 'input',
@@ -104,11 +105,28 @@ Vue.component('mine', {
             ]
         };
     },
+    mounted() {
+        this.queryMemberInfo();
+    },
     methods: {
         open:function(){
+            this.queryMemberInfo();
         },
         toCard:function(){
             this.$root.selectedLabel = 'card';
+        },
+        queryMemberInfo:function(){
+            let params = {};
+            let url = UrlHelper.createShortUrl("getMemberInfo");
+            
+            axios.post(url,params)
+                .then((res)=>{
+                    res = res.data;
+                    if(res.state == 0){
+                        console.log(res.obj);
+                        this.memberInfo = res.obj;
+                    }
+                });
         },
         info: function () {
 

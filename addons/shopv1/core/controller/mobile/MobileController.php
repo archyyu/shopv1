@@ -33,6 +33,12 @@ class MobileController extends \controller\Controller{
 
     private $smsService;
     
+    private $orderModel;
+    
+    private $productTypeModel;
+    
+    private $productService;
+    
     public function __construct() {
         parent::__construct();
         $this->cardService = new \service\CardService();
@@ -43,6 +49,9 @@ class MobileController extends \controller\Controller{
         $this->shopCardActivity = new \model\ShopCardActivity();
         $this->redisService = new \service\RedisService();
         $this->smsService = new \service\SmsService();
+        $this->orderModel = new \model\ShopOrder();
+        $this->productTypeModel = new \model\ShopProductType();
+        $this->productService = new \service\ProductService();
     }
     
     public function index(){
@@ -54,13 +63,33 @@ class MobileController extends \controller\Controller{
     
     public function getMemberInfo(){
         global $_W;
-        return $this->returnSuccess($_W);
+        
+        $member = $this->shopMemberModel->queryMemberByUid($_W["member"]["uid"]);
+        $this->returnSuccess($member);
     }
     
+    public function loadProductTypeList(){
+        global $_W;
+        $uniacid = 1;//$_w["uniacid"];
+        
+        
+        $list = $this->productTypeModel->getProductTypeList($uniacid);
+        $this->returnSuccess($list);
+    }
+    
+    public function loadProduct(){
+        
+        $typeid = $this->getParam("type");
+        $shopid = 1;
+        
+        $list = $this->productService->getProductList($shopid, $typeid);
+        
+        $this->returnSuccess($list);
+    }
     
     public function tag(){
         global $_W;
-        $uid = $_W['uid'];
+        $uid = $_W['member']['uid'];
         
         $tag = $this->getParam("tag");
         
@@ -87,25 +116,62 @@ class MobileController extends \controller\Controller{
         }
         
         $this->cardService->memberGetCardFromActivity($activity, $uid, $userid);
-        
         $this->returnSuccess("领取成功");
+    }
+    
+    public function getOrderList(){
+        
+        $uid = $this->getUid();
+        
+        $offset = $this->getParam("offset");
+        $limit = $this->getParam("limit");
+        
+        logInfo("getOrderList uid:$uid offset:$offset limit:$limit");
+        
+        $where = array();
+        $where["memberid"] = $uid;
+        
+        //$where['LIMIT'] = [$offset*$limit,$limit];
+        //$where['ORDER'] = ["createtime" => 'DESC'];
+        
+        $list = $this->orderModel->findOrders($where);
+        logInfo("getOrderList end");
+        $this->returnSuccess($list);
         
     }
+    
+    
 
     public function sendVerifyCode(){
 
         $phone = $this->getParam("phone");
-
         $code = rand(100000,999999);
-
-
-
+        
+        $content = "验证码为;".$code;
+        $result = $this->smsService->sendContent($phone, $content);
+        if($result == "0"){
+            $this->returnSuccess();
+        }
+        else{
+            $this->returnFail("短信发送失败");
+        }
     }
 
     public function updateMemberInfo(){
-
-
-
+        
+        $phone = $this->getParam("phone");
+        $code = $this->getParam("code");
+        $idcard = $this->getParam("idcard");
+        
+        $memberid = $this->getUid();
+        
+        $data = array();
+        $data["mobile"] = $phone;
+        $data["idcard"] = $idcard;
+        
+        $this->shopMemberModel->saveMember($data, $memberid);
+        $this->returnSuccess();
+        
     }
     
     

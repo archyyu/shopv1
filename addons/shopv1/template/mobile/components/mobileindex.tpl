@@ -10,7 +10,7 @@
         <div class="container">
             <cube-scroll>
                 <div class="qrcode">
-                    <qrcode :value="qrcodeurl"></qrcode>
+                    
                 </div>
                 <div class="func-btn">
                     <div class="func-btn-item">
