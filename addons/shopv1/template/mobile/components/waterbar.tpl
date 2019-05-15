@@ -6,7 +6,7 @@
             <div class="title">
                 <span>点单</span>
             </div>
-        </header>
+        </header>-
         <div class="container">
             <div class="side-container">
                 <cube-scroll-nav-bar direction="vertical" :current="currentNav" :labels="navList"
@@ -167,7 +167,6 @@ Vue.component('waterbar', {
         
         cartAdd:function(productid){
         
-            
             for (var i = 0; i < this.cartlist.length; i++) {
                 if (this.cartlist[i].productid == productid) {
                     this.cartlist[i].num += 1;

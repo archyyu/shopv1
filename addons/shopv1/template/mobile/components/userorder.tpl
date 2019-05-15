@@ -22,13 +22,13 @@
                         </thead>
                         <tbody>
                             <tr v-for="order in orderList">
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
+                                <td class="orderIdTd">{{order.id}}</td>
+                                <td>{{order.orderprice/100}}元</td>
+                                <td>{{Store.paytypeStr(order.paytype)}}</td>
+                                <td>{{Store.ordersourceStr(order.ordersource)}}</td>
+                                <td class="orderTimeTd">{{DateUtil.parseTimeInYmdHms(order.paytime)}}</td>
                                 <td>
-                                    <cube-button :inline="true">商品详情
+                                    <cube-button :inline="true" @click="lookOrderDetail(order.orderdetail)">商品详情
                                     </cube-button>
                                 </td>
                             </tr>
@@ -51,10 +51,10 @@
                                     <div class="pro-price">总价</div>
                                     <div class="pro-num">数量</div>
                                 </li>
-                                <li>
-                                    <div class="pro-title"></div>
-                                    <div class="pro-price"></div>
-                                    <div class="pro-num"></div>
+                                <li v-for="item in orderproductlist">
+                                    <div class="pro-title">{{item.productname}}</div>
+                                    <div class="pro-price">￥{{item.price}}</div>
+                                    <div class="pro-num">{{item.num}}</div>
                                 </li>
                             </ul>
                         </cube-scroll>
@@ -78,7 +78,8 @@ Vue.component('order', {
                 freeScroll: true,
                 eventPassthrough:'vertical'
             },
-            Store:Store,
+            offset:0,
+            limit:20,
             DateUtil:DateUtil,
             orderList: [],
             orderproductlist:[]
@@ -86,13 +87,42 @@ Vue.component('order', {
     },
     created() {},
     mounted() {
-        
+        this.queryMemberOrder();
     },
     methods: {
         open:function(){
+            this.queryMemberOrder();
         },
         closepopup:function(){ 
             this.$refs.proDetailPopup.hide(); 
+        },
+        lookOrderDetail:function(orderProductList){
+            console.log(orderProductList);
+            this.orderproductlist = JSON.parse(orderProductList);
+            this.$refs.proDetailPopup.show();
+        },
+        queryMemberOrder:function(){
+            
+            let params = {};
+            params.offset = this.offset;
+            params.limit = this.limit;
+            
+            let url = UrlHelper.createShortUrl("getOrderList");
+            
+            axios.post(url,params)
+                    .then((res)=>{
+                        res = res.data;
+                if(res.state == 0){
+                    this.orderList = res.obj;
+                    for(let item of res.obj){
+                        this.orderList.push(item);
+                    }
+                }
+                else{
+                    
+                }
+                    });
+            
         },
         info: function () {
 
