@@ -78,5 +78,13 @@ class RedisService extends Service{
         return $this->redis->rPop("notify:".$shopid);
     }
 
+    public function setPhoneVerifyCode($phone,$code){
+
+    }
+
+    public function getPhoneCode(){
+
+    }
+
 
 }

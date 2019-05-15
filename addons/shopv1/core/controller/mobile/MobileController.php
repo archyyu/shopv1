@@ -8,6 +8,8 @@
 
 namespace controller\mobile;
 
+use service\SmsService;
+
 /**
  * Description of CardController
  *
@@ -28,6 +30,8 @@ class MobileController extends \controller\Controller{
     private $cardService;
     
     private $redisService;
+
+    private $smsService;
     
     public function __construct() {
         parent::__construct();
@@ -38,6 +42,7 @@ class MobileController extends \controller\Controller{
         $this->shopMemberModel = new \model\ShopMember();
         $this->shopCardActivity = new \model\ShopCardActivity();
         $this->redisService = new \service\RedisService();
+        $this->smsService = new \service\SmsService();
     }
     
     public function index(){
@@ -85,6 +90,22 @@ class MobileController extends \controller\Controller{
         
         $this->returnSuccess("领取成功");
         
+    }
+
+    public function sendVerifyCode(){
+
+        $phone = $this->getParam("phone");
+
+        $code = rand(100000,999999);
+
+
+
+    }
+
+    public function updateMemberInfo(){
+
+
+
     }
     
     
