@@ -5,7 +5,7 @@ var app = new Vue({
     data: function(){
         return {
             tabbarShow: true,
-            selectedLabel: 'cardList',
+            selectedLabel: 'waterbar',
             tabs: [
                 {
                     label: '点餐',

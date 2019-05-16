@@ -9,7 +9,7 @@
         <div class="container">
             <cube-scroll>
                 <div class="mine-base">
-                    <div class="avatar"><img src="" alt=""></div>
+                    <div class="avatar"><img :src="memberInfo.avatar" alt=""></div>
                     <div class="mine-name">
                         <p class="name">姓名:{{memberInfo.nickname}}</p>
                         <p class="cellphone">手机号:{{memberInfo.mobile}}</p>
@@ -30,6 +30,12 @@
                             </div>
                             <div class="weui-cell__ft">{{memberInfo.credit2}}</div>
                         </div>
+                        <div class="weui-cell">
+                            <div class="weui-cell__bd">
+                                <p>钱包余额</p>
+                            </div>
+                            <div class="weui-cell__ft">{{memberInfo.credit1}}</div>
+                        </div>
                         <div class="weui-cell weui-cell_access" @click="toCard">
                             <div class="weui-cell__bd">
                                 <p>卡券</p>
@@ -43,8 +49,8 @@
             <cube-popup type="add-popup" position="bottom" :mask-closable="true" ref="addPopup">
                 <div class="my-popup-wrap">
                     <div class="my-popup-header">
-                        <h5>新建会员</h5>
-                        <cube-button  :inline="true" :outline="true" @click="closeSendCard">取消</cube-button>
+                        <h5>编辑会员</h5>
+                        <cube-button  :inline="true" :outline="true" @click="$refs.addPopup.hide();">取消</cube-button>
                     </div>
                     <div class="my-popup-content">
                         <cube-form
@@ -60,7 +66,7 @@
                                 </div>
                             </cube-form-item>
                         </cube-form>
-                        <cube-button class="add-btn">新建会员</cube-button>
+                        <cube-button class="add-btn">编辑会员</cube-button>
                     </div>
                 </div>
             </cube-popup>
@@ -125,6 +131,11 @@ Vue.component('mine', {
                     if(res.state == 0){
                         console.log(res.obj);
                         this.memberInfo = res.obj;
+                        
+                        if(this.memberInfo.mobile == ""){
+                            this.$refs.addPopup.show();
+                        }
+                        
                     }
                 });
         },
