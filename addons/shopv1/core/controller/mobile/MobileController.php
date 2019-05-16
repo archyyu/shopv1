@@ -144,7 +144,7 @@ class MobileController extends \controller\Controller{
         
         $where = array();
         $where["memberid"] = $uid;
-        //$where["orderstate[>=]"] = 0;
+        $where["orderstate[>=]"] = 0;
         
         $where['LIMIT'] = [$offset*$limit,$limit];
         $where['ORDER'] = ["createtime" => 'DESC'];

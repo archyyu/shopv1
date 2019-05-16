@@ -9,12 +9,12 @@
         </header>
         <div class="container">
             <cube-scroll>
-                <div class="card-item" v-for="item in 20">
+                <div class="card-item" v-for="item in cardList">
                     <div class="card-info">
-                        <h4 class="card-name">10元网费抵现券</h4>
-                        <div class="card-des">满100元使用</div>
+                        <h4 class="card-name">{{item.cardname}}</h4>
+                        <div class="card-des">满{{item.effectiveprice/100}}元使用</div>
                     </div>
-                    <div class="card-price">￥50</div>
+                    <div class="card-price">￥{{item.exchange/100}}</div>
                 </div>
             </cube-scroll>
         </div>
@@ -37,6 +37,7 @@ Vue.component('card-list', {
         },
         open:function(){
             this.$root.tabbarShow = false;
+            this.getCardList();
         },
         getCardList:function(){
             let url = UrlHelper.createShortUrl("getCardList");
@@ -46,6 +47,7 @@ Vue.component('card-list', {
             axios.post(url,params)
                     .then((res)=>{
                         res = res.data;
+                        console.log("getcardlist:" + res);
                         if(res.state == 0){
                             this.cardList = res.obj;
                         }
