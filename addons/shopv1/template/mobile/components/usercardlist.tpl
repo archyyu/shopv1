@@ -8,12 +8,20 @@
             </div>
         </header>
         <div class="container">
-
+            <cube-scroll>
+                <div class="card-item" v-for="item in 20">
+                    <div class="card-info">
+                        <h4 class="card-name">10元网费抵现券</h4>
+                        <div class="card-des">满100元使用</div>
+                    </div>
+                    <div class="card-price">￥50</div>
+                </div>
+            </cube-scroll>
         </div>
     </div>
     {/literal}
 </script>
-
+{literal}
 <script>
 Vue.component('card-list', {
     name: 'CardList',
@@ -21,6 +29,9 @@ Vue.component('card-list', {
     data: function(){
         return {
         };
+    },
+    created: function(){
+        this.$root.tabbarShow = false;
     },
     methods: {
         backToMain:function(){

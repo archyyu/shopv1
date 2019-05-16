@@ -27,6 +27,9 @@ html {
   &.user-page{
     .cube-tab-panels{
       height: calc(100% - 50px);
+      &.bar-hide{
+        height: 100%;
+      }
     }
     .cube-tab-bar{
       display: flex;
@@ -532,6 +535,51 @@ html {
     }
     .add-btn{
       margin-top: 1rem;
+    }
+  }
+}
+
+
+// card list
+.card-list{
+  height: 100%;
+  .card-item{
+    min-height: 5.5rem;
+    display: flex;
+    margin-bottom: 1rem;
+    .card-info{
+      border: 1px solid #1b9afb;
+      width: calc(100% - 7rem);
+      padding: 1rem;
+      .card-name{
+        font-size: 18px;
+        font-weight: bold;
+        margin-bottom: .8rem;
+      }
+      .card-des{
+        color: #999;
+      }
+    }
+    .card-price{
+      width: 7rem;
+      flex: none;
+      background-color: #1b9afb;
+      color: #ffffff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 28px;
+      font-weight: bold;
+      position: relative;
+      &::before{
+        content: '';
+        @include circle(2rem);
+        background-color: #fff;
+        display: inline-block;
+        position: absolute;
+        top: -1rem;
+        left: -1rem;
+      }
     }
   }
 }
