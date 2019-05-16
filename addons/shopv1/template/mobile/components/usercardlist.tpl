@@ -21,7 +21,7 @@
     </div>
     {/literal}
 </script>
-{literal}
+
 <script>
 Vue.component('card-list', {
     name: 'CardList',
@@ -31,14 +31,12 @@ Vue.component('card-list', {
             cardList:[]
         };
     },
-    created: function(){
-        this.$root.tabbarShow = false;
-    },
     methods: {
         backToMain:function(){
             this.$root.toIndex();
         },
         open:function(){
+            this.$root.tabbarShow = false;
         },
         getCardList:function(){
             let url = UrlHelper.createShortUrl("getCardList");
