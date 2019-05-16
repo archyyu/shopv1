@@ -125,25 +125,12 @@ class MobileController extends \controller\Controller{
         exit("登陆成功");
     }
     
-    
-    
-    public function getCard(){
+    public function getCardList(){
         
-        $id = $this->getParam("activityid");
-        $userid = $this->getParam("userid");
         $uid = $this->getUid();
         
-        $activity = $this->shopCardActivity->findActivity($id);
-        if(isset($activity) == false){
-            $this->returnFail("活动不存在");
-        }
-        
-        if($activity["num"] >= $activity["sum"]){
-            $this->returnFail("活动结束");
-        }
-        
-        $this->cardService->memberGetCardFromActivity($activity, $uid, $userid);
-        $this->returnSuccess("领取成功");
+        $list = $this->shopMemberCardModel->getMemberList($uid, 0);
+        $this->returnSuccess($list);
     }
     
     public function getOrderList(){
@@ -157,7 +144,7 @@ class MobileController extends \controller\Controller{
         
         $where = array();
         $where["memberid"] = $uid;
-        $where["orderstate"] = 0;
+        $where["orderstate[>=]"] = 0;
         
         //$where['LIMIT'] = [$offset*$limit,$limit];
         //$where['ORDER'] = ["createtime" => 'DESC'];

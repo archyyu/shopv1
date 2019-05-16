@@ -20,6 +20,7 @@ Vue.component('card-list', {
     template: '#cardList',
     data: function(){
         return {
+            cardList:[]
         };
     },
     methods: {
@@ -28,11 +29,25 @@ Vue.component('card-list', {
         },
         open:function(){
         },
+        getCardList:function(){
+            let url = UrlHelper.createShortUrl("getCardList");
+            
+            let params = {};
+            
+            axios.post(url,params)
+                    .then((res)=>{
+                        res = res.data;
+                        if(res.state == 0){
+                            this.cardList = res.obj;
+                        }
+                        else{
+                        }
+                    });
+            
+        },
         info: function () {
 
         }
     }
 });
 </script>
-
-{/literal}

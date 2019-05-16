@@ -28,6 +28,7 @@ class ShopMemberCard extends Model{
         return $this->getList("*", $where);
     }
     
+    
     public function addMemberCard($data){
         return $this->add($data);
     }
