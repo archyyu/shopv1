@@ -100,8 +100,6 @@ class PayService extends Service {
         //TODO
         $wechat = $this->wechatAccount->findWechatAccountByUniacid($order['uniacid']);
 
-        logInfo("scanpay:orderid:" . $order['id'] . " uniacid:" . $order['uniacid'] . " appid:" . $wechat['allinappid'] . "   cusid:" . $wechat['allincusid'] . "   paykey:" . $wechat['paykey']);
-
         $params = array();
         $params["cusid"] = $wechat['allincusid'];
         $params["appid"] = $wechat['allinappid'];
@@ -166,7 +164,39 @@ class PayService extends Service {
         return $output;
     }
 
-    public function getJsapiPay($order, $member) {
+    public function getJsapiPay($order, $openid) {
+        $wechat = $this->wechatAccount->findWechatAccountByUniacid($order['uniacid']);
+
+        $params = array();
+        $params["cusid"] = $wechat['allincusid'];
+        $params["appid"] = $wechat['allinappid'];
+        //$params["paykey"] = $wechat["paykey"];
+        $params["version"] = '11';
+        $params["trxamt"] = $order['orderprice'];
+        $params["reqsn"] = $order['id']; //订单号,自行生成
+        $params['paytype'] = 'W02';
+        $params["randomstr"] = rand(10000000, 99999999);
+        $params["body"] = $this->getOrderBody($order);
+        
+        $params["remark"] = "remark";
+        //$params["acct"] = "openid";
+        $params["limit_pay"] = "";
+        $params['acct'] = $openid;
+        
+        //$params["notify_url"] = urlencode("http://pinshangy.com/web/cashier.php?__uniacid=1&f=notify&do=order");
+        $params["notify_url"] = "http://pinshangy.com/web/pay.php";
+        $params["sign"] = $this->SignArray($params, $wechat['paykey']); //签名
+        
+        $paramsStr = $this->ToUrlParams($params);
+        $url = "https://vsp.allinpay.com/apiweb/unitorder/pay";
+        $rsp = $this->request($url, $paramsStr);
+        
+        logInfo("jspay rsp:".$rsp);
+        
+        $rspArray = json_decode($rsp, true);
+        $payinfo = json_decode($rspArray["payinfo"], true);
+        
+        return $payinfo;
         
     }
 

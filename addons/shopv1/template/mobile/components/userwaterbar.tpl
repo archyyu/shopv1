@@ -35,7 +35,7 @@
                 <div class="cart" @click="showCart"><iconfont iconclass="icon-shopcar"></iconfont></div>
                 <div class="price">￥{{getCartPrice()}}</div>
                 <div class="checkout"> 
-                    <cube-button :primary="true" @click="createOrder(1)">支付</cube-button>
+                    <cube-button :primary="true" @click="createOrder()">支付</cube-button>
                 </div>
             </div>
             <cube-popup type="my-popup" position="bottom" :mask-closable="true" ref="cartPopup">
@@ -87,9 +87,8 @@ Vue.component('waterbar', {
             navList: [],
             productlist:[],
             cartlist:[],
-            qrcodeurl:'',
-            orderstate:-1,
             orderpaytype:"微信",
+            payinfo:{},
             orderid:"",
             pullOptions: {
                 pullDownRefresh: {
@@ -123,9 +122,7 @@ Vue.component('waterbar', {
     computed: {
     },
     created:function(){
-        setInterval(()=>{
-                this.queryOrderState();
-                },2000);
+        
     },
     mounted() {
         this.queryTypeList();
@@ -155,8 +152,8 @@ Vue.component('waterbar', {
                         }
                         
                         console.log(this.navList);
-                        //this.defaulttypeid = res.obj[0].id;
-                        //this.queryProductList(this.defaulttypeid);
+                        this.defaulttypeid = res.obj[0].id;
+                        this.queryProductList(this.defaulttypeid);
                     }
                 });
         },
@@ -251,8 +248,6 @@ Vue.component('waterbar', {
                 });
         },
         
-        
-        
         refresh: function () {
             console.log('refresh');
         },
@@ -265,17 +260,17 @@ Vue.component('waterbar', {
             this.$root.toIndex();
         },
         
-        createOrder:function(paytype){
+        createOrder:function(){
             
             if(this.cartlist.length <= 0){
                 this.$message.error("购物车为空");
                 return;
             }
-            
-            var url = UrlHelper.createUrl('order','createOrder');
+                
+            var url = UrlHelper.createShortUrl("createOrder");
             // var params = Store.createParams();
-            params.address = this.address;
-            params.paytype = paytype;
+            params = {};
+            
             params.productlist = JSON.stringify(this.cartlist);
             
             axios.post(url,params)
@@ -284,25 +279,11 @@ Vue.component('waterbar', {
                         console.log(res);
                         if(res.state == 0){
                             console.log("create order ok");
-                            Toast.success("下单成功");
+                            //Toast.success("下单成功");
                             
-                            if(paytype == 0){
-                                this.orderState = 1;
-                            }
-                            else if(paytype == 1 || paytype == 2){
-                                this.orderState = 0;
-                                this.qrcodeurl = res.obj.payurl;
-                                this.orderid = res.obj.orderid;
-                                
-                                if(paytype == 1){
-                                    this.orderpaytype = "微信";
-                                }
-                                else if(paytype == 2){
-                                    this.orderpaytype = "支付宝";
-                                }
-                                this.orderstate = 0;
-                                this.showQrcode();
-                            }
+                            this.payinfo = res.obj;
+                            
+                            this.callpay();
                             
                             this.cartlist = [];
                             
@@ -313,30 +294,38 @@ Vue.component('waterbar', {
                     });
             
         },
-        
-        queryOrderState:function(){
-            
-            if(this.orderstate != 0){
-                return;
+         
+        callpay:function() {
+            if (typeof WeixinJSBridge == "undefined") {
+                if (document.addEventListener) {
+                    document.addEventListener('WeixinJSBridgeReady', this.jsApiCall, false);
+                } else if (document.attachEvent) {
+                    document.attachEvent('WeixinJSBridgeReady', this.jsApiCall);
+                    document.attachEvent('onWeixinJSBridgeReady', this.jsApiCall);
+                }
+            } else {
+                this.jsApiCall();
             }
-            
-            // var params = Store.createParams();
-            params.orderid = this.orderid;
-            var url = UrlHelper.createUrl("order","queryOrderState");
-            axios.post(url,params)
-                .then((res)=>{
-                    res = res.data;
-                    console.log(res);
-                    if(res.state == 0){
-                        if(res.obj >= 0){
-                            Toast.success("订单已经支付");
-                            this.closeQrcode();
-                            this.orderstate = -1;
-                        }
-                    }
-                });
-            
-            
+        },
+         
+        jsApiCall:function () {
+            WeixinJSBridge.invoke(
+                'getBrandWCPayRequest', {
+                    "appId": this.payinfo.appId,
+                    "timeStamp": this.payinfo.timeStamp,
+                    "nonceStr": this.payinfo.nonceStr,
+                    "package": this.payinfo.package,
+                    "signType": this.payinfo.signType,
+                    "paySign": this.payinfo.paySign
+                },
+                function(res) {
+                    //if (res.err_msg.length > 5) {
+                        //window.location.href = "/user/my?rand=" + Math.random();
+                    //}
+                    WeixinJSBridge.log(res.err_msg);
+                    //alert(res.err_code+"|"+res.err_desc+"|"+res.err_msg);
+                }
+            );
         },
 
         showCart: function(){

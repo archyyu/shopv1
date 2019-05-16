@@ -39,6 +39,10 @@ class MobileController extends \controller\Controller{
     
     private $productService;
     
+    private $orderService;
+    
+    private $payService;
+    
     public function __construct() {
         parent::__construct();
         $this->cardService = new \service\CardService();
@@ -52,6 +56,8 @@ class MobileController extends \controller\Controller{
         $this->orderModel = new \model\ShopOrder();
         $this->productTypeModel = new \model\ShopProductType();
         $this->productService = new \service\ProductService();
+        $this->orderService = new \service\OrderService();
+        $this->payService = new \service\PayService();
     }
     
     public function index(){
@@ -87,6 +93,28 @@ class MobileController extends \controller\Controller{
         $this->returnSuccess($list);
     }
     
+    public function createOrder(){
+        
+        global $_W;
+        $productlist = json_decode(html_entity_decode($this->getParam("productlist")),true);
+        $shopid = 1;
+        
+        $uniacid = $_W['uniacid'];
+        $memberid = $_W["member"]["uid"];
+        $openid = $_W["openid"];
+        $address = "A001";
+        $ordersource = 1;
+        $remark = "";
+        $paytype = 1;
+        
+        
+        $orderid = $this->orderService->generateProductOrder($uniacid,$memberid, 0, $shopid, 
+                $address, $productlist, $ordersource, $remark,$paytype);
+        $order = $this->orderModel->findOrderById($orderid);
+        $payinfo = $this->payService->getJsapiPay($order, $openid);
+        $this->returnSuccess($payinfo);
+    }
+    
     public function tag(){
         global $_W;
         $uid = $_W['member']['uid'];
@@ -94,7 +122,6 @@ class MobileController extends \controller\Controller{
         $tag = $this->getParam("tag");
         
         $this->redisService->setMemberid($tag, $uid);
-        
         exit("登陆成功");
     }
     
@@ -130,6 +157,7 @@ class MobileController extends \controller\Controller{
         
         $where = array();
         $where["memberid"] = $uid;
+        $where["orderstate"] = 0;
         
         //$where['LIMIT'] = [$offset*$limit,$limit];
         //$where['ORDER'] = ["createtime" => 'DESC'];
