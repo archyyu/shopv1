@@ -119,7 +119,7 @@ Vue.component('mine', {
             this.queryMemberInfo();
         },
         toCard:function(){
-            this.$root.selectedLabel = 'card';
+            this.$root.selectedLabel = 'cardList';
         },
         queryMemberInfo:function(){
             let params = {};

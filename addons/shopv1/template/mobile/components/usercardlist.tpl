@@ -33,7 +33,8 @@ Vue.component('card-list', {
     },
     methods: {
         backToMain:function(){
-            this.$root.toIndex();
+            console.log(this.$root);
+            this.$root.toMine();
         },
         open:function(){
             this.$root.tabbarShow = false;

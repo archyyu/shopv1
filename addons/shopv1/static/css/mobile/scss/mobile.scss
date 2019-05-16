@@ -547,6 +547,7 @@ html {
     min-height: 5.5rem;
     display: flex;
     margin-bottom: 1rem;
+    overflow: hidden;
     .card-info{
       border: 1px solid #1b9afb;
       width: calc(100% - 7rem);
@@ -573,12 +574,23 @@ html {
       position: relative;
       &::before{
         content: '';
-        @include circle(2rem);
+        @include circle(16px);
         background-color: #fff;
         display: inline-block;
         position: absolute;
-        top: -1rem;
-        left: -1rem;
+        top: -8px;
+        left: -8px;
+        border: 1px solid #1b9afb;
+      }
+      &::after{
+        content: '';
+        @include circle(16px);
+        background-color: #fff;
+        display: inline-block;
+        position: absolute;
+        bottom: -8px;
+        left: -8px;
+        border: 1px solid #1b9afb;
       }
     }
   }

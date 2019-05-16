@@ -46,7 +46,10 @@ var app = new Vue({
             console.log(newV, oldV);
         },
         toIndex: function () {
-            this.$root.$refs.selectedLabel = 'waterbar';
+            this.selectedLabel = 'waterbar';
+        },
+        toMine: function () {
+            this.selectedLabel = 'mine';
         }
     }
 });
