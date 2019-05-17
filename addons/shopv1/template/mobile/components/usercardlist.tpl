@@ -31,6 +31,9 @@ Vue.component('card-list', {
             cardList:[]
         };
     },
+    mounted:function(){
+        this.getCardList();
+    },
     methods: {
         backToMain:function(){
             console.log(this.$root);
