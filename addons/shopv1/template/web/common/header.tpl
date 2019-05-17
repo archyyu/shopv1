@@ -40,38 +40,62 @@
     {literal}
     <script>
       $(function () {
-        
+
         // scroll init
         $(".left-menu-wrapper").niceScroll();
-        $("#leftMenu li").on('click',function(){
+        $("#leftMenu li").on('click', function () {
           console.log("li")
           $(".left-menu-wrapper").getNiceScroll().resize();
         })
         $(".page-container").niceScroll();
         // nav init
         $("#leftMenu").metisMenu();
-
+        navActiveInit();
         // bootbox init
         bootbox.setLocale('zh_CN');
 
         // init footer height
-        var footerEle= $(".footer");
-        if(footerEle.length>0){
-          footerEle.prev().css("height","calc(100% - 122px)")
+        var footerEle = $(".footer");
+        if (footerEle.length > 0) {
+          footerEle.prev().css("height", "calc(100% - 122px)")
         }
-        
-        //bootstrap select init
-        $("#barSelect").selectpicker('value','{$gid}')
-        $("#barSelect").on("changed.bs.select",function(e, clickedIndex, isSelected, previousValue) {
-//          console.log(e)
-//          console.log(clickedIndex)
-//          console.log(isSelected)
-//          console.log(previousValue)
-//          console.log($(this).val())
-        });
 
-        
-      }); 
+        //bootstrap select init
+        $("#barSelect").selectpicker('value', '{$gid}')
+
+
+
+      });
+      // 初始化导航和面包屑
+      function navActiveInit() {
+        var curRoute = [UrlUtil.getQueryString('do'), UrlUtil.getQueryString('f')];
+        $("#leftMenu a").each(function (idx, ele) {
+          var href = $(this).attr('href');
+          var linkArr = ['', ''];
+          if (href) {
+            linkArr = [UrlUtil.getQueryString('do', href), UrlUtil.getQueryString('f', href)]
+          }
+
+          if (linkArr[0] === curRoute[0] && linkArr[1] === curRoute[1]) {
+            $(this).parent().addClass('mm-active');
+            $("#topBreadcrumb").append('<li>' + $(this).text() + '</li>');
+
+            // 展开导航
+            $(this).parents('ul').each(function () {
+              if (!$(this).hasClass('metismenu')) {
+                $(this).addClass('mm-show').siblings('a').attr('aria-expanded', 'true');
+                $(this).parent().addClass('mm-active');
+
+                $("#topBreadcrumb").prepend('<li>' +
+                  $(this).siblings('a').children(":not('.iconfont')").text() +
+                  '</li>');
+              }
+            });
+            $("#topBreadcrumb").prepend('<li>首页</li>');
+            return false;
+          }
+        });
+      }
     </script>
     {/literal}
 </head>
@@ -176,10 +200,8 @@
             </div><!-- /.container-fluid -->
           </nav>
     </div>
-    <ol class="breadcrumb">
-      <li><a href="#">首页</a></li>
-      <li><a href="#">系统</a></li>
-      <li class="active">欢迎页</li>
+    <ol id="topBreadcrumb" class="breadcrumb">
+
     </ol>
     <div class="page-container">
 

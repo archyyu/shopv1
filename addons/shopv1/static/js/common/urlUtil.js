@@ -2,9 +2,13 @@
  * Created by Administrator on 2019/3/15.
  */
 var UrlUtil = {
-  getQueryString: function (name) {
+  getQueryString: function (name,route) {
     var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
-    var r = window.location.search.substr(1).match(reg);
+    if (!route) {
+      var r = window.location.search.substr(1).match(reg);
+  } else {
+      var r = route.match(reg);
+  }
     if (r != null) return decodeURI(r[2]);
     return null;
   },
