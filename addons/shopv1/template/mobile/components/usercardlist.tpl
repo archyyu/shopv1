@@ -37,10 +37,10 @@ Vue.component('card-list', {
             this.$root.toMine();
         },
         open:function(){
-            this.$root.tabbarShow = false;
             this.getCardList();
         },
         getCardList:function(){
+            console.log('get card list')
             let url = UrlHelper.createShortUrl("getCardList");
             
             let params = {};
@@ -48,7 +48,7 @@ Vue.component('card-list', {
             axios.post(url,params)
                     .then((res)=>{
                         res = res.data;
-                        console.log("getcardlist:" + res);
+                        console.log("getcardlist:" , res);
                         if(res.state == 0){
                             this.cardList = res.obj;
                         }

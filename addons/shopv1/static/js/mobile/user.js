@@ -43,13 +43,18 @@ var app = new Vue({
     mounted() {},
     methods: {
         tabsChange: function (newV,oldV) {
-            console.log(newV, oldV);
+            this.tabsChange(newV,oldV);
         },
         toIndex: function () {
             this.selectedLabel = 'waterbar';
         },
         toMine: function () {
             this.selectedLabel = 'mine';
-        }
+        },
+        tabsChange(newTab, oldTab){
+            if(this.$refs[newTab]){
+                this.$refs[newTab].open();
+            }
+        },
     }
 });

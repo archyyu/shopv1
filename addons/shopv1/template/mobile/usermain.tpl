@@ -11,10 +11,10 @@
                 <order ref="order"></order>
             </cube-tab-panel>
             <cube-tab-panel label="mine">
-                <mine></mine>
+                <mine ref="mine"></mine>
             </cube-tab-panel>
             <cube-tab-panel label="cardList"> 
-                <card-list></card-list>
+                <card-list ref="cardList"></card-list>
             </cube-tab-panel>
         </cube-tab-panels>
         <cube-tab-bar
