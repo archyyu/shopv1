@@ -40,7 +40,7 @@
                             <div class="weui-cell__bd">
                                 <p>卡券</p>
                             </div>
-                            <div class="weui-cell__ft">0 张</div>
+                            <div class="weui-cell__ft">{{memberInfo.cardsize}}张</div>
                         </div>
                     </div>
                 </div>

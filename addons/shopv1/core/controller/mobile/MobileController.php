@@ -71,6 +71,10 @@ class MobileController extends \controller\Controller{
         global $_W;
         
         $member = $this->shopMemberModel->queryMemberByUid($_W["member"]["uid"]);
+        $list = $this->shopMemberCardModel->getMemberList($_W["member"]["uid"], 0);
+        
+        $member["cardsize"] = count($list);
+        
         $this->returnSuccess($member);
     }
     
