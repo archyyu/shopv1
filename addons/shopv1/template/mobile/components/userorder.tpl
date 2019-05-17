@@ -5,6 +5,7 @@
             <div class="title">
                 <span>订单列表</span>
             </div>
+            <span class="right-icon" :class="{active: filtered}" @click="showFilter"><iconfont>&#xe68a;</iconfon></span>
         </header>
         <div class="container">
             <cube-scroll direction="horizontal" class="horizontal-scroll-list-wrap" :options="scrollOptions">
@@ -36,6 +37,22 @@
                     </table>
                 </div>
             </cube-scroll>
+
+            <bottom-popup label="orderSearch" title="搜索订单" height="auto" cubeclass="filter-popup" ref="filterPopup">
+                <template v-slot:content>
+                    <cube-form :model="searchModel">
+                    <cube-form-item :field="searchFields[0]">
+                            <cube-button :inline="true" class="date-btn" @click="chooseDate">{{searchStartDate?searchStartDate+" 至 "+searchEndDate:' 选 择 时 间 段 '}}</cube-button>
+                    </cube-form-item>
+                    <cube-form-item :field="searchFields[1]"></cube-form-item>
+                    <cube-form-item :field="searchFields[2]"></cube-form-item>
+                </cube-form>
+                </template>
+                <template v-slot:footer>
+                    <cube-button :inline="true" @click="resetFilter">重 置</cube-button>
+                    <cube-button :inline="true" @click="confirmFilter">搜 索</cube-button>
+                </template>
+            </bottom-popup>
 
             <cube-popup position="bottom" :mask-closable="true" ref="proDetailPopup">
                 <div class="my-popup-wrap">
@@ -69,6 +86,22 @@
 </script>
 
 <script>
+const dateSegmentData = [{
+        is: 'cube-date-picker',
+        title: '开始时间',
+        min: new Date(2010, 0, 1),
+        max: new Date(),
+        value: new Date(moment().subtract(1, 'days')),
+        columnCount: 5
+    },
+    {
+        is: 'cube-date-picker',
+        title: '结束时间',
+        min: new Date(2010, 0, 1),
+        max: new Date(),
+        columnCount: 5
+    }
+];
 Vue.component('order', {
     name: 'Order',
     template: '#order',
@@ -80,10 +113,44 @@ Vue.component('order', {
             },
             offset:0,
             limit:20,
+            shopList: [],
+            userList: [],
             DateUtil:DateUtil,
             orderList: [],
-            orderproductlist:[]
+            orderproductlist:[],
+            searchStartDate: '',
+            searchEndDate: '',
+            searchModel: {
+                userid: '',
+                shopid: '',
+            },
+            searchFields: [
+                {
+                    label: '时间'
+                },
+                {
+                    type: 'select',
+                    modelKey: 'shopid',
+                    label: '门店',
+                    props: {
+                        options: this.shopList,
+                    }
+                },
+                {
+                    type: 'select',
+                    modelKey: 'userid',
+                    label: '吧员',
+                    props: {
+                        options: this.userList,
+                    }
+                }
+            ]
         };
+    },
+    computed: {
+        filtered: function(){
+            return Boolean(this.searchStartDate) || Boolean(this.searchModel.userid) || Boolean(this.searchModel.shopid);
+        }
     },
     created() {},
     mounted() {
@@ -95,6 +162,42 @@ Vue.component('order', {
         },
         closepopup:function(){ 
             this.$refs.proDetailPopup.hide(); 
+        },
+        showFilter: function(){
+            this.$refs.filterPopup.showPopup();
+        },
+        hideFilter: function(){
+            this.$refs.filterPopup.closePopup();
+        },
+        chooseDate: function () {
+            let that = this;
+            if (!this.orderDate) {
+                this.orderDate = this.$createSegmentPicker({
+                    data: dateSegmentData,
+                    onSelect: (selectedDates, selectedVals, selectedTexts) => {
+                        that.searchStartDate = `${moment(selectedDates[0]).format('YYYY-MM-DD HH:mm')}`;
+                        that.searchEndDate = `${moment(selectedDates[1]).format('YYYY-MM-DD HH:mm')}`;
+                    },
+                    onNext: (i, selectedDate, selectedValue, selectedText) => {
+                        dateSegmentData[1].min = selectedDate
+                        if (i === 0) {
+                            this.orderDate.$updateProps({
+                                data: dateSegmentData
+                            })
+                        }
+                    }
+                })
+            }
+            this.orderDate.show()
+        },
+        resetFilter: function(){
+            this.searchStartDate = '';
+            this.searchEndDate = '';
+            this.searchModel.userid = '';
+            this.searchModel.shopid = '';
+        },
+        confirmFilter: function(){
+            this.hideFilter();
         },
         lookOrderDetail:function(orderProductList){
             console.log(orderProductList);

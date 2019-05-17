@@ -56,6 +56,14 @@ html {
       color: #fc9153;
     }
 
+    .right-icon {
+      position: absolute;
+      top: 0;
+      right: 0;
+      padding: 0 15px;
+      color: #fc9153;
+    }
+
     +.container {
       height: calc(100% - 44px);
     }
@@ -121,6 +129,19 @@ html {
   }
   .my-popup-content{
     height: 14rem;
+    padding: 15px;
+  }
+
+  .my-popup-footer {
+    border-top: 1px solid #ECECEC;
+    padding: 15px;
+    display: flex;
+    justify-content: center;
+    >button{
+      +button{
+        margin-left: 0.5rem;
+      }
+    }
   }
 }
 
@@ -452,6 +473,14 @@ html {
 // order
 .order{
   height: 100%;
+  .header{
+    .right-icon{
+      color: #666;
+      &.active{
+        color: #fc9153;
+      }
+    }
+  }
   .container {
     position: relative;
     overflow-y: hidden;
@@ -482,6 +511,12 @@ html {
         width: 25%;
         text-align: center;
       }
+    }
+  }
+  .cube-filter-popup{
+    .date-btn{
+      background-color: transparent;
+      color: #333333;
     }
   }
   .table{

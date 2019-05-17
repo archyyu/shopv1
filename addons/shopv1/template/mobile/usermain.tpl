@@ -28,6 +28,7 @@
 {/literal}
 
 {include file="./common/iconfont.tpl"}
+{include file="./common/bottompopup.tpl"}
 {include file="./components/userwaterbar.tpl"}
 {include file="./components/userorder.tpl"}
 {include file="./components/usermine.tpl"}

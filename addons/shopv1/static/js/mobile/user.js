@@ -55,6 +55,6 @@ var app = new Vue({
             if(this.$refs[newTab]){
                 this.$refs[newTab].open();
             }
-        },
+        }, 
     }
 });
