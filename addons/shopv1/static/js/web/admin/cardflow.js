@@ -124,7 +124,7 @@ var Cardflow = {
         params.useflag = $('input:radio[name="useflag"]:checked').val();
         params.sendshopid = $("#sendshopid").val();
         params.usedshopid = $("#usedshopid").val();
-        params.cardtype = $("#cardtype").val();
+        //params.cardtype = $("#cardtype").val();
         params.cardid = $("#cardid").val();
         
         $.post(url,params,function(data){

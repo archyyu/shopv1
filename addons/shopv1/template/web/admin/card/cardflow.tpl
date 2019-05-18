@@ -17,7 +17,7 @@
                     {/foreach}
                 </select>
             </div>
-            <div class="form-group form-group-sm">
+            <!-- <div class="form-group form-group-sm">
                 <label class="control-label">卡券类型</label>
                 <select id="cardtype" class="form-control input-sm selectpicker">
                     <option value="2">请选择</option>
@@ -25,7 +25,7 @@
                     <option value="1">兑换卷</option>
                 </select>
             </div>
-            <!-- <div class="form-group form-group-sm">
+            <div class="form-group form-group-sm">
                 <label class="control-label">搜索会员</label>
                 <select class="form-control input-sm selectpicker">
                     <option value="">请选择</option>

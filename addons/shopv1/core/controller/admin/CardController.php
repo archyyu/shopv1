@@ -104,7 +104,7 @@ class CardController extends \controller\Controller{
     
     public function loadCardflows()
     {
-        //$uniacid = $this->getUniacid();
+        // $uniacid = $this->getUniacid();
         $offset = $this->getParam("offset");
         $limit = $this->getParam("limit");
         
@@ -112,10 +112,10 @@ class CardController extends \controller\Controller{
         $useflag = $this->getParam("useflag");
         $sendshopid = $this->getParam("sendshopid");
         $usedshopid = $this->getParam("usedshopid");
-        $cardtype = $this->getParam("cardtype");
-        //$cardid = $this->getParam("cardid");
+        //$cardtype = $this->getParam("cardtype");
+        $cardid = $this->getParam("cardid");
 
-        //$where['uniacid'] = $uniacid;
+        // $where['uniacid'] = $uniacid;
         $timeArr = explode("-", $timearea);
         if (count($timeArr) == 2) {
             $where['gettime[<>]'] = [strtotime($timeArr[0] . " 00:00:00"), strtotime($starttime[1] . " 23:59:59")];
@@ -125,8 +125,12 @@ class CardController extends \controller\Controller{
             $where['useflag'] = $useflag;
         }
 
-        if ($cardtype != 2) {
-            $where['cardtype'] = $cardtype;
+        // if ($cardtype != 2) {
+        //     $where['cardtype'] = $cardtype;
+        // }
+
+        if ($cardid) {
+            $where['cardtype'] = $cardid;
         }
 
         if ($sendshopid) {
@@ -135,10 +139,6 @@ class CardController extends \controller\Controller{
 
         if ($usedshopid) {
             $where['usedshopid'] = $usedshopid;
-        }
-
-        if ($cardtype != 2) {
-            $where['cardtype'] = $cardtype;
         }
 
         $where['deleteflag'] = 0;
@@ -151,7 +151,7 @@ class CardController extends \controller\Controller{
             if ($member){
                 $list['rows'][$key]['nickname'] = $member['nickname'];
                 $list['rows'][$key]['realname'] = $member['realname'];
-                $list['rows'][$key]['phone'] = $member['moblie'];
+                $list['rows'][$key]['phone'] = $member['mobile'];
             }
             else{
                 $list['rows'][$key]['nickname'] = '';
