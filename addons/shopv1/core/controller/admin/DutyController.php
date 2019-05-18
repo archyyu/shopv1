@@ -31,11 +31,13 @@ class DutyController extends \controller\Controller{
     
     public function loadDutys(){
         $uniacid = $this->getUniacid();
+        $shopid = $this->getParam("shopid");
         $offset = $this->getParam("offset");
         $limit = $this->getParam("limit");
         
         $where = array();
         $where['uniacid'] = $uniacid;
+        $where["shopid"] = $shopid;
         
         $userMap = $this->userModel->getUserMap($uniacid);
         $shopMap = $this->shopModel->findShopMapByUnacid($uniacid);

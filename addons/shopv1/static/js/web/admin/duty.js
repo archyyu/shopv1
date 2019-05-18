@@ -12,6 +12,10 @@ $(function(){
     
 });
 
+$('#shopSelect').change(function(){
+    Duty.refreshDutyTable();
+ });
+
 var Duty = {
     
     initDutyTable:function(){
@@ -64,6 +68,7 @@ var Duty = {
         var url = UrlUtil.createWebUrl("duty","loadDutys");
         
         var params = obj.data;
+        params.shopid = $("#shopSelect").val();
         
         $.post(url,params,function(data){
             if(data.state == 0){

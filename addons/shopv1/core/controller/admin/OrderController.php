@@ -43,6 +43,7 @@ class OrderController extends \controller\Controller{
         $timearea = $this->getParam("timearea");
         $orderstate = $this->getParam("orderstate");
         $userid = $this->getParam("userid");
+        
 
         $where['uniacid'] = $uniacid;
         $timeArr = explode("-", $timearea);
@@ -58,6 +59,8 @@ class OrderController extends \controller\Controller{
         if ($userid) {
             $where['userid'] = $userid;
         }
+        
+        
         
 //        $where["ORDER"] = ["createtime"=>"DESC"];
         
@@ -79,9 +82,9 @@ class OrderController extends \controller\Controller{
     }
 
     public function loadUsers(){
-
+        
         $shopUserModel = new \model\ShopUser();
-        $list = $shopUserModel->getUsers();
+        $list = $shopUserModel->getShopUserList();
         $this->returnSuccess($list);
     }
     
