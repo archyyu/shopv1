@@ -39,17 +39,17 @@ class OrderController extends \controller\Controller{
         $uniacid = $this->getUniacid();
         $offset = $this->getParam("offset");
         $limit = $this->getParam("limit");
-        
+
+        $shopid = $this->getParam("shopid");        
         $timearea = $this->getParam("timearea");
         $orderstate = $this->getParam("orderstate");
         $userid = $this->getParam("userid");
-        
 
+        $where['shopid'] = $shopid;
         $where['uniacid'] = $uniacid;
         $timeArr = explode("-", $timearea);
         if (count($timeArr) == 2) {
-            $where['createtime[>=]'] = strtotime($timeArr[0] . " 00:00:00");
-            $where['createtime[<=]'] = strtotime($starttime[1] . " 23:59:59");
+            $where['createtime[<>]'] = [strtotime($timeArr[0] . " 00:00:00"), strtotime($starttime[1] . " 23:59:59")];
         }
 
         if ((int)$orderstate != 2) {
@@ -59,8 +59,6 @@ class OrderController extends \controller\Controller{
         if ($userid) {
             $where['userid'] = $userid;
         }
-        
-        
         
 //        $where["ORDER"] = ["createtime"=>"DESC"];
         
@@ -82,9 +80,9 @@ class OrderController extends \controller\Controller{
     }
 
     public function loadUsers(){
-        
+
         $shopUserModel = new \model\ShopUser();
-        $list = $shopUserModel->getShopUserList();
+        $list = $shopUserModel->getUsers();
         $this->returnSuccess($list);
     }
     

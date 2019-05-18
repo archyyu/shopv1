@@ -9,15 +9,13 @@ $(function(){
 
     Order.loadUsers();
 
-    
+    $('#shopSelect').change(function(){
+       Order.flushUsers();
+    });
 
     Order.initTable();
     Order.refreshTable();
 });
-
-$('#shopSelect').change(function(){
-    Order.flushUsers();
- });
 
 var Order = {
 
@@ -124,10 +122,10 @@ var Order = {
         var url = UrlUtil.createWebUrl('order',"loadOrders");
         
         var params = obj.data;
-        params.shopid = $("#shopSelect").val();
         params.timearea = $("#timearea").val();
         params.orderstate = $('input:radio[name="orderstate"]:checked').val();
         params.userid = $("#usersList").val();
+        params.shopid = $("#shopSelect").val();
         
         $.post(url,params,function(data){
             if(data.state == 0){
