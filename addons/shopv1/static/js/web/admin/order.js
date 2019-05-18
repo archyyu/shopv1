@@ -6,11 +6,21 @@
 
 
 $(function(){
+
+    Order.loadUsers();
+
+    $('#shopSelect').change(function(){
+       Order.flushUsers();
+    });
+
     Order.initTable();
     Order.refreshTable();
 });
 
 var Order = {
+
+    //吧员列表
+    users:[],
     
     initTable:function(){
         
@@ -112,6 +122,9 @@ var Order = {
         var url = UrlUtil.createWebUrl('order',"loadOrders");
         
         var params = obj.data;
+        params.timearea = $("#timearea").val();
+        params.orderstate = $('input:radio[name="orderstate"]:checked').val();
+        params.userid = $("#usersList").val();
         
         $.post(url,params,function(data){
             if(data.state == 0){
@@ -122,6 +135,49 @@ var Order = {
             }
         });
         
+    },
+
+    loadUsers:function(){
+
+        var url = UrlUtil.createWebUrl('order',"loadUsers");
+        
+        var params = {};
+        
+        $.post(url,params,function(data){
+            if(data.state == 0){
+                if (data.obj.length > 0) {
+                    Order.users = data.obj;
+                    // for(var i = 0; i < data.obj.length; i++){
+                    //     var item = {};
+                    //     item.id = data.obj[i].id;
+                    //     item.account = data.obj[i].account;
+                    //     item.shopid = data.obj[i].shopid;
+
+                    //     this.users.push(item);
+                    // }  
+
+                    Order.flushUsers();
+                };
+            }
+            else{
+                Tips.failTips(data.msg);
+            }
+        });
+    },
+
+    flushUsers:function(){
+        var shopid = $("#shopSelect").val();
+        $("#usersList").html("");
+        $("#usersList").prepend("<option value='0'>请选择</option>");
+        if (this.users.length > 0) {
+            for (var i = 0; i < this.users.length; i++) {
+                if (this.users[i].shopid == shopid) {
+                    $("#usersList").append("<option value='" + this.users[i].id + "'>" + this.users[i].account + "</option>");
+                };
+            };
+        };
+        $('#usersList').selectpicker('refresh');
     }
+    
     
 };

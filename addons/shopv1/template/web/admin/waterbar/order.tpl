@@ -16,15 +16,15 @@
     <div class="form-inline">
         <div class="form-group form-group-sm">
             <label class="control-label">时间起止</label>
-            <input type="text" class="form-control range-picker-js">
+            <input type="text" id="timearea" class="form-control range-picker-js">
         </div>
         <div class="form-group form-group-sm">
             <label class="control-label">吧员</label>
-            <select class="form-control input-sm selectpicker">
+            <select id="usersList" class="form-control input-sm selectpicker">
                 <option value="">请选择</option>
             </select>
         </div>
-        <div class="form-group form-group-sm">
+        <!-- <div class="form-group form-group-sm">
             <label class="control-label">卡券类型</label>
             <select class="form-control input-sm selectpicker">
                 <option value="">请选择</option>
@@ -35,20 +35,24 @@
             <select class="form-control input-sm selectpicker">
                 <option value="">请选择</option>
             </select>
-        </div>
+        </div> -->
         <div class="form-group form-group-sm">
             <label class="control-label">订单状态</label>
             <label class="radio-inline">
-                <input type="radio"> 全部
+                <input class="orderstate" name="orderstate" type="radio" value="2" checked> 全部
             </label>
             <label class="radio-inline">
-                <input type="radio"> 已使用
+                <input class="orderstate" name="orderstate" type="radio" value="0"> 已支付
             </label>
             <label class="radio-inline">
-                <input type="radio"> 未使用
+                <input class="orderstate" name="orderstate" type="radio" value="-1"> 未支付
+            </label>
+            <label class="radio-inline">
+                <input class="orderstate" name="orderstate" type="radio" value="1"> 已完成
             </label>
         </div>
-        <button class="btn btn-sm btn-primary">搜索</button>
+        <button class="btn btn-sm btn-primary" onclick="Order.refreshTable();">搜索</button>
+        
     </div>
 </div>
 
@@ -67,6 +71,10 @@
 </div>
 
 <script src="{$StaticRoot}/plugins/jquery-timepicker/jquery.timepicker.min.js"></script>
+<script>
+    $(".range-picker-js").daterangepicker();
+</script>
+
 <script src="{$StaticRoot}/js/web/admin/order.js"></script>
 
 {include file="../../common/footer.tpl"}
