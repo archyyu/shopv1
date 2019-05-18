@@ -51,4 +51,7 @@ class ShopMemberCard extends Model{
         return $this->save($data,['id'=>$id]);
     }
     
+    public function removeMemberCard($id){
+        return $this->remove(['id'=>$id]);
+    }
 }

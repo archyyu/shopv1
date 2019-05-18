@@ -22,6 +22,10 @@ class ShopUser extends Model{
         $list = $this->getList("*", ['shopid'=>$shopid]);
         return $list;
     }
+
+    public function getUsers(){
+        return $this->getList("*");
+    }
     
     public function getShopUserById($userid){
         return $this->getOne("*",['id'=>$userid]);

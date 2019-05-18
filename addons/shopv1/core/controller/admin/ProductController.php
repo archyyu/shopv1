@@ -400,6 +400,10 @@ class ProductController extends Controller{
     }
     
     public function stock(){
+        $uniacid = $this->getUniacid();
+        $productlist = $this->productModel->findProductByUniacid($uniacid);
+        $this->smarty->assign("productlist", $productlist);
+        
         $this->smarty->display('admin/waterbar/batchstock.tpl');
     }
     
