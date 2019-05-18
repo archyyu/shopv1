@@ -6,9 +6,9 @@ var UrlUtil = {
     var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
     if (!route) {
       var r = window.location.search.substr(1).match(reg);
-  } else {
+    } else {
       var r = route.match(reg);
-  }
+    }
     if (r != null) return decodeURI(r[2]);
     return null;
   },

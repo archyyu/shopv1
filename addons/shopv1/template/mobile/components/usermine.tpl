@@ -61,7 +61,7 @@
                             <cube-form-item :field="fields[1]"></cube-form-item>
                             <cube-form-item :field="fields[2]">
                                 <div class="captcha-input">
-                                    <cube-input v-modal="memberModel.verification"></cube-input>
+                                    <cube-input v-model="memberModel.verification"></cube-input>
                                     <cube-button @click="getCode">发送</cube-button>
                                 </div>
                             </cube-form-item>

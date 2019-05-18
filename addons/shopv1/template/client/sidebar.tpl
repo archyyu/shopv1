@@ -32,8 +32,8 @@
                 <p>扫码登录获得积分</p>
             </div>
         </div>
-        <div class="line3a">
-            <a class="buy_btn">
+        <div class="line3a" @click='openWaterbar'>
+            <a class="buy_btn" >
                 <span class="iconfont">&#xe640;</span>
                 <p>购买饮品</p>
             </a>
@@ -90,7 +90,7 @@
             </div>
             <span slot="footer" class="dialog-footer">
                 <el-button @click="lockDialog = false">取 消</el-button>
-                <el-button type="primary" @click="lock">确 定</el-button>
+                <el-button type="primary" @click="lockScreen">确 定</el-button>
             </span>
         </el-dialog>
     </div>
@@ -155,7 +155,7 @@ var app = new Vue({
         },
         
         openWaterbar:function(){
-            let url = UrlHelper.createShortUrl("ckientsidebar");
+            let url = UrlHelper.createShortUrl("clientwaterbar");
             
             url += "&shopid=" + this.shopid;
             url += "&address=" + this.address;
@@ -218,7 +218,7 @@ var app = new Vue({
             this.lockDialog = true;
         },
                 
-        lock:function(){
+        lockScreen:function(){
             mainForm.lockScreen(this.lockinfo.password);
             lockDialog = false;
         },
