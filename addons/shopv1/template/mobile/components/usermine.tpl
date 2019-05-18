@@ -13,7 +13,7 @@
                     <div class="mine-name">
                         <p class="name">姓名:{{memberInfo.nickname}}</p>
                         <p class="cellphone">手机号:{{memberInfo.mobile}}</p>
-                        <cube-button :inline="true" @click="$refs.addPopup.show();">编辑信息</cube-button>
+                        <cube-button v-if="memberInfo.mobile == ''" :inline="true" @click="$refs.addPopup.show();">编辑信息</cube-button>
                     </div>
                 </div>
                 <div class="mine-info">
@@ -62,11 +62,11 @@
                             <cube-form-item :field="fields[2]">
                                 <div class="captcha-input">
                                     <cube-input v-modal="memberModel.verification"></cube-input>
-                                    <cube-button>发送</cube-button>
+                                    <cube-button @click="getCode">发送</cube-button>
                                 </div>
                             </cube-form-item>
                         </cube-form>
-                        <cube-button class="add-btn">编辑会员</cube-button>
+                        <cube-button class="add-btn" @click="updateMemberInfo">保存</cube-button>
                     </div>
                 </div>
             </cube-popup>
@@ -105,8 +105,12 @@ Vue.component('mine', {
                     }
                 },
                 {
+                    type:'input',
                     modelKey: 'verification',
                     label: '验证码',
+                    props:{
+                        placeholder: '请填写验证码'
+                    }
                 }
             ]
         };
@@ -138,6 +142,48 @@ Vue.component('mine', {
                         
                     }
                 });
+        },
+        getCode:function(){
+            let params = {};
+            
+            if(this.memberModel.phone == ""){
+                Toast.error("手机号不能为空");
+                return ;
+            }
+            
+            params.phone = this.memberModel.phone;
+            let url = UrlHelper.createShortUrl("getCode");
+            
+            axios.post(url,params)
+                .then((res)=>{
+                    res = res.data;
+                    if(res.state == 0){
+                        Toast.success("发送验证码成功");
+                    }
+                    else{
+                        Toast.error(res.msg);
+                    }
+                });
+            
+        },
+        updateMemberInfo:function(){
+            let params = {};
+            let url = UrlHelper.createShortUrl("updateMemberInfo");
+            
+            params.phone = this.memberModel.phone;
+            params.idcard = this.memberModel.idCard;
+            params.code = this.memberModel.verification;
+            
+            axios.post(url,params).then((res)=>{
+                res = res.data;
+                if(res.state == 0){
+                    Toast.success("保存成功");
+                    this.memberInfo = res.obj;
+                }
+                else{
+                    Toast.error(res.msg);
+                }
+                                });
         },
         info: function () {
 

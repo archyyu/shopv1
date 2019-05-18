@@ -83,11 +83,12 @@ class RedisService extends Service{
     }
 
     public function setPhoneVerifyCode($phone,$code){
-
+        $this->redis->set("phone:".$phone,$code);
+        
     }
 
-    public function getPhoneCode(){
-
+    public function getPhoneCode($phone){
+        return $this->redis->get("phone:".$phone);
     }
 
 

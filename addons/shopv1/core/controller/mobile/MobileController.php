@@ -70,6 +70,8 @@ class MobileController extends \controller\Controller{
     public function getMemberInfo(){
         global $_W;
         
+        logInfo("member uid:".$_W["member"]["uid"]);
+        
         $member = $this->shopMemberModel->queryMemberByUid($_W["member"]["uid"]);
         $list = $this->shopMemberCardModel->getMemberList($_W["member"]["uid"], 0);
         
@@ -80,7 +82,7 @@ class MobileController extends \controller\Controller{
     
     public function loadProductTypeList(){
         global $_W;
-        $uniacid = 1;//$_w["uniacid"];
+        $uniacid = $_W["uniacid"];
         
         
         $list = $this->productTypeModel->getProductTypeList($uniacid);
@@ -177,6 +179,18 @@ class MobileController extends \controller\Controller{
             $this->returnFail("短信发送失败");
         }
     }
+    
+    public function getCode(){
+        
+        $phone = $this->getParam("phone");
+        
+        $code = rand(1000, 9999);
+        
+        $content = "短信验证码: $code";
+        $this->smsService->sendContent($phone, $content);
+        $this->redisService->setPhoneVerifyCode($phone, $code);
+        $this->returnSuccess();
+    }
 
     public function updateMemberInfo(){
         
@@ -186,12 +200,20 @@ class MobileController extends \controller\Controller{
         
         $memberid = $this->getUid();
         
+        if($code != $this->redisService->getPhoneCode($phone)){
+            
+            $this->returnFail("验证码错误");
+        }
+        
         $data = array();
         $data["mobile"] = $phone;
         $data["idcard"] = $idcard;
         
         $this->shopMemberModel->saveMember($data, $memberid);
-        $this->returnSuccess();
+        
+        $obj = $this->shopMemberModel->queryMemberByUid($memberid);
+        
+        $this->returnSuccess($obj);
         
     }
     
