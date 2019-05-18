@@ -6,11 +6,11 @@
         <div v-if="!lock">
             <div class="line1">
                 <div class="info">
-                    <div class="avatar"><img src="http://placehold.it/90x90"></div>
+                    <div class="avatar"><img :src="memberInfo.avatar"></div>
                     <div class="name">
                         <div>
-                            <p>尊敬的{{memberInfo.membertype}}</p>
-                            <p>姓名：{{memberInfo.membername}}</p>
+                            <p>姓名:{{memberInfo.realname}}</p>
+                            <p>手机号：{{memberInfo.mobile}}</p>
                         </div>
                     </div>
                 </div>
@@ -27,6 +27,7 @@
             <div class="lock1">
                 <div class="lock_bg"></div>
                 <div class="scancode">
+                 <qrcode :value="qrcodeurl" :options="{ width: 100 }"></qrcode>
                 </div>
                 <p>扫码登录获得积分</p>
             </div>
@@ -40,6 +41,7 @@
         <div v-if="!lock">
             <div class="line3">
                 <div class="scancode">
+                <qrcode :value="qrcodeurl" :options="{ width: 100 }"></qrcode>
                 </div>
             </div>
         </div>
@@ -79,10 +81,10 @@
             <div class="lock-content">
                 <el-form ref="form" :model="form" label-width="80px">
                     <el-form-item label="锁屏密码">
-                      <el-input v-model="lock.password"></el-input>
+                      <el-input v-model="lockinfo.password"></el-input>
                     </el-form-item>
                     <el-form-item label="确认密码">
-                      <el-input v-model="lock.confirmPassword"></el-input>
+                      <el-input v-model="lockinfo.confirmPassword"></el-input>
                     </el-form-item>
                 </el-form>
             </div>
@@ -102,11 +104,12 @@ var app = new Vue({
         memberInfo:{},
         address:"",
         tag:"",
+        qrcodeurl:"",
         shopid:0,
         msgDialog: false,
         lockDialog: false,
         msgText: '',
-        lock: {
+        lockinfo: {
             password: '',
             confirmPassword: ''
         }
@@ -115,12 +118,13 @@ var app = new Vue({
         
         this.address = UrlHelper.getQueryString("address");
         this.shopid = UrlHelper.getQueryString("shopid");
-        this.tag = this.address + this.shopid;
+        this.tag = this.shopid + this.address;
         
         setInterval(()=>{
             this.queryMemberInfo();
         },5000);
         
+        this.qrcodeurl = "http://pinshangy.com/app/index.php?i=2&m=shopv1&do=mobile&f=tag&c=entry&tag=" + this.tag;
         
     },
     methods: {
@@ -138,11 +142,11 @@ var app = new Vue({
             params.address = this.address;
             params.tag = this.tag;
             
-            
             axios.post(url,params)
                     .then((res)=>{
                         res = res.data;
                         if(res.state == 0){
+                            this.$message.success("登录成功");
                             this.memberInfo = res.obj;
                             this.lock = false;
                         }
@@ -177,12 +181,12 @@ var app = new Vue({
             axios.post(url,params)
             .then((res)=>{
                 res = res.data;
-            if(res.state == 0){
-                this.$message.success("留言成功");
-            }
-            else{
-                this.$message.error(res.msg);
-            }
+                if(res.state == 0){
+                    this.$message.success("留言成功");
+                }
+                else{
+                    this.$message.error(res.msg);
+                }
             });
             
         },
@@ -215,8 +219,8 @@ var app = new Vue({
         },
                 
         lock:function(){
-            mainForm.lockScreen("");
-            lockDialog = false
+            mainForm.lockScreen(this.lockinfo.password);
+            lockDialog = false;
         },
         info:function(){
         }

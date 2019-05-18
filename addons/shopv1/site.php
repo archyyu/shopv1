@@ -187,7 +187,7 @@ class Shopv1ModuleSite extends WeModuleSite{
     // ["uid"]=> string(1) "1" ["realname"]=> string(0) "" ["mobile"]=> string(11) "18633919531" ["email"]=> string(0) "" ["groupid"]=> string(1) "2" ["credit1"]=> string(4) "0.00" ["credit2"]=> string(4) "0.00" ["credit6"]=> string(4) "0.00" ["groupname"]=> string(15) "默认会员组"
     //
     public function doMobileMobile(){
-        //mc_oauth_userinfo();
+        mc_oauth_userinfo();
         
         global $_GPC;
         try{

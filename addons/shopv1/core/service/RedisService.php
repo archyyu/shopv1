@@ -32,6 +32,10 @@ class RedisService extends Service{
     public function getMemberIdByTag($tag){
         return $this->redis->get("tag:".$tag);
     }
+    
+    public function clearMemberTag($tag){
+        return $this->redis->delete("tag:".$tag);
+    }
 
     public function setMemberid($tag,$memberid){
         return $this->redis->set("tag:".$tag,$memberid);

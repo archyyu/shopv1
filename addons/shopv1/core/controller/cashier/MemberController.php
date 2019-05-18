@@ -75,8 +75,9 @@ class MemberController extends \controller\Controller{
         
         $memberid = $this->redisService->getMemberIdByTag($tag);
         
-        if(isset($memberid)){
+        if($memberid != ""){
             
+            $this->redisService->clearMemberTag($tag);
             $obj = $this->memberModel->queryMemberByUid($memberid);
             
             $this->returnSuccess($obj);

@@ -120,13 +120,15 @@ class MobileController extends \controller\Controller{
     }
     
     public function tag(){
-        global $_W;
-        $uid = $_W['member']['uid'];
+        
+        $uid = $this->getUid();
+        $openid = $this->getOpenId();
         
         $tag = $this->getParam("tag");
         
         $this->redisService->setMemberid($tag, $uid);
-        exit("登陆成功");
+        
+        exit("登陆成功 uid:$uid  openid:$openid tag:$tag");
     }
     
     public function getCardList(){
