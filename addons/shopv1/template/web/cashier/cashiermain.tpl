@@ -19,6 +19,10 @@
             <span slot="label"><iconfont iconclass="icon-liushui"></iconfont> 订单管理</span>
             <order ref="order"></order>
         </el-tab-pane>
+        <el-tab-pane name="member">
+            <span slot="label"><iconfont iconclass="icon-jiti"></iconfont> 会员</span>
+            <member ref="member"></member>
+        </el-tab-pane>
     </el-tabs>
 
     <!-- login -->
@@ -56,6 +60,7 @@
 {include file="./components/broadcast.tpl"}
 {include file="./components/shift.tpl"}
 {include file="./components/order.tpl"}
+{include file="./components/member.tpl"}
 {include file="./components/iconfont.tpl"}
 
 <script src="{$StaticRoot}/js/cashier/dateUtil.js"></script>

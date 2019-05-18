@@ -688,6 +688,69 @@ body,
 }
 
 
+// member
+.member{
+  padding-top: 30px;
+  .search-member{
+    .el-input{
+      min-width: 260px;
+    }
+  }
+  .member-detail{
+    >div{
+      display: flex;
+      align-items: center;
+      >label{
+        width: 80px;
+        flex: none;
+      }
+    }
+    .member-info{
+      margin-bottom: 10px;
+      .avatar{
+        height: 80px;
+        width: 80px;
+        border-radius: 4px;
+        margin: 0 20px;
+        >img{
+          height: 80px;
+          width: 80px;
+          border-radius: 4px;
+        }
+      }
+      .member-name{
+        font-size: 18px;
+      }
+    }
+    .cellphone{
+      font-size: 18px;
+    }
+    .card{
+      font-size: 18px;
+    }
+    .label{
+      font-size: 18px;
+      margin-top: 16px;
+    }
+  }
+  .el-tag + .el-tag {
+    margin-left: 10px;
+  }
+  .button-new-tag {
+    margin-left: 10px;
+    height: 32px;
+    line-height: 30px;
+    padding-top: 0;
+    padding-bottom: 0;
+  }
+  .input-new-tag {
+    width: 90px;
+    margin-left: 10px;
+    vertical-align: bottom;
+  }
+}
+
+
 // backside
 .backside {
   position: relative;
