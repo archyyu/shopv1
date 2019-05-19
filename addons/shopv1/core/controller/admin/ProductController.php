@@ -465,7 +465,7 @@ class ProductController extends Controller{
             }
 
             foreach ($productJson as $key => $value) {
-                $this->productService->inventoryStock($uniacid,$shopid,$value->id,$value->num,$storage,$userid,$stockorderid);
+                $this->productService->inventoryStock($uniacid,$shopid,$value['id'],$value['num'],$storage,$userid,$stockorderid);
             }
             $shopStockOrderModel->commit();
             
