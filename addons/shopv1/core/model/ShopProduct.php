@@ -27,6 +27,16 @@ class ShopProduct extends Model{
         $one = $this->getOne("*", ["uniacid"=>$uniacid,"productcode"=>$barcode]);
         return $one;
     }
+
+    public function findProductByName($uniacid,$name){
+
+        $where = array();
+        $where["uniacid"] = $uniacid;
+        $where["productname[~]"] = $name;
+
+        $list = $this->getList("*",$where);
+        return $list;
+    }
     
     public function findProductMapByUniacid($uniacid){
         $list = $this->getList("*",['uniacid'=>$uniacid]);

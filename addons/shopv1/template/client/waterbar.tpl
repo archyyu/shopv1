@@ -390,23 +390,26 @@ var app = new Vue({
         
         getCartPrice:function(){
             let sum = 0;
-            
             let card = this.findMemberCard(this.cardId);
             
             for(let cart of this.cartlist){
                 
                 let discount = 100;
                 if(card){
-                    discount = card.discount;
+                    //discount = card.discount;
+                    if(card.typeid && card.typeid == cart.typeid){
+                        discount = card.discount;
+                    }
+                    if(card.productid && card.productid == cart.productid){
+                        discount = card.discount;
+                    }
                 }
                 
                 sum += cart.price*cart.num*(discount/100);
             }
-            
             if(card){
                 sum -= card.exchange/100;
             }
-            
             return sum.toFixed(2);
         },
         

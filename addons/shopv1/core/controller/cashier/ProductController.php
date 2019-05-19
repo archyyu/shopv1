@@ -106,7 +106,8 @@ class ProductController extends \controller\Controller{
         $shopid = $this->getParam("shopid");
         $name = $this->getParam("name");
 
-        
+        $list = $this->productService->findProductByName($shopid,$name);
+        $this->returnSuccess($list);
 
     }
 

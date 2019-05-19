@@ -30,7 +30,7 @@
                                 <el-col :sm="8" :md="6" class="product-item" v-for="product in productlist"
                                     :class="{'less-item':product.inventory <= 0}">
                                     <div
-                                        v-on:click='addCart(product.id,product.productname,product.memberprice,product.inventory,product.make,product.typeid)'>
+                                        v-on:click='addCart(product)'>
                                         <h5>{{product.productname}}</h5>
                                         <p class="lack-pro"></p>
                                         <p class="pro-price">
@@ -176,6 +176,7 @@ Vue.component('waterbar', {
             address:'',
             qrcodeurl:'',
             cartMain: true,
+            queryname:"",
         };
     },
     created: function () {
@@ -295,7 +296,6 @@ Vue.component('waterbar', {
             for (var i = 0; i < this.cartlist.length; i++) {
                 if (this.cartlist[i].productid == productid) {
                     this.cartlist[i].num += 1;
-                    this.cartlist[i].price += this.cartlist[i].price;
                     return;
                 }
             }
@@ -314,7 +314,7 @@ Vue.component('waterbar', {
             }
         },
         
-        addCart: function (productid, productname, price,inventory,make,typeid) {
+        addCart: function (p) {
 
             if(this.orderState != -1){
                 this.orderState = -1;
@@ -323,33 +323,33 @@ Vue.component('waterbar', {
                 
             this.editBtnShow = true;
 
-            if(inventory <= 0){
+            if(p.inventory <= 0){
                 this.$message.error("库存不足,请进货或者调货");
                 return;
             }
 
             for (var i = 0; i < this.cartlist.length; i++) {
-                if (this.cartlist[i].productid == productid) {
+                if (this.cartlist[i].productid == p.productid) {
                     this.cartlist[i].num += 1;
-                    this.cartlist[i].price += price / 100;
                     return;
                 }
             }
 
             var cart = {};
-            cart.productid = productid;
+            cart.productid = p.productid;
             cart.num = 1;
-            cart.price = price / 100;
-            cart.productname = productname;
-            cart.make = make;
-            cart.typeid = typeid;
+            cart.memberprice = p.memberprice/100;
+            cart.price = p.price / 100;
+            cart.productname = p.productname;
+            cart.make = p.make;
+            cart.typeid = p.typeid;
             this.cartlist.push(cart);
         },
         
         getCartSum:function(){
             let sum = 0;
             for(let cart of this.cartlist){
-                sum += cart.price;
+                sum += cart.price * cart.num;
             }
             return sum.toFixed(2);
         },
@@ -448,6 +448,22 @@ Vue.component('waterbar', {
                         }
                     });
             
+        },
+
+        findProductByName:function(){
+
+            let url = UrlHelper.createUrl("product","findProductByName");
+            let params = Store.createParams();
+            params.name = this.queryname;
+
+            axios.post(url,params)
+                .then((res)=>{
+                    res = res.data;
+                    if(res.state == 0){
+                        this.productlist = res.obj;
+                    }
+                });
+
         },
         
         openCash:function(){
