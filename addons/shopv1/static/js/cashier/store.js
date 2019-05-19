@@ -17,7 +17,7 @@ var Store = {
         params.from = 0;
         params.shopid = Store.userInfo.shopid;
         params.token = Store.token;
-        params.__unacid = Store.shopInfo.uniacid;
+        params.__uniacid = Store.shopInfo.uniacid;
         return params;
     },
 

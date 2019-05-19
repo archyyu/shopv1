@@ -29,6 +29,10 @@ class ShopMember extends Model{
         return $this->getOne("*", ['uid'=>$uid]);
     }
     
+    public function queryOneMember($where){
+        return $this->getOne("*",$where);
+    }
+    
     public function quertyMember($uniacid,$phone){
         
         $where = array();

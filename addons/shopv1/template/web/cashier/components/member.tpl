@@ -7,27 +7,27 @@
                         <el-input v-model="searchText" placeholder="请输入电话或身份证号"></el-input>
                     </el-form-item>
                     <el-form-item>
-                        <el-button type="primary" @click="">搜 索</el-button>
+                        <el-button type="primary" @click="queryMember">搜 索</el-button>
                     </el-form-item>
                 </el-form>
             </div>
             <div class="member-detail">
                 <div class="member-info">
                     <div class="avatar">
-                        <img src="http://placehold.it/80x80">
+                        <img :src="memberInfo.avatar">
                     </div>
                     <div>
-                        <p class="member-name">姓名：张三李四</p>
-                        <p class="member-num">账号：987654</p>
+                        <p class="member-name">昵称：{{memberInfo.nickname}}</p>
+                        <p class="member-num">真实姓名：{{memberInfo.realname}}</p>
                     </div>
                 </div>
                 <div class="cellphone">
                     <label>手机号：</label>
-                    <p>123456</p>
+                    <p>{{memberInfo.mobile}}</p>
                 </div>
                 <div class="card">
                     <label>身份证：</label>
-                    <p>654321</p>
+                    <p>{{memberInfo.idcard}}</p>
                 </div>
                 <div class="label">
                     <label>标签：</label>
@@ -70,6 +70,7 @@ Vue.component('member', {
     data() {
         return {
             searchText: '',
+            memberInfo:{},
             tagList: [],
             inputVisible: false,
             inputValue: ''
@@ -77,9 +78,50 @@ Vue.component('member', {
     },
     methods:{
         open(){
+            
         },
+        queryMember(){
+            let url = UrlHelper.createUrl("member","queryMember");
+            
+            let params = Store.createParams();
+            params.query = this.searchText;
+            
+            axios.post(url,params)
+                    .then((res)=>{
+                        res = res.data;
+                        if(res.state == 0){
+                            this.memberInfo = res.obj;
+                            this.tagList = this.memberInfo.tags.split(",");
+                        }
+                        else{
+                            this.$message.error(res.msg);
+                        }
+                        });
+            
+        },
+        
+        saveMemberTags(){
+            let url = UrlHelper.createUrl("member","saveMemberTags");
+            
+            let params = {};
+            params.uid = this.memberInfo.uid;
+            params.tags = this.tagList.toString();
+            
+            axios.post(url,params)
+                    .then((res)=>{
+                res = res.data;
+                console.log(res);
+                if(res.state == 0){
+                    
+                }
+                });
+            
+            
+        },
+        
         deleteLabel(tag) {
             this.tagList.splice(this.tagList.indexOf(tag), 1);
+            this.saveMemberTags();
         },
 
         showInput() {
@@ -96,6 +138,7 @@ Vue.component('member', {
             }
             this.inputVisible = false;
             this.inputValue = '';
+            this.saveMemberTags();
         }
         
     }

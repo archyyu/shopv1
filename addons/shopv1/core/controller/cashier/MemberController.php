@@ -57,6 +57,50 @@ class MemberController extends \controller\Controller{
         
     }
     
+    public function saveMemberTags(){
+        
+        $uid = $this->getParam("uid");
+        $tags = $this->getParam("tags");
+        
+        $data = array();
+        $data["tags"] = $tags;
+        
+        $this->memberModel->saveMember($data, $uid);
+        
+        $this->returnSuccess();
+        
+    }
+    
+    public function queryMember(){
+        
+        $uniacid = $this->getUniacid();
+        $query = $this->getParam("query");
+        
+        $where = array();
+        $where["uniacid"] = $uniacid;
+        $where["mobile"] = $query;
+        
+        
+        $obj = $this->memberModel->queryOneMember($where);
+        if(isset($obj)){
+            $this->returnSuccess($obj);
+        }
+        else{
+            
+            unset($where["mobile"]);
+            $where["idcard"] = $query;
+            $obj = $this->memberModel->queryOneMember($where);
+            if(isset($obj)){
+                $this->returnSuccess($obj);
+                
+            }
+            else{
+                $this->returnFail("不存在");
+            }
+            
+        }
+        
+    }
     
     
     public function getMemberCardList(){
