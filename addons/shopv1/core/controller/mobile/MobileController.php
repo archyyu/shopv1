@@ -103,14 +103,14 @@ class MobileController extends \controller\Controller{
         
         global $_W;
         $productlist = json_decode(html_entity_decode($this->getParam("productlist")),true);
-        $shopid = 1;
-        
+
+        $shopid = $this->getParam("shopid");
         $uniacid = $_W['uniacid'];
         $memberid = $_W["member"]["uid"];
         $openid = $_W["openid"];
-        $address = "A001";
+        $address = $this->getParam("address");
         $ordersource = 1;
-        $remark = "";
+        $remark = $this->getParam("remark");
         $paytype = 1;
         
         

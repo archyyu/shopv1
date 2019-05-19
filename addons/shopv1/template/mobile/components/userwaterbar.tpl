@@ -89,7 +89,9 @@ Vue.component('waterbar', {
             cartlist:[],
             orderpaytype:"微信",
             payinfo:{},
-            orderid:"",
+            address:"",
+            shopid:0,
+            remark:"",
             pullOptions: {
                 pullDownRefresh: {
                     threshold: 60,
@@ -269,7 +271,11 @@ Vue.component('waterbar', {
                 
             var url = UrlHelper.createShortUrl("createOrder");
             // var params = Store.createParams();
-            params = {};
+            let params = {};
+
+            params.shopid = this.shopid;
+            params.address = this.address;
+            params.remark = this.remark;
             
             params.productlist = JSON.stringify(this.cartlist);
             
