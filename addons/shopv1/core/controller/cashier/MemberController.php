@@ -97,9 +97,7 @@ class MemberController extends \controller\Controller{
             else{
                 $this->returnFail("不存在");
             }
-            
         }
-        
     }
     
     

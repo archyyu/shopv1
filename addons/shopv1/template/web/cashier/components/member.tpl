@@ -67,7 +67,7 @@
                 </div>
                 <div class="confirm-btn" v-if="isEdit">
                     <el-button type="default" @click="cancelEdit">取 消</el-button>
-                    <el-button type="success">确 认</el-button>
+                    <el-button type="success" @click='updateMember'>确 认</el-button>
                 </div>
             </div>
         </div>
@@ -124,12 +124,13 @@ Vue.component('member', {
 
             let params = Store.createParams();
             params.uid = this.memberInfo.uid;
-            params.phone = "";
-            params.idcard = "";
+            params.phone = this.edit.phone;
+            params.idcard = this.edit.idCard;
 
             axios.post(url, params)
             .then((res) => {
                 res = res.data;
+                this.isEdit = false;
                 if (res.state == 0) {
                     this.$message.success("保存成功");
                     this.memberInfo.mobile = params.phone;

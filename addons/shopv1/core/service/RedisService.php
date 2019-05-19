@@ -64,7 +64,7 @@ class RedisService extends Service{
 
     public function queryOnlineList(){
 
-
+        
 
     }
 
@@ -85,7 +85,6 @@ class RedisService extends Service{
 
     public function setPhoneVerifyCode($phone,$code){
         $this->redis->set("phone:".$phone,$code);
-        
     }
 
     public function getPhoneCode($phone){
