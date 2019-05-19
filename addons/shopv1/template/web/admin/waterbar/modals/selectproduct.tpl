@@ -23,15 +23,15 @@
                         <div class="row">
                             <div class="col-xs-12">
                                 <p class="selectall">
-                                <button class="btn btn-link">全选/反选&nbsp;&nbsp;</button><span id="checkNum">0</span>/{$productlist.length}
+                                <button class="btn btn-link" onclick="BatchStock.isCheck(this);" state="0">全选/反选&nbsp;&nbsp;</button><span id="checkNum">0</span>/{count($productlist)}
                                 </p>
                                 <div class="checkboxs" id="selectProductList">
                                     {foreach $productlist as $product}
                                         
                                         {if $product.producttype != 1}
                                         
-                                        <div class="checkself">
-                                            <input type="checkbox" productid={$product.id} />
+                                        <div class="checkself" onclick="BatchStock.clkDIV(this);BatchStock.count();">
+                                            <input type="checkbox" value="{$product.id}" typeid="{$product.typeid}" productName="{$product.productname}" unit="{$product.unit}" name="product[]" onclick="BatchStock.clkDIV($(this).parent('.checkself'));BatchStock.count();" />
                                             <span>{$product.productname}</span> 
                                         </div>
                                         {/if}
@@ -44,7 +44,7 @@
             </div>
             <div class="modal-footer">
                 <button class="btn btn-default" data-dismiss="modal">取&nbsp;&nbsp;&nbsp;&nbsp;消</button>
-                <button class="btn btn-primary" id="selectProductBtn">确&nbsp;&nbsp;&nbsp;&nbsp;定</button>
+                <button class="btn btn-primary" onclick="BatchStock.addProduct();">确&nbsp;&nbsp;&nbsp;&nbsp;定</button>
             </div>
         </div>
     </div><!-- /.modal-content -->

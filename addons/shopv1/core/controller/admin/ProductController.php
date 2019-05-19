@@ -402,9 +402,84 @@ class ProductController extends Controller{
     public function stock(){
         $uniacid = $this->getUniacid();
         $productlist = $this->productModel->findProductByUniacid($uniacid);
-        $this->smarty->assign("productlist", $productlist);
+
+        // foreach ($productlist as $key => $value) {
+            
+        // }
+
+        $typelist = $this->productTypeModel->getProductTypeList($uniacid);
         
+        $types = "";
+        if (count($typelist) > 0) {
+            $types = json_encode($typelist);
+        }
+
+        $storelist = $this->storeModel->getStoreListByUniacid($uniacid);
+
+        $this->smarty->assign("productlist", $productlist);
+        $this->smarty->assign("types", $types);
+        $this->smarty->assign("storelist", $storelist);
         $this->smarty->display('admin/waterbar/batchstock.tpl');
+    }
+
+    public function saveStockOrder(){
+        $uniacid = $this->getUniacid();
+        $userid = $this->getUserid();
+
+        $storage = $this->getParam("storage");
+        $productJson = $this->getParam("productJson");
+        $remark = $this->getParam("remark");
+        $discount = $this->getParam("discount");
+        $payprice = $this->getParam("payprice");
+
+        $store = $this->storeModel->findStoreById($storage);
+        if (!$store) {
+            $this->returnFail("未找到此库房");
+            return ;
+        }
+
+        $shopid = $store['shopid'];
+
+        $data = [];
+        $data['storageid'] = $storage;
+        $data['remark'] = $remark;
+        $data['productJson'] = json_encode($productJson);
+        $data['remark'] = $remark;
+        $data['createtime'] = time();
+        $data['discount'] = $discount;
+        $data['payprice'] = $payprice;
+        $data['userid'] = $userid;
+        $data['shopid'] = $shopid;
+        $data['uniacid'] = $uniacid;
+
+        $shopStockOrderModel = new \model\ShopStockOrder();
+        try {
+            $shopStockOrderModel->beginTransaction();
+            $stockorderid = $shopStockOrderModel->addStockOrder($data);
+            if ($stockorderid == 0) {
+                logInfo("进货失败：" . json_encode($productJson));
+                $shopStockOrderModel->rollback();
+                
+                $this->returnFail("进货失败，数据异常");
+                return ;
+            }
+
+            foreach ($productJson as $key => $value) {
+                $this->productService->inventoryStock($uniacid,$shopid,$value->id,$value->num,$storage,$userid,$stockorderid);
+            }
+            $shopStockOrderModel->commit();
+            
+            $this->returnSuccess();
+            return ;
+
+        } catch (Exception $e) {
+            logError("进货失败", $e);
+            $shopStockOrderModel->rollback();
+            
+            $this->returnFail("进货失败");
+            return ;
+        }
+        
     }
     
     public function inventorylog(){

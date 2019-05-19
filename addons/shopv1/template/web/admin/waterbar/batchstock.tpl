@@ -1,9 +1,21 @@
 {include file="../../common/header.tpl" logo=true}
 <link rel="stylesheet" href="{$StaticRoot}/css/waterbar.css">
 
+<textarea id="types" style="display:none;">{$types}</textarea>
+
+
 <div class="batch-stock">
     <div class="water-btn-group">
-        <button class="btn btn-primary" data-toggle="modal" data-target="#addStockMaterial">添加进货原料</button>
+        <!-- <button class="btn btn-primary" data-toggle="modal" data-target="#addStockMaterial" onclick="BatchStock.openStockDIV();">添加进货</button> -->
+        <button class="btn btn-primary" onclick="BatchStock.openStockDIV();">添加进货</button>
+    </div>
+    <div class="water-btn-group">
+        <label class="control-label">进货库房</label>
+        <select id="storage" class="form-control input-sm selectpicker">
+            {foreach $storelist as $store}
+            <option value='{$store.id}'>{$store.storename}</option>
+            {/foreach}
+        </select>
     </div>
     <div class="detail_content">
         <table id="batchStockTable" class="table table-bordered table-condensed">
@@ -34,14 +46,14 @@
             <div class="col-md-9">
                 <div class="form-group">
                     <label>备注：</label>
-                    <input type="text" class="form-control">
+                    <input type="text" id="remark" class="form-control">
                 </div>
             </div>
             <div class="col-md-3">
                 <div class="form-group">
                     <label>优惠价格：</label>
                     <div class="input-group">
-                        <input type="text" class="form-control" value="0" placeholder="优惠金额">
+                        <input type="text" id="discount" sum="0" onchange="BatchStock.discount(this);" class="form-control" value="0" placeholder="优惠金额">
                         <div class="input-group-addon">（元）</div>
                     </div>
                 </div>
@@ -52,100 +64,19 @@
             </div>
         </div>
         <div class="stock_btn">
-            <button type="button" class="btn  btn-default">取消进货</button>
-            <button type="button" class="btn  btn-primary">确认进货</button>
+            <button type="button" class="btn  btn-default" onclick="BatchStock.repeal();">取消进货</button>
+            <button type="button" class="btn  btn-primary" onclick="BatchStock.save();">确认进货</button>
         </div>
     </div>
 </div>
 
 {literal}
-<script>
-$("#batchStockTable").bootstrapTable({
-    data: [{
-        id: 1,
-        text: 'a',
-        num: 5
-    },
-    {
-        id: 1,
-        text: 'a',
-        num: 5
-    }],
-    showFooter: true,
-    footerStyle: footerStyle,
-    columns: [{
-            field: 'id',
-            title: '类型'
-        },
-        {
-            field: 'id',
-            title: '原料名称'
-        },
-        {
-            field: 'text',
-            title: '进货单位',
-            footerFormatter: function (value) {
-				return '合计';
-			}
-        },
-        {
-            field: 'id',
-            title: '进货价'
-        },
-        {
-            field: 'id',
-            title: '进货数量'
-        },
-        {
-            field: 'num',
-            title: '合计',
-            footerFormatter: priceFormatter
-        },
-        {
-            field: 'id',
-            title: '操作'
-        }
-    ]
-})
 
-function priceFormatter(data) {
-    var field = this.field;
-    var sum = 0;
-    data.map(function (row) {
-        console.log(row)
-        sum += row[field]
-    })
-    return '<span>'+sum+'</span> 元'
-  }
-  function footerStyle(column) {
-    return [
-      {
-        css: {'border-right': 0}
-      },
-      {
-        classes: 'none-border'
-      },
-      {
-        classes: 'none-border',
-        css: {'text-align': 'center'}
-      },
-      {
-        classes: 'none-border'
-      },
-      {
-        classes: 'none-border'
-      },
-      {
-        classes: 'footer-sum'
-      },
-      {
-        css: {'border-left' : 0}
-      }
-    ][column.fieldIndex]
-  }
-</script>
     
 {/literal}
 
 {include file="./modals/selectproduct.tpl"}
+
+<script src="{$StaticRoot}/js/web/admin/waterbar/BatchStock.js"></script>
+
 {include file="../../common/footer.tpl"}
