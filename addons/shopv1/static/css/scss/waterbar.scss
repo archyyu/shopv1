@@ -61,6 +61,13 @@
 
 // batch stock
 .batch-stock{
+  .batch-stock-form{
+    margin-left: 15px;
+    display: inline-block;
+    .bootstrap-select.form-control{
+      width: auto;
+    }
+  }
   .detail_content{
     margin-bottom: 15px;
   }
