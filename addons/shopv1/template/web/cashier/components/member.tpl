@@ -23,11 +23,13 @@
                 </div>
                 <div class="cellphone">
                     <label>手机号：</label>
-                    <p>{{memberInfo.mobile}}</p>
+                    <el-input v-model="edit.phone" v-if="isEdit"></el-input>
+                    <p v-else>{{memberInfo.mobile}}</p>
                 </div>
                 <div class="card">
                     <label>身份证：</label>
-                    <p>{{memberInfo.idcard}}</p>
+                    <el-input v-model="edit.idCard" v-if="isEdit"></el-input>
+                    <p v-else>{{memberInfo.idcard}}</p>
                 </div>
                 <div class="label">
                     <label>标签：</label>
@@ -59,6 +61,15 @@
                     </div>
                 </div>
             </div>
+            <div class="footer-btn">
+                <div class="edit-btn" v-if="!isEdit && hasMember">
+                    <el-button type="primary" @click="editMember">编辑会员</el-button>
+                </div>
+                <div class="confirm-btn" v-if="isEdit">
+                    <el-button type="default" @click="cancelEdit">取 消</el-button>
+                    <el-button type="success">确 认</el-button>
+                </div>
+            </div>
         </div>
     {/literal}
 </script>
@@ -70,78 +81,84 @@ Vue.component('member', {
     data() {
         return {
             searchText: '',
-            memberInfo:{},
+            memberInfo: {},
             tagList: [],
             inputVisible: false,
-            inputValue: ''
+            inputValue: '',
+            isEdit: false,
+            edit: {
+                idCard: '',
+                phone: ''
+            }
         };
     },
-    methods:{
-        open(){
-            
+    computed:{
+        hasMember(){
+            let arr = Object.keys(this.memberInfo);
+            return arr.length>0;
+        }
+    },
+    methods: {
+        open() {
+
         },
-        queryMember(){
-            let url = UrlHelper.createUrl("member","queryMember");
+        queryMember() {
+            let url = UrlHelper.createUrl("member", "queryMember");
             let params = Store.createParams();
             params.query = this.searchText;
-            
-            axios.post(url,params)
-                    .then((res)=>{
-                        res = res.data;
-                        if(res.state == 0){
-                            this.memberInfo = res.obj;
-                            this.tagList = this.memberInfo.tags.split(",");
-                        }
-                        else{
-                            this.$message.error(res.msg);
-                        }
-                        });
+
+            axios.post(url, params)
+            .then((res) => {
+                res = res.data;
+                if (res.state == 0) {
+                    this.memberInfo = res.obj;
+                    this.tagList = this.memberInfo.tags.split(",");
+                } else {
+                    this.$message.error(res.msg);
+                }
+            });
         },
-        
-        updateMember:function(){
-            let url = UrlHelper.createUrl("member","updateMemberInfo");
-            
+
+        updateMember: function () {
+            let url = UrlHelper.createUrl("member", "updateMemberInfo");
+
             let params = Store.createParams();
             params.uid = this.memberInfo.uid;
             params.phone = "";
             params.idcard = "";
-            
-            axios.post(url,params)
-                    .then((res)=>{
-                        res = res.data;
-                        if(res.state == 0){
-                                this.$message.success("保存成功");
-                                this.memberInfo.mobile = params.phone;
-                                this.memberInfo.idcard = params.idcard;
-                            }
-                            else{
-                                this.$message.error(res.msg);
-                            }
-                            });
-            
-            
-            
+
+            axios.post(url, params)
+            .then((res) => {
+                res = res.data;
+                if (res.state == 0) {
+                    this.$message.success("保存成功");
+                    this.memberInfo.mobile = params.phone;
+                    this.memberInfo.idcard = params.idcard;
+                } else {
+                    this.$message.error(res.msg);
+                }
+            });
         },
-        
-        saveMemberTags(){
-            let url = UrlHelper.createUrl("member","saveMemberTags");
-            
+
+        saveMemberTags() {
+            let url = UrlHelper.createUrl("member", "saveMemberTags");
+
             let params = {};
             params.uid = this.memberInfo.uid;
             params.tags = this.tagList.toString();
-            
-            axios.post(url,params)
-                    .then((res)=>{
-                res = res.data;
-                console.log(res);
-                if(res.state == 0){
-                    
-                }
+
+            axios.post(url, params)
+                .then((res) => {
+                    res = res.data;
+                    console.log(res);
+                    if (res.state == 0) {
+
+                    }
                 });
-            
-            
+
+
         },
-        
+
         deleteLabel(tag) {
             this.tagList.splice(this.tagList.indexOf(tag), 1);
             this.saveMemberTags();
@@ -162,8 +179,20 @@ Vue.component('member', {
             this.inputVisible = false;
             this.inputValue = '';
             this.saveMemberTags();
+        },
+
+        editMember() {
+            this.edit.phone = this.memberInfo.mobile;
+            this.edit.idCard = this.memberInfo.idcard;
+            this.isEdit = true;
+        },
+
+        cancelEdit() {
+            this.isEdit = false;
+            this.edit.phone = '';
+            this.edit.idCard = '';
         }
-        
+
     }
 });
 </script>

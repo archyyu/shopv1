@@ -724,6 +724,7 @@ body,
     }
     .cellphone{
       font-size: 18px;
+      margin-bottom: 10px;
     }
     .card{
       font-size: 18px;
@@ -732,6 +733,15 @@ body,
       font-size: 18px;
       margin-top: 16px;
     }
+    .el-input{
+      width: auto;
+    }
+  }
+  .footer-btn{
+    padding: 15px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
   .el-tag + .el-tag {
     margin-left: 10px;
