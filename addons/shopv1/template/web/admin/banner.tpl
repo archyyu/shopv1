@@ -1,5 +1,4 @@
 {include file="../common/header.tpl" logo=true}
-<link rel="stylesheet" href="{$StaticRoot}/plugins/jquery-timepicker/jquery.timepicker.min.css">
 <link rel="stylesheet" href="{$StaticRoot}/css/netbarInfo.css">
 
 <div class="bar-select">
@@ -68,8 +67,7 @@
           </div><!-- /.modal-content -->
         </div>
       </div><!-- /.modal -->
-
-<script src="{$StaticRoot}/plugins/jquery-timepicker/jquery.timepicker.min.js"></script>
+      
 <script src="{$StaticRoot}/js/web/admin/banner.js"></script>
 
 {include file="../common/footer.tpl"}
