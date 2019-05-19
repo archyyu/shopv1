@@ -126,6 +126,7 @@ Vue.component('shift', {
                         if(res.state == 0){
                             this.$message.success("交班成功");
                             this.queryCurrentDuty();
+                            window.location.reload();
                         }
                         else{
                             this.$message.error(res.msg);

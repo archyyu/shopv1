@@ -82,7 +82,6 @@ Vue.component('member', {
         },
         queryMember(){
             let url = UrlHelper.createUrl("member","queryMember");
-            
             let params = Store.createParams();
             params.query = this.searchText;
             
@@ -97,6 +96,30 @@ Vue.component('member', {
                             this.$message.error(res.msg);
                         }
                         });
+        },
+        
+        updateMember:function(){
+            let url = UrlHelper.createUrl("member","updateMemberInfo");
+            
+            let params = Store.createParams();
+            params.uid = this.memberInfo.uid;
+            params.phone = "";
+            params.idcard = "";
+            
+            axios.post(url,params)
+                    .then((res)=>{
+                        res = res.data;
+                        if(res.state == 0){
+                                this.$message.success("保存成功");
+                                this.memberInfo.mobile = params.phone;
+                                this.memberInfo.idcard = params.idcard;
+                            }
+                            else{
+                                this.$message.error(res.msg);
+                            }
+                            });
+            
+            
             
         },
         

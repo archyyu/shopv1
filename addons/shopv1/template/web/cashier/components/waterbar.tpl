@@ -386,7 +386,7 @@ Vue.component('waterbar', {
         
         scanCode:function(code){
             
-            if(this.orderstate == 5){
+            if(this.orderState == 5){
                 this.scanPay(code);
             }
             else{
@@ -418,6 +418,12 @@ Vue.component('waterbar', {
                 
                 
         queryProductByCode:function(productcode){
+            
+            
+            if(this.orderState == 5){
+                this.scanPay(productcode);
+                return;
+            }
             
             let params = Store.createParams();
             params.code = productcode;

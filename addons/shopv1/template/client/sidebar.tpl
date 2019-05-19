@@ -205,7 +205,7 @@ var app = new Vue({
                 msgDialog = false;
                 res = res.data;
                 if(res.state == 0){
-                    this.$message.success("留言成功");
+                    this.$message.success("呼叫成功");
                 }
                 else{
                     
