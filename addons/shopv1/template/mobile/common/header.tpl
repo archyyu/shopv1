@@ -5,7 +5,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale = 1">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>shopv1手机端</title>
+  <title></title>
   <link rel="stylesheet" href="{$StaticRoot}/css/normalize.css">
   <link rel="stylesheet" href="{$StaticRoot}/plugins/weui/weui.css">
   <link rel="stylesheet" href="{$StaticRoot}/plugins/cube-ui/cube.min.css">

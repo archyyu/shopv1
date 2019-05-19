@@ -50,7 +50,6 @@
                 </el-col> -->
             </el-row>
             <div class="shift-data-footer">
-                <el-button type="success" size="small">打印</el-button>
                 <el-button type="primary" @click="submitDuty()" size="small">交班</el-button>
             </div>
         </div>

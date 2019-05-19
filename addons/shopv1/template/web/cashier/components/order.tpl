@@ -45,7 +45,7 @@
                             <p>订单来源：<el-tag size="small">{{Store.sourceToStr(order.ordersource)}}</el-tag></p>
                         </el-col>
                         <el-col :span="6">
-                            <el-button type="primary" class="print-btn">再次打印</el-button>
+                            <el-button type="primary" v-if="order.orderstate == 0" class="print-btn" @click="completeOrder()">确认订单</el-button>
                         </el-col>
                     </el-row>
                 </el-col>
@@ -104,6 +104,43 @@ Vue.component('order', {
                 });
             
         },
+
+        completeOrder:function(){
+
+            if(this.order.orderstate == 1){
+
+                return;
+            }
+
+            let url = UrlHelper.createUrl("order","completeOrder");
+
+            let params = Store.createParams();
+            params.orderid = this.order.id;
+
+            axios.post(url,params)
+                .then((res)=>{
+                    res = res.data;
+                    if(res.state == 0){
+
+                        this.order.orderstate = 1;
+
+                        for(let item of this.orderlist){
+                            if(item.id == orderid){
+                                item.orderstate = 1;
+                                break;
+                            }
+                        }
+
+                        this.$message.success("确认成功");
+
+                    }
+                    else{
+                        this.$message.error(res.msg);
+                    }
+                });
+
+        },
+
         selectOrder:function(id){
             for(let item of this.orderlist){
                 if(item.id == id){

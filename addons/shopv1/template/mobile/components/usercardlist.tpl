@@ -32,7 +32,7 @@ Vue.component('card-list', {
         };
     },
     mounted:function(){
-        this.getCardList();
+        //this.getCardList();
     },
     methods: {
         backToMain:function(){
