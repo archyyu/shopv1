@@ -100,6 +100,16 @@ class ProductController extends \controller\Controller{
         
     }
 
+    public function queryProductByName(){
+
+        $uniacid = $this->getUniacid();
+        $shopid = $this->getParam("shopid");
+        $name = $this->getParam("name");
+
+        
+
+    }
+
     
     public function queryShopStoreList(){
         

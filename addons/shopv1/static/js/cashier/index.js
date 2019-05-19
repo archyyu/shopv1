@@ -54,7 +54,15 @@ var app = new Vue({
                         res = res.data;
                         console.log(res);
                         if(res.state == 0){
-                            cashier.printOrder(res.obj);
+
+                            if(res.obj.print) {
+                                cashier.printOrder(res.obj.print);
+                            }
+
+                            if(res.obj.notify){
+                                cashier.play(res.obj.notify);
+                            }
+
                         }
                     });
             

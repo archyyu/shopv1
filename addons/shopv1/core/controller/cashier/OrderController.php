@@ -112,6 +112,28 @@ class OrderController extends \controller\Controller{
     public function payOrder(){
         
     }
+
+    public function completeOrder(){
+
+        $shopid = $this->getParam("shopid");
+        $orderid = $this->getParam("orderid");
+
+        $order = $this->orderModel->findOrderById($orderid);
+
+        if($order["orderstate"] == 0){
+
+            $data = array();
+            $data["orderstate"] = 1;
+
+            $this->orderModel->saveOrder($data,$orderid);
+            $this->returnSuccess();
+
+        }
+        else{
+            $this->returnFail("订单已经确认过");
+        }
+
+    }
     
     public function notify(){
         //global $_POST;
@@ -248,14 +270,17 @@ class OrderController extends \controller\Controller{
         
         $shopid = $this->getParam("shopid");
         
-        $obj = $this->redisService->popPrintMsg($shopid);
-        
-        if($obj){
-            $this->returnSuccess($obj);
-        }
-        else{
-            $this->returnFail("no");
-        }
+        $print = $this->redisService->popPrintMsg($shopid);
+
+        $notify = $this->redisService->popNotify($shopid);
+
+        $result = array();
+
+        $result["print"] = $print;
+        $result["notify"] = $notify;
+
+        $this->returnSuccess($result);
+
     }
     
 }

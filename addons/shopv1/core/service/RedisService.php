@@ -71,11 +71,7 @@ class RedisService extends Service{
 
     public function pushNotify($shopid,$msg){
 
-        $data = array();
-        $data["type"] = "notify";
-        $data["obj"] = $msg;
-
-        $this->redis->lPush("notify:".$shopid, json_encode($data));
+        $this->redis->lPush("notify:".$shopid, $msg);
 
     }
 
