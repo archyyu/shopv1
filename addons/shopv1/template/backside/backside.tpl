@@ -4,7 +4,7 @@
 <div id="app">
     <div class="backside">
         <div class="backside-content">
-            <el-carousel trigger="click" height="150px" arrow="never">
+            <el-carousel trigger="click" height="100%" arrow="never">
                 <el-carousel-item v-for="item in imgList" :key="item">
                     <img :src="item" />
                 </el-carousel-item>
@@ -20,8 +20,9 @@
     </div>
 </div>
 
-
+{/literal}
 <script src="{$StaticRoot}/js/common/vue-qrcode.js"></script>
+{literal}
 <script >
 Vue.component(VueQrcode.name, VueQrcode)
 
