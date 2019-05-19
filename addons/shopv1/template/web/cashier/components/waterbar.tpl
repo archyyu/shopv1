@@ -112,6 +112,11 @@
                             <div class="checkout-money">订单金额：<span>￥{{orderPrice}}</span></div>
                             <el-button type="primary" plain @click="orderState = -1" class="confirm-btn">返回购物车</el-button>
                         </div>
+                        <div class="cart-qrcode" v-if="orderState == 5">
+                            <p class="order-id">{{orderid}}</p>
+                            <p class="tips">等待扫码！</p>
+                            <el-button type="primary" @click="confirmOrder" plain class="confirm-btn">确认支付</el-button>
+                        </div>
                     </div>
                 </el-col>
             </el-row>
@@ -230,7 +235,8 @@ Vue.component('waterbar', {
                             else if(paytype == 3){
                                 //等待扫码
                                 //this.$message.success("请用户扫付款码");
-                                this.orderstate = 5;
+                                this.orderState = 5;
+                                Store.showQrcode("请会员出示付款二维码","");
                             }
                             
                             this.cartlist = [];
