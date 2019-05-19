@@ -24,22 +24,28 @@
                     <div class="product-title">商品列表
                         <el-button type="primary" size="mini" @click="openCash" plain>打开钱箱</el-button>
                     </div>
-                    <el-row class="product-wrap">
-                        <el-col :sm="8" :md="6" class="product-item" v-for="product in productlist" :class="{'less-item':product.inventory <= 0}">
-                            <div v-on:click='addCart(product.id,product.productname,product.memberprice,product.inventory,product.make,product.typeid)'>
-                                <h5>{{product.productname}}</h5>
-                                <p class="lack-pro"></p>
-                                <p class="pro-price">
-                                    <span v-if="product.inventory < 0" class="pro_lesspro">
-                                        <span class="icon iconfont">&#xe63f;</span>无库存
-                                    </span>
-                                    <!-- <span class="origin">￥100</span>
+                    <div class="product-wrap">
+                        <el-scrollbar>
+                            <el-row>
+                                <el-col :sm="8" :md="6" class="product-item" v-for="product in productlist"
+                                    :class="{'less-item':product.inventory <= 0}">
+                                    <div
+                                        v-on:click='addCart(product.id,product.productname,product.memberprice,product.inventory,product.make,product.typeid)'>
+                                        <h5>{{product.productname}}</h5>
+                                        <p class="lack-pro"></p>
+                                        <p class="pro-price">
+                                            <span v-if="product.inventory < 0" class="pro_lesspro">
+                                                <span class="icon iconfont">&#xe63f;</span>无库存
+                                            </span>
+                                            <!-- <span class="origin">￥100</span>
                                     <br> -->
-                                    ￥{{product.memberprice/100}}
-                                </p>
-                            </div>
-                        </el-col>
-                    </el-row>
+                                            ￥{{product.memberprice/100}}
+                                        </p>
+                                    </div>
+                                </el-col>
+                            </el-row>
+                        </el-scrollbar>
+                    </div>
                 </el-col>
                 <el-col :span="6" class="sale-cart">
                     <div class="cart-title" v-if="cartMain">购物车
