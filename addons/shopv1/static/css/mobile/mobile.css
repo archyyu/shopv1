@@ -533,6 +533,10 @@ html {
           align-items: center;
 }
 
+.waterbar .cube-pay-popup {
+  z-index: 102 !important;
+}
+
 .card {
   height: 100%;
 }

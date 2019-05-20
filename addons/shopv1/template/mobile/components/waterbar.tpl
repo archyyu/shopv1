@@ -6,7 +6,7 @@
             <div class="title">
                 <span>点单</span>
             </div>
-        </header>-
+        </header>
         <div class="container">
             <div class="side-container">
                 <cube-scroll-nav-bar direction="vertical" :current="currentNav" :labels="navList"
@@ -36,9 +36,7 @@
                 <div class="cart" @click="showCart"><iconfont iconclass="icon-shopcar"></iconfont></div>
                 <div class="price">￥{{getCartPrice()}}</div>
                 <div class="checkout">
-                    <cube-button :primary="true" @click="createOrder(0)">现金</cube-button>
-                    <cube-button class="weipay-btn" :primary="true" @click="createOrder(1)">微信</cube-button>
-                    <cube-button class="alipay-btn" :primary="true" @click="createOrder(2)">支付宝</cube-button>
+                    <cube-button :primary="true" @click="showPayMethod()">支 付</cube-button>
                 </div>
             </div>
             <cube-popup type="my-popup" position="bottom" :mask-closable="true" ref="cartPopup">
@@ -75,6 +73,19 @@
                     </div>
                 </div>
             </cube-popup>
+
+            <bottom-popup label="payMethod" title="支付选项" height="auto" cubeclass="pay-popup" ref="payPopup">
+                <template v-slot:content>
+                    <cube-form :model="payModel">
+                        <cube-form-item :field="payFields[0]"></cube-form-item>
+                        <cube-form-item :field="payFields[1]"></cube-form-item>
+                        <cube-form-item :field="payFields[2]"></cube-form-item>
+                    </cube-form>
+                </template>
+                <template v-slot:footer>
+                    <cube-button :inline="true" @click="createOrder()">确认下单</cube-button>
+                </template>
+            </bottom-popup>
         </div>
     </div>
 
@@ -90,6 +101,7 @@ Vue.component('waterbar', {
             navList: [],
             productlist:[],
             cartlist:[],
+            pcList: [],
             qrcodeurl:'www.baidu.com',
             orderstate:-1,
             orderpaytype:"微信",
@@ -119,6 +131,49 @@ Vue.component('waterbar', {
                 {
                     text: '去结算',
                     action: 'checkout'
+                }
+            ],
+            payModel: {
+                seat: '',
+                phone: '',
+                paytype: '',
+            },
+            payFields: [
+                {
+                    type: 'select',
+                    modelKey: 'shopid',
+                    label: '座位号',
+                    props: {
+                        options: this.pcList,
+                        title: '请选择座位号'
+                    }
+                },
+                {
+                    type: 'input',
+                    modelKey: 'phone',
+                    label: '手机号'
+                },
+                {
+                    type: 'radio-group',
+                    modelKey: 'paytype',
+                    label: '支付方式',
+                    props: {
+                        options: [
+                            {
+                                label: '现金',
+                                value: 0
+                            },
+                            {
+                                label: '微信',
+                                value: 1
+                            },
+                            {
+                                label: '支付宝',
+                                value: 2
+                            },
+                        ],
+                        position: 'right'
+                    },
                 }
             ]
         };
@@ -200,7 +255,7 @@ Vue.component('waterbar', {
             this.editBtnShow = true;
 
             if(inventory <= 0){
-                this.$message.error("库存不足,请进货或者调货");
+                Toast.error("库存不足,请进货或者调货");
                 return;
             }
             
@@ -270,14 +325,27 @@ Vue.component('waterbar', {
         backToMain:function(){
             this.$root.toIndex();
         },
+
+        showPayMethod: function(){
+            // if(this.cartlist.length <= 0){
+            //     Toast.error("购物车为空");
+            //     return;
+            // }
+            this.$refs.payPopup.showPopup();
+        },
+
+        hidePayMethod: function(){
+            this.$refs.payPopup.closePopup();
+        },
         
-        createOrder:function(paytype){
+        createOrder:function(){
             
             if(this.cartlist.length <= 0){
                 Toast.error("购物车为空");
                 return;
             }
-            
+
+            var paytype = this.payModel.paytype;
             var url = UrlHelper.createUrl('order','createOrder');
             var params = Store.createParams();
             params.address = this.address;
@@ -309,16 +377,15 @@ Vue.component('waterbar', {
                                 }
                                 
                                 this.orderstate = 0;
-                                
+                                this.hidePayMethod();
                                 this.showQrcode();
-                                
                             }
                             
                             
                             
                         }
                         else{
-                            this.$message.error(res.msg);
+                            Toast.error(res.msg);
                         }
                         });
             
