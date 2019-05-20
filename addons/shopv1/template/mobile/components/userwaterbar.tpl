@@ -3,7 +3,10 @@
     <div class="waterbar">
         <header class="header">
             <div class="title">
-                <span>点单</span>
+                <cube-select
+                    v-model="selectShop"
+                    :options="shopList">
+                </cube-select>
             </div>
         </header>
         <div class="container">
@@ -83,6 +86,17 @@ Vue.component('waterbar', {
     template: '#waterbar',
     data: function () {
         return {
+            selectShop: 1,
+            shopList: [
+                {
+                    value: 1,
+                    text: '品尚1店'
+                },
+                {
+                    value: 2,
+                    text: '品尚2店'
+                }
+            ],
             currentNav: {},
             navList: [],
             productlist:[],

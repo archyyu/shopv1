@@ -262,6 +262,15 @@ html {
 .waterbar {
   height: 100%;
 
+  .header{
+    .cube-select{
+      color: #333333;
+      padding-top: 12px;
+      padding-bottom: 12px;
+      background-color: transparent;
+    }
+  }
+
   .container {
     padding: 0;
     display: flex;
