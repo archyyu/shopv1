@@ -63,8 +63,16 @@ class ProductService extends Service{
             $one['inventory'] = $this->calculateTheInventory($shop,$one,$shop['defaultstoreid']);
             return $one;
         }
-        
-        
+    }
+
+    public function findProductByName($shopid,$name){
+        $shop = $this->shopModel->findShopById($shopid);
+        $list = $this->productModel->findProductByName($shop['uniacid'],$name);
+
+        foreach($list as $key=>$value){
+            $list[$key]['inventory'] = $this->calculateTheInventory($shop,$value,$shop["defaultstoreid"]);
+        }
+
     }
     
     

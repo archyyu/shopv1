@@ -52,7 +52,7 @@
                     <div class="col-sm-8">
                       <label class="upload-area">
                         <span class="iconfont icon-add"></span>
-                        <img id="previewImg" alt="logo">
+                        <img id="previewImg" style="width: 200px;height: 200px;" alt="logo">
                         <input type="file" class="logo-input" name="logo" id="logoInput" onchange="Banner.uploadLogo('logoInput','previewImg',120,120)">
                       </label>
                     </div>

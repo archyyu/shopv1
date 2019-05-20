@@ -23,7 +23,7 @@
                         <li class="food-item" v-for="o in productlist">
                             <div class="icon"><img src="getImgUrl(o)">
                             </div>
-                            <div class="food-content" @click="addCart(o.id,o.productname,o.memberprice,o.inventory)">
+                            <div class="food-content" @click="addCart(o)">
                                 <h2 class="name">{{o.productname}}</h2>
                                 <p class="description"></p>
                                 <div class="price">
@@ -67,7 +67,7 @@
             <cube-popup type="my-popup" position="bottom" :mask-closable="true" ref="qrcodePopup">
                 <div class="cart-wrap">
                     <div class="cart-header">
-                        <h5>请{{orderpaytype}}扫描下面二维码</h5>
+                        <h5>请扫描下面二维码</h5>
                         <cube-button  :inline="true" :outline="true" @click="closeQrcode">取消</cube-button>
                     </div>
                     <div class="cart-content scan-code">
@@ -117,7 +117,9 @@ Vue.component('waterbar', {
             cardList: [],
             orderpaytype:"微信",
             payinfo:{},
-            orderid:"",
+            address:"",
+            shopid:0,
+            remark:"",
             pullOptions: {
                 pullDownRefresh: {
                     threshold: 60,
@@ -210,7 +212,7 @@ Vue.component('waterbar', {
                 });
         },
         
-        addCart: function (productid,productname,price,inventory) {
+        addCart: function (p) {
 
             if(this.orderState != -1){
                 this.orderState = -1;
@@ -218,7 +220,7 @@ Vue.component('waterbar', {
                 
             this.editBtnShow = true;
 
-            if(inventory <= 0){
+            if(p.inventory <= 0){
                 this.$message.error("库存不足,请进货或者调货");
                 return;
             }
@@ -226,17 +228,20 @@ Vue.component('waterbar', {
             Toast.success("已添加购物车");
 
             for (var i = 0; i < this.cartlist.length; i++) {
-                if (this.cartlist[i].productid == productid) {
+                if (this.cartlist[i].productid == p.id) {
                     this.cartlist[i].num += 1;
                     return;
                 }
             }
 
             var cart = {};
-            cart.productid = productid;
+            cart.productid = p.id;
             cart.num = 1;
-            cart.price = price / 100;
-            cart.productname = productname;
+            cart.price = p.normalprice / 100;
+            cart.memberprice = p.memberprice/100;
+            cart.productname = p.productname;
+            cart.make = p.make;
+            cart.typeid = p.typeid;
             this.cartlist.push(cart);
             
         },
@@ -254,7 +259,6 @@ Vue.component('waterbar', {
             for (var i = 0; i < this.cartlist.length; i++) {
                 if (this.cartlist[i].productid == productid) {
                     this.cartlist[i].num += 1;
-                    this.cartlist[i].price += this.cartlist[i].price;
                     return;
                 }
             }
@@ -323,7 +327,7 @@ Vue.component('waterbar', {
         hidePayMethod: function(){
             this.$refs.payPopup.closePopup();
         },
-        
+
         createOrder:function(){
             
             if(this.cartlist.length <= 0){
@@ -333,7 +337,11 @@ Vue.component('waterbar', {
                 
             var url = UrlHelper.createShortUrl("createOrder");
             // var params = Store.createParams();
-            params = {};
+            let params = {};
+
+            params.shopid = this.shopid;
+            params.address = this.address;
+            params.remark = this.remark;
             
             params.productlist = JSON.stringify(this.cartlist);
             

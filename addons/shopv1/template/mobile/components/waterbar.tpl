@@ -21,7 +21,7 @@
                         <li class="food-item" v-for="o in productlist">
                             <div class="icon"><img :src="getImgUrl(o)">
                             </div>
-                            <div class="food-content" @click="addCart(o.id,o.productname,o.memberprice,o.inventory,o.make,o.typeid)">
+                            <div class="food-content" @click="addCart(o)">
                                 <h2 class="name">{{o.productname}}</h2>
                                 <p class="description"></p>
                                 <div class="price">
@@ -225,7 +225,6 @@ Vue.component('waterbar', {
             for (var i = 0; i < this.cartlist.length; i++) {
                 if (this.cartlist[i].productid == productid) {
                     this.cartlist[i].num += 1;
-                    this.cartlist[i].price += this.cartlist[i].price;
                     return;
                 }
             }
@@ -246,7 +245,7 @@ Vue.component('waterbar', {
             }
         },
         
-        addCart: function (productid, productname, price,inventory,make,typeid) {
+        addCart: function (p) {
 
             if(this.orderState != -1){
                 this.orderState = -1;
@@ -254,7 +253,7 @@ Vue.component('waterbar', {
                 
             this.editBtnShow = true;
 
-            if(inventory <= 0){
+            if(p.inventory <= 0){
                 Toast.error("库存不足,请进货或者调货");
                 return;
             }
@@ -262,19 +261,20 @@ Vue.component('waterbar', {
             Toast.success("已添加购物车");
 
             for (var i = 0; i < this.cartlist.length; i++) {
-                if (this.cartlist[i].productid == productid) {
+                if (this.cartlist[i].productid == p.id) {
                     this.cartlist[i].num += 1;
                     return;
                 }
             }
 
             var cart = {};
-            cart.productid = productid;
+            cart.productid = p.id;
             cart.num = 1;
-            cart.price = price / 100;
-            cart.productname = productname;
-            cart.make = make;
-            cart.typeid = typeid;
+            cart.price = p.normalprice / 100;
+            cart.memberprice = p.memberprice;
+            cart.productname = p.productname;
+            cart.make = p.make;
+            cart.typeid = p.typeid;
             this.cartlist.push(cart);
             
         },
@@ -337,7 +337,7 @@ Vue.component('waterbar', {
         hidePayMethod: function(){
             this.$refs.payPopup.closePopup();
         },
-        
+
         createOrder:function(){
             
             if(this.cartlist.length <= 0){
