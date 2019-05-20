@@ -79,6 +79,13 @@
                                 <el-row class="pay-num">
                                     <el-col :span="24">
                                         <el-form>
+                                            <el-form-item label="会员手机号:" label-width="80px">
+                                                <el-input size="mini" v-model='phone'></el-input>
+                                            </el-form-item>
+                                        </el-form>
+                                    </el-col>
+                                    <el-col :span="24">
+                                        <el-form>
                                             <el-form-item label="座位/牌号:" label-width="80px">
                                                 <el-input size="mini" v-model='address'></el-input>
                                             </el-form-item>
@@ -174,6 +181,7 @@ Vue.component('waterbar', {
             orderid:"12365",
             attribute: '1' ,
             address:'',
+            phone:'',
             qrcodeurl:'',
             cartMain: true,
             queryname:"",
@@ -210,6 +218,7 @@ Vue.component('waterbar', {
             var url = UrlHelper.createUrl('order','createOrder');
             var params = Store.createParams();
             params.address = this.address;
+            params.phone = this.phone;
             params.paytype = paytype;
             params.productlist = JSON.stringify(this.cartlist);
             

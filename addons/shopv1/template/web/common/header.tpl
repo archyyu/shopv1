@@ -61,7 +61,7 @@
         }
 
         //bootstrap select init
-        $("#barSelect").selectpicker('value', '{$gid}')
+        $("#shopSelect").selectpicker('value', '{$gid}')
 
 
 

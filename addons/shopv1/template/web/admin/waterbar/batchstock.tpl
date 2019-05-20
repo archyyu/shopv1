@@ -8,14 +8,16 @@
     <div class="water-btn-group">
         <!-- <button class="btn btn-primary" data-toggle="modal" data-target="#addStockMaterial" onclick="BatchStock.openStockDIV();">添加进货</button> -->
         <button class="btn btn-primary" onclick="BatchStock.openStockDIV();">添加进货</button>
-    </div>
-    <div class="water-btn-group">
-        <label class="control-label">进货库房</label>
-        <select id="storage" class="form-control input-sm selectpicker">
-            {foreach $storelist as $store}
-            <option value='{$store.id}'>{$store.storename}</option>
-            {/foreach}
-        </select>
+        <div class="form-inline batch-stock-form">
+            <div class="form-group">
+                <label class="control-label">进货库房：</label>
+                <select id="storage" class="form-control selectpicker">
+                    {foreach $storelist as $store}
+                    <option value='{$store.id}'>{$store.storename}</option>
+                    {/foreach}
+                </select>
+            </div>
+        </div>
     </div>
     <div class="detail_content">
         <table id="batchStockTable" class="table table-bordered table-condensed">
