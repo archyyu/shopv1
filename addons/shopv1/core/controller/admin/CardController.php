@@ -22,6 +22,10 @@ class CardController extends \controller\Controller{
     private $shopMemberModel;
 
     private $shopUserModel;
+
+    private $producttypeModel;
+
+    private $productModel;
     
     public function __construct() {
         parent::__construct();
@@ -29,10 +33,25 @@ class CardController extends \controller\Controller{
         $this->memberCardModel = new \model\ShopMemberCard();
         $this->shopMemberModel = new \model\ShopMember();
         $this->shopUserModel = new \model\ShopUser();
+
+        $this->producttypeModel = new \model\ShopProductType();
+        $this->productModel = new \model\ShopProduct();
     }
     
     //卡券管理
     public function index(){
+        $uniacid = $this->getUniacid();
+
+        $typelist = $this->producttypeModel->getProductTypeList($uniacid);
+        $productlist = $this->productModel->findProductByUniacid($uniacid);
+
+        $products = "";
+        if (count($productlist) > 0) {
+            $products = json_encode($productlist);
+        }
+
+        $this->smarty->assign("typelist", $typelist);
+        $this->smarty->assign("products", $products);
         $this->smarty->display('admin/card/cardmanagement.tpl');
     }
     
@@ -68,6 +87,8 @@ class CardController extends \controller\Controller{
         $discount = $this->getParam('discount');
         $effectiveprice = $this->getParam('effectiveprice');
         $effectiveday = $this->getParam('effectiveday');
+        $typeid = $this->getParam('typeid');
+        $productid = $this->getParam('productid');
         
         $data = array();
         
@@ -83,6 +104,8 @@ class CardController extends \controller\Controller{
         $data["discount"] = $discount;
         $data['effectiveprice'] = $effectiveprice/100;
         $data['effectiveday'] = $effectiveday;
+        $data['typeid'] = $typeid;
+        $data['productid'] = $productid;
         
         $result = $this->cardTypeModel->saveCardType($data);
         if($result){
