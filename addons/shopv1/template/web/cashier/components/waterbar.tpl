@@ -66,7 +66,7 @@
                                     <div class="cart-item-title">{{cart.productname}}
                                     </div>
                                     <el-row class="cart-item-num">
-                                        <el-col :span="8">￥{{cart.price}}</el-col>
+                                        <el-col :span="8">￥{{cart.price*cart.num}}</el-col>
                                         <el-col :span="10" :offset="6" class="num-cal">
                                             <span @click="cartDeduct(cart.productid)" class="num-operate minus">-</span>
                                             {{cart.num}}
@@ -79,7 +79,7 @@
                                 <el-row class="pay-num">
                                     <el-col :span="24">
                                         <el-form>
-                                            <el-form-item label="会员手机号:" label-width="80px">
+                                            <el-form-item label="会员手机:" label-width="80px">
                                                 <el-input size="mini" v-model='phone'></el-input>
                                             </el-form-item>
                                         </el-form>
@@ -338,17 +338,17 @@ Vue.component('waterbar', {
             }
 
             for (var i = 0; i < this.cartlist.length; i++) {
-                if (this.cartlist[i].productid == p.productid) {
+                if (this.cartlist[i].productid == p.id) {
                     this.cartlist[i].num += 1;
                     return;
                 }
             }
 
             var cart = {};
-            cart.productid = p.productid;
+            cart.productid = p.id;
             cart.num = 1;
             cart.memberprice = p.memberprice/100;
-            cart.price = p.price / 100;
+            cart.price = p.normalprice/100;
             cart.productname = p.productname;
             cart.make = p.make;
             cart.typeid = p.typeid;

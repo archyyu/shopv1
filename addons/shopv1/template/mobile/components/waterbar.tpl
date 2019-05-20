@@ -21,7 +21,7 @@
                         <li class="food-item" v-for="o in productlist">
                             <div class="icon"><img :src="getImgUrl(o)">
                             </div>
-                            <div class="food-content" @click="addCart(o.id,o.productname,o.memberprice,o.inventory,o.make,o.typeid)">
+                            <div class="food-content" @click="addCart(o)">
                                 <h2 class="name">{{o.productname}}</h2>
                                 <p class="description"></p>
                                 <div class="price">
@@ -206,16 +206,16 @@ Vue.component('waterbar', {
             Toast.success("已添加购物车");
 
             for (var i = 0; i < this.cartlist.length; i++) {
-                if (this.cartlist[i].productid == p.productid) {
+                if (this.cartlist[i].productid == p.id) {
                     this.cartlist[i].num += 1;
                     return;
                 }
             }
 
             var cart = {};
-            cart.productid = p.productid;
+            cart.productid = p.id;
             cart.num = 1;
-            cart.price = p.price / 100;
+            cart.price = p.normalprice / 100;
             cart.memberprice = p.memberprice;
             cart.productname = p.productname;
             cart.make = p.make;
