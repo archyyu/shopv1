@@ -34,11 +34,11 @@
                                         <h5>{{product.productname}}</h5>
                                         <p class="lack-pro"></p>
                                         <p class="pro-price">
-                                            <span v-if="product.inventory < 0" class="pro_lesspro">
+                                            <span v-if="product.inventory <= 0" class="pro_lesspro">
                                                 <span class="icon iconfont">&#xe63f;</span>无库存
                                             </span>
-                                            <!-- <span class="origin">￥100</span>
-                                    <br> -->
+                                             <!--span class="origin">￥{{product.normalprice/100}}</--span>
+                                            <br-->
                                             ￥{{product.memberprice/100}}
                                         </p>
                                     </div>
