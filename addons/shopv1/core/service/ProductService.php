@@ -125,7 +125,7 @@ class ProductService extends Service{
                 
                 if($inventory['inventory']/$value['num'] < $maxcnt){
                     $maxcnt = $inventory['inventory']/$value['num'];
-                }   
+                }
             }   
             return $maxcnt;
         }   
