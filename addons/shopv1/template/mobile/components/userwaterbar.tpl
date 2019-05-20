@@ -3,7 +3,10 @@
     <div class="waterbar">
         <header class="header">
             <div class="title">
-                <span>点单</span>
+                <cube-select
+                    v-model="selectShop"
+                    :options="shopList">
+                </cube-select>
             </div>
         </header>
         <div class="container">
@@ -35,7 +38,7 @@
                 <div class="cart" @click="showCart"><iconfont iconclass="icon-shopcar"></iconfont></div>
                 <div class="price">￥{{getCartPrice()}}</div>
                 <div class="checkout"> 
-                    <cube-button :primary="true" @click="createOrder()">支付</cube-button>
+                    <cube-button :primary="true" @click="showPayMethod()">支付</cube-button>
                 </div>
             </div>
             <cube-popup type="my-popup" position="bottom" :mask-closable="true" ref="cartPopup">
@@ -72,6 +75,18 @@
                     </div>
                 </div>
             </cube-popup>
+
+            <bottom-popup label="payMethod" title="支付选项" height="auto" cubeclass="pay-popup" ref="payPopup">
+                <template v-slot:content>
+                    <cube-form :model="payModel">
+                    <cube-form-item :field="payFields[0]"></cube-form-item>
+                    <cube-form-item :field="payFields[1]"></cube-form-item>
+                </cube-form>
+                </template>
+                <template v-slot:footer>
+                    <cube-button :inline="true" @click="createOrder()">确认下单</cube-button>
+                </template>
+            </bottom-popup>
         </div>
     </div>
     {/literal}
@@ -83,10 +98,24 @@ Vue.component('waterbar', {
     template: '#waterbar',
     data: function () {
         return {
+            selectShop: 1,
+            shopList: [
+                {
+                    value: 1,
+                    text: '品尚1店'
+                },
+                {
+                    value: 2,
+                    text: '品尚2店'
+                }
+            ],
             currentNav: {},
             navList: [],
             productlist:[],
             cartlist:[],
+            pcList: [],
+            cardList: [],
+            orderpaytype:"微信",
             payinfo:{},
             address:"",
             shopid:0,
@@ -116,6 +145,30 @@ Vue.component('waterbar', {
                 {
                     text: '去结算',
                     action: 'checkout'
+                }
+            ],
+            payModel: {
+                seat: '',
+                card: ''
+            },
+            payFields: [
+                {
+                    type: 'select',
+                    modelKey: 'shopid',
+                    label: '座位号',
+                    props: {
+                        options: this.pcList,
+                        title: '请选择座位号'
+                    }
+                },
+                {
+                    type: 'select',
+                    modelKey: 'shopid',
+                    label: '卡券',
+                    props: {
+                        options: this.cardList,
+                        title: '请选择卡券'
+                    }
                 }
             ]
         };
@@ -262,7 +315,19 @@ Vue.component('waterbar', {
         backToMain:function(){
             this.$root.toIndex();
         },
-        
+
+        showPayMethod: function(){
+            if(this.cartlist.length <= 0){
+                this.$message.error("购物车为空");
+                return;
+            }
+            this.$refs.payPopup.showPopup();
+        },
+
+        hidePayMethod: function(){
+            this.$refs.payPopup.closePopup();
+        },
+
         createOrder:function(){
             
             if(this.cartlist.length <= 0){
@@ -289,14 +354,14 @@ Vue.component('waterbar', {
                             //Toast.success("下单成功");
                             
                             this.payinfo = res.obj;
-                            
+                            this.hidePayMethod();
                             this.callpay();
                             
                             this.cartlist = [];
                             
                         }
                         else{
-                            this.$message.error(res.msg);
+                            Toast.error(res.msg);
                         }
                     });
             

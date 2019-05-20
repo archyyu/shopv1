@@ -6,14 +6,70 @@
 
 $(function(){
     
+    CardType.init();
+
     CardType.initTable();
     CardType.reloadTable();
+
+    $('#producttype').change(function(){
+        CardType.initCurrent(this.value);
+        CardType.flushSelect(0);
+    });
+    
     
 });
 
 
 var CardType = {
-    
+
+    productsList : [],
+
+    currentProductList : [],
+
+    init : function(){
+
+        var products = $('#products').val();
+        if (products != "") {
+            products = JSON.parse(products);
+            for (var i = 0; i < products.length; i++) {
+                CardType.productsList.push(products[i]);
+            };
+        };
+    },
+
+    initCurrent : function(typeid){
+        
+        $("#producttype").val(typeid);
+        $('#producttype').selectpicker('refresh');
+
+        var list = this.productsList;
+        
+        this.currentProductList = [];
+        
+        if (typeid == 0 || list.length == 0) {
+            return ;
+        }
+
+        for (var i = 0; i < list.length; i++) {
+            if (list[i].typeid == typeid) {
+                this.currentProductList.push(list[i]);
+            };    
+        };
+    },
+
+    flushSelect : function(productid){
+        $("#product").html("");
+        $("#product").prepend("<option value='0'>请选择</option>");
+        if (this.currentProductList.length > 0) {
+            for (var i = 0; i < this.currentProductList.length; i++) {
+                $("#product").append("<option value='" + this.currentProductList[i].id + "'>" + this.currentProductList[i].productname + "</option>");
+            };
+        };
+
+        $("#product").val(productid);
+        $('#product').selectpicker('refresh');
+    },
+
     initTable : function(){
         $("#cardList").bootstrapTable({
             data: [],
@@ -110,6 +166,10 @@ var CardType = {
             $("#addCardModal [name=effectiveprice]").val('');
             $("#addCardModal [name=effectiveday]").val('');
             
+            $("#producttype").val(0);
+        
+            this.initCurrent(0);
+            this.flushSelect(0);
         }
         else{
             $("#addCardModal [name=cardid]").val(obj.id);
@@ -118,8 +178,10 @@ var CardType = {
             $("#addCardModal [name=discount]").val(obj.discount);
             $("#addCardModal [name=effectiveprice]").val(obj.effectiveprice/100);
             $("#addCardModal [name=effectiveday]").val(obj.effectiveday);
-        }
         
+            this.initCurrent(obj.typeid);
+            this.flushSelect(obj.productid);
+        }
         $("#addCardModal").modal("show");
         
     },
@@ -135,7 +197,9 @@ var CardType = {
         params.discount = $("#addCardModal [name=discount]").val();
         params.effectiveprice = $("#addCardModal [name=effectiveprice]").val();
         params.effectiveday = $("#addCardModal [name=effectiveday]").val();
-      
+        params.typeid = $("#producttype").val();
+        params.productid = $("#product").val();
+        
         $.post(url,params,function(data){
            if(data.state == 0){
                Tips.successTips("保存成功");

@@ -5,19 +5,6 @@ $(function(){
 	BatchStock.initTable();
 	BatchStock.refreshTable();
  
- //    $("#materialMenu").addClass("sideActive");
- //    $("a[href='/waterbar/batchstock/log']").addClass("cirAcitve");
- //    $("#collapse01").collapse('show');
-    
-	// $("#batchstocknav li").removeClass("active");
- //    $("#batchstocknav li:nth-child(2)").addClass("active");
-
-	// BatchStock.initList();
-	// BatchStock.flushTemp();
-
-	// $("#materialName").bind('input propertychange', function(){
-	// 	BatchStock.select();
-	// });
 });
 
 var BatchStock = {

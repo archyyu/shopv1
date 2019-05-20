@@ -18,6 +18,25 @@
                         </div>
                     </div>
                     <div class="form-group">
+                        <label class="control-label col-xs-3">商品类型：</label>
+                        <div class="col-xs-8">
+                            <select id="producttype" class="form-control input-sm selectpicker">
+                                <option value='0'>请选择</option>
+                                {foreach $typelist as $type}
+                                <option value='{$type.id}'>{$type.typename}</option>
+                                {/foreach}
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-xs-3">商品：</label>
+                        <div class="col-xs-8">
+                            <select id="product" class="form-control input-sm selectpicker">
+                                
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
                         <label class="control-label col-xs-3">抵现金额：</label>
                         <div class="col-xs-8">
                             <input type="text" name="exchange" class="form-control">
