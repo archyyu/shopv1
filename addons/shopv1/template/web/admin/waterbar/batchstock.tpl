@@ -72,11 +72,6 @@
     </div>
 </div>
 
-{literal}
-
-    
-{/literal}
-
 {include file="./modals/selectproduct.tpl"}
 
 <script src="{$StaticRoot}/js/web/admin/waterbar/BatchStock.js"></script>

@@ -1,7 +1,7 @@
 $(function(){
 
 	BatchStock.initTypes();
-
+	$("#selectProductList").niceScroll();
 	BatchStock.initTable();
 	BatchStock.refreshTable();
  
