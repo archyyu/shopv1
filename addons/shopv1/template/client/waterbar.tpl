@@ -326,7 +326,6 @@ var app = new Vue({
             for (var i = 0; i < this.cartlist.length; i++) {
                 if (this.cartlist[i].productid == productid) {
                     this.cartlist[i].num += 1;
-                    this.cartlist[i].price += this.cartlist[i].price;
                     return;
                 }
             }
@@ -345,7 +344,7 @@ var app = new Vue({
             }
         },
         
-        addCart: function (productid, productname, price,inventory,make,typeid) {
+        addCart: function (p) {
 
             if(this.orderState != -1){
                 this.orderState = -1;
@@ -353,7 +352,7 @@ var app = new Vue({
                 
             this.editBtnShow = true;
 
-            if(inventory <= 0){
+            if(p.inventory <= 0){
                 this.$message.error("库存不足,请进货或者调货");
                 return;
             }
@@ -361,19 +360,21 @@ var app = new Vue({
             this.$message.success("已添加购物车");
 
             for (var i = 0; i < this.cartlist.length; i++) {
-                if (this.cartlist[i].productid == productid) {
+                if (this.cartlist[i].productid == p.id) {
                     this.cartlist[i].num += 1;
                     return;
                 }
             }
 
             var cart = {};
-            cart.productid = productid;
+            cart.productid = p.id;
             cart.num = 1;
-            cart.price = price / 100;
-            cart.productname = productname;
-            cart.make = make;
-            cart.typeid = typeid;
+            cart.price = p.normalprice / 100;
+            cart.memberprice = p.memberprice/100;
+            cart.normalprice = p.normalprice/100;
+            cart.productname = p.productname;
+            cart.make = p.make;
+            cart.typeid = p.typeid;
             this.cartlist.push(cart);
             
         },
