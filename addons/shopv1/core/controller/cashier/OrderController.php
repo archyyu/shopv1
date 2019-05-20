@@ -27,7 +27,7 @@ class OrderController extends \controller\Controller{
     
     private $redisService;
     
-    
+    private $memberModel;
     
     public function __construct() {
         parent::__construct();
@@ -37,6 +37,7 @@ class OrderController extends \controller\Controller{
         $this->orderModel = new \model\ShopOrder(); 
         $this->wechatModel = new \model\WechatAccount();
         $this->redisService = new \service\RedisService();
+        $this->memberModel = new \model\ShopMember();
     }
     
     public function createOrder(){
@@ -50,6 +51,15 @@ class OrderController extends \controller\Controller{
         $paytype = $this->getParam("paytype");
         $membercardid = $this->getParamDefault("membercardid",0);
         $uniacid = $this->getUniacid();
+        $phone = $this->getParam("phone");
+        
+        if(isset($phone)){
+            //TODO
+            $member = $this->memberModel->quertyMember($uniacid, $phone);
+            if(isset($member)){
+                $memberid = $member["uid"];
+            }
+        }
         
         if(isset($uniacid) == false){
             $uniacid = $this->shopModel->findShopById($shopid)['uniacid'];
