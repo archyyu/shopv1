@@ -15,7 +15,6 @@ namespace model;
  */
 class ShopFans extends Model{
     protected $table = "mc_mapping_fans";
-    
-    
-    
+
+
 }

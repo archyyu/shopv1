@@ -71,6 +71,7 @@ class Loader {
 	private $libraryMap = array(
 		'agent' => 'agent/agent.class',
 		'captcha' => 'captcha/captcha.class',
+		'smarty' => 'smarty/Smarty.class',
 		'pdo' => 'pdo/PDO.class',
 		'qrcode' => 'qrcode/phpqrcode',
 		'ftp' => 'ftp/ftp',
