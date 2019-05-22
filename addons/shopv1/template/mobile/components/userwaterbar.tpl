@@ -5,6 +5,8 @@
             <div class="title">
                 <cube-select
                     v-model="selectShop"
+                    :auto-pop="false"
+                    :@picker-hide="shopSelect"
                     :options="shopList">
                 </cube-select>
             </div>
@@ -21,7 +23,7 @@
                     @pulling-up="loadMore">
                     <ul class="foods-wrapper">
                         <li class="food-item" v-for="o in productlist">
-                            <div class="icon"><img src="getImgUrl(o)">
+                            <div class="icon"><img :src="getImgUrl(o)">
                             </div>
                             <div class="food-content" @click="addCart(o)">
                                 <h2 class="name">{{o.productname}}</h2>
@@ -98,26 +100,18 @@ Vue.component('waterbar', {
     template: '#waterbar',
     data: function () {
         return {
-            selectShop: 1,
+            selectShop: 0,
             shopList: [
-                {
-                    value: 1,
-                    text: '品尚1店'
-                },
-                {
-                    value: 2,
-                    text: '品尚2店'
-                }
+
             ],
             currentNav: {},
             navList: [],
             productlist:[],
             cartlist:[],
-            pcList: [],
+            orderState:-1,
             cardList: [],
             orderpaytype:"微信",
             payinfo:{},
-            address:"",
             shopid:0,
             remark:"",
             pullOptions: {
@@ -153,13 +147,9 @@ Vue.component('waterbar', {
             },
             payFields: [
                 {
-                    type: 'select',
+                    type: 'input',
                     modelKey: 'shopid',
                     label: '座位号',
-                    props: {
-                        options: this.pcList,
-                        title: '请选择座位号'
-                    }
                 },
                 {
                     type: 'select',
@@ -176,20 +166,47 @@ Vue.component('waterbar', {
     computed: {
     },
     created:function(){
-        
+
     },
     mounted() {
+        this.queryShopList();
         this.queryTypeList();
     },
     methods: {
+
+        queryShopList:function(){
+            let params = {};
+
+            axios.post(UrlHelper.createShortUrl("loadShopList"),params)
+                .then((res)=>{
+                    res = res.data;
+                    if(res.state == 0){
+
+                        let list = res.obj;
+                        for(let shop of list){
+                            let item  = {};
+                            item.value = shop.id;
+                            item.text = shop.name;
+
+                            this.shopList.push(item);
+                        }
+
+                    }
+                });
+
+        },
         
         changeHandler:function(cur){
             this.defaulttypeid = cur.id;
             this.queryProductList(this.defaulttypeid);
         },
+
+        shopSelect:function(){
+            this.queryProductList(this.defaulttypeid);
+        },
         
         getImgUrl:function(p){
-            return UrlHelper.getWebBaseUrl() + p.productimg;
+            return UrlHelper.getAppBaseUrl() + p.productimg;
         },
         
         queryTypeList: function () {
@@ -207,7 +224,7 @@ Vue.component('waterbar', {
                         
                         console.log(this.navList);
                         this.defaulttypeid = res.obj[0].id;
-                        this.queryProductList(this.defaulttypeid);
+                        //this.queryProductList(this.defaulttypeid);
                     }
                 });
         },
@@ -294,6 +311,7 @@ Vue.component('waterbar', {
             }
             
             params.typeid = type;
+            params.shopid = this.selectShop;
             
             axios.post(UrlHelper.createShortUrl('loadProduct'), params)
                 .then((res) => {
@@ -341,7 +359,7 @@ Vue.component('waterbar', {
             let params = {};
 
             params.shopid = this.shopid;
-            params.address = this.address;
+            params.address = this.payModel.seat;
             params.remark = this.remark;
             
             params.productlist = JSON.stringify(this.cartlist);
@@ -413,7 +431,7 @@ Vue.component('waterbar', {
             this.$refs.qrcodePopup.show();
         },
         closeQrcode:function(){
-            this.orderstate = -1;
+            this.orderState = -1;
             this.$refs.qrcodePopup.hide();
         }
     }

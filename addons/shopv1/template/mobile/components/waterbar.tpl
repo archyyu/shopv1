@@ -101,9 +101,8 @@ Vue.component('waterbar', {
             navList: [],
             productlist:[],
             cartlist:[],
-            pcList: [],
             qrcodeurl:'www.baidu.com',
-            orderstate:-1,
+            orderState:-1,
             orderpaytype:"微信",
             orderid:"",
             pullOptions: {
@@ -140,13 +139,9 @@ Vue.component('waterbar', {
             },
             payFields: [
                 {
-                    type: 'select',
+                    type: 'input',
                     modelKey: 'shopid',
                     label: '座位号',
-                    props: {
-                        options: this.pcList,
-                        title: '请选择座位号'
-                    }
                 },
                 {
                     type: 'input',
@@ -349,7 +344,8 @@ Vue.component('waterbar', {
             var paytype = this.payModel.paytype;
             var url = UrlHelper.createUrl('order','createOrder');
             var params = Store.createParams();
-            params.address = this.address;
+            params.address = this.payModel.seat;
+            params.phone = this.payModel.phone;
             params.paytype = paytype;
             params.productlist = JSON.stringify(this.cartlist);
             
@@ -377,7 +373,7 @@ Vue.component('waterbar', {
                                     this.orderpaytype = "支付宝";
                                 }
                                 
-                                this.orderstate = 0;
+                                this.orderState = 0;
                                 this.hidePayMethod();
                                 this.showQrcode();
                             }
@@ -394,7 +390,7 @@ Vue.component('waterbar', {
         
         queryOrderState:function(){
             
-            if(this.orderstate != 0){
+            if(this.orderState != 0){
                 return;
             }
             
@@ -410,7 +406,7 @@ Vue.component('waterbar', {
                             Toast.success("订单已经支付");
                             this.cartlist = [];
                             this.closeQrcode();
-                            this.orderstate = -1;
+                            this.orderState = -1;
                         }
                     }
                 });
@@ -430,7 +426,7 @@ Vue.component('waterbar', {
             this.$refs.qrcodePopup.show();
         },
         closeQrcode:function(){
-            this.orderstate = -1;
+            this.orderState = -1;
             this.cartlist = [];
             this.$refs.qrcodePopup.hide();
         }
