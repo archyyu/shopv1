@@ -45,6 +45,10 @@ $(function () {
 var Inventory = {
     
    selectProductList:[],
+
+   productInventoryMap : {},
+
+   currentProduct : [],
     
   goodsTableInit: function () {
     $("#goodsTable").bootstrapTable({
@@ -161,13 +165,16 @@ var Inventory = {
   inventoryList : [],
   
   transferStoreChange:function(){
+      // $("#transferModal [name=inventory]").html(0);
+      //   for(var i = 0;i<inventoryList.length;i++){
+      //       if(inventoryList[i].storeid == $("#transferModal [name=sourceid]").val()){
+      //           $("#transferModal [name=inventory]").html(inventoryList[i].inventory);
+      //           return;
+      //       }
+      //   }
       $("#transferModal [name=inventory]").html(0);
-        for(var i = 0;i<inventoryList.length;i++){
-            if(inventoryList[i].storeid == $("#transferModal [name=sourceid]").val()){
-                $("#transferModal [name=inventory]").html(inventoryList[i].inventory);
-                return;
-            }
-        }
+      var sourceid = $("#transferModal [name=sourceid]").val();
+      Inventory.flushStoreInventory(sourceid);
   },
   
   inventoryTransfer:function(){
@@ -183,6 +190,11 @@ var Inventory = {
          if(data.state == 0){
              Tips.successTips('调货成功');
              $("#transferModal").modal('hide');
+
+             $("#transferModal [name=productid]").val(0);
+             $("#transferModal [name=num]").val("");
+             delete Inventory.productInventoryMap[params.productid];
+
              Inventory.goodsTableReload();
          } 
          else{
@@ -250,10 +262,34 @@ var Inventory = {
       });
       
   },
+
+  flushStoreInventory : function(storeid){
+    if (Inventory.currentProduct.length > 0) {
+      for (var i = 0; i < Inventory.currentProduct.length; i++) {
+        if (Inventory.currentProduct[i].storeid == storeid) {
+          $("#transferModal [name=inventory]").html(Inventory.currentProduct[i].inventory);
+          $("#transferModal").modal("show");
+          return;
+        };
+      };
+    };
+    
+    $("#transferModal [name=inventory]").html(0);
+    $("#transferModal").modal("show");
+  },
   
   openTransModal:function(productid,unit){
-       $("#transferModal [name=unit]").val(unit);
+       $("#transferModal [name=unit]").text(unit);
        $("#transferModal [name=productid]").val(productid);
+
+       var sourceid = $("#transferModal [name=sourceid]").val();
+
+       if (Inventory.productInventoryMap[productid] != undefined) {
+
+          Inventory.currentProduct = Inventory.productInventoryMap[productid];
+          Inventory.flushStoreInventory(sourceid);
+          return ;
+       };
        
       var url = UrlUtil.createWebUrl('product','inventorylist');
       
@@ -262,19 +298,11 @@ var Inventory = {
       
       $.post(url,params,function(data){
           if(data.state == 0){
-              inventoryList = data.obj;
-              console.log(inventoryList);
-              for(var i = 0;i<inventoryList.length;i++){
-                  if(inventoryList[i].storeid == $("#transferModal [name=sourceid]").val()){
-                      $("#transferModal [name=inventory]").html(inventoryList[i].inventory);
-                       $("#transferModal").modal("show");
-                      return;
-                  }
-              }
-              
-              $("#transferModal [name=inventory]").html(inventoryList[i].inventory);
-              $("#transferModal").modal("show");
-              
+              // inventoryList = data.obj;
+              Inventory.productInventoryMap[productid] = data.obj;
+              Inventory.currentProduct = data.obj;
+              Inventory.flushStoreInventory(sourceid);
+              return ;    
           }
           else{
               
