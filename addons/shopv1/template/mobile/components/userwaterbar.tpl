@@ -6,8 +6,9 @@
                 <cube-select
                     v-model="selectShop"
                     :auto-pop="false"
-                    :@picker-hide="shopSelect"
-                    :options="shopList">
+                    :options="shopList"
+                    @picker-hide="shopSelect"
+                    ref="shopSelect">
                 </cube-select>
             </div>
         </header>
@@ -100,6 +101,7 @@ Vue.component('waterbar', {
     template: '#waterbar',
     data: function () {
         return {
+            qrcodeurl: '123',
             selectShop: 0,
             shopList: [
 
@@ -166,11 +168,11 @@ Vue.component('waterbar', {
     computed: {
     },
     created:function(){
-
     },
     mounted() {
         this.queryShopList();
         this.queryTypeList();
+        this.$refs.shopSelect.showPicker()
     },
     methods: {
 
