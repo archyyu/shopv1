@@ -280,6 +280,11 @@ var app = new Vue({
                         console.log(res);
                         if(res.state == 0){
                             console.log("create order ok");
+
+                            this.userMemberCard(this.cardId);
+
+                            this.cardId = null;
+
                             this.$message.success("下单成功");
                             this.orderId = res.obj.orderid;
                             
@@ -387,6 +392,17 @@ var app = new Vue({
                 }
             }
             
+        },
+
+        userMemberCard:function(id){
+
+            for(let i = 0;i<this.cardList.length;i++){
+                if(this.cardList[i].id == id){
+                    this.cardList.splice(i);
+                    return;
+                }
+            }
+
         },
         
         getCartPrice:function(){

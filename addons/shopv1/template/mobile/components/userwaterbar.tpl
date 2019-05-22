@@ -171,6 +171,7 @@ Vue.component('waterbar', {
     mounted() {
         this.queryShopList();
         this.queryTypeList();
+        this.queryMemberCardList();
         this.$refs.shopSelect.showPicker()
     },
     methods: {
@@ -178,7 +179,7 @@ Vue.component('waterbar', {
         queryShopList:function(){
             let params = {};
 
-            axios.post(UrlHelper.createShortUrl("loadShopList"),params)
+            axios.post(UrlHelper.createShortUrl("getCardList"),params)
                 .then((res)=>{
                     res = res.data;
                     if(res.state == 0){
@@ -196,7 +197,21 @@ Vue.component('waterbar', {
                 });
 
         },
-        
+
+        queryMemberCardList:function(){
+
+            let params = {};
+
+            axios.post(UrlHelper.createShortUrl("queryMemberCardList"),params)
+                .then((res)=>{
+                    res = res.data;
+                    if(res.state == 0){
+                        this.cardList = res.obj;
+                    }
+                });
+
+        },
+
         changeHandler:function(cur){
             this.defaulttypeid = cur.id;
             this.queryProductList(this.defaulttypeid);
@@ -348,6 +363,27 @@ Vue.component('waterbar', {
             this.$refs.payPopup.closePopup();
         },
 
+        findMemberCard:function(id){
+
+            for(let item of this.cardList){
+                if(item.id == id){
+                    return item;
+                }
+            }
+
+        },
+
+        userMemberCard:function(id){
+
+            for(let i = 0;i<this.cardList.length;i++){
+                if(this.cardList[i].id == id){
+                    this.cardList.splice(i);
+                    return;
+                }
+            }
+
+        },
+
         createOrder:function(){
             
             if(this.cartlist.length <= 0){
@@ -362,7 +398,7 @@ Vue.component('waterbar', {
             params.shopid = this.shopid;
             params.address = this.payModel.seat;
             params.remark = this.remark;
-            
+            params.membercardid = this.cardId;
             params.productlist = JSON.stringify(this.cartlist);
             
             axios.post(url,params)
@@ -372,13 +408,17 @@ Vue.component('waterbar', {
                         if(res.state == 0){
                             console.log("create order ok");
                             //Toast.success("下单成功");
-                            
+
+                            this.userMemberCard(this.cardId);
+
                             this.payinfo = res.obj;
                             this.hidePayMethod();
                             this.callpay();
                             
                             this.cartlist = [];
-                            
+
+                            this.cardId = null;
+
                         }
                         else{
                             Toast.error(res.msg);
@@ -411,11 +451,7 @@ Vue.component('waterbar', {
                     "paySign": this.payinfo.paySign
                 },
                 function(res) {
-                    //if (res.err_msg.length > 5) {
-                        //window.location.href = "/user/my?rand=" + Math.random();
-                    //}
                     WeixinJSBridge.log(res.err_msg);
-                    //alert(res.err_code+"|"+res.err_desc+"|"+res.err_msg);
                 }
             );
         },
