@@ -185,6 +185,11 @@ var Inventory = {
       params.sourceid = $("#transferModal [name=sourceid]").val();
       params.destinationid = $("#transferModal [name=destinationid").val();
       params.inventory = $("#transferModal [name=num]").val();
+
+      if (params.productid == params.destinationid) {
+        Tips.failTips("同库不能调动");
+        return ;
+      };
       
       $.post(url,params,function(data){
          if(data.state == 0){

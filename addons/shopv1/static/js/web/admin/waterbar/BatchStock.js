@@ -250,12 +250,12 @@ var BatchStock = {
 		//var storagename = $("#storageID option:selected").attr("name");
 
 		if(storage == null || storage == ""){
-			Tips.failToast("库房必选");
+			Tips.failTips("库房必选");
 			return -1;
 		}
 
 		if(productJsonArr.length < 1){
-			Tips.failToast("进货商品不能为空");
+			Tips.failTips("进货商品不能为空");
 			return -1;
 		}
 

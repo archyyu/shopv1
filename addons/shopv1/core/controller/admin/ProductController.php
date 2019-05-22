@@ -483,7 +483,51 @@ class ProductController extends Controller{
     }
 
     public function transformIndex(){
+        $uniacid = $this->getUniacid();
+        $productlist = $this->productModel->findProductByUniacid($uniacid);
+        $storelist = $this->storeModel->getStoreListByUniacid($uniacid);
+
+        $this->smarty->assign("productlist", $productlist);
+        $this->smarty->assign("storelist", $storelist);
         $this->smarty->display("admin/waterbar/transform.tpl");
+    }
+
+    public function saveBatchShipment(){
+        $uniacid = $this->getUniacid();
+        $userid = $this->getUserid();
+
+        $sourceid = $this->getParam("sourceid");
+        $destinationid = $this->getParam("destinationid");
+        $productJson = $this->getParam("productJson");
+        $remark = $this->getParam("remark");
+
+        $store = $this->storeModel->findStoreById($sourceid);
+        if (!$store) {
+            $this->returnFail("未找到此库房");
+            return ;
+        }
+
+        $shopid = $store['shopid'];
+
+
+        $this->productInventory->beginTransaction();
+        try {
+
+            foreach ($productJson as $key => $value) {
+                $this->productService->transferInventory($uniacid,$shopid,$value['id'],$value['num'],$sourceid,$destinationid,$userid);
+            }
+            $this->productInventory->commit();
+            
+            $this->returnSuccess();
+            return ;
+
+        } catch (Exception $e) {
+            logError("调货失败", $e);
+            $this->productInventory->rollback();
+            
+            $this->returnFail("调货失败");
+            return ;
+        }
     }
     
     public function inventorylog(){

@@ -28,7 +28,7 @@
                                 <div class="checkboxs" id="selectProductList">
                                     {foreach $productlist as $product}
                                         
-                                        {if $product.producttype != 1}
+                                        {if $product.producttype != 1 && $product.producttype != 3}
                                         
                                         <div class="checkself" onclick="BatchStock.clkDIV(this);BatchStock.count();">
                                             <input type="checkbox" value="{$product.id}" typeid="{$product.typeid}" productName="{$product.productname}" unit="{$product.unit}" name="product[]" onclick="BatchStock.clkDIV($(this).parent('.checkself'));BatchStock.count();" />
