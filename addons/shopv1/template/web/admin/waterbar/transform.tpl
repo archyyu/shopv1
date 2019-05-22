@@ -3,7 +3,7 @@
 
 <div class="batch-stock transform">
     <div class="water-btn-group">
-        <button class="btn btn-primary" onclick="BatchStock.openStockDIV();">添加调货</button>
+        <button class="btn btn-primary" onclick="BatchShipment.openStockDIV();">添加调货</button>
         <div class="form-inline batch-stock-form">
             <div class="form-group">
                 <label class="control-label">调货库房：</label>
@@ -32,14 +32,14 @@
             </div>
         </div>
         <div class="stock_btn">
-            <button type="button" class="btn  btn-default" onclick="BatchStock.repeal();">取消调货</button>
-            <button type="button" class="btn  btn-primary" onclick="BatchStock.save();">确认调货</button>
+            <button type="button" class="btn  btn-default" onclick="BatchShipment.repeal();">取消调货</button>
+            <button type="button" class="btn  btn-primary" onclick="BatchShipment.save();">确认调货</button>
         </div>
     </div>
 </div>
 
 {include file="./modals/selectproduct.tpl"}
 
-<script src="{$StaticRoot}/js/web/admin/waterbar/BatchStock.js"></script>
+<script src="{$StaticRoot}/js/web/admin/waterbar/BatchShipment.js"></script>
 
 {include file="../../common/footer.tpl"}
