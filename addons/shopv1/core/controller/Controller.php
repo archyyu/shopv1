@@ -77,6 +77,11 @@ class Controller {
       $this->ajaxReturn($arr);
   }
   
+  public function returnQuery(){
+      $arr = Code::$query;
+      $this->ajaxReturn($arr);
+  }
+  
   public function returnFail($msg,$obj=null){
       
       $arr = array();

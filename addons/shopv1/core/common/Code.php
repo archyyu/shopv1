@@ -4,6 +4,9 @@ namespace common;
 class Code {
     public static $success = ['state' => 0, 'msg' => '操作成功'];
     public static $error = ['state' => 1, 'msg' => '操作失败'];
+    
+    public static $query = ['state'=>2,"msg"=>'正在查询'];
+    
     public static $err_potence = ['state' => 1001, 'msg' => '网吧名称不能为空'];
     public static $err_address = ['state' => 1002, 'msg' => '地址不能为空'];
     public static $err_pcnum = ['state' => 1003, 'msg' => '机器数量不能为空'];

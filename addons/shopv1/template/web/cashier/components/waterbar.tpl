@@ -289,12 +289,13 @@ Vue.component('waterbar', {
                     res = res.data;
                     console.log(res);
                     if(res.state == 0){
-                        if(res.obj >= 0){
-                            Store.hideQrcode();
-                            this.$message.success("订单已经支付");
-                            this.orderState = 1;
-                        }
+                         
+                        Store.hideQrcode();
+                        this.$message.success("订单已经支付");
+                        this.orderState = 1;
+                         
                     }
+                    
                 });
         },
         
@@ -419,9 +420,15 @@ Vue.component('waterbar', {
                     .then((res)=>{
                         
                         res = res.data;
-                        if(res.state == 0){
+                        if(res.obj == 0){
                             this.$message.success("支付成功");
                             this.orderState = -1;
+                        }
+                        else if(res.obj == 1){
+                            
+                            this.orderState = 0;
+                            this.$message.success("正在查询付款结果");
+                            
                         }
                         else{
                             this.$message.error("支付失败");

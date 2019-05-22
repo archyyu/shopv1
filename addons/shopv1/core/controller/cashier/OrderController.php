@@ -110,13 +110,13 @@ class OrderController extends \controller\Controller{
         $order = $this->orderModel->findOrderById($orderid);
         $order["authcode"] = $code;
         $result = $this->payService->scanPay($order);
-
-        if($result){
-            $this->returnSuccess();
-        }
-        else{
-            $this->returnFail("失败");
-        }
+        
+        $data = array();
+        $data["authcode"] = $code;
+        $this->orderModel->saveOrder($data, $orderid);
+        
+        $this->returnSuccess($result);
+        
     }
     
     public function payOrder(){
@@ -184,8 +184,24 @@ class OrderController extends \controller\Controller{
     public function queryOrderState(){
         
         $orderid = $this->getParam("orderid");
+        
         $order = $this->orderModel->findOrderById($orderid);
-        $this->returnSuccess($order['orderstate']);
+        
+        if(isset($order["authcode"])){
+            
+            $result = $this->payService->queryOrderState($order);
+            //$this->returnSuccess($result);
+            if($result == 0){
+                $this->returnSuccess(0);
+            }
+            else{
+                $this->returnFail("");
+            }
+            
+        }
+        else{
+            $this->returnSuccess($order['orderstate']);
+        }
         
     }
     

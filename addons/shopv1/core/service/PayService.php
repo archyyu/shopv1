@@ -94,6 +94,38 @@ class PayService extends Service {
             return "";
         }
     }
+    
+    public function queryOrderState($order){
+        
+        $url = "https://vsp.allinpay.com/apiweb/unitorder/query";
+        
+        $wechat = $this->wechatAccount->findWechatAccountByUniacid($order['uniacid']);
+
+        $params = array();
+        $params["cusid"] = $wechat['allincusid'];
+        $params["appid"] = $wechat['allinappid'];
+        //$params["paykey"] = $wechat["paykey"];
+        $params["version"] = '11';
+        $params["reqsn"] = $order['id'];
+        $params["randomstr"] = rand(10000000, 99999999);
+        $params["sign"] = $this->SignArray($params, $wechat['paykey']); //签名
+        $paramsStr = $this->ToUrlParams($params);
+        $rsp = $this->request($url, $paramsStr);
+        
+        $rspArray = json_decode($rsp, true);
+        if ($rspArray["retcode"] == "SUCCESS") {
+
+            if ($rspArray["trxstatus"] == "0000") {
+                //支付成功
+                return 0;
+            }
+            else{
+                return 1;
+            }
+        }
+        
+        return -1;
+    }
 
     public function scanPay($order) {
 
@@ -114,8 +146,6 @@ class PayService extends Service {
         //$params["acct"] = "openid";
         $params["limit_pay"] = "";
         $params["authcode"] = $order["authcode"];
-        //$params["notify_url"] = urlencode("http://pinshangy.com/web/cashier.php?__uniacid=1&f=notify&do=order");
-        //$params["notify_url"] = "http://pinshangy.com/web/pay.php";
         $params["sign"] = $this->SignArray($params, $wechat['paykey']); //签名
 
         $paramsStr = $this->ToUrlParams($params);
@@ -135,13 +165,17 @@ class PayService extends Service {
 
                 if ($rspArray["trxstatus"] == "0000") {
                     //支付成功
-                    return true;
+                    return 0;
                 }
+                else{
+                    return 1;
+                }
+                
             }
 
-            return false;
+            return -1;
         } else {
-            return false;
+            return -1;
         }
     }
 
