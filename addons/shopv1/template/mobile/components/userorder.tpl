@@ -5,7 +5,7 @@
             <div class="title">
                 <span>订单列表</span>
             </div>
-            <span class="right-icon" :class="{active: filtered}" @click="showFilter"><iconfont>&#xe68a;</iconfon></span>
+            <span class="right-icon" :class="{active: filtered}" @click="showFilter"><iconfont>&#xe68a;</iconfont></span>
         </header>
         <div class="container">
             <cube-scroll direction="horizontal" class="horizontal-scroll-list-wrap" :options="scrollOptions">
