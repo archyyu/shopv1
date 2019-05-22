@@ -86,7 +86,7 @@ class PayService extends Service {
         if ($this->validSign($rspArray, $wechat['paykey'])) {
 
             foreach ($rspArray as $key => $value) {
-                logInfo("key:$key,value:$value");
+                //logInfo("key:$key,value:$value");
             }
 
             return $rspArray['payinfo'];
@@ -158,7 +158,7 @@ class PayService extends Service {
         if ($this->validSign($rspArray, $wechat['paykey'])) {
 
             foreach ($rspArray as $key => $value) {
-                logInfo("key:$key,value:$value");
+                //logInfo("key:$key,value:$value");
             }
 
             if ($rspArray["retcode"] == "SUCCESS") {

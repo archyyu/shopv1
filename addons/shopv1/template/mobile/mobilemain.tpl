@@ -46,6 +46,7 @@
 {/literal}
 
 {include file="./common/iconfont.tpl"}
+{include file="./common/bottompopup.tpl"}
 {include file="./components/mobileindex.tpl"}
 {include file="./components/count.tpl"}
 {include file="./components/shift.tpl"}

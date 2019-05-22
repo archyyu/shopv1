@@ -1,13 +1,13 @@
 $(function(){
 
-	BatchStock.initTypes();
-	$("#selectProductList").niceScroll();
-	BatchStock.initTable();
-	BatchStock.refreshTable();
+	// BatchShipment.initTypes();
+	// $("#selectProductList").niceScroll();
+	// BatchShipment.initTable();
+	// BatchShipment.refreshTable();
  
 });
 
-var BatchStock = {
+var BatchShipment = {
 
 	productIdArr : [],			//存放进货商品ID
 
@@ -25,24 +25,24 @@ var BatchStock = {
 		if (types != "") {
 			types = JSON.parse(types);
 			for (var i = 0; i < types.length; i++) {
-				BatchStock.typesMap[types[i].id] = types[i];
+				BatchShipment.typesMap[types[i].id] = types[i];
 			};
 		};
 	},
 
 	initTable : function(){
-		$("#batchStockTable").bootstrapTable({
+		$("#BatchShipmentTable").bootstrapTable({
 		    data: [],
 		    showFooter: true,
-		    footerStyle: BatchStock.footerStyle,
+		    footerStyle: BatchShipment.footerStyle,
 		    columns: [{
 		            field: 'typeid',
 		            title: '类型',
 		            formatter:function(value,row,index){
-		            	if (BatchStock.typesMap[value] == undefined) {
+		            	if (BatchShipment.typesMap[value] == undefined) {
 		            		return "";
 		            	};
-						return BatchStock.typesMap[value].typename;
+						return BatchShipment.typesMap[value].typename;
 					}
 		        },
 		        {
@@ -54,10 +54,10 @@ var BatchStock = {
 		            title: '进货单位',
 		            formatter:function(value,row,index){
 		            	return value;
-		    //         	if (BatchStock.typesMap[value] == undefined) {
+		    //         	if (BatchShipment.typesMap[value] == undefined) {
 		    //         		return "";
 		    //         	};
-						// return BatchStock.typesMap[value].typename;
+						// return BatchShipment.typesMap[value].typename;
 					},
 		            footerFormatter: function (value) {
 						return '合计';
@@ -68,7 +68,7 @@ var BatchStock = {
 		            title: '进货价',
 		            formatter:function(value,row,index){
 						return [
-	                        '<input type="text" value="' + value + '" field="price" onchange="BatchStock.updateProduct(this, ' + index + ');" />'
+	                        '<input type="text" value="' + value + '" field="price" onchange="BatchShipment.updateProduct(this, ' + index + ');" />'
 	                    ].join("");
 					}
 		        },
@@ -77,21 +77,21 @@ var BatchStock = {
 		            title: '进货数量',
 		            formatter:function(value,row,index){
 						return [
-	                        '<input type="text" value="' + value + '" field="num" onchange="BatchStock.updateProduct(this, ' + index + ');" />'
+	                        '<input type="text" value="' + value + '" field="num" onchange="BatchShipment.updateProduct(this, ' + index + ');" />'
 	                    ].join("");
 					}
 		        },
 		        {
 		            field: 'total',
 		            title: '合计',
-		            footerFormatter: BatchStock.priceFormatter
+		            footerFormatter: BatchShipment.priceFormatter
 		        },
 		        {
 		            field: 'id',
 		            title: '操作',
 	                formatter: function (value, row, index) {
 	                    return [//'<button class="btn btn-xs btn-success">编辑</button> ',
-	                        '<button class="btn btn-xs btn-danger" onclick="BatchStock.remove(' + index + ', ' + value + ');">删除</button>'
+	                        '<button class="btn btn-xs btn-danger" onclick="BatchShipment.remove(' + index + ', ' + value + ');">删除</button>'
 	                    ].join("");
 	                }
 		        }
@@ -106,7 +106,7 @@ var BatchStock = {
 	        sum += row[field]
 	    });
 
-	    BatchStock.flushsum(sum);
+	    BatchShipment.flushsum(sum);
 	    $("#discount").attr("sum", sum);
 
 	    return '<span>'+sum+'</span> 元';
@@ -140,7 +140,7 @@ var BatchStock = {
 	},
 
 	refreshTable:function(){
-        $("#batchStockTable").bootstrapTable("load", BatchStock.productJsonArr);
+        $("#BatchShipmentTable").bootstrapTable("load", BatchShipment.productJsonArr);
     },
 
 	openStockDIV : function(){
@@ -153,11 +153,11 @@ var BatchStock = {
 	    if($(obj).attr("state") == 0){
 	        $("#selectProductList input:checkbox[name='product[]']").prop('checked',true);
 	        $(obj).attr("state",1);
-	        BatchStock.count();
+	        BatchShipment.count();
 	    } else if($(obj).attr("state") == 1){
 	        $("#selectProductList input:checkbox[name='product[]']").prop('checked',false);
 	        $(obj).attr("state",0);
-	        BatchStock.count();
+	        BatchShipment.count();
 	    }
 	},
 
@@ -171,7 +171,7 @@ var BatchStock = {
 
 	count : function(){
 	    var count = 0;
-	    BatchStock.checkJsonArr = [];
+	    BatchShipment.checkJsonArr = [];
 	    $("#selectProductList input:checkbox[name='product[]']").each(function(){
 	        if(this.checked == 1){
 	            count += 1;
@@ -185,7 +185,7 @@ var BatchStock = {
 	            json.total = 0;
 	            // json.specid = "";
 	            // json.volume = 1;
-	            BatchStock.checkJsonArr.push(json);
+	            BatchShipment.checkJsonArr.push(json);
 	        }
 	    });
 	    $("#checkNum").html(count);
@@ -203,18 +203,18 @@ var BatchStock = {
 	},
 
 	repeal : function(){
-		BatchStock.productIdArr = [];
-		BatchStock.productJsonArr = [];
+		BatchShipment.productIdArr = [];
+		BatchShipment.productJsonArr = [];
 
 		$("#remark").val("");
 		$("#discount").val("0");
 
-		BatchStock.refreshTable();
+		BatchShipment.refreshTable();
 	},
 
 	save : function(){
 
-		if(BatchStock.clkFlag == 1){
+		if(BatchShipment.clkFlag == 1){
 			return ;
 		}
 
@@ -223,28 +223,28 @@ var BatchStock = {
 			return ;
 		}
 		
-		BatchStock.clkFlag = 1;
+		BatchShipment.clkFlag = 1;
 
 		var url = UrlUtil.createWebUrl('product', 'saveStockOrder');
     
 		$.post(url, params, function (data) {
-			BatchStock.clkFlag = 0;
+			BatchShipment.clkFlag = 0;
 			if (data.state == 0) {
 				Tips.successTips("进货成功");
-				BatchStock.repeal();
+				BatchShipment.repeal();
 			} else {
 				Tips.failTips(data.msg);
 			}
 		}, 'json').error(function(e){
 			console.log(e);
-			BatchStock.clkFlag = 0;
+			BatchShipment.clkFlag = 0;
 		});
 
 	},
 
 	validate : function(){
 		var storage = $("#storage").val();
-		var productJsonArr = BatchStock.productJsonArr;
+		var productJsonArr = BatchShipment.productJsonArr;
 		var remark = $("#remark").val();
 		var discount = $("#discount").val();
 		//var storagename = $("#storageID option:selected").attr("name");
@@ -269,37 +269,37 @@ var BatchStock = {
 	},
 
 	addProduct : function(){
-		var list = BatchStock.checkJsonArr;
+		var list = BatchShipment.checkJsonArr;
 		for(var i = 0; i < list.length; i++){
-			if(BatchStock.productIdArr.indexOf(list[i].id) < 0){
-				BatchStock.productIdArr.push(list[i].id);
-				BatchStock.productJsonArr.push(list[i]);
+			if(BatchShipment.productIdArr.indexOf(list[i].id) < 0){
+				BatchShipment.productIdArr.push(list[i].id);
+				BatchShipment.productJsonArr.push(list[i]);
 			}
 		}
 
 		//刷新模板
-		BatchStock.refreshTable();
+		BatchShipment.refreshTable();
 		$('#addStockMaterial').modal('hide');
 	},
 
 	updateProduct : function(obj, index){
 		var column = $(obj).attr("field");
 
-		var item = BatchStock.productJsonArr[index];
+		var item = BatchShipment.productJsonArr[index];
 		item[column] = obj.value;
 		item.total = item.price * item.num;
 
-		BatchStock.productJsonArr[index][column] = item[column];
-		BatchStock.productJsonArr[index].total = item.total;
+		BatchShipment.productJsonArr[index][column] = item[column];
+		BatchShipment.productJsonArr[index].total = item.total;
 
-		BatchStock.refreshTable();
+		BatchShipment.refreshTable();
 	},
 
 	remove : function(index, id){
-		BatchStock.productJsonArr.splice(index, 1);
-		BatchStock.productIdArr.shift(id);
+		BatchShipment.productJsonArr.splice(index, 1);
+		BatchShipment.productIdArr.shift(id);
 
-        BatchStock.refreshTable();
+        BatchShipment.refreshTable();
 	},
 
 	info : function(data){

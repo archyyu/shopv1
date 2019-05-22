@@ -3,7 +3,13 @@
     <div class="waterbar">
         <header class="header">
             <div class="title">
-                <span>点单</span>
+                <cube-select
+                    v-model="selectShop"
+                    :auto-pop="false"
+                    :options="shopList"
+                    @picker-hide="shopSelect"
+                    ref="shopSelect">
+                </cube-select>
             </div>
         </header>
         <div class="container">
@@ -18,9 +24,9 @@
                     @pulling-up="loadMore">
                     <ul class="foods-wrapper">
                         <li class="food-item" v-for="o in productlist">
-                            <div class="icon"><img src="getImgUrl(o)">
+                            <div class="icon"><img :src="getImgUrl(o)">
                             </div>
-                            <div class="food-content" @click="addCart(o.id,o.productname,o.memberprice,o.inventory)">
+                            <div class="food-content" @click="addCart(o)">
                                 <h2 class="name">{{o.productname}}</h2>
                                 <p class="description"></p>
                                 <div class="price">
@@ -35,7 +41,7 @@
                 <div class="cart" @click="showCart"><iconfont iconclass="icon-shopcar"></iconfont></div>
                 <div class="price">￥{{getCartPrice()}}</div>
                 <div class="checkout"> 
-                    <cube-button :primary="true" @click="createOrder()">支付</cube-button>
+                    <cube-button :primary="true" @click="showPayMethod()">支付</cube-button>
                 </div>
             </div>
             <cube-popup type="my-popup" position="bottom" :mask-closable="true" ref="cartPopup">
@@ -64,7 +70,7 @@
             <cube-popup type="my-popup" position="bottom" :mask-closable="true" ref="qrcodePopup">
                 <div class="cart-wrap">
                     <div class="cart-header">
-                        <h5>请{{orderpaytype}}扫描下面二维码</h5>
+                        <h5>请扫描下面二维码</h5>
                         <cube-button  :inline="true" :outline="true" @click="closeQrcode">取消</cube-button>
                     </div>
                     <div class="cart-content scan-code">
@@ -72,6 +78,18 @@
                     </div>
                 </div>
             </cube-popup>
+
+            <bottom-popup label="payMethod" title="支付选项" height="auto" cubeclass="pay-popup" ref="payPopup">
+                <template v-slot:content>
+                    <cube-form :model="payModel">
+                    <cube-form-item :field="payFields[0]"></cube-form-item>
+                    <cube-form-item :field="payFields[1]"></cube-form-item>
+                </cube-form>
+                </template>
+                <template v-slot:footer>
+                    <cube-button :inline="true" @click="createOrder()">确认下单</cube-button>
+                </template>
+            </bottom-popup>
         </div>
     </div>
     {/literal}
@@ -83,13 +101,20 @@ Vue.component('waterbar', {
     template: '#waterbar',
     data: function () {
         return {
+            selectShop: 0,
+            shopList: [
+
+            ],
             currentNav: {},
             navList: [],
             productlist:[],
             cartlist:[],
+            orderState:-1,
+            cardList: [],
             orderpaytype:"微信",
             payinfo:{},
-            orderid:"",
+            shopid:0,
+            remark:"",
             pullOptions: {
                 pullDownRefresh: {
                     threshold: 60,
@@ -116,26 +141,88 @@ Vue.component('waterbar', {
                     text: '去结算',
                     action: 'checkout'
                 }
+            ],
+            payModel: {
+                seat: '',
+                card: ''
+            },
+            payFields: [
+                {
+                    type: 'input',
+                    modelKey: 'shopid',
+                    label: '座位号',
+                },
+                {
+                    type: 'select',
+                    modelKey: 'shopid',
+                    label: '卡券',
+                    props: {
+                        options: this.cardList,
+                        title: '请选择卡券'
+                    }
+                }
             ]
         };
     },
     computed: {
     },
     created:function(){
-        
     },
     mounted() {
+        this.queryShopList();
         this.queryTypeList();
+        this.queryMemberCardList();
+        this.$refs.shopSelect.showPicker()
     },
     methods: {
-        
+
+        queryShopList:function(){
+            let params = {};
+
+            axios.post(UrlHelper.createShortUrl("getCardList"),params)
+                .then((res)=>{
+                    res = res.data;
+                    if(res.state == 0){
+
+                        let list = res.obj;
+                        for(let shop of list){
+                            let item  = {};
+                            item.value = shop.id;
+                            item.text = shop.name;
+
+                            this.shopList.push(item);
+                        }
+
+                    }
+                });
+
+        },
+
+        queryMemberCardList:function(){
+
+            let params = {};
+
+            axios.post(UrlHelper.createShortUrl("queryMemberCardList"),params)
+                .then((res)=>{
+                    res = res.data;
+                    if(res.state == 0){
+                        this.cardList = res.obj;
+                    }
+                });
+
+        },
+
         changeHandler:function(cur){
             this.defaulttypeid = cur.id;
             this.queryProductList(this.defaulttypeid);
         },
+
+        shopSelect:function(){
+            this.queryProductList(this.defaulttypeid);
+        },
         
         getImgUrl:function(p){
-            return UrlHelper.getWebBaseUrl() + p.productimg;
+            return UrlHelper.getAppBaseUrl() + p.productimg;
         },
         
         queryTypeList: function () {
@@ -153,12 +240,12 @@ Vue.component('waterbar', {
                         
                         console.log(this.navList);
                         this.defaulttypeid = res.obj[0].id;
-                        this.queryProductList(this.defaulttypeid);
+                        //this.queryProductList(this.defaulttypeid);
                     }
                 });
         },
         
-        addCart: function (productid,productname,price,inventory) {
+        addCart: function (p) {
 
             if(this.orderState != -1){
                 this.orderState = -1;
@@ -166,7 +253,7 @@ Vue.component('waterbar', {
                 
             this.editBtnShow = true;
 
-            if(inventory <= 0){
+            if(p.inventory <= 0){
                 this.$message.error("库存不足,请进货或者调货");
                 return;
             }
@@ -174,17 +261,21 @@ Vue.component('waterbar', {
             Toast.success("已添加购物车");
 
             for (var i = 0; i < this.cartlist.length; i++) {
-                if (this.cartlist[i].productid == productid) {
+                if (this.cartlist[i].productid == p.id) {
                     this.cartlist[i].num += 1;
                     return;
                 }
             }
 
             var cart = {};
-            cart.productid = productid;
+            cart.productid = p.id;
             cart.num = 1;
-            cart.price = price / 100;
-            cart.productname = productname;
+            cart.price = p.normalprice / 100;
+            cart.memberprice = p.memberprice/100;
+            cart.normalprice = p.normalprice/100;
+            cart.productname = p.productname;
+            cart.make = p.make;
+            cart.typeid = p.typeid;
             this.cartlist.push(cart);
             
         },
@@ -202,7 +293,6 @@ Vue.component('waterbar', {
             for (var i = 0; i < this.cartlist.length; i++) {
                 if (this.cartlist[i].productid == productid) {
                     this.cartlist[i].num += 1;
-                    this.cartlist[i].price += this.cartlist[i].price;
                     return;
                 }
             }
@@ -237,6 +327,7 @@ Vue.component('waterbar', {
             }
             
             params.typeid = type;
+            params.shopid = this.selectShop;
             
             axios.post(UrlHelper.createShortUrl('loadProduct'), params)
                 .then((res) => {
@@ -259,7 +350,40 @@ Vue.component('waterbar', {
         backToMain:function(){
             this.$root.toIndex();
         },
-        
+
+        showPayMethod: function(){
+            if(this.cartlist.length <= 0){
+                this.$message.error("购物车为空");
+                return;
+            }
+            this.$refs.payPopup.showPopup();
+        },
+
+        hidePayMethod: function(){
+            this.$refs.payPopup.closePopup();
+        },
+
+        findMemberCard:function(id){
+
+            for(let item of this.cardList){
+                if(item.id == id){
+                    return item;
+                }
+            }
+
+        },
+
+        userMemberCard:function(id){
+
+            for(let i = 0;i<this.cardList.length;i++){
+                if(this.cardList[i].id == id){
+                    this.cardList.splice(i);
+                    return;
+                }
+            }
+
+        },
+
         createOrder:function(){
             
             if(this.cartlist.length <= 0){
@@ -269,8 +393,12 @@ Vue.component('waterbar', {
                 
             var url = UrlHelper.createShortUrl("createOrder");
             // var params = Store.createParams();
-            params = {};
-            
+            let params = {};
+
+            params.shopid = this.shopid;
+            params.address = this.payModel.seat;
+            params.remark = this.remark;
+            params.membercardid = this.cardId;
             params.productlist = JSON.stringify(this.cartlist);
             
             axios.post(url,params)
@@ -280,16 +408,20 @@ Vue.component('waterbar', {
                         if(res.state == 0){
                             console.log("create order ok");
                             //Toast.success("下单成功");
-                            
+
+                            this.userMemberCard(this.cardId);
+
                             this.payinfo = res.obj;
-                            
+                            this.hidePayMethod();
                             this.callpay();
                             
                             this.cartlist = [];
-                            
+
+                            this.cardId = null;
+
                         }
                         else{
-                            this.$message.error(res.msg);
+                            Toast.error(res.msg);
                         }
                     });
             
@@ -319,11 +451,7 @@ Vue.component('waterbar', {
                     "paySign": this.payinfo.paySign
                 },
                 function(res) {
-                    //if (res.err_msg.length > 5) {
-                        //window.location.href = "/user/my?rand=" + Math.random();
-                    //}
                     WeixinJSBridge.log(res.err_msg);
-                    //alert(res.err_code+"|"+res.err_desc+"|"+res.err_msg);
                 }
             );
         },
@@ -340,7 +468,7 @@ Vue.component('waterbar', {
             this.$refs.qrcodePopup.show();
         },
         closeQrcode:function(){
-            this.orderstate = -1;
+            this.orderState = -1;
             this.$refs.qrcodePopup.hide();
         }
     }

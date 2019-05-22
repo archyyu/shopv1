@@ -36,6 +36,7 @@ load()->model('account');
 load()->model('setting');
 load()->model('module');
 load()->library('agent');
+load()->library('smarty');
 load()->classs('db');
 load()->func('communication');
 load()->func('logging');

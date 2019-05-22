@@ -101,7 +101,21 @@ class OrderService extends Service{
             $discount = 100;
             
             if($membercard){
-                $discount = $membercard['discount'];
+
+                if(isset($membercard["typeid"])){
+
+                    if($value["typeid"] == $membercard["typeid"]){
+                        $discount = $membercard['discount'];
+                    }
+
+                }
+
+                if(isset($membercard["productid"])){
+                    if($value["productid"] == $membercard["productid"]){
+                        $discount = $membercard['discount'];
+                    }
+                }
+
             }
             
             $price += ($value['price']*$value['num']*100)*($discount/100);

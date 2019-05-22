@@ -1,6 +1,8 @@
 {include file="../../common/header.tpl" logo=true}
 <link rel="stylesheet" href="{$StaticRoot}/css/waterbar.css">
 
+<textarea id="products" style="display:none;">{$products}</textarea>
+
 <div class="card-management">
   <div class="water-btn-group clearfix">
     <div class="left-group">

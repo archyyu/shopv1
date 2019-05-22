@@ -8,6 +8,7 @@
 
 namespace controller\mobile;
 
+use model\Shop;
 use service\SmsService;
 
 /**
@@ -46,6 +47,7 @@ class MobileController extends \controller\Controller{
     public function __construct() {
         parent::__construct();
         $this->cardService = new \service\CardService();
+        //$this->shopModel = new \model\Shop();
         $this->shopCardTypeModel = new \model\ShopCardtype();
         $this->shopMemberCardModel = new \model\ShopMemberCard();
         $this->shopFansModel = new \model\ShopFans();
@@ -79,6 +81,14 @@ class MobileController extends \controller\Controller{
         
         $this->returnSuccess($member);
     }
+
+    public function loadShopList(){
+        global $_W;
+        $uniacid = $_W['uniacid'];
+
+        $list = $this->shopModel->findShopListByUniacid($uniacid);
+        $this->returnSuccess($list);
+    }
     
     public function loadProductTypeList(){
         global $_W;
@@ -92,7 +102,7 @@ class MobileController extends \controller\Controller{
     public function loadProduct(){
         
         $typeid = $this->getParam("type");
-        $shopid = 1;
+        $shopid = $this->getParam("shopid");
         
         $list = $this->productService->getProductList($shopid, $typeid);
         
@@ -103,14 +113,14 @@ class MobileController extends \controller\Controller{
         
         global $_W;
         $productlist = json_decode(html_entity_decode($this->getParam("productlist")),true);
-        $shopid = 1;
-        
+
+        $shopid = $this->getParam("shopid");
         $uniacid = $_W['uniacid'];
         $memberid = $_W["member"]["uid"];
         $openid = $_W["openid"];
-        $address = "A001";
+        $address = $this->getParam("address");
         $ordersource = 1;
-        $remark = "";
+        $remark = $this->getParam("remark");
         $paytype = 1;
         
         

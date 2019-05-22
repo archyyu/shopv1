@@ -6,8 +6,7 @@
  * and open the template in the editor.
  */
 
-include('libs/smarty/Smarty.class.php');
- 
+
 class ClassLoader{
     
     private static $includedList = array();
@@ -16,13 +15,13 @@ class ClassLoader{
 
         if(is_file($dir)){
             include($dir);
-            ClassLoader::$includedList[$file] = true;
+            ClassLoader::$includedList[$dir] = true;
         }
         else{
             $files = file_tree($dir);
             foreach($files as $file){
                 if(is_dir($file)){
-                    $this->recurseInclude($file);
+                    ClassLoader::recurseInclude($file);
                     continue;
                 }
                 else{
@@ -39,7 +38,7 @@ class ClassLoader{
         $files = file_tree($dir);
         foreach($files as $file){
             if(is_dir($file)){
-                $this->recurseFindByClassName($file);
+                ClassLoader::recurseFindByClassName($file);
             }
             else{
                 if(basename($file) == $className.".php"){

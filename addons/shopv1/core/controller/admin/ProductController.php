@@ -481,6 +481,10 @@ class ProductController extends Controller{
         }
         
     }
+
+    public function transformIndex(){
+        $this->smarty->display("admin/waterbar/transform.tpl");
+    }
     
     public function inventorylog(){
         $this->smarty->display("admin/waterbar/inventorylog.tpl");

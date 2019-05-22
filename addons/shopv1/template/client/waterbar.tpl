@@ -280,6 +280,11 @@ var app = new Vue({
                         console.log(res);
                         if(res.state == 0){
                             console.log("create order ok");
+
+                            this.userMemberCard(this.cardId);
+
+                            this.cardId = null;
+
                             this.$message.success("下单成功");
                             this.orderId = res.obj.orderid;
                             
@@ -326,7 +331,6 @@ var app = new Vue({
             for (var i = 0; i < this.cartlist.length; i++) {
                 if (this.cartlist[i].productid == productid) {
                     this.cartlist[i].num += 1;
-                    this.cartlist[i].price += this.cartlist[i].price;
                     return;
                 }
             }
@@ -345,7 +349,7 @@ var app = new Vue({
             }
         },
         
-        addCart: function (productid, productname, price,inventory,make,typeid) {
+        addCart: function (p) {
 
             if(this.orderState != -1){
                 this.orderState = -1;
@@ -353,7 +357,7 @@ var app = new Vue({
                 
             this.editBtnShow = true;
 
-            if(inventory <= 0){
+            if(p.inventory <= 0){
                 this.$message.error("库存不足,请进货或者调货");
                 return;
             }
@@ -361,19 +365,21 @@ var app = new Vue({
             this.$message.success("已添加购物车");
 
             for (var i = 0; i < this.cartlist.length; i++) {
-                if (this.cartlist[i].productid == productid) {
+                if (this.cartlist[i].productid == p.id) {
                     this.cartlist[i].num += 1;
                     return;
                 }
             }
 
             var cart = {};
-            cart.productid = productid;
+            cart.productid = p.id;
             cart.num = 1;
-            cart.price = price / 100;
-            cart.productname = productname;
-            cart.make = make;
-            cart.typeid = typeid;
+            cart.price = p.normalprice / 100;
+            cart.memberprice = p.memberprice/100;
+            cart.normalprice = p.normalprice/100;
+            cart.productname = p.productname;
+            cart.make = p.make;
+            cart.typeid = p.typeid;
             this.cartlist.push(cart);
             
         },
@@ -387,26 +393,40 @@ var app = new Vue({
             }
             
         },
+
+        userMemberCard:function(id){
+
+            for(let i = 0;i<this.cardList.length;i++){
+                if(this.cardList[i].id == id){
+                    this.cardList.splice(i);
+                    return;
+                }
+            }
+
+        },
         
         getCartPrice:function(){
             let sum = 0;
-            
             let card = this.findMemberCard(this.cardId);
             
             for(let cart of this.cartlist){
                 
                 let discount = 100;
                 if(card){
-                    discount = card.discount;
+                    //discount = card.discount;
+                    if(card.typeid && card.typeid == cart.typeid){
+                        discount = card.discount;
+                    }
+                    if(card.productid && card.productid == cart.productid){
+                        discount = card.discount;
+                    }
                 }
                 
                 sum += cart.price*cart.num*(discount/100);
             }
-            
             if(card){
                 sum -= card.exchange/100;
             }
-            
             return sum.toFixed(2);
         },
         
