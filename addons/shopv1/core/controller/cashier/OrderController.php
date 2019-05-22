@@ -192,6 +192,7 @@ class OrderController extends \controller\Controller{
             $result = $this->payService->queryOrderState($order);
             //$this->returnSuccess($result);
             if($result == 0){
+                $this->orderService->payOrder($order["shopid"], $orderid);
                 $this->returnSuccess(0);
             }
             else{
