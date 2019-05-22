@@ -6,7 +6,7 @@
                 <cube-select
                     v-model="selectShop"
                     :auto-pop="false"
-                    :@picker-hide="shopSelect"
+                    @picker-hide="shopSelect"
                     :options="shopList">
                 </cube-select>
             </div>
