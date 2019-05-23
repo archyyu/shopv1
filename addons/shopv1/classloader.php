@@ -9,7 +9,10 @@
 
 
 function autoLoad($className){
-    include (CASHROOT."core/".$className.".php");
+    
+    $className = str_replace('\\',DIRECTORY_SEPARATOR, $className);
+    include(CASHROOT."core/".$className.".php");
+    
 }
 
 spl_autoload_register('autoLoad');

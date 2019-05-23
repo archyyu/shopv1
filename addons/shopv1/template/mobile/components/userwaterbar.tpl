@@ -7,7 +7,7 @@
                     v-model="selectShop"
                     :auto-pop="false"
                     :options="shopList"
-                    @picker-hide="shopSelect"
+                    @change="shopSelect"
                     ref="shopSelect">
                 </cube-select>
             </div>
@@ -179,7 +179,7 @@ Vue.component('waterbar', {
         queryShopList:function(){
             let params = {};
 
-            axios.post(UrlHelper.createShortUrl("getCardList"),params)
+            axios.post(UrlHelper.createShortUrl("loadShopList"),params)
                 .then((res)=>{
                     res = res.data;
                     if(res.state == 0){
@@ -188,7 +188,7 @@ Vue.component('waterbar', {
                         for(let shop of list){
                             let item  = {};
                             item.value = shop.id;
-                            item.text = shop.name;
+                            item.text = shop.shopname;
 
                             this.shopList.push(item);
                         }
@@ -254,7 +254,7 @@ Vue.component('waterbar', {
             this.editBtnShow = true;
 
             if(p.inventory <= 0){
-                this.$message.error("库存不足,请进货或者调货");
+                Toast.error("库存不足,请进货或者调货");
                 return;
             }
             
