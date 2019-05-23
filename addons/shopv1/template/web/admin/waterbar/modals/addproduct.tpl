@@ -95,12 +95,15 @@
                 <label class="col-sm-3 control-label">
                   <span style="color: red;"> * </span>关联商品：
                 </label>
-                <div class="col-sm-4">
+                <div class="col-sm-8">
+                  <table id="joinTable"></table>
+                </div>
+                <!-- <div class="col-sm-4">
                   商品
                 </div>
                 <div class="col-sm-2">
                   数量
-                </div>
+                </div> -->
               </div>
               
               <div class="form-group form-group-sm associalproduct">

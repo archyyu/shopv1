@@ -56,9 +56,16 @@ class ProductController extends Controller{
         $typelist = $this->productTypeModel->getProductTypeList($uniacid);
         $storelist = $this->storeModel->getStoreListByUniacid($uniacid);
         $productlist = $this->productModel->findProductByUniacid($uniacid);
+
+        $products = "";
+        if (count($productlist) > 0) {
+            $products = json_encode($productlist);
+        }
+
         $this->smarty->assign("typelist",$typelist);
         $this->smarty->assign("storelist",$storelist);
-        $this->smarty->assign('productlist',$productlist);
+        // $this->smarty->assign('productlist',$productlist);
+        $this->smarty->assign('products', $products);
         $this->smarty->display('admin/waterbar/inventory.tpl');
     }
     

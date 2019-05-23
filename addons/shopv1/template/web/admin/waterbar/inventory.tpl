@@ -1,6 +1,8 @@
 {include file="../../common/header.tpl" logo=true}
 <link rel="stylesheet" href="{$StaticRoot}/css/waterbar.css">
 
+<textarea id="products" style="display:none;">{$products}</textarea>
+
 <div class="inventory">
   <div class="search-group">
     <div class="form-inline">
@@ -40,7 +42,7 @@
     <table id="goodsTable"></table>
   </div>
   {include file="./modals/addproduct.tpl"}
-  {include file="./modals/selectproduct.tpl"}
+  {include file="./modals/joinproduct.tpl"}
   {include file="./modals/productclass.tpl"}
   {include file="./modals/materialSpec.tpl"}
   {include file="./modals/productdamage.tpl"}

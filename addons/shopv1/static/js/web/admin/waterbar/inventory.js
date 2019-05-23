@@ -1,4 +1,7 @@
 $(function () {
+
+    Inventory.initProducts();
+    Inventory.joinTabInit();
   
     Inventory.goodsTableInit();
     Inventory.goodsTableReload();
@@ -8,27 +11,27 @@ $(function () {
   
     Inventory.unitTableInit();
     
-    $('#selectProductBtn').click(function(){
+    // $('#selectProductBtn').click(function(){
         
-        Inventory.selectProductList = [];
+    //     Inventory.selectProductList = [];
         
-        $("#selectProductList div").each(function(){
+    //     $("#selectProductList div").each(function(){
             
-            if( $(this).find("input").is(':checked')){
+    //         if( $(this).find("input").is(':checked')){
             
-                var item = {};
-                item.productname = $(this).find("span").html();
-                item.productid = $(this).find("input").attr("productid");
-                Inventory.selectProductList.push(item);
+    //             var item = {};
+    //             item.productname = $(this).find("span").html();
+    //             item.productid = $(this).find("input").attr("productid");
+    //             Inventory.selectProductList.push(item);
             
-            }
-        });
-        var jsonStr = JSON.stringify(Inventory.selectProductList);
+    //         }
+    //     });
+    //     var jsonStr = JSON.stringify(Inventory.selectProductList);
         
-        $('#addStockMaterial').modal('hide');
-        $("#addProductModal [name=linkproduct]").empty();
-        Inventory.linkProductList();
-    });
+    //     $('#addStockMaterial').modal('hide');
+    //     $("#addProductModal [name=linkproduct]").empty();
+    //     Inventory.linkProductList();
+    // });
     
     $("#storeSelect").change(function(){
         
@@ -49,7 +52,15 @@ var Inventory = {
    productInventoryMap : {},
 
    currentProduct : [],
-    
+
+   products : [],
+
+  productIdArr : [],      //存放关联商品ID
+
+  productJsonArr : [],    //存放关联商品信息
+
+  checkJsonArr : [],      //存放选中关联商品信息
+
   goodsTableInit: function () {
     $("#goodsTable").bootstrapTable({
       data: [
@@ -57,7 +68,7 @@ var Inventory = {
       sidePagination: "server",
         pageSize: 10,
         pagination: true,
-      columns: [{
+        columns: [{
           field: 'id',
           title: '商品Id'
         },
@@ -323,6 +334,8 @@ var Inventory = {
   
   openGoodModal:function(addOrUpdate,obj){
       
+      Inventory.repeal();
+      
       if(addOrUpdate == 0){
           $("#addProductModal [name=productid]").val(0);
           $("#addProductModal [name=productname]").val('');
@@ -348,36 +361,44 @@ var Inventory = {
           $("#addProductModal [name=attributes]").val(obj.attributes);
           $("#addProductModal [name=unit]").val(obj.unit);
           $("#addProductModal [name=typeid]").selectpicker('val',obj.typeid);
-          $("#addProductModal [name=linkproduct]").empty();
+          //$("#addProductModal [name=linkproduct]").empty();
           try{
-            var list = JSON.parse(obj.productlink);
-            for(let item of list){
-                var str = "<div class='form-group form-group-sm associalproduct' name='associalproduct'>"+
-                  "<label class='col-sm-3 control-label'>" +
-                  "</label>" + 
-                  "<div class='col-sm-4'>" +
-                      "<input type='hidden' name='productid' productid='" + item.materialid + "' />"+
-                      "<span name='productname'>" + item.materialname + "</span>"+
-                  "</div>" +
-                  "<div class='col-sm-2'>"+
-                      "<span></span><input name=num class='form-control' value='" + item.num + "' >"+
-                  "</div>"+
-                "</div>";
+            // for(let item of list){
+            //     var str = "<div class='form-group form-group-sm associalproduct' name='associalproduct'>"+
+            //       "<label class='col-sm-3 control-label'>" +
+            //       "</label>" + 
+            //       "<div class='col-sm-4'>" +
+            //           "<input type='hidden' name='productid' productid='" + item.materialid + "' />"+
+            //           "<span name='productname'>" + item.materialname + "</span>"+
+            //       "</div>" +
+            //       "<div class='col-sm-2'>"+
+            //           "<span></span><input name=num class='form-control' value='" + item.num + "' >"+
+            //       "</div>"+
+            //     "</div>";
 
-              $("#addProductModal [name=linkproduct]").append(str);
-            }
-        }
-        catch (ex){
+            //   $("#addProductModal [name=linkproduct]").append(str);
+            // }
+            if (obj.producttype == 1 || obj.producttype == 3) {
+              var list = JSON.parse(obj.productlink);
+              for (var i = 0; i < list.length; i++) {
+                Inventory.productIdArr.push(list[i].materialid);
+              };
+              Inventory.productJsonArr = list;
+            };
             
-        }
-          
+          }
+          catch (ex){
+              
+          }
+            
           $("#addProductModal [name=producttype][value='" +obj.producttype + "']").prop('checked', 'checked');
           
         }
-        
+          
+        Inventory.refreshJoinTable();
         Inventory.selectProductType();
-        
-      $("#addProductModal").modal("show");
+          
+        $("#addProductModal").modal("show");
   },
   
   linkProductList:function(){
@@ -451,7 +472,8 @@ var Inventory = {
           list.push(item);
       });
       
-      params.append("link",JSON.stringify(list));
+      //params.append("link",JSON.stringify(list));
+      params.append("link",JSON.stringify(Inventory.productJsonArr));
       
       $.ajax({
                 url: url,
@@ -694,19 +716,157 @@ var Inventory = {
       $(".commonname").text('套餐');
       $(".associatename").text('商品');
     }
-    $("#addProductModal").modal("show");
+
+    this.openGoodModal(0, null);
+  },
+
+  initProducts : function(){
+    Inventory.products = [];
+    var products = $('#products').val();
+    if (products != "") {
+      products = JSON.parse(products);
+      for (var i = 0; i < products.length; i++) {
+        if (products[i].producttype == 0 || products[i].producttype == 2) {
+          Inventory.products.push(products[i]);
+        };
+        
+      };
+      
+    };
+  },
+
+  joinTabInit : function(){
+    $("#joinTable").bootstrapTable({
+      data: [],
+        showFooter: false,
+        //footerStyle: BatchStock.footerStyle,
+        columns: [{
+                field: 'materialname',
+                title: '关联商品'
+            },
+            {
+                field: 'num',
+                title: '数量',
+                formatter:function(value,row,index){
+                  return [
+                          '<input type="text" value="' + value + '" onchange="Inventory.updatenum(this, ' + index + ');" />'
+                      ].join("");
+                }
+            },
+            {
+                field: 'materialid',
+                title: '操作',
+                  formatter: function (value, row, index) {
+                      return [//'<button class="btn btn-xs btn-success">编辑</button> ',
+                          '<button class="btn btn-xs btn-danger" onclick="Inventory.remove(' + index + ', ' + value + ');">删除</button>'
+                      ].join("");
+                  }
+            }
+        ]
+    });
+  },
+
+  refreshJoinTable:function(){
+    $("#joinTable").bootstrapTable("load", Inventory.productJsonArr);
   },
   
+  updatenum : function(obj, index){
+
+    Inventory.productJsonArr[index].num = obj.value;
+    Inventory.refreshJoinTable();
+  },
+
+  remove : function(index, id){
+    Inventory.productJsonArr.splice(index, 1);
+    Inventory.productIdArr.shift(id);
+
+    Inventory.refreshJoinTable();
+  },
+
   selectProduct:function(){
-      $('#addStockMaterial').modal('show');
+    $('#conForm')[0].reset();
+    $("#checkNum").html("0");
+
+    this.flushSelectProduct();
+
+    $('#addStockMaterial').modal('show');
+  },
+
+  flushSelectProduct : function(){
+    var products = Inventory.products;
+    $("#totalNum").html(products.length);
+    if (products.length > 0) {
+      var div = "";
+      for (var i = 0; i < products.length; i++) {
+        div += '<div class="checkself" onclick="Inventory.clkDIV(this);Inventory.count();">' + 
+          '<input type="checkbox" value="'+products[i].id+'" productName="'+products[i].productname+'" unit="'+products[i].unit+'" name="product[]" onclick="Inventory.clkDIV($(this).parent('+"'.checkself'"+'));Inventory.count();" />' + 
+          '<span>'+products[i].productname+'</span></div>';
+      };
+      $("#selectProductList").html(div);
+    };
   },
   
   uploadLogo: function(iputId, imgId, width, height){
     setMultiImagePreview(iputId,imgId,width,height);
     $(".upload-area").addClass('show-pic');
   },
-  
-  
+
+  isCheck : function (obj){
+      if($(obj).attr("state") == 0){
+          $("#selectProductList input:checkbox[name='product[]']").prop('checked',true);
+          $(obj).attr("state",1);
+          Inventory.count();
+      } else if($(obj).attr("state") == 1){
+          $("#selectProductList input:checkbox[name='product[]']").prop('checked',false);
+          $(obj).attr("state",0);
+          Inventory.count();
+      }
+  },
+
+  clkDIV : function(obj){
+    if($(obj).children('input').prop('checked') == true){
+      $(obj).children('input').prop('checked', false);
+    } else{
+      $(obj).children('input').prop('checked', true);
+    }
+  },
+
+  count : function(){
+      var count = 0;
+      Inventory.checkJsonArr = [];
+      $("#selectProductList input:checkbox[name='product[]']").each(function(){
+          if(this.checked == 1){
+              count += 1;
+              var json = {};
+              json.materialid = this.value;
+              json.materialname = $(this).attr("productName");
+              json.num = 1;
+
+              Inventory.checkJsonArr.push(json);
+          }
+      });
+      $("#checkNum").html(count);
+  },
+
+  addJoinProduct : function(){
+    var list = Inventory.checkJsonArr;
+    for(var i = 0; i < list.length; i++){
+      if(Inventory.productIdArr.indexOf(list[i].materialid) < 0){
+        Inventory.productIdArr.push(list[i].materialid);
+        Inventory.productJsonArr.push(list[i]);
+      }
+    }
+
+    //刷新模板
+    Inventory.refreshJoinTable();
+    $('#addStockMaterial').modal('hide');
+  },
+
+  repeal : function(){
+    Inventory.productIdArr = [];
+    Inventory.productJsonArr = [];
+  },
+
   info : function(){
       
   }
