@@ -90,6 +90,19 @@
                     <cube-button :inline="true" @click="createOrder()">确认下单</cube-button>
                 </template>
             </bottom-popup>
+
+            <bottom-popup label="combo" title="套餐详情" cubeclass="combo-popup"  ref="comboPopup">
+                <template v-slot:content>
+                    <h4>套餐名称：</h4>
+                    <p>套餐详情：</p>
+                    <ul>
+                        <li>米饭<span>(1 份)</span></li>
+                    </ul>
+                </template>
+                <template v-slot:footer>
+                    <cube-button :inline="true">加入购物车</cube-button>
+                </template>
+            </bottom-popup>
         </div>
     </div>
     {/literal}
@@ -246,7 +259,7 @@ Vue.component('waterbar', {
         },
         
         addCart: function (p) {
-
+            this.showCombo
             if(this.orderState != -1){
                 this.orderState = -1;
             }
@@ -470,6 +483,9 @@ Vue.component('waterbar', {
         closeQrcode:function(){
             this.orderState = -1;
             this.$refs.qrcodePopup.hide();
+        },
+        showCombo:function(){
+            this.$refs.comboPopup.show();
         }
     }
 }); 
