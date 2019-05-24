@@ -249,6 +249,7 @@ class ProductController extends Controller{
         $data["index"] = $index;
         $data["attributes"] = $attributes;
         $data['productlink'] = $linklist;
+        $data["userget"] = $userget;
         
         $result = false;
         
