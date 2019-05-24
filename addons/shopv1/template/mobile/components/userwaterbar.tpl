@@ -162,12 +162,12 @@ Vue.component('waterbar', {
             payFields: [
                 {
                     type: 'input',
-                    modelKey: 'shopid',
+                    modelKey: 'seat',
                     label: '座位号',
                 },
                 {
                     type: 'select',
-                    modelKey: 'shopid',
+                    modelKey: 'card',
                     label: '卡券',
                     props: {
                         options: this.cardList,
@@ -177,7 +177,10 @@ Vue.component('waterbar', {
             ]
         };
     },
-    computed: {
+    watch: {
+        cardList: function(newV){
+            this.payFields[1].props.options = newV;
+        }
     },
     created:function(){
     },
