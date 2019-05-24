@@ -537,6 +537,28 @@ html {
   z-index: 102 !important;
 }
 
+.waterbar .cube-combo-popup {
+  z-index: 102 !important;
+}
+
+.waterbar .cube-combo-popup .my-popup-content h4 {
+  font-size: 18px;
+  margin-bottom: 0.8rem;
+}
+
+.waterbar .cube-combo-popup .my-popup-content ul {
+  margin: 0.8rem 0;
+  padding-left: 2rem;
+}
+
+.waterbar .cube-combo-popup .my-popup-content ul li {
+  list-style: disc;
+}
+
+.waterbar .cube-combo-popup .my-popup-content ul li span {
+  color: #999999;
+}
+
 .card {
   height: 100%;
 }

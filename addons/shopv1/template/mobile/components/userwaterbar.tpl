@@ -91,12 +91,12 @@
                 </template>
             </bottom-popup>
 
-            <bottom-popup label="combo" title="套餐详情" cubeclass="combo-popup"  ref="comboPopup">
+            <bottom-popup label="combo" title="套餐详情" height="auto" cubeclass="combo-popup"  ref="comboPopup">
                 <template v-slot:content>
                     <h4>套餐名称：</h4>
                     <p>套餐详情：</p>
                     <ul>
-                        <li>米饭<span>(1 份)</span></li>
+                        <li>米饭<span> (1 份)</span></li>
                     </ul>
                 </template>
                 <template v-slot:footer>
