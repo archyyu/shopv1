@@ -211,7 +211,7 @@ Vue.component('waterbar', {
                         for(let card of res.obj){
                             let item = {};
                             item.value = card.id;
-                            item.text = card.cardname;
+                            item.label = card.cardname;
                             this.cardList.push(item);
                         }
 
