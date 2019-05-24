@@ -117,6 +117,8 @@ class OrderController extends \controller\Controller{
         $data["authcode"] = $code;
         if($result == 0){
             $data["orderstate"] = 1;
+            $data["orderpay"] = 1;
+            $data["ordertime"] = time();
         }
         $this->orderModel->saveOrder($data, $orderid);
         
