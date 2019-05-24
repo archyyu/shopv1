@@ -202,11 +202,19 @@ Vue.component('waterbar', {
 
             let params = {};
 
-            axios.post(UrlHelper.createShortUrl("queryMemberCardList"),params)
+            axios.post(UrlHelper.createShortUrl("getCardList"),params)
                 .then((res)=>{
                     res = res.data;
                     if(res.state == 0){
-                        this.cardList = res.obj;
+                        //this.cardList = res.obj;
+
+                        for(let card of res.obj){
+                            let item = {};
+                            item.value = card.id;
+                            item.text = card.cardname;
+                            this.cardList.push(item);
+                        }
+
                     }
                 });
 
