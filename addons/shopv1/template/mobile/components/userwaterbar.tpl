@@ -204,7 +204,7 @@ Vue.component('waterbar', {
 
             axios.post(UrlHelper.createShortUrl("queryMemberCardList"),params)
                 .then((res)=>{
-                    res = res.data;
+                    res = res.obj;
                     if(res.state == 0){
                         this.cardList = res.obj;
                     }
