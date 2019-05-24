@@ -111,8 +111,15 @@ class OrderController extends \controller\Controller{
         $order["authcode"] = $code;
         $result = $this->payService->scanPay($order);
         
+        
+        
         $data = array();
         $data["authcode"] = $code;
+        if($result == 0){
+            $data["orderstate"] = 1;
+            $data["orderpay"] = 1;
+            $data["ordertime"] = time();
+        }
         $this->orderModel->saveOrder($data, $orderid);
         
         $this->returnSuccess($result);
