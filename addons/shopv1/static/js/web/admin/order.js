@@ -57,6 +57,12 @@ var Order = {
                     return "支付宝支付";
                 }
             },{
+                field:'userget',
+                title:'吧员收益',
+                formatter:function(value,row,index){
+                    return value/100;
+                }
+            },{
                 field:'ordersource',
                 title:'订单来自',
                 formatter:function(value,row,index){

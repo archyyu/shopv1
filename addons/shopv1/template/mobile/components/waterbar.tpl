@@ -268,6 +268,7 @@ Vue.component('waterbar', {
             cart.price = p.normalprice / 100;
             cart.memberprice = p.memberprice/100;
             cart.normalprice = p.normalprice/100;
+            cart.userget = p.userget;
             cart.productname = p.productname;
             cart.make = p.make;
             cart.typeid = p.typeid;

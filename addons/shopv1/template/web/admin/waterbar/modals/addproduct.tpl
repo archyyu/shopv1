@@ -133,6 +133,15 @@
                 </div>
               </div>
               <div class="form-group form-group-sm">
+                <label class="col-sm-3 control-label"><span style="color: red;"> * </span>吧员收益：</label>
+                <div class="col-sm-8">
+                  <div class="input-group">
+                    <input type="text" class="form-control" name="userget" placeholder="请吧员收益">
+                    <span class="input-group-addon">(元)</span>
+                  </div>
+                </div>
+              </div>
+              <div class="form-group form-group-sm">
                 <label class="col-sm-3 control-label">
                   商品排序：
                 </label>
