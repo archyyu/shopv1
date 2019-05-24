@@ -179,15 +179,16 @@ Vue.component('waterbar', {
     },
     watch: {
         cardList: function(newV){
+            console.log(newV);
             this.payFields[1].props.options = newV;
         }
     },
     created:function(){
-    },
-    mounted() {
         this.queryShopList();
         this.queryTypeList();
         this.queryMemberCardList();
+    },
+    mounted() {
         this.$refs.shopSelect.showPicker()
     },
     methods: {
@@ -220,7 +221,7 @@ Vue.component('waterbar', {
 
             axios.post(UrlHelper.createShortUrl("getCardList"),params)
                 .then((res)=>{
-                    res = res.obj;
+                    res = res.data;
                     if(res.state == 0){
                         //this.cardList = res.obj;
 
@@ -270,7 +271,6 @@ Vue.component('waterbar', {
         },
         
         addCart: function (p) {
-            this.showCombo
             if(this.orderState != -1){
                 this.orderState = -1;
             }
@@ -496,7 +496,7 @@ Vue.component('waterbar', {
             this.$refs.qrcodePopup.hide();
         },
         showCombo:function(){
-            this.$refs.comboPopup.show();
+            this.$refs.comboPopup.showPopup();
         }
     }
 }); 
