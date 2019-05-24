@@ -116,8 +116,11 @@ var Inventory = {
               else if(value == 1){
                   return "自制";
               }
-              else{
+              else if(value == 2){
                   return "原料";
+              }
+              else if(value == 3){
+                return "套餐";
               }
           }
         },
@@ -156,7 +159,7 @@ var Inventory = {
           },
           formatter: function(value, row,index){
               
-              if(row.producttype != 1){
+              if(row.producttype != 1 && row.producttype != 3){
                 return '<button class="btn btn-xs btn-success unit-event">规格</button>\
                     <button class="btn btn-xs btn-success stock-event">进货</button>\
                     <button class="btn btn-xs btn-success check-event">盘点</button>\
@@ -425,7 +428,7 @@ var Inventory = {
   
   selectProductType:function(){
       var producttype = $("#addProductModal [name=producttype]:checked").val();
-      if(producttype == 1){
+      if(producttype == 1 || producttype == 3){
           $("#addProductModal .associalproduct").css("display","block");
       }
       else{
