@@ -216,6 +216,7 @@ class ProductController extends Controller{
         $attributes = $this->getParam("attributes");
         $unit = $this->getParam("unit");
         $index = $this->getParam("index");
+        $userget = $this->getParam("userget");
         
         $linklist = html_entity_decode($this->getParam("link"));
         logInfo("productid:".$productid);
