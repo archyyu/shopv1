@@ -125,11 +125,11 @@ class ProductService extends Service{
             $productMaterialList = json_decode($product['productlink'],true);
             foreach($productMaterialList as $key=>$value){
                 
-                $inventory = $this->findInventoryBy($shop['id'], $value['materialid'], $storeid);
-                
                 if($value['num'] == 0){
                     continue;
                 }
+                
+                $inventory = $this->findInventoryBy($shop['id'], $value['materialid'], $storeid);
                 
                 if($inventory['inventory']/$value['num'] < $maxcnt){
                     $maxcnt = $inventory['inventory']/$value['num'];

@@ -277,7 +277,11 @@ Vue.component('waterbar', {
             if(p.producttype == 3){
                 this.selectProduct = p;
                 
-                this.selectProduct.productlink = JSON.parse(this.selectProduct.productlink);
+                if(Array.isArray(this.selectProduct.productlink)){
+                }
+                else{
+                    this.selectProduct.productlink = JSON.parse(this.selectProduct.productlink);
+                }
                 
                 this.showCombo();
             }
