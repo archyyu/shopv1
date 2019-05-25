@@ -460,6 +460,25 @@ html {
   .cube-pay-popup{
     z-index: 102 !important;
   }
+  .cube-combo-popup{
+    z-index: 102 !important;
+    .my-popup-content{
+      h4{
+        font-size: 18px;
+        margin-bottom: 0.8rem;
+      }
+      ul{
+        margin: 0.8rem 0;
+        padding-left: 2rem;
+        li{
+          list-style: disc;
+          span{
+            color: #999999;
+          }
+        }
+      }
+    }
+  }
 }
 
 

@@ -90,6 +90,19 @@
                     <cube-button :inline="true" @click="createOrder()">确认下单</cube-button>
                 </template>
             </bottom-popup>
+
+            <bottom-popup label="combo" title="套餐详情" height="auto" cubeclass="combo-popup"  ref="comboPopup">
+                <template v-slot:content>
+                    <h4>套餐名称：</h4>
+                    <p>套餐详情：</p>
+                    <ul>
+                        <li>米饭<span> (1 份)</span></li>
+                    </ul>
+                </template>
+                <template v-slot:footer>
+                    <cube-button :inline="true">加入购物车</cube-button>
+                </template>
+            </bottom-popup>
         </div>
     </div>
     {/literal}
@@ -113,7 +126,6 @@ Vue.component('waterbar', {
             cardList: [],
             orderpaytype:"微信",
             payinfo:{},
-            shopid:0,
             remark:"",
             pullOptions: {
                 pullDownRefresh: {
@@ -149,12 +161,12 @@ Vue.component('waterbar', {
             payFields: [
                 {
                     type: 'input',
-                    modelKey: 'shopid',
+                    modelKey: 'seat',
                     label: '座位号',
                 },
                 {
                     type: 'select',
-                    modelKey: 'shopid',
+                    modelKey: 'card',
                     label: '卡券',
                     props: {
                         options: this.cardList,
@@ -164,15 +176,20 @@ Vue.component('waterbar', {
             ]
         };
     },
-    computed: {
+    watch: {
+        cardList: function(newV){
+            console.log(newV);
+            this.payFields[1].props.options = newV;
+        }
     },
     created:function(){
-    },
-    mounted() {
         this.queryShopList();
         this.queryTypeList();
         this.queryMemberCardList();
-        this.$refs.shopSelect.showPicker()
+    },
+    mounted() {
+        //this.$refs.shopSelect.showPicker()
+
     },
     methods: {
 
@@ -193,6 +210,8 @@ Vue.component('waterbar', {
                             this.shopList.push(item);
                         }
 
+                        this.$refs.shopSelect.showPicker();
+
                     }
                 });
 
@@ -202,11 +221,19 @@ Vue.component('waterbar', {
 
             let params = {};
 
-            axios.post(UrlHelper.createShortUrl("queryMemberCardList"),params)
+            axios.post(UrlHelper.createShortUrl("getCardList"),params)
                 .then((res)=>{
                     res = res.data;
                     if(res.state == 0){
-                        this.cardList = res.obj;
+                        //this.cardList = res.obj;
+
+                        for(let card of res.obj){
+                            let item = {};
+                            item.value = card.id;
+                            item.label = card.cardname;
+                            this.cardList.push(item);
+                        }
+
                     }
                 });
 
@@ -395,10 +422,10 @@ Vue.component('waterbar', {
             // var params = Store.createParams();
             let params = {};
 
-            params.shopid = this.shopid;
+            params.shopid = this.selectShop;
             params.address = this.payModel.seat;
             params.remark = this.remark;
-            params.membercardid = this.cardId;
+            params.membercardid = this.payModel.card;
             params.productlist = JSON.stringify(this.cartlist);
             
             axios.post(url,params)
@@ -409,7 +436,7 @@ Vue.component('waterbar', {
                             console.log("create order ok");
                             //Toast.success("下单成功");
 
-                            this.userMemberCard(this.cardId);
+                            this.userMemberCard(this.payModel.card);
 
                             this.payinfo = res.obj;
                             this.hidePayMethod();
@@ -417,7 +444,7 @@ Vue.component('waterbar', {
                             
                             this.cartlist = [];
 
-                            this.cardId = null;
+                            this.payModel.card = null;
 
                         }
                         else{
@@ -470,6 +497,9 @@ Vue.component('waterbar', {
         closeQrcode:function(){
             this.orderState = -1;
             this.$refs.qrcodePopup.hide();
+        },
+        showCombo:function(){
+            this.$refs.comboPopup.showPopup();
         }
     }
 }); 

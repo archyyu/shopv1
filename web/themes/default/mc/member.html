@@ -113,6 +113,7 @@
 					<td >{php echo date('Y-m-d H:i',$li['createtime'])}</td>
 					<td style="overflow:visible;">
 						<div class="link-group">
+							<a href="#">发送卡券</a>
 							<a href="{php echo url('mc/member/base_information',array('uid' => $li['uid']))}">管理设置</a>
 							<a href="{php echo url('mc/member/del',array('uid' => $li['uid']))}" onclick="return confirm('确定删除会员吗?')" title="删除" class="">删除</a>
 						</div>

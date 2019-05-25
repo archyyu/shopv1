@@ -22,7 +22,7 @@
             <div class="product">
                 <el-scrollbar>
                     <div class="product-item" v-for="o in productlist">
-                        <div class="pro_img" @click="addCart(o.id,o.productname,o.memberprice,o.inventory,o.make,o.typeid)"> <img :src="getImgUrl(o)"> </div>
+                        <div class="pro_img" @click="addCart(o)"> <img :src="getImgUrl(o)"> </div>
                         <div class="pro_title">
                             <p title="西瓜汁">{{o.productname}}<span><em> ￥{{o.memberprice/100}} </em></span></p>
                         </div>
@@ -65,9 +65,9 @@
                                 <p>{{item.productname}}</p>
                                 <div class="product_num">
                                     <p>
-                                        <el-button type="text" @click="cartDeduct(cart.productid)">&lt;</el-button>
+                                        <el-button type="text" @click="cartDeduct(item.productid)">&lt;</el-button>
                                         <span>{{item.num}}</span>
-                                        <el-button type="text" @click="cartAdd(cart.productid)">&gt;</el-button>
+                                        <el-button type="text" @click="cartAdd(item.productid)">&gt;</el-button>
                                     </p>
                                 </div>
                             </div>

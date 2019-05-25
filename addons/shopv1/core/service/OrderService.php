@@ -93,7 +93,7 @@ class OrderService extends Service{
         $order['paytype'] = $paytype; 
         $order['orderdetail'] = json_encode($productlist);
         
-        
+        $userget = 0;
         
         $price = 0;
         foreach($productlist as $key=>$value){
@@ -109,7 +109,7 @@ class OrderService extends Service{
                     }
 
                 }
-
+                
                 if(isset($membercard["productid"])){
                     if($value["productid"] == $membercard["productid"]){
                         $discount = $membercard['discount'];
@@ -117,15 +117,15 @@ class OrderService extends Service{
                 }
 
             }
-            
+            $userget += $value['userget']*$value['num'];
             $price += ($value['price']*$value['num']*100)*($discount/100);
-            
         }
         
         if($membercard){
             $price -= $membercard['exchange'];
         }
         
+        $order['userget'] = $userget;
         $order['orderprice'] = $price;
         
         $orderResult = $this->shopOrder->addOrder($order);

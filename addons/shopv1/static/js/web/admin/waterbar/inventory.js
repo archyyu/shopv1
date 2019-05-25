@@ -95,6 +95,13 @@ var Inventory = {
           }
         },
         {
+            field:'userget',
+            title:'吧员收益',
+            formatter:function(value,row,index){
+                return (value/100).toFixed(2);
+            }
+        },
+        {
           field: 'salenum',
           title: '销量'
         },
@@ -346,6 +353,7 @@ var Inventory = {
           $("#addProductModal [name=make]").val(0);
           $("#addProductModal [name=normalprice]").val(0);
           $("#addProductModal [name=memberprice]").val(0);
+          $("#addProductModal [name=userget]").val();
           $("#addProductModal [name=index]").val(0);
           $("#addProductModal [name=attributes]").val('');
           $("#addProductModal [name=unit]").val('');
@@ -359,6 +367,7 @@ var Inventory = {
           $("#addProductModal [name=make]").selectpicker('val', obj.make);
           $("#addProductModal [name=normalprice]").val((obj.normalprice/100).toFixed(2));
           $("#addProductModal [name=memberprice]").val((obj.memberprice/100).toFixed(2));
+          $("#addProductModal [name=userget]").val((obj.userget/100).toFixed(2));
           $("#addProductModal [name=index]").val(obj.index);
           $("#previewImg").attr("src", UrlUtil.getWebBaseUrl() + obj.productimg);
           $("#addProductModal [name=attributes]").val(obj.attributes);
@@ -455,6 +464,7 @@ var Inventory = {
       params.append("producttype",$("#addProductModal [name=producttype]:checked").val());
       params.append("normalprice",$("#addProductModal [name=normalprice]").val()*100);
       params.append("memberprice",$("#addProductModal [name=memberprice]").val()*100);
+      params.append("userget",$("#addProductModal [name=userget]").val()*100);
       params.append("index",$("#addProductModal [name=index]").val());
       params.append("attributes",$("#addProductModal [name=attributes]").val());
       params.append("unit",$("#addProductModal [name=unit]").val());
