@@ -120,7 +120,7 @@
 			<td>{php echo date('Y-m-d H:i',$li['createtime'])}</td>
 			<td style="overflow:visible;">
 				<div class="link-group">
-					<a href="#" onclick="Custom.showSendCard()">发送卡券</a>
+					<button type="button" class="btn btn-link" onclick="Custom.showSendCard()">发送卡券</button>
 					<a href="{php echo url('mc/member/base_information',array('uid' => $li['uid']))}">管理设置</a>
 					<a href="{php echo url('mc/member/del',array('uid' => $li['uid']))}"
 						onclick="return confirm('确定删除会员吗?')" title="删除" class="">删除</a>
@@ -141,43 +141,45 @@
 	<div class="text-right">
 		{$pager}
 	</div>
+</form>
 
-	<div class="modal fade" id="sendCard" tabindex="-1" role="dialog" aria-hidden="true">
-		<div class="we7-modal-dialog modal-dialog">
-			<div class="modal-content">
-				<div class="modal-header">
-					<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-					<div class="modal-title">赠送卡券</div>
-				</div>
-				<div class="modal-body">
-					<div class="we7-form">
-						<div class="form-group">
-							<label class="col-xs-2 control-label">卡券：</label>
-							<div class="form-controls col-xs-10">
-								<select type="text" class="form-control">
-									<option>1</option>
-								</select>
-							</div>
+<div class="modal fade" id="sendCard" tabindex="-1" role="dialog" aria-hidden="true">
+	<div class="we7-modal-dialog modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span
+						class="sr-only">Close</span></button>
+				<div class="modal-title">赠送卡券</div>
+			</div>
+			<div class="modal-body">
+				<div class="we7-form">
+					<div class="form-group">
+						<label class="col-xs-2 control-label">卡券：</label>
+						<div class="form-controls col-xs-10">
+							<select type="text" class="form-control">
+								<option>1</option>
+							</select>
 						</div>
-						<div class="form-group">
-							<label class="col-xs-2 control-label">通知：</label>
-							<div class="form-controls col-xs-10">
-								<input id='smsMsg' type="radio" name="">
-								<label for="smsMsg">短信通知</label>
-								<input id="weixinMsg" type="radio" name="">
-								<label for="weixinMsg"> 微信通知</label>
-								<span class="help-block">24小时内未与公众号交互的会员可能会接受不到微信通知</span>
-							</div>
+					</div>
+					<div class="form-group">
+						<label class="col-xs-2 control-label">通知：</label>
+						<div class="form-controls col-xs-10">
+							<input id='smsMsg' type="radio" name="msg" checked="checked">
+							<label for="smsMsg">短信通知</label>
+							<input id="weixinMsg" type="radio" name="msg">
+							<label for="weixinMsg"> 微信通知</label>
+							<span class="help-block">24小时内未与公众号交互的会员可能会接收不到<strong> 微信通知</strong>。</span>
 						</div>
 					</div>
 				</div>
-				<div class="modal-footer">
-					<button type="button" class="btn btn-primary" ng-click="setCreditName()" data-dismiss="modal">确定</button>
-				</div>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-primary" onclick=""
+					data-dismiss="modal">确定</button>
 			</div>
 		</div>
 	</div>
-</form>
+</div>
 {/if}
 
 {if $do == 'add'}
