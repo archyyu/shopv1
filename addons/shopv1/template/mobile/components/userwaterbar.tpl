@@ -126,7 +126,6 @@ Vue.component('waterbar', {
             cardList: [],
             orderpaytype:"微信",
             payinfo:{},
-            shopid:0,
             remark:"",
             pullOptions: {
                 pullDownRefresh: {
@@ -189,7 +188,8 @@ Vue.component('waterbar', {
         this.queryMemberCardList();
     },
     mounted() {
-        this.$refs.shopSelect.showPicker()
+        //this.$refs.shopSelect.showPicker()
+
     },
     methods: {
 
@@ -209,6 +209,8 @@ Vue.component('waterbar', {
 
                             this.shopList.push(item);
                         }
+
+                        this.$refs.shopSelect.showPicker();
 
                     }
                 });
@@ -271,6 +273,7 @@ Vue.component('waterbar', {
         },
         
         addCart: function (p) {
+
             if(this.orderState != -1){
                 this.orderState = -1;
             }
@@ -419,10 +422,10 @@ Vue.component('waterbar', {
             // var params = Store.createParams();
             let params = {};
 
-            params.shopid = this.shopid;
+            params.shopid = this.selectShop;
             params.address = this.payModel.seat;
             params.remark = this.remark;
-            params.membercardid = this.cardId;
+            params.membercardid = this.payModel.card;
             params.productlist = JSON.stringify(this.cartlist);
             
             axios.post(url,params)
@@ -433,7 +436,7 @@ Vue.component('waterbar', {
                             console.log("create order ok");
                             //Toast.success("下单成功");
 
-                            this.userMemberCard(this.cardId);
+                            this.userMemberCard(this.payModel.card);
 
                             this.payinfo = res.obj;
                             this.hidePayMethod();
@@ -441,7 +444,7 @@ Vue.component('waterbar', {
                             
                             this.cartlist = [];
 
-                            this.cardId = null;
+                            this.payModel.card = null;
 
                         }
                         else{

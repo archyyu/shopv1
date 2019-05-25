@@ -117,7 +117,7 @@ class OrderService extends Service{
                 }
 
             }
-            $userget += $value['userget'];
+            $userget += $value['userget']*$value['num'];
             $price += ($value['price']*$value['num']*100)*($discount/100);
         }
         

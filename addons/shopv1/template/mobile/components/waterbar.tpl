@@ -140,7 +140,7 @@ Vue.component('waterbar', {
             payFields: [
                 {
                     type: 'input',
-                    modelKey: 'shopid',
+                    modelKey: 'seat',
                     label: '座位号',
                 },
                 {
