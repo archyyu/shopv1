@@ -119,17 +119,17 @@ class ProductService extends Service{
             return $this->findInventoryBy($shop['id'], $product['id'], $storeid)["inventory"];
         }
         
-        if($product['producttype'] == ProductType::SelfMadeProduct){
+        if($product['producttype'] == ProductType::SelfMadeProduct || $product['producttype'] == ProductType::Suit){
             //如果是自制，则计算能制作多少
             $maxcnt = 100;
             $productMaterialList = json_decode($product['productlink'],true);
             foreach($productMaterialList as $key=>$value){
                 
-                $inventory = $this->findInventoryBy($shop['id'], $value['materialid'], $storeid);
-                
                 if($value['num'] == 0){
                     continue;
                 }
+                
+                $inventory = $this->findInventoryBy($shop['id'], $value['materialid'], $storeid);
                 
                 if($inventory['inventory']/$value['num'] < $maxcnt){
                     $maxcnt = $inventory['inventory']/$value['num'];
@@ -177,7 +177,7 @@ class ProductService extends Service{
         }
         
         
-        if($product['producttype'] == ProductType::SelfMadeProduct){
+        if($product['producttype'] == ProductType::SelfMadeProduct || $product['producttype'] == ProductType::Suit){
             
             $list = json_decode($product['productlink'], true);
             foreach($list as $relation){

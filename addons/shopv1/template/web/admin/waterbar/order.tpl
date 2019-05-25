@@ -52,7 +52,7 @@
             </label>
         </div>
         <button class="btn btn-sm btn-primary" onclick="Order.refreshTable();">搜索</button>
-        
+        <button class="btn btn-sm btn-primary" onclick="Order.export();">导出excel</button>
     </div>
 </div>
 
