@@ -178,7 +178,28 @@ var Order = {
             };
         };
         $('#usersList').selectpicker('refresh');
-    }
+    },
+
+    export : function(){
+        var url = UrlUtil.createWebUrl('order',"export");
+
+        var params = {};
+        params.timearea = $("#timearea").val();
+        params.orderstate = $('input:radio[name="orderstate"]:checked').val();
+        params.userid = $("#usersList").val();
+        params.shopid = $("#shopSelect").val();
+
+        params = this.objToUrlencode(params);
+        location.href = url + "&" + params;
+    },
     
+    objToUrlencode : function(obj){
+        var paramsArr = new Array();
+        for(var key in obj){
+           paramsArr.push(key + '=' + obj[key]);
+        }
+        var urlencode = paramsArr.join('&');
+        return urlencode;
+    },
     
 };
