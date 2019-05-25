@@ -26,7 +26,7 @@
                         <li class="food-item" v-for="o in productlist">
                             <div class="icon"><img :src="getImgUrl(o)">
                             </div>
-                            <div class="food-content" @click="addCart(o)">
+                            <div class="food-content" @click="productclick(o)">
                                 <h2 class="name">{{o.productname}}</h2>
                                 <p class="description"></p>
                                 <div class="price">
@@ -93,14 +93,15 @@
 
             <bottom-popup label="combo" title="套餐详情" height="auto" cubeclass="combo-popup"  ref="comboPopup">
                 <template v-slot:content>
-                    <h4>套餐名称：</h4>
+                    <h4>套餐名称：{{selectProduct.productname}}</h4>
                     <p>套餐详情：</p>
                     <ul>
-                        <li>米饭<span> (1 份)</span></li>
+                        <li v-for="item of selectProduct.productlink">{{item.materialname}}<span> ({{item.num}} 份)</span></li>
+                        
                     </ul>
                 </template>
                 <template v-slot:footer>
-                    <cube-button :inline="true">加入购物车</cube-button>
+                    <cube-button :inline="true" @click="addCart(selectProduct)">加入购物车</cube-button>
                 </template>
             </bottom-popup>
         </div>
@@ -121,6 +122,7 @@ Vue.component('waterbar', {
             currentNav: {},
             navList: [],
             productlist:[],
+            selectProduct:{},
             cartlist:[],
             orderState:-1,
             cardList: [],
@@ -271,7 +273,18 @@ Vue.component('waterbar', {
                     }
                 });
         },
-        
+        productclick:function(p){
+            if(p.producttype == 3){
+                this.selectProduct = p;
+                
+                this.selectProduct.productlink = JSON.parse(this.selectProduct.productlink);
+                
+                this.showCombo();
+            }
+            else{
+                this.addCart(p);
+            }
+        },
         addCart: function (p) {
 
             if(this.orderState != -1){

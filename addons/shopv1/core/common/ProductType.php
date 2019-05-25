@@ -20,7 +20,7 @@ class ProductType {
     const FinishProduct = 0;
     const SelfMadeProduct = 1;
     const Material = 2;
-    
+    const Suit = 3;
     
     
 }
