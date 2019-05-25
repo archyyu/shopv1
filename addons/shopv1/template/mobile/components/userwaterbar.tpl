@@ -230,7 +230,7 @@ Vue.component('waterbar', {
                         for(let card of res.obj){
                             let item = {};
                             item.value = card.id;
-                            item.label = card.cardname;
+                            item.text = card.cardname;
                             this.cardList.push(item);
                         }
 

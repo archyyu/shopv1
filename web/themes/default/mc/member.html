@@ -69,67 +69,113 @@
 			$scope.searchMod = type;
 		};
 	});
+	var Custom = {
+		showSendCard: function(e){
+			console.log(e);
+			$('#sendCard').modal('show');
+		}
+	}
 </script>
 <form method="post" class="we7-form" id="form1">
-			<table class="table we7-table table-hover vertical-middle">
-				<input type="hidden" name="do" value="del" />
-				<col width="40px"/>
-				<col width="90px"/>
-				<col width="150px"/>
-				<col />
-				<col />
-				<col />
-				<col width="90px"/>
-				<col width="210px"/>
-				<tr>
-					<th class="text-left">删除</th>
-					<th >会员编号</th>
-					<th>昵称/真实姓名</th>
-					<th>手机</th>
-					<th >邮箱</th>
-					<th class="text-left">{$creditnames['credit2']['title']}/{$creditnames['credit1']['title']}</th>
-					<th >注册时间</th>
-					<th class="text-right">操作</th>
-				</tr>
-				{loop $list $li}
-				<tr>
-					<td style="overflow: hidden;">
-						<input type="checkbox" we7-check-all="1" name="uid[]" id="uid-{$li['uid']}" value="{$li['uid']}" class="">
-						<label for="uid-{$li['uid']}">&nbsp;</label>
-					</td>
-					<td>{$li['uid']}</td>
-					<td>
-						{if $li['nickname']}{$li['nickname']}{else}未完善{/if}
-						<br>
-						{if $li['realname']}{$li['realname']}{else}未完善{/if}
-					</td>
-					<td>{if $li['mobile']}{$li['mobile']}{else}未完善{/if}</td>
-					<td>{if $li['email_effective'] == 1}{$li['email']}{else}未完善{/if}</td>
-					<td class="text-left">
-						<span class="label label-primary">{$creditnames['credit2']['title']}：{$li['credit2']}</span>
-						<br>
-						<span class="label label-warning">{$creditnames['credit1']['title']}：{$li['credit1']}</span>
-					</td>
-					<td >{php echo date('Y-m-d H:i',$li['createtime'])}</td>
-					<td style="overflow:visible;">
-						<div class="link-group">
-							<a href="#">发送卡券</a>
-							<a href="{php echo url('mc/member/base_information',array('uid' => $li['uid']))}">管理设置</a>
-							<a href="{php echo url('mc/member/del',array('uid' => $li['uid']))}" onclick="return confirm('确定删除会员吗?')" title="删除" class="">删除</a>
-						</div>
-					</td>
-				</tr>
-				{/loop}
-			</table>
-			<div class="we7-margin-left">
-				<input type="hidden" name="token" value="{$_W['token']}">
-				<input type="checkbox" we7-check-all="1" id="check-all" name="uid[]" onclick="var ck = this.checked;$(':checkbox').each(function(){this.checked = ck});">
-				<label for="check-all"> &nbsp;</label>
-				<input type="submit" name="submit" class="btn btn-danger btn-submit" value="删除">
-			</div>
+	<table class="table we7-table table-hover vertical-middle">
+		<input type="hidden" name="do" value="del" />
+		<col width="40px" />
+		<col width="90px" />
+		<col width="150px" />
+		<col />
+		<col />
+		<col />
+		<col width="90px" />
+		<col width="210px" />
+		<tr>
+			<th class="text-left">删除</th>
+			<th>会员编号</th>
+			<th>昵称/真实姓名</th>
+			<th>手机</th>
+			<th>邮箱</th>
+			<th class="text-left">{$creditnames['credit2']['title']}/{$creditnames['credit1']['title']}</th>
+			<th>注册时间</th>
+			<th class="text-right">操作</th>
+		</tr>
+		{loop $list $li}
+		<tr>
+			<td style="overflow: hidden;">
+				<input type="checkbox" we7-check-all="1" name="uid[]" id="uid-{$li['uid']}" value="{$li['uid']}"
+					class="">
+				<label for="uid-{$li['uid']}">&nbsp;</label>
+			</td>
+			<td>{$li['uid']}</td>
+			<td>
+				{if $li['nickname']}{$li['nickname']}{else}未完善{/if}
+				<br>
+				{if $li['realname']}{$li['realname']}{else}未完善{/if}
+			</td>
+			<td>{if $li['mobile']}{$li['mobile']}{else}未完善{/if}</td>
+			<td>{if $li['email_effective'] == 1}{$li['email']}{else}未完善{/if}</td>
+			<td class="text-left">
+				<span class="label label-primary">{$creditnames['credit2']['title']}：{$li['credit2']}</span>
+				<br>
+				<span class="label label-warning">{$creditnames['credit1']['title']}：{$li['credit1']}</span>
+			</td>
+			<td>{php echo date('Y-m-d H:i',$li['createtime'])}</td>
+			<td style="overflow:visible;">
+				<div class="link-group">
+					<a href="#" onclick="Custom.showSendCard()">发送卡券</a>
+					<a href="{php echo url('mc/member/base_information',array('uid' => $li['uid']))}">管理设置</a>
+					<a href="{php echo url('mc/member/del',array('uid' => $li['uid']))}"
+						onclick="return confirm('确定删除会员吗?')" title="删除" class="">删除</a>
+				</div>
+			</td>
+		</tr>
+		{/loop}
+	</table>
+
+	<div class="we7-margin-left">
+		<input type="hidden" name="token" value="{$_W['token']}">
+		<input type="checkbox" we7-check-all="1" id="check-all" name="uid[]"
+			onclick="var ck = this.checked;$(':checkbox').each(function(){this.checked = ck});">
+		<label for="check-all"> &nbsp;</label>
+		<input type="submit" name="submit" class="btn btn-danger btn-submit" value="删除">
+	</div>
 
 	<div class="text-right">
 		{$pager}
+	</div>
+
+	<div class="modal fade" id="sendCard" tabindex="-1" role="dialog" aria-hidden="true">
+		<div class="we7-modal-dialog modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+					<div class="modal-title">赠送卡券</div>
+				</div>
+				<div class="modal-body">
+					<div class="we7-form">
+						<div class="form-group">
+							<label class="col-xs-2 control-label">卡券：</label>
+							<div class="form-controls col-xs-10">
+								<select type="text" class="form-control">
+									<option>1</option>
+								</select>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-xs-2 control-label">通知：</label>
+							<div class="form-controls col-xs-10">
+								<input id='smsMsg' type="radio" name="">
+								<label for="smsMsg">短信通知</label>
+								<input id="weixinMsg" type="radio" name="">
+								<label for="weixinMsg"> 微信通知</label>
+								<span class="help-block">24小时内未与公众号交互的会员可能会接受不到微信通知</span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-primary" ng-click="setCreditName()" data-dismiss="modal">确定</button>
+				</div>
+			</div>
+		</div>
 	</div>
 </form>
 {/if}
