@@ -476,6 +476,11 @@ body,
   color: #00a7ff;
 }
 
+.waterbar .sale .sale-cart .cart-wrap .pay-info .pay-ways > div.scanpay {
+  border-left: 1px solid #eee;
+  color: #f93;
+}
+
 .waterbar .sale .sale-cart .cart-wrap .pay-info .pay-ways > div .iconfont {
   display: block;
   font-size: 24px;
