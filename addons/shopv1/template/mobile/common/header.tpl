@@ -37,17 +37,17 @@
     static ToastLoading() {
       return {
         data: {
-          hideMask: true
+          hideMask: true;
         }
-      }
+      };
     };
 
     static hideLoading() {
       return {
         data: {
-          hideLoading: true
+          hideLoading: true;
         }
-      }
+      };
     }
   }
 
@@ -71,7 +71,7 @@
   // response interceptor
   axios.interceptors.response.use(res => {
     Loading.hide();
-    return res
+    return res;
   }, (error) => {
     console.log('err');
     Loading.hide();

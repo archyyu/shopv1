@@ -396,9 +396,9 @@ var app = new Vue({
 
         userMemberCard:function(id){
 
-            for(let i = 0;i<this.cardList.length;i++){
-                if(this.cardList[i].id == id){
-                    this.cardList.splice(i);
+            for(let i = 0;i<this.cardlist.length;i++){
+                if(this.cardlist[i].id == id){
+                    this.cardlist.splice(i);
                     return;
                 }
             }

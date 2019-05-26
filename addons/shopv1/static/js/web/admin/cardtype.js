@@ -93,7 +93,7 @@ var CardType = {
                 }
               },
               {
-                field: 'exchange',
+                field: 'discount',
                 title: '折扣',
                 formatter:function(value,row,index){
                     return value + "%";

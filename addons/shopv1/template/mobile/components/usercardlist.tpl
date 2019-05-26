@@ -14,7 +14,10 @@
                         <h4 class="card-name">{{item.cardname}}</h4>
                         <div class="card-des">满{{item.effectiveprice/100}}元使用</div>
                     </div>
-                    <div class="card-price">￥{{item.exchange/100}}</div>
+                    
+                    
+                    <div class="card-price">{{cardDetail(item)}}</div>
+                        
                 </div>
             </cube-scroll>
         </div>
@@ -41,6 +44,14 @@ Vue.component('card-list', {
         },
         open:function(){
             this.getCardList();
+        },
+        cardDetail:function(item){
+            if(item.exchange > 0){
+                return  "￥" + item.exchange/100;
+            }
+            else{
+                return item.discount + "%";
+            }
         },
         getCardList:function(){
             console.log('get card list')
