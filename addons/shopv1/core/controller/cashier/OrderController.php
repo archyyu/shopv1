@@ -208,7 +208,19 @@ class OrderController extends \controller\Controller{
             
         }
         else{
-            $this->returnSuccess($order['orderstate']);
+
+            if($order['orderstate'] >= 0){
+                $this->returnSuccess();
+            }
+            else{
+                $this->returnFail();
+            }
+
+
+
+            //$this->returnSuccess($order['orderstate']);
+
+
         }
         
     }
