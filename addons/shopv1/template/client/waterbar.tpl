@@ -282,7 +282,6 @@ var app = new Vue({
                             console.log("create order ok");
 
                             this.userMemberCard(this.cardId);
-
                             this.cardId = null;
 
                             this.$message.success("下单成功");
