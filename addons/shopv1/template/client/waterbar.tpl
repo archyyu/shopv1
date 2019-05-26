@@ -397,7 +397,7 @@ var app = new Vue({
 
             for(let i = 0;i<this.cardlist.length;i++){
                 if(this.cardlist[i].id == id){
-                    this.cardlist.splice(i);
+                    this.cardlist.splice(i,1);
                     return;
                 }
             }

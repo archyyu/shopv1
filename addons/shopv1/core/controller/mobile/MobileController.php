@@ -121,11 +121,12 @@ class MobileController extends \controller\Controller{
         $address = $this->getParam("address");
         $ordersource = 1;
         $remark = $this->getParam("remark");
+        $membercardid = $this->getParamDefault("membercardid",0);
         $paytype = 1;
         
         
         $orderid = $this->orderService->generateProductOrder($uniacid,$memberid, 0, $shopid, 
-                $address, $productlist, $ordersource, $remark,$paytype);
+                $address, $productlist, $ordersource, $remark,$paytype,$membercardid);
         $order = $this->orderModel->findOrderById($orderid);
         $payinfo = $this->payService->getJsapiPay($order, $openid);
         $this->returnSuccess($payinfo);

@@ -230,10 +230,12 @@ Vue.component('waterbar', {
                         //this.cardList = res.obj;
 
                         for(let card of res.obj){
-                            let item = {};
-                            item.value = card.id;
-                            item.text = card.cardname;
-                            this.cardList.push(item);
+                            //let item = {};
+                            //item.value = card.id;
+                            //item.text = card.cardname;
+                            card.value = card.id;
+                            card.text = card.cardname;
+                            this.cardList.push(card);
                         }
 
                     }
@@ -442,7 +444,7 @@ Vue.component('waterbar', {
 
             for(let i = 0;i<this.cardList.length;i++){
                 if(this.cardList[i].id == id){
-                    this.cardList.splice(i);
+                    this.cardList.splice(i,1);
                     return;
                 }
             }

@@ -37,7 +37,7 @@
     static ToastLoading() {
       return {
         data: {
-          hideMask: true;
+          hideMask: true
         }
       };
     };
@@ -45,7 +45,7 @@
     static hideLoading() {
       return {
         data: {
-          hideLoading: true;
+          hideLoading: true
         }
       };
     }
