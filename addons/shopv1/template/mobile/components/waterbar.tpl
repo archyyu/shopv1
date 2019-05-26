@@ -278,6 +278,9 @@ Vue.component('waterbar', {
         
         getCartPrice:function(){
             let sum = 0;
+            
+            //let card = this.findMemberCard();
+            
             for(let cart of this.cartlist){
                 sum += cart.price*cart.num;
             }
