@@ -289,7 +289,7 @@ Vue.component('waterbar', {
                 .then((res)=>{
                     res = res.data;
                     console.log(res);
-                    if(res.state == 0){
+                    if(res.obj >= 0){
                          
                         Store.hideQrcode();
                         this.$message.success("订单已经支付");
