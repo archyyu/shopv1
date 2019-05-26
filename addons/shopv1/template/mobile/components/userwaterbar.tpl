@@ -326,9 +326,30 @@ Vue.component('waterbar', {
         
         getCartPrice:function(){
             let sum = 0;
+
+            let card = this.findMemberCard(this.payModel.card);
+
             for(let cart of this.cartlist){
-                sum += cart.price*cart.num;
+
+                let discount = 100;
+                if(card){
+                    //discount = card.discount;
+                    if(card.typeid && card.typeid == cart.typeid){
+                        discount = card.discount;
+                    }
+                    if(card.productid && card.productid == cart.productid){
+                        discount = card.discount;
+                    }
+                }
+
+                sum += cart.price*cart.num*(discount/100);
+
             }
+
+            if(card){
+                sum -= card.exchange/100;
+            }
+
             return sum.toFixed(2);
         },
         
@@ -443,6 +464,9 @@ Vue.component('waterbar', {
             params.address = this.payModel.seat;
             params.remark = this.remark;
             params.membercardid = this.payModel.card;
+            //this.userMemberCard(this.payModel.card);
+            //this.payModel.card = null;
+
             params.productlist = JSON.stringify(this.cartlist);
             
             axios.post(url,params)
@@ -454,6 +478,7 @@ Vue.component('waterbar', {
                             //Toast.success("下单成功");
 
                             this.userMemberCard(this.payModel.card);
+                            this.payModel.card = null;
 
                             this.payinfo = res.obj;
                             this.hidePayMethod();
