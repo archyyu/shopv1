@@ -14,9 +14,13 @@
         </header>
         <div class="container">
             <div class="side-container">
-                <cube-scroll-nav-bar direction="vertical" :current="currentNav" :labels="navList"
+                <cube-scroll-nav-bar
+                    direction="vertical"
+                    :current="defaulttypeid"
+                    :labels="navListId"
+                    :txts="navListStr"
                     @change="changeHandler">
-                    <i slot-scope="props">{{props.txt.typename}}</i>
+                    <!-- <i slot-scope="props">{{props.txt.typename}}</i> -->
                 </cube-scroll-nav-bar>
             </div>
             <div class="product-container">
@@ -74,7 +78,7 @@
                         <cube-button  :inline="true" :outline="true" @click="closeQrcode">取消</cube-button>
                     </div>
                     <div class="cart-content scan-code">
-                        <qrcode :value="qrcodeurl"></qrcode>
+                        <qrcode value="www.baidu.com"></qrcode>
                     </div>
                 </div>
             </cube-popup>
@@ -119,7 +123,7 @@ Vue.component('waterbar', {
             shopList: [
 
             ],
-            currentNav: {},
+            defaulttypeid: 0,
             navList: [],
             productlist:[],
             selectProduct:{},
@@ -184,6 +188,24 @@ Vue.component('waterbar', {
             this.payFields[1].props.options = newV;
         }
     },
+    computed: {
+        navListId: function(){
+            let navId = [];
+            let list = this.navList;
+            for(let i=0;i<list.length;i++){
+                navId.push(list[i].id);
+            }
+            return navId;
+        },
+        navListStr: function(){
+            let navStr = [];
+            let list = this.navList;
+            for(let i=0;i<list.length;i++){
+                navStr.push(list[i].typename);
+            }
+            return navStr;
+        }
+    },
     created:function(){
         this.queryShopList();
         this.queryTypeList();
@@ -244,7 +266,7 @@ Vue.component('waterbar', {
         },
 
         changeHandler:function(cur){
-            this.defaulttypeid = cur.id;
+            this.defaulttypeid = cur;
             this.queryProductList(this.defaulttypeid);
         },
 
@@ -420,7 +442,7 @@ Vue.component('waterbar', {
 
         showPayMethod: function(){
             if(this.cartlist.length <= 0){
-                this.$message.error("购物车为空");
+                Toast.error("购物车为空");
                 return;
             }
             this.$refs.payPopup.showPopup();
@@ -454,7 +476,7 @@ Vue.component('waterbar', {
         createOrder:function(){
             
             if(this.cartlist.length <= 0){
-                this.$message.error("购物车为空");
+                Toast.error("购物车为空");
                 return;
             }
                 
