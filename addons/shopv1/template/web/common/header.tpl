@@ -122,7 +122,8 @@
               <ul class="nav nav-second-level">
                   <li><a href="index.php?c=site&a=entry&m=shopv1&do=shop&f=index">门店管理</a></li>
                   <li><a href="index.php?c=site&a=entry&m=shopv1&do=shop&f=staffIndex">员工管理</a></li>
-                  <li><a href="index.php?c=site&a=entry&m=shopv1&do=shop&f=bannerIndex">轮播图管理</a></li>                  
+                  <li><a href="index.php?c=site&a=entry&m=shopv1&do=shop&f=bannerIndex">轮播图管理</a></li>
+                  <li><a href="index.php?c=site&a=entry&m=shopv1&do=message&f=index">留言管理</a></li>
               </ul>
           </li>
           <li>
@@ -149,18 +150,18 @@
                   <li><a href="index.php?c=site&a=entry&m=shopv1&do=product&f=transformIndex">批量调货</a></li>
               </ul>
           </li>
-          <li>
-              <a class="has-arrow">
-                <span class="iconfont iconchart"></span>
-                <span class="menu-label">经营分析</span>
-              </a>
-              <ul class="nav nav-second-level">
-                  <li><a>收入分析</a></li>
-                  <li><a>经营分析</a></li>
-                  <li><a>消费分析</a></li>
-                  <li><a>消费排行</a></li>
-              </ul>
-          </li>
+{*          <li>*}
+{*              <a class="has-arrow">*}
+{*                <span class="iconfont iconchart"></span>*}
+{*                <span class="menu-label">经营分析</span>*}
+{*              </a>*}
+{*              <ul class="nav nav-second-level">*}
+{*                  <li><a>收入分析</a></li>*}
+{*                  <li><a>经营分析</a></li>*}
+{*                  <li><a>消费分析</a></li>*}
+{*                  <li><a>消费排行</a></li>*}
+{*              </ul>*}
+{*          </li>*}
           <li>
               <a class="has-arrow">
                 <span class="iconfont iconchart"></span>

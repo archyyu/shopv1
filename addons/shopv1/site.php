@@ -71,6 +71,18 @@ class Shopv1ModuleSite extends WeModuleSite{
             logError("err", $ex);
         }
     }
+
+    public function doWebMessage(){
+        global $_GPC;
+        try{
+            $f = $_GPC['f'];
+            $controller = new \controller\admin\MessageController();
+            $controller->$f();
+        }
+        catch(Exception $ex){
+            logError("err",$ex);
+        }
+    }
     
     public function doWebDuty(){
         global $_GPC;

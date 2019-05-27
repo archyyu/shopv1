@@ -36,7 +36,7 @@
                 <div class="cart" @click="showCart"><iconfont iconclass="icon-shopcar"></iconfont></div>
                 <div class="price">￥{{getCartPrice()}}</div>
                 <div class="checkout">
-                    <cube-button :primary="true" @click="showPayMethod()">支 付</cube-button>
+                    <cube-button :primary="true" :disabled="orderState == 0" @click="showPayMethod()">支 付</cube-button>
                 </div>
             </div>
             <cube-popup type="my-popup" position="bottom" :mask-closable="true" ref="cartPopup">

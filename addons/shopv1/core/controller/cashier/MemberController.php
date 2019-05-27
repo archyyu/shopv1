@@ -151,6 +151,17 @@ class MemberController extends \controller\Controller{
         $uid = $this->getParam("uid");
         $address = $this->getParam("address");
         $content = $this->getParam("content");
+
+        $phone = "";
+        $realname = "";
+
+        if(isset($uid)){
+            $obj = $this->memberModel->queryMemberByUid($uid);
+            if(isset($obj)){
+                $phone = $obj["mobile"];
+                $realname = $obj["realname"];
+            }
+        }
         
         $data = array();
         $data["shopid"] = $shopid;
@@ -158,6 +169,8 @@ class MemberController extends \controller\Controller{
         $data["createtime"] = time();
         $data["address"] = $address;
         $data["content"] = $content;
+        $data["phone"] = $phone;
+        $data["membername"] = $realname;
         
         $this->memberMessage->addMsg($data);
         
