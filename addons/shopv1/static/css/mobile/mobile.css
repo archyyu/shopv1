@@ -553,6 +553,7 @@ html {
 
 .waterbar .cube-combo-popup .my-popup-content ul li {
   list-style: disc;
+  margin-bottom: 0.8rem;
 }
 
 .waterbar .cube-combo-popup .my-popup-content ul li span {

@@ -442,7 +442,7 @@ Vue.component('waterbar', {
 
         showPayMethod: function(){
             if(this.cartlist.length <= 0){
-                this.$message.error("购物车为空");
+                Toast.error("购物车为空");
                 return;
             }
             this.$refs.payPopup.showPopup();
@@ -476,7 +476,7 @@ Vue.component('waterbar', {
         createOrder:function(){
             
             if(this.cartlist.length <= 0){
-                this.$message.error("购物车为空");
+                Toast.error("购物车为空");
                 return;
             }
                 
