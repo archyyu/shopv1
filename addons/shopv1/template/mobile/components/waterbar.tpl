@@ -401,7 +401,7 @@ Vue.component('waterbar', {
             var params = Store.createParams();
             params.orderid = this.orderid;
             var url = UrlHelper.createUrl("order","queryOrderState");
-            axios.post(url,params)
+            axios.post(url,params,LoadingType.hideLoading())
                 .then((res)=>{
                     res = res.data;
                     console.log(res);
