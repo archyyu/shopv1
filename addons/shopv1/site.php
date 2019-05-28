@@ -47,6 +47,18 @@ class Shopv1ModuleSite extends WeModuleSite{
             logError('er',$ex);
         }
     }
+
+    public function doWebMember(){
+        global $_GPC;
+        try{
+            $f = $_GPC['f'];
+            $controller = new controller\admin\MemberController();
+            $controller->$f();
+        }
+        catch (Exception $ex){
+            logError('er',$ex);
+        }
+    }
     
     public function doWebShop(){
         global $_GPC;

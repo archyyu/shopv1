@@ -564,12 +564,5 @@ class ProductController extends Controller{
         
     }
     
-    public function memberlevel(){
-        $this->smarty->display("admin/member/memberLevel.tpl");
-    }
-    
-    public function memberlist(){
-        $this->smarty->display("admin/member/memberList.tpl");
-    }
-    
+
 }

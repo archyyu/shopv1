@@ -168,8 +168,8 @@
               <span class="menu-label">会员管理</span>
             </a>
             <ul class="nav nav-second-level">
-              <li><a href="index.php?c=site&a=entry&m=shopv1&do=product&f=memberlevel">会员等级</a></li>
-              <li><a href="index.php?c=site&a=entry&m=shopv1&do=product&f=memberlist">会员列表</a></li>
+              <li><a href="index.php?c=site&a=entry&m=shopv1&do=member&f=memberlevel">会员等级</a></li>
+              <li><a href="index.php?c=site&a=entry&m=shopv1&do=member&f=memberlist">会员列表</a></li>
             </ul>
           </li>
           <li>
