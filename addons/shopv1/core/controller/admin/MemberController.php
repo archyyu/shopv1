@@ -15,14 +15,12 @@ namespace controller\admin;
  */
 class MemberController extends \controller\Controller{
     
-    private $dutyModel;
+    private $memberModel;
     
-    private $userModel;
     
     public function __construct() {
         parent::__construct();
-        $this->dutyModel = new \model\ShopDuty();
-        $this->userModel = new \model\ShopUser();
+        $this->memberModel = new \model\ShopMember();
     }
     
     public function memberlevel(){
@@ -34,27 +32,19 @@ class MemberController extends \controller\Controller{
     }
     
     
-    public function loadDutys(){
+    public function loadMembers(){
         $uniacid = $this->getUniacid();
-        $shopid = $this->getParam("shopid");
+        // $shopid = $this->getParam("shopid");
         $offset = $this->getParam("offset");
         $limit = $this->getParam("limit");
         
         $where = array();
         $where['uniacid'] = $uniacid;
-        $where["shopid"] = $shopid;
+        // $where["shopid"] = $shopid;
         
-        $userMap = $this->userModel->getUserMap($uniacid);
-        $shopMap = $this->shopModel->findShopMapByUnacid($uniacid);
+        $list = $this->memberModel->page($offset, $limit, "*", $where, "createtime");
         
-        $data = $this->dutyModel->page($offset,$limit,"*",$where,"id");
-        
-        foreach($data['rows'] as $key=>$value){
-            $data['rows'][$key]['shopname'] = $shopMap[$value['shopid']]['shopname'];
-            $data['rows'][$key]['username'] = $userMap[$value['userid']]['account'];
-        }
-        
-        $this->returnSuccess($data);
+        $this->returnSuccess($list);
         
     }
     

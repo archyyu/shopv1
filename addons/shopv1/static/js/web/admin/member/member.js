@@ -5,61 +5,77 @@
  */
 
 $(function () {
-    Member.inittableList();
+    Member.initTable();
+    Member.refreshTable();
     
 });
 
 var Member = {
 
-    getLists: function(params){
-        $("#memberTypeSelect").selectpicker();
-        return params.success()
-    },
+    initTable : function(){
 
-    inittableList: function () {
         $("#memberList").bootstrapTable({
-            ajax: Member.getLists,
+            data:[],
             sidePagination: "server",
             pageSize: 10,
             pagination: true,
-            columns: [
+            columns:[
                 {
-                    field: 'account',
-                    title: '账号'
+                    field: 'uid',
+                    title: '会员编号'
                 }, {
-                    field: 'membername',
-                    title: '会员名称'
+                    field: 'nickname',
+                    title: '昵称'
                 }, {
-                    field: 'membertype',
-                    title: '会员等级'
+                    field: 'mobile',
+                    title: '手机'
                 }, {
-                    field: 'state',
-                    title: '状态',
+                    field: 'email',
+                    title: '邮箱',
                     formatter: function (value, row, index) {
-                        if (value == 1) {
-                            return '启用';
-                        } else {
-                            return '未启用';
-                        }
+                        return value;
                     }
                 }, {
-                    field: 'balance',
+                    field: 'credit2',
                     title: '余额'
                 }, {
-                    field: 'createdate',
-                    title: '开卡时间'
+                    field: 'credit1',
+                    title: '积分'
                 }, {
-                    field: 'lastoffdate',
-                    title: '最后下机时间'
+                    field: 'createtime',
+                    title: '注册时间',
+                    formatter: function (value, row, index) {
+                        return new Date(parseInt(value) * 1000).toLocaleString().replace(/:\d{1,2}$/,' ');
+                    }
                 }
             ]
         });
         
     },
     
-    refresh: function () {
-        $('#mymemberList').bootstrapTable('refresh');
-    }
+    refreshTable : function(){
+        $("#memberList").bootstrapTable("refreshOptions",{ajax:Member.reloadMembers});
+    },
     
+    reloadMembers : function(obj){
+        
+        var url = UrlUtil.createWebUrl('member',"loadMembers");
+        
+        var params = obj.data;
+        // params.timearea = $("#timearea").val();
+        // params.orderstate = $('input:radio[name="orderstate"]:checked').val();
+        // params.userid = $("#usersList").val();
+        // params.shopid = $("#shopSelect").val();
+        
+        $.post(url, params, function(data){
+            if(data.state == 0){
+                obj.success(data.obj);
+            }
+            else{
+                Tips.failTips(data.msg);
+            }
+        });
+        
+    }
     
 };
