@@ -63,8 +63,33 @@
         //bootstrap select init
         $("#shopSelect").selectpicker('value', '{$gid}')
 
+        // range picker init
+        $(".range-picker-js").daterangepicker({
+          timePicker: true,
+          timePicker24Hour: true,
+          autoUpdateInput: false,
+          startDate: moment(),
+          locale: {
+            applyLabel: '确定',
+            cancelLabel: '取消',
+            format: 'YYYY/MM/DD HH:mm'
+          }
+        })
+        $('.range-picker-js').on('apply.daterangepicker', function (ev, picker) {
+          $(this).val(picker.startDate.format('YYYY/MM/DD HH:mm') + ' - ' + picker.endDate.format(
+            'YYYY/MM/DD HH:mm'));
+        });
+        $('.range-picker-js').on('cancel.daterangepicker', function (ev, picker) {
+          $(this).val('');
+        });
 
-
+        // data picker init
+        $(".data-picker-js").daterangepicker({
+          singleDatePicker: true,
+          local: {
+            format: 'YYYY/MM/DD'
+          }
+        })
       });
       // 初始化导航和面包屑
       function navActiveInit() {
@@ -135,6 +160,16 @@
               {*<li><a href="#">收入汇总</a></li>*}
               <li><a href="index.php?c=site&a=entry&m=shopv1&do=duty&f=index">交班明细</a></li>
               <li><a href="index.php?c=site&a=entry&m=shopv1&do=order&f=index">订单明细</a></li>
+            </ul>
+          </li>
+          <li>
+            <a class="has-arrow">
+              <span class="iconfont iconbook"></span>
+              <span class="menu-label">会员管理</span>
+            </a>
+            <ul class="nav nav-second-level">
+              <li><a href="index.php?c=site&a=entry&m=shopv1&do=product&f=memberlevel">会员等级</a></li>
+              <li><a href="index.php?c=site&a=entry&m=shopv1&do=product&f=memberlist">会员列表</a></li>
             </ul>
           </li>
           <li>
