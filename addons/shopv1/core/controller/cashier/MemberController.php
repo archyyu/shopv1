@@ -162,10 +162,13 @@ class MemberController extends \controller\Controller{
                 $realname = $obj["realname"];
             }
         }
+
+        $shop = $this->shopModel->findShopById($shopid);
         
         $data = array();
         $data["shopid"] = $shopid;
         $data["uid"] = $uid;
+        $data['uniacid'] = $shop['uniacid'];
         $data["createtime"] = time();
         $data["address"] = $address;
         $data["content"] = $content;
