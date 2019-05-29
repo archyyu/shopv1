@@ -49,7 +49,7 @@ class Shopv1ModuleSite extends WeModuleSite{
     }
 
     public function doWebMember(){
-        global $_GPC;
+        global $_GPC, $_W;
         try{
             $f = $_GPC['f'];
             $controller = new controller\admin\MemberController();
