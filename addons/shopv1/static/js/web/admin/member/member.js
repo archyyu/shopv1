@@ -5,12 +5,28 @@
  */
 
 $(function () {
+
+    Member.initGroups();
+
     Member.initTable();
     Member.refreshTable();
     
 });
 
 var Member = {
+
+    groupsMap : {},
+    
+    initGroups : function (){
+        var groupsList = $('#groupsList').val();
+        if (groupsList != "") {
+            groupsList = JSON.parse(groupsList);
+            for (var i = 0; i < groupsList.length; i++) {
+                Member.groupsMap[groupsList[i].groupid] = groupsList[i];
+            };
+        };
+        
+    },
 
     initTable : function(){
 
@@ -26,6 +42,15 @@ var Member = {
                 }, {
                     field: 'nickname',
                     title: '昵称'
+                }, {
+                    field: 'groupid',
+                    title: '会员等级',
+                    formatter: function (value, row, index) {
+                        if (Member.groupsMap[value] == undefined) {
+                            return "";
+                        };
+                        return Member.groupsMap[value].title;
+                    }
                 }, {
                     field: 'mobile',
                     title: '手机'
@@ -47,6 +72,15 @@ var Member = {
                     formatter: function (value, row, index) {
                         return new Date(parseInt(value) * 1000).toLocaleString().replace(/:\d{1,2}$/,' ');
                     }
+                }, {
+                    field: 'uid',
+                    title: '操作',
+                    formatter: function (value, row) {
+                        return [
+                            '<button class="btn btn-xs btn-success" onclick="Member.openSendCard(' + value + ');">发送卡券</button> ',
+                            '<button class="btn btn-xs btn-danger" onclick="Member.deleterow(' + value + ');">删除</button>'
+                        ].join("");
+                    }
                 }
             ]
         });
@@ -62,10 +96,11 @@ var Member = {
         var url = UrlUtil.createWebUrl('member',"loadMembers");
         
         var params = obj.data;
-        // params.timearea = $("#timearea").val();
-        // params.orderstate = $('input:radio[name="orderstate"]:checked').val();
-        // params.userid = $("#usersList").val();
-        // params.shopid = $("#shopSelect").val();
+        params.timearea = $("#timearea").val();
+        params.nickname = $("#nickname").val();
+        params.moblie = $("#moblie").val();
+        params.groupid = $("#groupid").val();
+        //params.orderstate = $('input:radio[name="orderstate"]:checked').val();
         
         $.post(url, params, function(data){
             if(data.state == 0){
@@ -76,6 +111,44 @@ var Member = {
             }
         });
         
+    },
+
+    sendCard : function(){
+        var url = UrlUtil.createWebUrl('member',"sendCard");
+        
+        var params = {};
+        params.uid = $("#uid").val();
+        params.cardtypeid = $("#cardid").val();
+        params.num = $("#num").val();
+        params.cardname = $("#cardid option:selected").text();
+        
+        if (params.cardtypeid == 0) {
+            Tips.failTips("请选择卡券");
+            return;
+        };
+
+        if (params.num <= 0) {
+            Tips.failTips("数量不符合规则");
+            return;
+        };
+
+        $.post(url, params, function(data){
+            if(data.state == 0){
+                Tips.successTips("发送成功");
+                $('#sendCard').modal('hide');
+            }
+            else{
+                Tips.failTips(data.msg);
+            }
+        });
+    },
+
+    openSendCard : function(uid){
+        $("#uid").val(uid);
+        $("#cardid").val(0);
+        $("#num").val("");
+        $('#sendCard').modal('show');
     }
+
     
 };

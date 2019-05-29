@@ -60,6 +60,11 @@ class Controller {
         return 0;
     }
 
+    public function getAcid(){
+        global $_W;
+        return $_W['acid'];
+    }
+
   /**
    * ajax返回
    * @param $params

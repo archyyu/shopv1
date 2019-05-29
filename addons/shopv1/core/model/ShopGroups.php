@@ -9,15 +9,16 @@
 namespace model;
 
 /**
- * Description of ShopFans
+ * Description of ShopGroups
  *
  * @author YJP
  */
-class ShopFans extends Model{
-    protected $table = "mc_mapping_fans";
-
-    public function findFanByUid($uid, $uniacid){
-    	return $this->getOne("*", ["uid"=>$uid, "uniacid"=>$uniacid]);
+class ShopGroups extends Model{
+    
+    protected $table = "mc_groups";
+    
+    public function getGroupsListByUniacid($uniacid){
+        return $this->getList('*', ['uniacid'=>$uniacid]);
     }
-
+    
 }

@@ -49,7 +49,7 @@ class OrderController extends \controller\Controller{
         $where['uniacid'] = $uniacid;
         $timeArr = explode("-", $timearea);
         if (count($timeArr) == 2) {
-            $where['createtime[<>]'] = [strtotime($timeArr[0] . " 00:00:00"), strtotime($starttime[1] . " 23:59:59")];
+            $where['createtime[<>]'] = [strtotime(trim($timeArr[0]). ":00"), strtotime(trim($timeArr[1]) . ":00")];
         }
 
         if ((int)$orderstate != 2) {
@@ -98,7 +98,7 @@ class OrderController extends \controller\Controller{
         $where['uniacid'] = $uniacid;
         $timeArr = explode("-", $timearea);
         if (count($timeArr) == 2) {
-            $where['createtime[<>]'] = [strtotime($timeArr[0] . " 00:00:00"), strtotime($starttime[1] . " 23:59:59")];
+            $where['createtime[<>]'] = [strtotime(trim($timeArr[0]). ":00"), strtotime(trim($timeArr[1]) . ":00")];
         }
 
         if ((int)$orderstate != 2) {
