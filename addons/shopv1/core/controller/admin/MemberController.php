@@ -8,6 +8,8 @@
 
 namespace controller\admin;
 
+use model\ShopMemberGroup;
+
 /**
  * Description of MemberController
  *
@@ -16,11 +18,14 @@ namespace controller\admin;
 class MemberController extends \controller\Controller{
     
     private $memberModel;
+
+    private $memberGroupModel;
     
     
     public function __construct() {
         parent::__construct();
         $this->memberModel = new \model\ShopMember();
+        $this->memberGroupModel = new ShopMemberGroup();
     }
     
     public function memberlevel(){
@@ -30,7 +35,42 @@ class MemberController extends \controller\Controller{
     public function memberlist(){
         $this->smarty->display("admin/member/memberList.tpl");
     }
-    
+
+    public function loadMemberGroups(){
+
+        $uniacid = $this->getUniacid();
+        $list = $this->memberGroupModel->getMemberGroups($uniacid);
+        $this->returnSuccess($list);
+
+    }
+
+    public function saveMemberGroup(){
+
+        $uniacid = $this->getUniacid();
+        $groupid = $this->getParam("groupid");
+        $title = $this->getParam("title");
+        $credit = $this->getParam("credit");
+
+        $data = array();
+
+        if($groupid != "") {
+            $data['groupid'] = $groupid;
+        }
+
+        $data['uniacid'] = $uniacid;
+        $data["title"] = $title;
+        $data['credit'] = $credit;
+
+        $result = $this->memberGroupModel->saveMemberGroup($data);
+
+        if($result){
+            $this->returnSuccess();
+        }
+        else{
+            $this->returnFail("保存失败");
+        }
+
+    }
     
     public function loadMembers(){
         $uniacid = $this->getUniacid();
@@ -47,7 +87,9 @@ class MemberController extends \controller\Controller{
         $this->returnSuccess($list);
         
     }
-    
+
+
+
     
     
 }
