@@ -65,19 +65,19 @@
 
         // range picker init
         $(".range-picker-js").daterangepicker({
-          timePicker: true,
+          // timePicker: true,
           timePicker24Hour: true,
           autoUpdateInput: false,
           startDate: moment(),
           locale: {
             applyLabel: '确定',
             cancelLabel: '取消',
-            format: 'YYYY/MM/DD HH:mm'
+            format: 'YYYY/MM/DD'
           }
         })
         $('.range-picker-js').on('apply.daterangepicker', function (ev, picker) {
-          $(this).val(picker.startDate.format('YYYY/MM/DD HH:mm') + ' - ' + picker.endDate.format(
-            'YYYY/MM/DD HH:mm'));
+          $(this).val(picker.startDate.format('YYYY/MM/DD') + ' - ' + picker.endDate.format(
+            'YYYY/MM/DD'));
         });
         $('.range-picker-js').on('cancel.daterangepicker', function (ev, picker) {
           $(this).val('');
