@@ -174,6 +174,7 @@ var app = new Vue({
             let params = {};
             params.shopid = this.shopid;
             params.address = this.address;
+            params.content = this.msgText;
             params.memberid = this.memberInfo.uid;
             
             let url = UrlHelper.createUrl("member","leaveMsg");
@@ -181,6 +182,7 @@ var app = new Vue({
             axios.post(url,params)
             .then((res)=>{
                 res = res.data;
+                msgDialog = false;
                 if(res.state == 0){
                     this.$message.success("留言成功");
                 }
@@ -202,7 +204,6 @@ var app = new Vue({
             
             axios.post(url,params)
             .then((res)=>{
-                msgDialog = false;
                 res = res.data;
                 if(res.state == 0){
                     this.$message.success("呼叫成功");
