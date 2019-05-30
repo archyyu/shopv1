@@ -37,12 +37,17 @@ var Member = {
             pagination: true,
             columns:[
                 {
+                    checkbox: true
+                },
+                {
                     field: 'uid',
                     title: '会员编号'
-                }, {
+                },
+                {
                     field: 'nickname',
                     title: '昵称'
-                }, {
+                },
+                {
                     field: 'groupid',
                     title: '会员等级',
                     formatter: function (value, row, index) {
@@ -51,28 +56,34 @@ var Member = {
                         };
                         return Member.groupsMap[value].title;
                     }
-                }, {
+                },
+                {
                     field: 'mobile',
                     title: '手机'
-                }, {
+                },
+                {
                     field: 'email',
                     title: '邮箱',
                     formatter: function (value, row, index) {
                         return value;
                     }
-                }, {
+                },
+                {
                     field: 'credit2',
                     title: '余额'
-                }, {
+                },
+                {
                     field: 'credit1',
                     title: '积分'
-                }, {
+                },
+                {
                     field: 'createtime',
                     title: '注册时间',
                     formatter: function (value, row, index) {
                         return new Date(parseInt(value) * 1000).toLocaleString().replace(/:\d{1,2}$/,' ');
                     }
-                }, {
+                },
+                {
                     field: 'uid',
                     title: '操作',
                     formatter: function (value, row) {
@@ -141,6 +152,22 @@ var Member = {
                 Tips.failTips(data.msg);
             }
         });
+    },
+
+    massSendCard: function(){
+        var memberList = $("#memberList").bootstrapTable('getSelections');
+        var length = memberList.length;
+        if(length>0){
+            var memberStr = [];
+            for(var i=0; i<length; i++){
+                memberStr.push("<span>"+memberList[i].nickname+"，</span>")
+            }
+
+            $("#memberData").val(JSON.stringify(memberList));
+            $("#sendMemberList").html(memberStr.join(''));
+            $("#memberLength").text(length);
+            $("#massSendCard").modal("show");
+        }
     },
 
     openSendCard : function(uid){

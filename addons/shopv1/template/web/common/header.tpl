@@ -68,7 +68,7 @@
           timePicker: true,
           timePicker24Hour: true,
           autoUpdateInput: false,
-          startDate: moment(),
+          startDate: moment(),0
           locale: {
             applyLabel: '确定',
             cancelLabel: '取消',
@@ -76,7 +76,7 @@
           }
         })
         $('.range-picker-js').on('apply.daterangepicker', function (ev, picker) {
-          $(this).val(picker.startDate.format('YYYY/MM/DD HH:mm') + ' - ' + picker.endDate.format(
+          $(this).val(picker.startDate.format('YYYY/MM/DD') + ' - ' + picker.endDate.format(
             'YYYY/MM/DD HH:mm'));
         });
         $('.range-picker-js').on('cancel.daterangepicker', function (ev, picker) {

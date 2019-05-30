@@ -37,6 +37,7 @@
           <input type="text" id="timearea" class="form-control">
         </div> -->
         <button class="btn btn-sm btn-primary" onclick="Member.refreshTable();">查询</button>
+        <button class="btn btn-sm btn-success pull-right" onclick="Member.massSendCard()">发送卡券</button>
       </div>
     </div>
     <div class="rate-setting encourage-setting">
@@ -60,11 +61,11 @@
         <div class="modal-title">赠送卡券</div>
       </div>
       <div class="modal-body">
-        <div class="we7-form">
+        <div class="form-horizontal">
           <input type="hidden" id="uid">
           <div class="form-group">
             <label class="col-xs-2 control-label">卡券：</label>
-            <div class="form-controls col-xs-10">
+            <div class="col-xs-10">
               <select type="text" id="cardid" class="form-control">
                 <option value="0">请选择</option>
                 {foreach $cardlist as $card}
@@ -75,16 +76,69 @@
           </div>
           <div class="form-group">
             <label class="col-xs-2 control-label">数量：</label>
-            <div class="form-controls col-xs-10">
-              <input type="text" id="num">
+            <div class="col-xs-10">
+              <input type="text" id="num" class="form-control">
             </div>
           </div>
           <div class="form-group">
             <label class="col-xs-2 control-label">通知：</label>
-            <div class="form-controls col-xs-10">
-              <!-- <input id='smsMsg' type="radio" name="msg" checked="checked">
-              <label for="smsMsg">短信通知</label>
-              <input id="weixinMsg" type="radio" name="msg"> -->
+            <div class="col-xs-10">
+              <!-- <input id='smsMsg' type="radio" name="msg">
+              <label for="smsMsg">短信通知</label> -->
+              <input id="weixinMsg" type="radio" name="msg" checked="checked">
+              <label for="weixinMsg"> 微信通知</label>
+              <span class="help-block">24小时内未与公众号交互的会员可能会接收不到<strong> 微信通知</strong>。</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" onclick="Member.sendCard();"
+          data-dismiss="modal">确定</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="massSendCard" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="we7-modal-dialog modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span
+            class="sr-only">Close</span></button>
+        <div class="modal-title">赠送卡券</div>
+      </div>
+      <div class="modal-body">
+        <input type="hidden" id="memberData">
+        <div class="form-horizontal">
+          <div class="form-group">
+              <label class="col-xs-2 control-label">会员：</label>
+              <div class="col-xs-10">
+                  <p id="sendMemberList" class="form-control-static"></p>
+                  <span class="help-block">共计：<span id="memberLength">0</span> 人</span>
+              </div>
+          </div>
+          <div class="form-group">
+            <label class="col-xs-2 control-label">卡券：</label>
+            <div class="col-xs-10">
+              <select type="text" id="cardid" class="form-control">
+                <option value="0">请选择</option>
+                {foreach $cardlist as $card}
+                  <option value='{$card.id}'>{$card.cardname}</option>
+                {/foreach}
+              </select>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-xs-2 control-label">数量：</label>
+            <div class="col-xs-10">
+              <input type="text" id="num" class="form-control">
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-xs-2 control-label">通知：</label>
+            <div class="col-xs-10">
+              <input id="weixinMsg" type="radio" name="msg" checked="checked">
               <label for="weixinMsg"> 微信通知</label>
               <span class="help-block">24小时内未与公众号交互的会员可能会接收不到<strong> 微信通知</strong>。</span>
             </div>
