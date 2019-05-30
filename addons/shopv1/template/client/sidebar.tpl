@@ -182,7 +182,7 @@ var app = new Vue({
             axios.post(url,params)
             .then((res)=>{
                 res = res.data;
-                msgDialog = false;
+                this.msgDialog = false;
                 if(res.state == 0){
                     this.$message.success("留言成功");
                 }
