@@ -167,6 +167,8 @@ var Member = {
             $("#sendMemberList").html(memberStr.join(''));
             $("#memberLength").text(length);
             $("#massSendCard").modal("show");
+        }else{
+            Tips.failTips('未选择用户');
         }
     },
 

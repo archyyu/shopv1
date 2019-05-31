@@ -68,7 +68,7 @@
           timePicker: true,
           timePicker24Hour: true,
           autoUpdateInput: false,
-          startDate: moment(),0
+          startDate: moment(),
           locale: {
             applyLabel: '确定',
             cancelLabel: '取消',
