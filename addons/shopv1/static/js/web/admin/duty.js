@@ -60,6 +60,7 @@ var Duty = {
                 events:{
                     'click .detail-event':function(value,row,index){
                         Duty.queryDutyProducts(index.id);
+                        Duty.showProductList();
                     }
                 },
                 formatter:function(value,row,index){
@@ -114,7 +115,41 @@ var Duty = {
 
 
     },
-    
+
+    showProductList:function(){
+        $("#proListTable").bootstrapTable({
+            height: 360,
+            data:[],
+            // ajax:Duty
+            sidePagination: "server",
+            pageSize: 10,
+            pagination: true,
+            columns:[
+                {
+                    field:'id',
+                    title:'商品分类'
+                },
+                {
+                    field:'shopname',
+                    title:'商品名称'
+                },
+                {
+                    field:'shopname',
+                    title:'单价'
+                },
+                {
+                    field:'shopname',
+                    title:'销量'
+                },
+                {
+                    field:'shopname',
+                    title:'销售额'
+                }
+            ]
+        });
+        $("#productListModal").modal("show");
+    },
+
     info:function(){
         
     }

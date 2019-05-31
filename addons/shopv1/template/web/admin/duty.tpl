@@ -1,5 +1,4 @@
 {include file="../common/header.tpl" logo=true}
-<link rel="stylesheet" href="{$StaticRoot}/plugins/jquery-timepicker/jquery.timepicker.min.css">
 <link rel="stylesheet" href="{$StaticRoot}/css/netbarInfo.css">
 
 <div class="bar-select">
@@ -36,6 +35,26 @@
 
 <script src="{$StaticRoot}/plugins/jquery-timepicker/jquery.timepicker.min.js"></script>
 <script src="{$StaticRoot}/js/common/dateUtil.js"></script>
+<!-- product list modal -->
+ <div id="productListModal" class="modal fade product-list-modal" role="dialog">
+   <div class="modal-dialog" role="document">
+     <input type="hidden" value="0" name="userid" />
+     <div class="modal-content">
+       <div class="modal-header">
+         <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span></button>
+         <h4 class="modal-title" name="title">商品售卖详情</h4>
+       </div>
+       <div class="modal-body">
+         <table id="proListTable" class="table table-bordered">
+         </table>
+       </div>
+       <div class="modal-footer">
+         <button type="button" class="btn btn-primary" data-dismiss="modal">确 认</button>
+       </div>
+     </div><!-- /.modal-content -->
+   </div>
+ </div><!-- /.modal -->
+
 <script src="{$StaticRoot}/js/web/admin/duty.js"></script>
 
 {include file="../common/footer.tpl"}
