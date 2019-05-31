@@ -155,4 +155,30 @@ class MemberController extends \controller\Controller{
         $this->returnSuccess();
     }
     
+    public function sendCards(){
+        $uniacid = $this->getUniacid();
+        $userid = $this->getUserid();
+        $acid = $this->getAcid();
+        $uids = $this->getParam("uids");
+        $cardtypeid = $this->getParam("cardtypeid");
+        $cardname = $this->getParam("cardname");
+        $num = $this->getParam("num");
+
+        $uidArr = explode(',', $uids);
+
+        if (count($uidArr) > 0) {
+            foreach ($uidArr as $key => $uid) {
+                
+                $this->cardService->sendMemberCard($userid,$cardtypeid,$uid,$num);
+
+                $member = $this->shopFansModel->findFanByUid($uid, $uniacid);
+                if ($member) {
+                    $content = "您收到卡券【" . $cardname . "】 * " . $num . "张";
+                    (new WechatService)->sendNotice($member['openid'], $content, $acid);
+                }
+            }
+        }
+
+        $this->returnSuccess();
+    }
 }

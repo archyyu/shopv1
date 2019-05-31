@@ -16,6 +16,8 @@ $(function () {
 var Member = {
 
     groupsMap : {},
+
+    uids : [],
     
     initGroups : function (){
         var groupsList = $('#groupsList').val();
@@ -155,21 +157,58 @@ var Member = {
     },
 
     massSendCard: function(){
+        Member.uids = [];
         var memberList = $("#memberList").bootstrapTable('getSelections');
+
         var length = memberList.length;
-        if(length>0){
+        if(length > 0){
             var memberStr = [];
-            for(var i=0; i<length; i++){
-                memberStr.push("<span>"+memberList[i].nickname+"，</span>")
+            for(var i = 0; i < length; i++){
+                if (i == length - 1) {
+                    memberStr.push("<span>" + memberList[i].nickname + "</span>");
+                } else  {
+                    memberStr.push("<span>" + memberList[i].nickname + "，</span>");
+                }
+                
+                Member.uids.push(memberList[i].uid);
             }
 
-            $("#memberData").val(JSON.stringify(memberList));
             $("#sendMemberList").html(memberStr.join(''));
             $("#memberLength").text(length);
             $("#massSendCard").modal("show");
         }else{
             Tips.failTips('未选择用户');
         }
+    },
+
+    sendCards : function(){
+        var url = UrlUtil.createWebUrl('member',"sendCards");
+        
+        var params = {};
+        params.uids = Member.uids.join(',');
+        params.cardtypeid = $("#masscardid").val();
+        params.num = $("#massnum").val();
+        params.cardname = $("#masscardid option:selected").text();
+        
+        if (params.cardtypeid == 0) {
+            Tips.failTips("请选择卡券");
+            return;
+        };
+
+        if (params.num <= 0) {
+            Tips.failTips("数量不符合规则");
+            return;
+        };
+
+        $.post(url, params, function(data){
+            if(data.state == 0){
+                Tips.successTips("发送成功");
+                $('#massSendCard').modal('hide');
+            }
+            else{
+                Tips.failTips(data.msg);
+            }
+        });
     },
 
     openSendCard : function(uid){

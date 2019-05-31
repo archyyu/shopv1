@@ -109,7 +109,6 @@
         <div class="modal-title">赠送卡券</div>
       </div>
       <div class="modal-body">
-        <input type="hidden" id="memberData">
         <div class="form-horizontal">
           <div class="form-group">
               <label class="col-xs-2 control-label">会员：</label>
@@ -121,7 +120,7 @@
           <div class="form-group">
             <label class="col-xs-2 control-label">卡券：</label>
             <div class="col-xs-10">
-              <select type="text" id="cardid" class="form-control">
+              <select type="text" id="masscardid" class="form-control">
                 <option value="0">请选择</option>
                 {foreach $cardlist as $card}
                   <option value='{$card.id}'>{$card.cardname}</option>
@@ -132,7 +131,7 @@
           <div class="form-group">
             <label class="col-xs-2 control-label">数量：</label>
             <div class="col-xs-10">
-              <input type="text" id="num" class="form-control">
+              <input type="text" id="massnum" class="form-control">
             </div>
           </div>
           <div class="form-group">
@@ -146,8 +145,8 @@
         </div>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-primary" onclick="Member.sendCard();"
-          data-dismiss="modal">确定</button>
+        <button type="button" class="btn btn-primary" data-dismiss="modal">取消</button>
+        <button type="button" class="btn btn-primary" onclick="Member.sendCards();" >确定</button>
       </div>
     </div>
   </div>
