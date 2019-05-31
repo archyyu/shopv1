@@ -35,6 +35,7 @@
 </div>
 
 <script src="{$StaticRoot}/plugins/jquery-timepicker/jquery.timepicker.min.js"></script>
+<script src="{$StaticRoot}/js/common/dateUtil.js"></script>
 <script src="{$StaticRoot}/js/web/admin/duty.js"></script>
 
 {include file="../common/footer.tpl"}

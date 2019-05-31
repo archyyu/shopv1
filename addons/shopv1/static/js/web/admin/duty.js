@@ -34,23 +34,32 @@ var Duty = {
                 field:'username',
                 title:'交班人'
             },{
+                field:'starttime',
+                title:'开始时间',
+                formatter:function(value,row,index){
+                    return DateUtil.parseTimeInYmdHms(value);
+                }
+            },{
+                field:'endtime',
+                title:'结束时间',
+                formatter:function(value,row,index){
+                    return DateUtil.parseTimeInYmdHms(value);
+                }
+            },{
                 field:'productcash',
-                title:'商品现金收入'
+                title:'现金收入'
             },{
                 field:'productwechat',
-                title:'商品微信收入'
+                title:'微信收入'
             },{
                 field:'productalipay',
-                title:'商品支付宝收入'
-            },{
-                field:'cardnum',
-                title:'发券数量'
+                title:'支付宝收入'
             },{
                 field:'deleteflag',
                 title:'商品售卖详情',
                 events:{
                     'click .detail-event':function(value,row,index){
-                        
+                        Duty.queryDutyProducts(index.id);
                     }
                 },
                 formatter:function(value,row,index){
@@ -79,6 +88,31 @@ var Duty = {
             }
         });
         
+    },
+
+    queryDutyProducts:function(dutyid){
+
+        let url = UrlUtil.createShortUrl("loadDutyProductList");
+
+        let params = {};
+        console.log(dutyid);
+        params.dutyid = dutyid;
+
+        $.post(url,params,function(data){
+
+            if(data.state == 0){
+
+                console.log(data.obj);
+                //Tips.successTips(data.obj);
+
+            }
+            else{
+                Tips.failTips(data.msg);
+            }
+
+        });
+
+
     },
     
     info:function(){
