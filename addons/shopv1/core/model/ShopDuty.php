@@ -22,7 +22,7 @@ class ShopDuty extends Model{
     }
 
     public function selectDutyById($dutyId){
-        return $this->getOne("*",['dutyid'=>$dutyId]);
+        return $this->getOne("*",['id'=>$dutyId]);
     }
     
     public function selectShopLastDuty($shopid){

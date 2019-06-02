@@ -68,7 +68,7 @@ class DutyController extends \controller\Controller{
         $starttime = $duty["starttime"];
         $endtime = $duty['endtime'];
 
-
+        logInfo("duty: starttime $starttime endtime:$endtime");
 
         $orderList = $this->orderModel->findShopOrderList($duty["shopid"], $starttime, $endtime);
 

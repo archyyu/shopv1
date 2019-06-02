@@ -59,7 +59,8 @@ var Duty = {
                 title:'商品售卖详情',
                 events:{
                     'click .detail-event':function(value,row,index){
-                        Duty.queryDutyProducts(index.id);
+                        //Duty.queryDutyProducts(index.id);
+                        Duty.dutyid = index.id;
                         Duty.showProductList();
                     }
                 },
@@ -91,20 +92,19 @@ var Duty = {
         
     },
 
-    queryDutyProducts:function(dutyid){
+    queryDutyProducts:function(obj){
 
         let url = UrlUtil.createShortUrl("loadDutyProductList");
 
         let params = {};
-        console.log(dutyid);
-        params.dutyid = dutyid;
+        //console.log(dutyid);
+        params.dutyid = Duty.dutyid;
 
         $.post(url,params,function(data){
 
             if(data.state == 0){
 
-                console.log(data.obj);
-                //Tips.successTips(data.obj);
+                obj.success(data.obj);
 
             }
             else{
@@ -116,38 +116,39 @@ var Duty = {
 
     },
 
-    showProductList:function(){
+    dutyid : 0,
+
+    showProductList:function(list){
         $("#proListTable").bootstrapTable({
             height: 360,
-            data:[],
-            // ajax:Duty
-            sidePagination: "server",
-            pageSize: 10,
-            pagination: true,
+            //data:list,
+            ajax:Duty.queryDutyProducts,
             columns:[
                 {
-                    field:'id',
+                    field:'producttype',
                     title:'商品分类'
                 },
                 {
-                    field:'shopname',
+                    field:'productname',
                     title:'商品名称'
                 },
                 {
-                    field:'shopname',
+                    field:'price',
                     title:'单价'
                 },
                 {
-                    field:'shopname',
+                    field:'num',
                     title:'销量'
                 },
                 {
-                    field:'shopname',
+                    field:'sum',
                     title:'销售额'
                 }
             ]
         });
+        $("#proListTable").bootstrapTable("refresh")
         $("#productListModal").modal("show");
+
     },
 
     info:function(){
