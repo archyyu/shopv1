@@ -33,6 +33,8 @@
   </div>
 </div>
 
+<script src="{$StaticRoot}/plugins/jquery-timepicker/jquery.timepicker.min.js"></script>
+<script src="{$StaticRoot}/js/common/dateUtil.js"></script>
 <!-- product list modal -->
  <div id="productListModal" class="modal fade product-list-modal" role="dialog">
    <div class="modal-dialog" role="document">

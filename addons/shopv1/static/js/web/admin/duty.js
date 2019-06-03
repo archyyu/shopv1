@@ -34,22 +34,33 @@ var Duty = {
                 field:'username',
                 title:'交班人'
             },{
+                field:'starttime',
+                title:'开始时间',
+                formatter:function(value,row,index){
+                    return DateUtil.parseTimeInYmdHms(value);
+                }
+            },{
+                field:'endtime',
+                title:'结束时间',
+                formatter:function(value,row,index){
+                    return DateUtil.parseTimeInYmdHms(value);
+                }
+            },{
                 field:'productcash',
-                title:'商品现金收入'
+                title:'现金收入'
             },{
                 field:'productwechat',
-                title:'商品微信收入'
+                title:'微信收入'
             },{
                 field:'productalipay',
-                title:'商品支付宝收入'
-            },{
-                field:'cardnum',
-                title:'发券数量'
+                title:'支付宝收入'
             },{
                 field:'deleteflag',
                 title:'商品售卖详情',
                 events:{
                     'click .detail-event':function(value,row,index){
+                        //Duty.queryDutyProducts(index.id);
+                        Duty.dutyid = index.id;
                         Duty.showProductList();
                     }
                 },
@@ -81,40 +92,65 @@ var Duty = {
         
     },
 
-    showProductList:function(){
+    queryDutyProducts:function(obj){
+
+        let url = UrlUtil.createShortUrl("loadDutyProductList");
+
+        let params = {};
+        //console.log(dutyid);
+        params.dutyid = Duty.dutyid;
+
+        $.post(url,params,function(data){
+
+            if(data.state == 0){
+
+                obj.success(data.obj);
+
+            }
+            else{
+                Tips.failTips(data.msg);
+            }
+
+        });
+
+
+    },
+
+    dutyid : 0,
+
+    showProductList:function(list){
         $("#proListTable").bootstrapTable({
             height: 360,
-            data:[],
-            // ajax:Duty
-            sidePagination: "server",
-            pageSize: 10,
-            pagination: true,
+            //data:list,
+            ajax:Duty.queryDutyProducts,
             columns:[
                 {
-                    field:'id',
+                    field:'producttype',
                     title:'商品分类'
                 },
                 {
-                    field:'shopname',
+                    field:'productname',
                     title:'商品名称'
                 },
                 {
-                    field:'shopname',
+                    field:'price',
                     title:'单价'
                 },
                 {
-                    field:'shopname',
+                    field:'num',
                     title:'销量'
                 },
                 {
-                    field:'shopname',
+                    field:'sum',
                     title:'销售额'
                 }
             ]
         });
+        $("#proListTable").bootstrapTable("refresh")
         $("#productListModal").modal("show");
+
     },
-    
+
     info:function(){
         
     }

@@ -20,6 +20,10 @@ class ShopDuty extends Model{
     public function saveDuty($data){
         return $this->add($data);
     }
+
+    public function selectDutyById($dutyId){
+        return $this->getOne("*",['id'=>$dutyId]);
+    }
     
     public function selectShopLastDuty($shopid){
         $duty = $this->getOne("*", ['shopid'=>$shopid,'ORDER'=>['id'=>'DESC'],'LIMIT'=>1]);
