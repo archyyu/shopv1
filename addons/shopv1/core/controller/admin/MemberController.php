@@ -55,6 +55,10 @@ class MemberController extends \controller\Controller{
         $this->smarty->display("admin/member/memberList.tpl");
 
     }
+    
+    public function newmember(){
+        $this->smarty->display("admin/member/newmember.tpl");
+    }
 
     public function loadMemberGroups(){
 
