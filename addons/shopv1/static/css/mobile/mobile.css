@@ -790,4 +790,71 @@ html {
   left: -8px;
   border: 1px solid #1b9afb;
 }
+
+.user-charge {
+  height: 100%;
+}
+
+.user-charge .container {
+  padding: 0;
+}
+
+.user-charge .container .cube-form-field,
+.user-charge .container .cube-input-field {
+  text-align: right;
+}
+
+.user-charge .container .table {
+  text-align: center;
+}
+
+.user-charge .container .cube-radio-wrap {
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+
+.user-charge .container .cube-radio-wrap .cube-radio-ui {
+  -webkit-box-ordinal-group: 11;
+      -ms-flex-order: 10;
+          order: 10;
+}
+
+.user-charge .container .pay-item {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.user-charge .container .pay-item .pay-icon {
+  -webkit-box-flex: 0;
+      -ms-flex: none;
+          flex: none;
+  margin-right: 1rem;
+}
+
+.user-charge .container .pay-item .pay-icon.weiPay {
+  color: #2ca339;
+}
+
+.user-charge .container .pay-item .pay-icon.aliPay {
+  color: #019fe8;
+}
+
+.user-charge .container .pay-item .pay-icon .iconfont {
+  font-size: 30px;
+}
+
+.user-charge .container .pay-item .pay-name h4 {
+  font-size: 15px;
+  color: #333333;
+}
+
+.user-charge .container .pay-item .pay-name .subtitle {
+  font-size: 12px;
+  color: #999999;
+}
 /*# sourceMappingURL=mobile.css.map */

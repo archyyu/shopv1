@@ -13,6 +13,9 @@
             <cube-tab-panel label="mine">
                 <mine ref="mine"></mine>
             </cube-tab-panel>
+            <cube-tab-panel label="charge"> 
+                <charge ref="charge"></charge>
+            </cube-tab-panel>
             <cube-tab-panel label="cardList"> 
                 <card-list ref="cardList"></card-list>
             </cube-tab-panel>
@@ -32,6 +35,7 @@
 {include file="./components/userwaterbar.tpl"}
 {include file="./components/userorder.tpl"}
 {include file="./components/usermine.tpl"}
+{include file="./components/usercharge.tpl"}
 {include file="./components/usercardlist.tpl"}
 
 
