@@ -38,6 +38,19 @@
           </select>
         </div>
 
+        <div class="form-group form-group-sm">
+          <label class="control-label">活跃度</label>
+          <select id="liveness" class="form-control">
+            <option value='0'>未选择</option>
+              <option value='新手'>0</option>
+            <option value='忠实'>1</option>
+            <option value='活跃'>2</option>
+            <option value='非活跃'>3</option>
+            <option value='僵尸'>4</option>
+          </select>
+        </div>
+
+
         <!-- <div class="form-group form-group-sm">
           <label class="control-label">会员活跃度</label>
           <input type="text" id="timearea" class="form-control">
