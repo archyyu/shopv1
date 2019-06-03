@@ -107,6 +107,18 @@ class Shopv1ModuleSite extends WeModuleSite{
             logError("err",$ex);
         }
     }
+
+    public function doWebCharge(){
+    	global $_GPC;
+    	try{
+    		$f = $_GPC['f'];
+    		$controller = new \controller\admin\ChargeController();
+    		$controller->$f();
+		}
+		catch (Exception $ex){
+    		logError("Err",$ex);
+		}
+	}
     
     public function doWebCard(){
         global $_GPC;

@@ -7,6 +7,7 @@
  */
 
 namespace controller\admin;
+use model\ShopMemberClass;
 use service\CardService;
 use service\WechatService;
 
@@ -31,6 +32,8 @@ class MemberController extends \controller\Controller{
 
     private $shopGroupsModel;
 
+    private $shopClassModel;
+
     public function __construct() {
         parent::__construct();
         $this->memberModel = new \model\ShopMember();
@@ -38,26 +41,60 @@ class MemberController extends \controller\Controller{
         $this->cardTypeModel = new \model\ShopCardtype();
         $this->shopFansModel = new \model\ShopFans();
         $this->shopGroupsModel = new \model\ShopGroups();
+        $this->shopClassModel = new ShopMemberClass();
         $this->cardService = new CardService();
     }
     
     public function memberlevel(){
         $this->smarty->display("admin/member/memberLevel.tpl");
     }
-    
+
+    public function memberclass(){
+        $this->smarty->display("admin/member/memberClass.tpl");
+    }
+
     public function memberlist(){
         $uniacid = $this->getUniacid();
         $cardlist = $this->cardTypeModel->getCardTypeList($uniacid);
         $groupsList = $this->shopGroupsModel->getGroupsListByUniacid($uniacid);
+        $classs = $this->shopClassModel->selectClassByUniacid($uniacid);
         $this->smarty->assign("cardlist", $cardlist);
         $this->smarty->assign("groupsList", json_encode($groupsList));
         $this->smarty->assign("groups", $groupsList);
+        $this->smarty->assign("classs",$classs);
         $this->smarty->display("admin/member/memberList.tpl");
 
     }
     
     public function newmember(){
         $this->smarty->display("admin/member/newmember.tpl");
+    }
+
+    public function loadMemberClass(){
+        $uniacid = $this->getUniacid();
+        $list = $this->shopClassModel->selectClassByUniacid($uniacid);
+        $this->returnSuccess($list);
+    }
+
+    public function saveMemberClass(){
+
+        $classid = $this->getParam("classid");
+        $uniacid = $this->getUniacid();
+        $title = $this->getParam("title");
+
+        $data = array();
+        $data['classid'] = $classid;
+        $data['uniacid'] = $uniacid;
+        $data['title'] = $title;
+
+        $result = $this->shopClassModel->saveClass($data);
+        if($result){
+            $this->returnSuccess();
+        }
+        else{
+            $this->returnFail("error");
+        }
+
     }
 
     public function loadMemberGroups(){

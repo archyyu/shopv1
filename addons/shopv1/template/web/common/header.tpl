@@ -160,6 +160,7 @@
               {*<li><a href="#">收入汇总</a></li>*}
               <li><a href="index.php?c=site&a=entry&m=shopv1&do=duty&f=index">交班明细</a></li>
               <li><a href="index.php?c=site&a=entry&m=shopv1&do=order&f=index">订单明细</a></li>
+                <li><a href="index.php?c=site&a=entry&m=shopv1&do=charge&f=index">充赠活动</a></li>
             </ul>
           </li>
           <li>
@@ -169,7 +170,8 @@
             </a>
             <ul class="nav nav-second-level">
               <li><a href="index.php?c=site&a=entry&m=shopv1&do=member&f=memberlevel">会员等级</a></li>
-              <li><a href="index.php?c=site&a=entry&m=shopv1&do=member&f=memberlist">会员列表</a></li>
+                <li><a href="index.php?c=site&a=entry&m=shopv1&do=member&f=memberclass">会员分组</a></li>
+                <li><a href="index.php?c=site&a=entry&m=shopv1&do=member&f=memberlist">会员列表</a></li>
               <li><a href="index.php?c=site&a=entry&m=shopv1&do=member&f=newmember">新手奖励</a></li>
             </ul>
           </li>
