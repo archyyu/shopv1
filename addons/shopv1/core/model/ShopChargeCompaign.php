@@ -18,10 +18,10 @@ class ShopChargeCompaign extends Model{
         if(isset($data['id'])){
             $id = $data['id'];
             unset($data['id']);
-            $this->save($data,['id'=>$id]);
+            return $this->save($data,['id'=>$id]);
         }
         else{
-            $this->add($data);
+            return $this->add($data);
         }
 
     }
