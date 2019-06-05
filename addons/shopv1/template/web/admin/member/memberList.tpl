@@ -176,6 +176,46 @@
   </div>
 </div>
 
+<div id="memberModal" class="modal fade member-level-modal" role="dialog">
+  <div class="modal-dialog modal-sm" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title">编辑会员信息</h4>
+      </div>
+      <div class="modal-body">
+        <div class="form-horizontal">
+          <input type="hidden" name="uid" />
+          <fieldset>
+            <legend>基础</legend>
+            <div class="form-group form-group-sm">
+              <label class="col-xs-4 control-label">会员名称</label>
+              <div class="col-xs-6"><input type="text" name="title" class="form-control"></div>
+            </div>
+            <div class="form-group form-group-sm">
+              <label class="col-xs-4 control-label">身份证号</label>
+              <div class="col-xs-6"><input type="number" name="idcard" class="form-control"></div>
+            </div>
+            <div class="form-group form-group-sm">
+              <label class="col-xs-4 control-label">手机号</label>
+              <div class="col-xs-6"><input type="number" name="mobile" class="form-control"></div>
+            </div>
+            <div class="form-group form-group-sm">
+              <label class="col-xs-4 control-label">标签</label>
+              <div class="col-xs-6"><input type="number" name="tags" class="form-control"></div>
+            </div>
+          </fieldset>
+
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+        <button type="button" class="btn btn-primary" onclick="Member.updateMemberInfo()">保存</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
 <script src="{$StaticRoot}/js/web/admin/member/member.js"></script>
 
 {include file="../../common/footer.tpl"}

@@ -64,11 +64,8 @@ var Member = {
                     title: '手机'
                 },
                 {
-                    field: 'email',
-                    title: '邮箱',
-                    formatter: function (value, row, index) {
-                        return value;
-                    }
+                    field: 'idcard',
+                    title: '身份证'
                 },
                 {
                     field: 'credit2',
@@ -79,19 +76,20 @@ var Member = {
                     title: '积分'
                 },
                 {
-                    field: 'createtime',
-                    title: '注册时间',
-                    formatter: function (value, row, index) {
-                        return new Date(parseInt(value) * 1000).toLocaleString().replace(/:\d{1,2}$/,' ');
-                    }
-                },
-                {
-                    field: 'uid',
+                    field: 'credit3',
                     title: '操作',
+                    events:{
+                        'click .edit-member':function(e,value,row,index){
+
+                            console.log('ee');
+                            Member.openMemberModal(row);
+
+                        }
+                    },
                     formatter: function (value, row) {
-                        return [
-                            '<button class="btn btn-xs btn-success" onclick="Member.openSendCard(' + value + ');">发送卡券</button> ',
-                            '<button class="btn btn-xs btn-danger" onclick="Member.deleterow(' + value + ');">删除</button>'
+                        return ['<button class="btn btn-xs btn-primary edit-member">编辑</button>',
+                            '<button class="btn btn-xs btn-success" onclick="Member.openSendCard(' + row.uid + ');">发送卡券</button> ',
+                            '<button class="btn btn-xs btn-danger" onclick="Member.deleterow(' + row.uid + ');">删除</button>'
                         ].join("");
                     }
                 }
@@ -216,6 +214,44 @@ var Member = {
         $("#cardid").val(0);
         $("#num").val("");
         $('#sendCard').modal('show');
+    },
+
+    openMemberModal:function(obj){
+
+        $("#memberModal").modal("show");
+
+        $("#memberModal [name=uid]").val(obj.uid);
+        $("#memberModal [name=mobile]").val(obj.mobile);
+        $("#memberModal [name=idcard]").val(obj.idcard);
+
+
+
+    },
+
+    updateMemberInfo:function(){
+
+        let url = UrlHelper.createShortUrl("updateMemberInfo");
+
+        let params = {};
+        params.uid = $("#memberModal [name=uid]").val();
+        params.idcard = $("#memberModal [name=idcard]").val();
+        params.mobile = $("#memberModal [name=mobile]").val();
+
+        $.post(url,params,function(data){
+            if(data.state == 0){
+
+                $("#memberModal").modal("hide");
+                Tips.successTips("保存成功");
+
+            }
+            else{
+
+                Tips.failTips("保存失败");
+
+            }
+        });
+
+
     }
 
     

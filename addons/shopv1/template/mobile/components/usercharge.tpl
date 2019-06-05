@@ -24,9 +24,9 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>1</td>
-                            <td>2</td>
+                        <tr v-for="item of chargeCompaignList">
+                            <td>{{item.chargefee}}</td>
+                            <td>{{item.awardfee}}</td>
                         </tr>
                     </tbody>
                 </table>
@@ -70,6 +70,8 @@ Vue.component('charge', {
                 awardfee:0,
                 paytype: ''
             },
+            payinfo:{},
+            chargeCompaignList:[],
             fields: [
                 {
                     label: '余额',
@@ -100,32 +102,83 @@ Vue.component('charge', {
                     label: 'weiPay',
                     title: '微信支付',
                     value: 2,
-                },
-                {
-                    icon: 'alipay',
-                    label: 'aliPay',
-                    title: '支付宝支付',
-                    value: 3,
-                },
-                {
-                    icon: 'home',
-                    label: 'cashPay',
-                    title: '现金支付',
-                    value: 1,
                 }
             ]
         }
     },
     methods:{
         open:function(){
+
+            let url = UrlHelper.createShortUrl("getChargeCompaignList");
+            let params = {};
+
+            axios.post(url,params)
+                .then((res)=>{
+                    res = res.data;
+                    if(res.state == 0){
+                        this.chargeCompaignList = res.obj;
+                    }
+                });
+
             this.model.chargefee = '';
             this.model.paytype = '';
         },
+
+        charge:function(){
+
+            let url = UrlHelper.createShortUrl("charge");
+            let params = {};
+
+            axios.post(url,params)
+                .then((res)=>{
+                    res = res.data;
+                    if(res.state == 0){
+
+                        this.payinfo = res.obj;
+
+                        this.callpay();
+
+                    }
+                });
+
+        },
+
+        callpay:function() {
+            if (typeof WeixinJSBridge == "undefined") {
+                if (document.addEventListener) {
+                    document.addEventListener('WeixinJSBridgeReady', this.jsApiCall, false);
+                } else if (document.attachEvent) {
+                    document.attachEvent('WeixinJSBridgeReady', this.jsApiCall);
+                    document.attachEvent('onWeixinJSBridgeReady', this.jsApiCall);
+                }
+            } else {
+                this.jsApiCall();
+            }
+        },
+
+        jsApiCall:function () {
+            WeixinJSBridge.invoke(
+                'getBrandWCPayRequest', {
+                    "appId": this.payinfo.appId,
+                    "timeStamp": this.payinfo.timeStamp,
+                    "nonceStr": this.payinfo.nonceStr,
+                    "package": this.payinfo.package,
+                    "signType": this.payinfo.signType,
+                    "paySign": this.payinfo.paySign
+                },
+                function(res) {
+                    WeixinJSBridge.log(res.err_msg);
+                }
+            );
+        },
+
         back:function(){
             this.$root.toMine();
         },
 
-        info: function(){}
+        info: function(){
+
+        }
         
     }
 });

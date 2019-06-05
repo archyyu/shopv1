@@ -9,6 +9,7 @@
 namespace controller\mobile;
 
 use model\Shop;
+use model\ShopChargeCompaign;
 use service\SmsService;
 use service\WechatService;
 
@@ -46,6 +47,8 @@ class MobileController extends \controller\Controller{
     private $payService;
 
     private $shopNoviceAwardModel;
+
+    private $chargeCompaignModel;
     
     public function __construct() {
         parent::__construct();
@@ -64,6 +67,7 @@ class MobileController extends \controller\Controller{
         $this->orderService = new \service\OrderService();
         $this->payService = new \service\PayService();
         $this->shopNoviceAwardModel = new \model\ShopNoviceAward();
+        $this->chargeCompaignModel = new ShopChargeCompaign();
     }
     
     public function index(){
@@ -218,8 +222,33 @@ class MobileController extends \controller\Controller{
         $this->returnSuccess($list);
         
     }
-    
-    
+
+
+    public function getChargeCompaignList(){
+
+		global $_W;
+		$uniacid = $_W['uniacid'];
+
+		$list = $this->chargeCompaignModel->selectByUniacid($uniacid);
+		$this->returnSuccess($list);
+
+	}
+
+
+	public function charge(){
+		global $_W;
+		$openid = $_W['openid'];
+		$uniacid = $_W['uniacid'];
+		$memberid = $_W['member']['uid'];
+		$chargefee = $this->getParam("chargefee");
+
+
+		$orderid = $this->orderService->generateChargeOrder($memberid,$uniacid,$chargefee);
+		$order = $this->orderModel->findOrderById($orderid);
+		$payinfo = $this->payService->getJsapiPay($order, $openid);
+		$this->returnSuccess($payinfo);
+
+	}
 
     public function sendVerifyCode(){
 

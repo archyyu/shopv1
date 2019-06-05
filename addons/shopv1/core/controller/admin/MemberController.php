@@ -68,6 +68,25 @@ class MemberController extends \controller\Controller{
         $this->smarty->display("admin/member/memberList.tpl");
 
     }
+
+    public function updateMemberInfo(){
+    	$uid = $this->getParam("uid");
+    	$idcard = $this->getParam("idcard");
+    	$mobile = $this->getParam("mobile");
+
+    	$data = array();
+    	$data['idcard'] = $idcard;
+    	$data['mobile'] = $mobile;
+
+    	$result = $this->memberModel->saveMember($data,$uid);
+
+    	if($result == true){
+			$this->returnSuccess();
+		}
+    	else{
+    		$this->returnFail("err");
+		}
+    }
     
     public function newmember(){
         $uniacid = $this->getUniacid();
