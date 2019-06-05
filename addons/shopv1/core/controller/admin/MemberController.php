@@ -34,6 +34,8 @@ class MemberController extends \controller\Controller{
 
     private $shopClassModel;
 
+    private $shopNoviceAwardModel;
+
     public function __construct() {
         parent::__construct();
         $this->memberModel = new \model\ShopMember();
@@ -43,6 +45,7 @@ class MemberController extends \controller\Controller{
         $this->shopGroupsModel = new \model\ShopGroups();
         $this->shopClassModel = new ShopMemberClass();
         $this->cardService = new CardService();
+        $this->shopNoviceAwardModel = new \model\ShopNoviceAward();
     }
     
     public function memberlevel(){
@@ -67,7 +70,37 @@ class MemberController extends \controller\Controller{
     }
     
     public function newmember(){
+        $uniacid = $this->getUniacid();
+        $award = $this->shopNoviceAwardModel->findAwardByUniacid($uniacid);
+        $cardlist = $this->cardTypeModel->getCardTypeList($uniacid);
+        if (!$award) {
+            $data['points'] = 0;
+            $data['cardtypeid'] = 0;
+            $data['uniacid'] = $uniacid;
+            $result = $this->shopNoviceAwardModel->createAward($data);
+            if ($result) {
+                $award = $this->shopNoviceAwardModel->findAwardByUniacid($uniacid);
+            }
+        }
+        $this->smarty->assign("cardlist", $cardlist);
+        $this->smarty->assign("award", $award);
         $this->smarty->display("admin/member/newmember.tpl");
+    }
+
+    public function saveNoviceAward(){
+        $uniacid = $this->getUniacid();
+        $field = $this->getParam("field");
+        $val = $this->getParam("val");
+        $awardid = $this->getParam("awardid");
+
+        $data[$field] = $val;
+
+        $result = $this->shopNoviceAwardModel->updateAward($data, $awardid);
+        if ($result) {
+            return $this->returnSuccess();
+        }
+        return $this->returnFail("保存失败");
+        
     }
 
     public function loadMemberClass(){

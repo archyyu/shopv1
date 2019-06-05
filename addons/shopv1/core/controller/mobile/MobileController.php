@@ -10,6 +10,7 @@ namespace controller\mobile;
 
 use model\Shop;
 use service\SmsService;
+use service\WechatService;
 
 /**
  * Description of CardController
@@ -43,6 +44,8 @@ class MobileController extends \controller\Controller{
     private $orderService;
     
     private $payService;
+
+    private $shopNoviceAwardModel;
     
     public function __construct() {
         parent::__construct();
@@ -60,10 +63,52 @@ class MobileController extends \controller\Controller{
         $this->productService = new \service\ProductService();
         $this->orderService = new \service\OrderService();
         $this->payService = new \service\PayService();
+        $this->shopNoviceAwardModel = new \model\ShopNoviceAward();
     }
     
     public function index(){
         
+        global $_W;
+        
+        $member = $this->shopMemberModel->queryMemberByUid($_W["member"]["uid"]);
+        if ($member && $member['isnew'] == 0) {
+            //发送新手奖励
+            $award = $this->shopNoviceAwardModel->findAwardByUniacid($member['uniacid']);
+            if ($award) {
+
+                $b = false;
+                $content = "您收到先手奖励:";
+
+                //发卡券
+                if ($award['cardtypeid'] > 0) {
+                    $this->cardService->sendMemberCard(0,$award['cardtypeid'],$member['uid'],1);
+                    $data['isnew'] = 1;
+                    $b = true;
+                    $content .= "卡券一张,";
+                }
+
+                //发积分
+                if ($award['points'] > 0) {
+                    
+                    $data['credit1'] = $member['credit1'] + $award['points'];
+                    $data['isnew'] = 1;
+                    $b = true;
+                    $content .= "积分" . $award['points'] . "个";
+                }
+
+                if ($b == true && !empty($data)) {
+                    $this->shopMemberModel->saveMember($data, $member['uid']);
+
+                    $fan = $this->shopFansModel->findFanByUid($member['uid'], $member['uniacid']);
+                    if ($fan) {
+                        
+                        (new WechatService)->sendNotice($fan['openid'], $content, $_W['acid']);
+                    }
+                }
+            }
+        }
+
+
         $this->smarty->setTemplateDir(CASHROOT . 'template/mobile');
         $this->smarty->display('usermain.tpl');
         

@@ -30,7 +30,7 @@
                             </div>
                             <div class="weui-cell__ft">{{memberInfo.credit2}}</div>
                         </div>
-                        <div class="weui-cell">
+                        <div class="weui-cell weui-cell_access" @click="toCharge">
                             <div class="weui-cell__bd">
                                 <p>钱包余额</p>
                             </div>
@@ -121,6 +121,9 @@ Vue.component('mine', {
     methods: {
         open:function(){
             this.queryMemberInfo();
+        },
+        toCharge:function(){
+            this.$root.selectedLabel = 'charge';
         },
         toCard:function(){
             this.$root.selectedLabel = 'cardList';

@@ -100,7 +100,7 @@ class WechatService extends Service{
         //     return;
         // }
         $url = "https://api.weixin.qq.com/cgi-bin/message/custom/send?access_token={$token}";
-        $response = ihttp_request($url, urldecode(json_encode($data)));
+        $response = ihttp_request($url, urldecode(json_encode($data, JSON_UNESCAPED_UNICODE)));
         if(is_error($response)) {
             logInfo("访问公众平台接口失败, 错误: {$response['message']}");
             return;
