@@ -50,7 +50,7 @@
                 </cube-radio>
                 </cube-radio-group>
                 </cube-form-item>
-                <cube-button>充 &nbsp;&nbsp; 值</cube-button>
+                <cube-button @click="charge">充 &nbsp;&nbsp; 值</cube-button>
             </cube-form-group>
         </cube-form>
         </div>
@@ -128,6 +128,8 @@ Vue.component('charge', {
 
             let url = UrlHelper.createShortUrl("charge");
             let params = {};
+            params.chargefee = this.model.chargefee;
+            params.awardfee = this.model.awardfee;
 
             axios.post(url,params)
                 .then((res)=>{

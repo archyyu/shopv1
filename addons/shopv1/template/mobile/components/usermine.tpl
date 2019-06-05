@@ -28,13 +28,13 @@
                             <div class="weui-cell__bd">
                                 <p>积分</p>
                             </div>
-                            <div class="weui-cell__ft">{{memberInfo.credit2}}</div>
+                            <div class="weui-cell__ft">{{memberInfo.credit1}}</div>
                         </div>
                         <div class="weui-cell weui-cell_access" @click="toCharge">
                             <div class="weui-cell__bd">
                                 <p>钱包余额</p>
                             </div>
-                            <div class="weui-cell__ft">{{memberInfo.credit1}}</div>
+                            <div class="weui-cell__ft">{{memberInfo.credit2}}</div>
                         </div>
                         <div class="weui-cell weui-cell_access" @click="toCard">
                             <div class="weui-cell__bd">

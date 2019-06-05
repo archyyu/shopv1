@@ -226,7 +226,11 @@ class OrderService extends Service{
 		$member = $this->memberModel->queryMemberByUid($order['memberid']);
 
 		$record = array();
-		$record['credit2'] = $member['credit2'] + $order['orderprice'];
+		$record['credit2'] = $member['credit2'] + $order['orderprice']/100;
+
+
+
+
 
 		$this->memberModel->saveMember($record,$order['memberid']);
 

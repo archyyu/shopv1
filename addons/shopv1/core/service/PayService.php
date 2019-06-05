@@ -8,6 +8,8 @@
 
 namespace service;
 
+use common\OrderType;
+
 /**
  * Description of PayService
  *
@@ -37,7 +39,11 @@ class PayService extends Service {
     
     public function getOrderBody($order){
         $body = "";
-        
+
+        if($order['ordertype'] == OrderType::ChargeOrder){
+        	return "余额充值";
+		}
+
         $list = json_decode($order['orderdetail'],true);
         
         foreach($list as $key=>$value){
@@ -50,7 +56,6 @@ class PayService extends Service {
     
     public function getPayUrl($order) {
 
-        //TODO
         $wechat = $this->wechatAccount->findWechatAccountByUniacid($order['uniacid']);
 
         logInfo("orderid:" . $order['id'] . " uniacid:" . $order['uniacid'] . " appid:" . $wechat['allinappid'] . "   cusid:" . $wechat['allincusid'] . "   paykey:" . $wechat['paykey']);
