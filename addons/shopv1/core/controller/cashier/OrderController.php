@@ -8,6 +8,8 @@
 
 namespace controller\cashier;
 
+use common\OrderType;
+
 /**
  * Description of OrderController
  *
@@ -178,9 +180,14 @@ class OrderController extends \controller\Controller{
             if($order["orderstate"] >= 0){
                 exit("success");
             }
-            
-            $this->orderService->payOrder($order['shopid'], $orderid);
-            
+
+            if($order['ordertype'] == OrderType::ChargeOrder){
+            	$this->orderService->payChargeOrder($orderid);
+			}
+            else if($order['ordertype'] == OrderType::ProductOrder){
+				$this->orderService->payOrder($order['shopid'], $orderid);
+			}
+
             exit("success");
         }
         else{

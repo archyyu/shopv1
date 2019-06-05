@@ -8,6 +8,7 @@
 
 namespace service;
 
+use model\ShopMember;
 use model\ShopOrder;
 use model\ShopOrderproduct;
 
@@ -39,6 +40,8 @@ class OrderService extends Service{
     private $redisService;
     
     private $cardModel;
+
+    private $memberModel;
     
     
     public function __construct(){
@@ -52,6 +55,7 @@ class OrderService extends Service{
         $this->userModel = new \model\ShopUser();
         $this->redisService = new RedisService();
         $this->cardModel = new \model\ShopMemberCard();
+        $this->memberModel = new ShopMember();
     }
     
     //memberid => uid
@@ -64,7 +68,29 @@ class OrderService extends Service{
     }
     
     
-    
+    public function generateChargeOrder($memberid,$uniacid,$chargefee){
+
+    	$order = array();
+    	$order['id'] = $this->generateOrderId();
+    	$order['shopid'] = 0;
+    	$order['uniacid'] = $uniacid;
+    	$order['createtime'] = time();
+    	$order['ordersource'] = OrderType::FromPhone;
+    	$order['ordertype'] = OrderType::ChargeOrder;
+    	$order['orderstate'] = OrderType::UnPay;
+    	$order['memberid'] = $memberid;
+    	$order['paytype'] = OrderType::WechatPay;
+    	$order['orderprice'] = $chargefee*100;
+
+    	$result = $this->shopOrder->addOrder($order);
+
+    	if($result == false){
+    		return false;
+		}
+    	return $order['id'];
+	}
+
+
     
     public function generateProductOrder($uniacid,$memberid,$userid,$shopid,$address,$productlist,
             $ordersource,$remark,$paytype,$membercardid = 0){
@@ -167,6 +193,8 @@ class OrderService extends Service{
         $orderData['paytime'] = time();
         
         $this->shopOrder->saveOrder($orderData,$orderid);
+
+
         
         $orderProductData = array(); 
         $orderProductData["orderstate"] = OrderType::Payed;
@@ -183,6 +211,27 @@ class OrderService extends Service{
         $this->printOrder($order);
         
     }
+
+    public function payChargeOrder($orderid){
+
+    	$orderData = array();
+    	$orderData['id'] = $orderid;
+    	$orderData['orderstate'] = OrderType::Payed;
+    	$orderData['paytime'] = time();
+
+    	$this->shopOrder->saveOrder($orderData,$orderid);
+
+    	$order = $this->shopOrder->findOrderById($orderid);
+
+		$member = $this->memberModel->queryMemberByUid($order['memberid']);
+
+		$record = array();
+		$record['credit2'] = $member['credit2'] + $order['orderprice'];
+
+		$this->memberModel->saveMember($record,$order['memberid']);
+
+
+	}
     
     public function printOrder($order){
         

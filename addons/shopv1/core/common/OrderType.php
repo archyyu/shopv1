@@ -15,8 +15,9 @@ namespace common;
  */
 class OrderType {
     
-    const ChargeOrder = 1;
+
     const ProductOrder = 1;
+    const ChargeOrder = 2;
     
     const CashPay = 1;
     const WechatPay = 2;
