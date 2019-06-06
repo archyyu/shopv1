@@ -30,7 +30,7 @@
         </div>
         <div class="form-group form-group-sm">
           <label class="control-label">会员分组</label>
-          <select id="groupid" class="form-control">
+          <select id="classid" class="form-control">
             <option value='0'>未选择</option>
             {foreach $classs as $class}
               <option value='{$class.classid}'>{$class.title}</option>
@@ -42,11 +42,11 @@
           <label class="control-label">活跃度</label>
           <select id="liveness" class="form-control">
             <option value='0'>未选择</option>
-              <option value='新手'>0</option>
-            <option value='忠实'>1</option>
-            <option value='活跃'>2</option>
-            <option value='非活跃'>3</option>
-            <option value='僵尸'>4</option>
+              <option value='0'>新手</option>
+            <option value='1'>忠实</option>
+            <option value='2'>活跃</option>
+            <option value='3'>非活跃</option>
+            <option value='4'>僵尸</option>
           </select>
         </div>
 
@@ -201,11 +201,30 @@
               <div class="col-xs-6"><input type="number" name="mobile" class="form-control"></div>
             </div>
             <div class="form-group form-group-sm">
+              <label class="col-xs-4 control-label">会员等级</label>
+              <div class="col-xs-6">
+                <select id="membergroupid" class="form-control">
+                  {foreach $groups as $group}
+                    <option value='{$group.groupid}'>{$group.title}</option>
+                  {/foreach}
+                </select>
+              </div>
+            </div>
+            <div class="form-group form-group-sm">
+              <label class="col-xs-4 control-label">会员分组</label>
+              <div class="col-xs-6">
+                <select id="memberclassid" class="form-control">
+                  {foreach $classs as $class}
+                    <option value='{$class.classid}'>{$class.title}</option>
+                  {/foreach}
+                </select>
+              </div>
+            </div>
+            <div class="form-group form-group-sm">
               <label class="col-xs-4 control-label">标签</label>
               <div class="col-xs-6"><input type="number" name="tags" class="form-control"></div>
             </div>
           </fieldset>
-
         </div>
       </div>
       <div class="modal-footer">

@@ -223,7 +223,9 @@ var Member = {
         $("#memberModal [name=uid]").val(obj.uid);
         $("#memberModal [name=mobile]").val(obj.mobile);
         $("#memberModal [name=idcard]").val(obj.idcard);
-
+        $("#memberclassid").val(obj.classid);
+        $("#membergroupid").val(obj.groupid);
+        $("#memberModal [name=tag]").val(obj.tags);
 
 
     },
@@ -235,7 +237,10 @@ var Member = {
         let params = {};
         params.uid = $("#memberModal [name=uid]").val();
         params.idcard = $("#memberModal [name=idcard]").val();
+        params.groupid = $("#membergroupid").val();
+        params.classid = $("#memberclassid").val();
         params.mobile = $("#memberModal [name=mobile]").val();
+        params.tags = $("#memberModal [name=tags]").val();
 
         $.post(url,params,function(data){
             if(data.state == 0){

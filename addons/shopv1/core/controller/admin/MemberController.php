@@ -73,10 +73,16 @@ class MemberController extends \controller\Controller{
     	$uid = $this->getParam("uid");
     	$idcard = $this->getParam("idcard");
     	$mobile = $this->getParam("mobile");
+    	$groupid = $this->getParam("groupid");
+    	$classid = $this->getParam("classid");
+    	$tags = $this->getParam("tags");
 
     	$data = array();
     	$data['idcard'] = $idcard;
     	$data['mobile'] = $mobile;
+    	$data['classid'] = $classid;
+    	$data['groupid'] = $groupid;
+    	$data['tags'] = $tags;
 
     	$result = $this->memberModel->saveMember($data,$uid);
 
