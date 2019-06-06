@@ -10,10 +10,9 @@
         <div class="container">
         <cube-form :model="model" class="cube-form_groups">
             <cube-form-group legend="充值">
-                <cube-form-item :field="fields[0]"></cube-form-item>
                 <cube-form-item :field="fields[1]"></cube-form-item>
                 <cube-form-item :field="fields[2]"></cube-form-item>
-                <cube-form-item :field="fields[3]">{{(this.model.chargefee*1 + this.model.awardfee)}}</cube-form-item>
+                <cube-form-item :field="fields[3]">{{(this.model.chargefee*1 + this.model.awardfee*1)}}</cube-form-item>
             </cube-form-group>
             <cube-form-group legend="充赠">
                 <table class="table">
@@ -106,6 +105,26 @@ Vue.component('charge', {
             ]
         }
     },
+    watch:{
+
+        'model.chargefee':{
+            handler:function(val,oldval){
+
+
+                this.model.awardfee = 0;
+                for(let item of this.chargeCompaignList){
+
+                    if(val*1 >= item.chargefee*1){
+                        this.model.awardfee = item.awardfee;
+                        return;
+                    }
+                }
+
+            },
+            deep:true
+        }
+
+    },
     methods:{
         open:function(){
 
@@ -117,11 +136,28 @@ Vue.component('charge', {
                     res = res.data;
                     if(res.state == 0){
                         this.chargeCompaignList = res.obj;
+
+                        this.chargeCompaignList.sort(function(a,b){
+                            if(a.chargefee < b.chargefee){
+                                return 1;
+                            }
+                            else if(a.chargefee > b.chargefee){
+                                return -1;
+                            }
+                            return 0;
+                        });
+
                     }
                 });
 
             this.model.chargefee = '';
-            this.model.paytype = '';
+            this.model.paytype = 2;
+        },
+
+        getAwardFee:function(){
+
+
+
         },
 
         charge:function(){
