@@ -8,6 +8,7 @@
 
 namespace service;
 
+use model\ShopChargeCompaign;
 use model\ShopMember;
 use model\ShopOrder;
 use model\ShopOrderproduct;
@@ -42,6 +43,8 @@ class OrderService extends Service{
     private $cardModel;
 
     private $memberModel;
+
+    private $chargeCompaignModel;
     
     
     public function __construct(){
@@ -56,6 +59,7 @@ class OrderService extends Service{
         $this->redisService = new RedisService();
         $this->cardModel = new \model\ShopMemberCard();
         $this->memberModel = new ShopMember();
+        $this->chargeCompaignModel = new ShopChargeCompaign();
     }
     
     //memberid => uid
@@ -225,10 +229,36 @@ class OrderService extends Service{
 
 		$member = $this->memberModel->queryMemberByUid($order['memberid']);
 
+
+
 		$record = array();
 		$record['credit2'] = $member['credit2'] + $order['orderprice']/100;
 
 
+		$list = $this->chargeCompaignModel->selectByUniacid($order['uniacid']);
+
+		try{
+
+			usort($list,function ($x,$y){
+				return bccomp($x['chargefee'],$y['chargefee']);
+			});
+
+			$chargefee = $order['orderprice']/100;
+			$awardfee = 0;
+			foreach($list as $key=>$value){
+
+				if($chargefee >= $value['chargefee']){
+					$awardfee = $value['awardfee'];
+					break;
+				}
+
+			}
+			$record['credit2'] += $awardfee;
+
+		}
+		catch(\Exception $ex){
+			logError("charge err",$ex);
+		}
 
 
 
