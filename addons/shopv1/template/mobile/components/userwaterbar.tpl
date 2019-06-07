@@ -92,7 +92,7 @@
                 </cube-form>
                 </template>
                 <template v-slot:footer>
-                    <cube-button :inline="true" @click="showPassword()">确认下单</cube-button>
+                    <cube-button :inline="true" @click="createOrder()">确认下单</cube-button>
                 </template>
             </bottom-popup>
 
@@ -494,7 +494,8 @@ Vue.component('waterbar', {
         },
 
         createOrder:function(){
-            
+            // 显示密码弹窗
+            // this.showPassword()
             if(this.cartlist.length <= 0){
                 Toast.error("购物车为空");
                 return;
