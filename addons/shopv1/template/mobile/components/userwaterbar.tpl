@@ -88,6 +88,7 @@
                     <cube-form :model="payModel">
                     <cube-form-item :field="payFields[0]"></cube-form-item>
                     <cube-form-item :field="payFields[1]"></cube-form-item>
+                    <cube-form-item :field="payFields[2]"></cube-form-item>
                 </cube-form>
                 </template>
                 <template v-slot:footer>
@@ -162,7 +163,8 @@ Vue.component('waterbar', {
             ],
             payModel: {
                 seat: '',
-                card: ''
+                card: '',
+                payWays: '',
             },
             payFields: [
                 {
@@ -176,6 +178,24 @@ Vue.component('waterbar', {
                     label: '卡券',
                     props: {
                         options: this.cardList,
+                        title: '请选择卡券'
+                    }
+                },
+                {
+                    type: 'select',
+                    modelKey: 'payWays',
+                    label: '支付方式',
+                    props: {
+                        options: [
+                            {
+                                text: '微信支付',
+                                value: 0   
+                            },
+                            {
+                                text: '钱包支付',
+                                value: 1
+                            }
+                        ],
                         title: '请选择卡券'
                     }
                 }
