@@ -92,7 +92,7 @@
                 </cube-form>
                 </template>
                 <template v-slot:footer>
-                    <cube-button :inline="true" @click="createOrder()">确认下单</cube-button>
+                    <cube-button :inline="true" @click="showPassword()">确认下单</cube-button>
                 </template>
             </bottom-popup>
 
@@ -538,6 +538,20 @@ Vue.component('waterbar', {
                         }
                     });
             
+        },
+
+        showPassword: function () {
+            this.passowrdPopup = this.$createDialog({
+                type: 'prompt',
+                title: '请输入密码',
+                prompt: {
+                    value: '',
+                    placeholder: '请输入密码'
+                },
+                onConfirm: function(e, value) {
+                    console.log(value);
+                }
+            }).show();
         },
          
         callpay:function() {

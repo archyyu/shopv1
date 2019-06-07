@@ -7,6 +7,9 @@
             <cube-tab-panel label="waterbar">
                 <waterbar ref="waterbar"></waterbar>
             </cube-tab-panel>
+            <cube-tab-panel label="confirmOrder">
+                <confirm-order ref="confirmOrder"></confirm-order>
+            </cube-tab-panel>
             <cube-tab-panel label="order">
                 <order ref="order"></order>
             </cube-tab-panel>
@@ -33,6 +36,7 @@
 {include file="./common/iconfont.tpl"}
 {include file="./common/bottompopup.tpl"}
 {include file="./components/userwaterbar.tpl"}
+{include file="./components/userconfirm.tpl"}
 {include file="./components/userorder.tpl"}
 {include file="./components/usermine.tpl"}
 {include file="./components/usercharge.tpl"}
