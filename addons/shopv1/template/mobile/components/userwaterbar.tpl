@@ -61,9 +61,9 @@
                                     <div class="pro-title">{{item.productname}}</div>
                                     <div class="pro-price">￥{{(item.price*item.num).toFixed(2)}}</div>
                                     <div class="pro-num">
-                                        <cube-button  :inline="true" :outline="true" @click="cartdeduct(item.productid)">-</cube-button>
+                                        <cube-button  :inline="true" :outline="true" @click="cartDeduct(item.productid)">-</cube-button>
                                         <span>{{item.num}}</span>
-                                        <cube-button  :inline="true" :outline="true" @click="cartadd(item.productid)">+</cube-button>
+                                        <cube-button  :inline="true" :outline="true" @click="cartAdd(item.productid)">+</cube-button>
                                     </div>
                                 </li>
                             </ul>
@@ -92,7 +92,7 @@
                 </cube-form>
                 </template>
                 <template v-slot:footer>
-                    <cube-button :inline="true" @click="createOrder()">确认下单</cube-button>
+                    <cube-button :inline="true" @click="createOrderEx()">确认下单</cube-button>
                 </template>
             </bottom-popup>
 
@@ -102,7 +102,6 @@
                     <p>套餐详情：</p>
                     <ul>
                         <li v-for="item of selectProduct.productlink">{{item.materialname}}<span> ({{item.num}} 份)</span></li>
-                        
                     </ul>
                 </template>
                 <template v-slot:footer>
@@ -127,13 +126,14 @@ Vue.component('waterbar', {
             defaulttypeid: 0,
             navList: [],
             productlist:[],
-            selectProduct:{},
+            selectProduct:{ },
             cartlist:[],
             orderState:-1,
             cardList: [],
             orderpaytype:"微信",
-            payinfo:{},
+            payinfo:{ },
             remark:"",
+
             pullOptions: {
                 pullDownRefresh: {
                     threshold: 60,
@@ -164,7 +164,7 @@ Vue.component('waterbar', {
             payModel: {
                 seat: '',
                 card: '',
-                payWays: '',
+                payWays: 2,
             },
             payFields: [
                 {
@@ -189,11 +189,11 @@ Vue.component('waterbar', {
                         options: [
                             {
                                 text: '微信支付',
-                                value: 0   
+                                value: 1
                             },
                             {
                                 text: '钱包支付',
-                                value: 1
+                                value: 5
                             }
                         ],
                         title: '请选择卡券'
@@ -238,7 +238,7 @@ Vue.component('waterbar', {
     methods: {
 
         queryShopList:function(){
-            let params = {};
+            let params = { };
 
             axios.post(UrlHelper.createShortUrl("loadShopList"),params)
                 .then((res)=>{
@@ -263,7 +263,7 @@ Vue.component('waterbar', {
 
         queryMemberCardList:function(){
 
-            let params = {};
+            let params = { };
 
             axios.post(UrlHelper.createShortUrl("getCardList"),params)
                 .then((res)=>{
@@ -355,7 +355,7 @@ Vue.component('waterbar', {
                 }
             }
 
-            var cart = {};
+            var cart = { };
             cart.productid = p.id;
             cart.num = 1;
             cart.price = p.normalprice / 100;
@@ -429,7 +429,7 @@ Vue.component('waterbar', {
         },
         
         queryProductList: function (type) {
-            let params = {};
+            let params = { };
             params.type = type;
             if(type){
                 this.activeNav = type;
@@ -493,22 +493,39 @@ Vue.component('waterbar', {
 
         },
 
-        createOrder:function(){
+        createOrderEx:function(){
+
+            if(this.payModel.payWays == 1){
+                this.createOrder();
+            }
+            else if(this.payModel.payWays == 5){
+                this.showPassword();
+            }
+
+        },
+
+        createOrder:function(password = ''){
             // 显示密码弹窗
             // this.showPassword()
             if(this.cartlist.length <= 0){
                 Toast.error("购物车为空");
                 return;
             }
+
+
                 
             var url = UrlHelper.createShortUrl("createOrder");
             // var params = Store.createParams();
-            let params = {};
+            let params = { };
 
             params.shopid = this.selectShop;
             params.address = this.payModel.seat;
             params.remark = this.remark;
             params.membercardid = this.payModel.card;
+
+            params.password = password;
+            params.paytype = this.payModel.payWays;
+
             //this.userMemberCard(this.payModel.card);
             //this.payModel.card = null;
 
@@ -520,18 +537,25 @@ Vue.component('waterbar', {
                         console.log(res);
                         if(res.state == 0){
                             console.log("create order ok");
-                            //Toast.success("下单成功");
+                            //
 
                             this.userMemberCard(this.payModel.card);
                             this.payModel.card = null;
 
                             this.payinfo = res.obj;
                             this.hidePayMethod();
-                            this.callpay();
+
                             
                             this.cartlist = [];
 
                             this.payModel.card = null;
+
+                            if(this.payModel.payWays == 1) {
+                                this.callpay();
+                            }
+                            else{
+                                Toast.success("下单成功");
+                            }
 
                         }
                         else{
@@ -547,11 +571,13 @@ Vue.component('waterbar', {
                 title: '请输入密码',
                 prompt: {
                     value: '',
+                    password:true,
                     placeholder: '请输入密码'
                 },
-                onConfirm: function(e, value) {
-                    console.log(value);
+                onConfirm: (e, value)=>{
+                    this.createOrder(value);
                 }
+
             }).show();
         },
          

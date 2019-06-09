@@ -34,6 +34,9 @@ var Store={
         else if(type == 2){
             return "支付宝";
         }
+        else if(type == 5){
+            return "余额支付";
+        }
     },
     
     ordersourceStr:function(source){

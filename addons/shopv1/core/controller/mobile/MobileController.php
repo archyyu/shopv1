@@ -171,19 +171,54 @@ class MobileController extends \controller\Controller{
 		$ordersource = 1;
 		$remark = $this->getParam("remark");
 		$membercardid = $this->getParamDefault("membercardid",0);
-		$paytype = 1;
+
+		$paytype = $this->getParam("paytype",2);
+		$password = $this->getParam("password");
 
 
-		$orderid = $this->orderService->generateProductOrder($uniacid,$memberid,0,$shopid,$address,$productlist,$ordersource,$remark,$paytype,$membercardid);
-		$order = $this->orderModel->findOrderById($orderid);
-		$payinfo = $this->payService->getJsapiPay($order,$openid);
-		$this->returnSuccess($payinfo);
 
-	}
+		if($paytype == 5){
 
-	public function payOrder(){
 
-    	//TODO
+			$member = $this->shopMemberModel->queryMemberByUid($memberid);
+
+			$orderid = $this->orderService->generateProductOrder($uniacid,$memberid,0,$shopid,$address,$productlist,$ordersource,$remark,$paytype,$membercardid);
+
+			$order = $this->orderModel->findOrderById($orderid);
+
+			if(md5($password) != $member['pay_password']){
+				logInfo("pass:$password  paypassword:".$member['pay_password']);
+				$this->returnFail("密码错误");
+				return ;
+			}
+
+			if($order['orderprice']/100 > $member['credit2']){
+				$this->returnFail("余额不足");
+				return;
+			}
+
+			$this->orderService->payOrder($shopid,$orderid);
+
+			$member['credit2'] = $member['credit2'] - $order['orderprice']/100;
+
+			$result = $this->shopMemberModel->saveMember($member,$memberid);
+
+			if($result){
+				$this->returnSuccess();
+			}
+			else{
+				$this->returnFail("err");
+			}
+
+		}
+		else{
+			$orderid = $this->orderService->generateProductOrder($uniacid,$memberid,0,$shopid,$address,$productlist,$ordersource,$remark,$paytype,$membercardid);
+			$order = $this->orderModel->findOrderById($orderid);
+			$payinfo = $this->payService->getJsapiPay($order,$openid);
+			$this->returnSuccess($payinfo);
+		}
+
+
 
 	}
     
@@ -288,6 +323,7 @@ class MobileController extends \controller\Controller{
         $phone = $this->getParam("phone");
         $code = $this->getParam("code");
         $idcard = $this->getParam("idcard");
+        $pay_password = $this->getParam("pay_password");
         
         $memberid = $this->getUid();
         
@@ -299,6 +335,7 @@ class MobileController extends \controller\Controller{
         $data = array();
         $data["mobile"] = $phone;
         $data["idcard"] = $idcard;
+        $data['pay_password'] = md5($pay_password);
         
         $this->shopMemberModel->saveMember($data, $memberid);
         

@@ -19,10 +19,11 @@ class OrderType {
     const ProductOrder = 1;
     const ChargeOrder = 2;
     
-    const CashPay = 1;
-    const WechatPay = 2;
-    const AliPay = 3;
-    const CardPay = 4;
+    const CashPay = 0;
+    const WechatPay = 1;
+    const AliPay = 2;
+    const CardPay = 3;
+    const AccountPay = 5;
     
     const UnPay = -1;
     const Payed = 0;

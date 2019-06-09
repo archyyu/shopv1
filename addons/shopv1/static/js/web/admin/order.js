@@ -54,7 +54,12 @@ var Order = {
                     else if(value == 1){
                         return "微信支付";
                     }
-                    return "支付宝支付";
+                    else if(value == 2) {
+                        return "支付宝支付";
+                    }
+                    else if(value == 5){
+                        return "余额支付";
+                    }
                 }
             },{
                 field:'userget',

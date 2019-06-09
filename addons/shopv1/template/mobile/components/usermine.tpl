@@ -59,12 +59,14 @@
                             @submit="">
                             <cube-form-item :field="fields[0]"></cube-form-item>
                             <cube-form-item :field="fields[1]"></cube-form-item>
+
                             <cube-form-item :field="fields[2]">
                                 <div class="captcha-input">
                                     <cube-input v-model="memberModel.verification"></cube-input>
                                     <cube-button @click="getCode">获取验证码</cube-button>
                                 </div>
                             </cube-form-item>
+                            <cube-form-item :field="fields[3]"></cube-form-item>
                         </cube-form>
                         <cube-button class="add-btn" @click="updateMemberInfo">保存</cube-button>
                     </div>
@@ -84,7 +86,8 @@ Vue.component('mine', {
             memberModel: {
                 idCard: '',
                 phone: '',
-                verification: ''
+                verification: '',
+                password:''
             },
             memberInfo:{},
             fields: [
@@ -110,6 +113,14 @@ Vue.component('mine', {
                     label: '验证码',
                     props:{
                         placeholder: '请填写验证码'
+                    }
+                },
+                {
+                    type:'input',
+                    modelKey:'password',
+                    label:'余额支付密码',
+                    prop:{
+                        placeholder:'请填写余额支付密码'
                     }
                 }
             ]
@@ -176,6 +187,7 @@ Vue.component('mine', {
             params.phone = this.memberModel.phone;
             params.idcard = this.memberModel.idCard;
             params.code = this.memberModel.verification;
+            params.pay_password = this.memberModel.password;
             
             axios.post(url,params).then((res)=>{
                 res = res.data;
