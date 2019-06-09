@@ -13,7 +13,7 @@
                     <div class="mine-name">
                         <p class="name">姓名:{{memberInfo.nickname}}</p>
                         <p class="cellphone">手机号:{{memberInfo.mobile}}</p>
-                        <cube-button v-if="memberInfo.mobile == ''" :inline="true" @click="$refs.addPopup.show();">编辑信息</cube-button>
+                        <cube-button v-if="memberInfo.mobile == ''" :inline="true" @click="$refs.addPopup.showPopup();">编辑信息</cube-button>
                     </div>
                 </div>
                 <div class="mine-info">
@@ -44,9 +44,32 @@
                         </div>
                     </div>
                 </div>
-            </cube-scroll>  
+            </cube-scroll>
+
+            <bottom-popup label="editMember" title="编辑会员" height="auto" ref="addPopup">
+                <template v-slot:content>
+                    <cube-form
+                            :model="memberModel"
+                            ref="addForm"
+                            @submit="">
+                            <cube-form-item :field="fields[0]"></cube-form-item>
+                            <cube-form-item :field="fields[1]"></cube-form-item>
+
+                            <cube-form-item :field="fields[2]">
+                                <div class="captcha-input">
+                                    <cube-input v-model="memberModel.verification"></cube-input>
+                                    <cube-button :primary="true" :inline="true" @click="getCode">获取验证码</cube-button>
+                                </div>
+                            </cube-form-item>
+                            <cube-form-item :field="fields[3]"></cube-form-item>
+                        </cube-form>
+                </template>
+                <template v-slot:footer>
+                    <cube-button class="add-btn" @click="updateMemberInfo">保存</cube-button>
+                </template>
+            </bottom-popup>  
             
-            <cube-popup type="add-popup" position="bottom" :mask-closable="true" ref="addPopup">
+            <!-- <cube-popup type="add-popup" position="bottom" :mask-closable="true" height="initial" ref="addPopup">
                 <div class="my-popup-wrap">
                     <div class="my-popup-header">
                         <h5>编辑会员</h5>
@@ -63,7 +86,7 @@
                             <cube-form-item :field="fields[2]">
                                 <div class="captcha-input">
                                     <cube-input v-model="memberModel.verification"></cube-input>
-                                    <cube-button @click="getCode">获取验证码</cube-button>
+                                    <cube-button :primary="true" :inline="true" @click="getCode">获取验证码</cube-button>
                                 </div>
                             </cube-form-item>
                             <cube-form-item :field="fields[3]"></cube-form-item>
@@ -71,7 +94,7 @@
                         <cube-button class="add-btn" @click="updateMemberInfo">保存</cube-button>
                     </div>
                 </div>
-            </cube-popup>
+            </cube-popup> -->
         </div>
     </div>
 
@@ -119,7 +142,7 @@ Vue.component('mine', {
                     type:'input',
                     modelKey:'password',
                     label:'余额支付密码',
-                    prop:{
+                    props:{
                         placeholder:'请填写余额支付密码',
                         type: 'password'
                     }
@@ -152,7 +175,7 @@ Vue.component('mine', {
                         this.memberInfo = res.obj;
                         
                         if(this.memberInfo.mobile == ""){
-                            this.$refs.addPopup.show();
+                            this.$refs.addPopup.showPopup();
                         }
                         
                     }
@@ -195,6 +218,7 @@ Vue.component('mine', {
                 if(res.state == 0){
                     Toast.success("保存成功");
                     this.memberInfo = res.obj;
+                    this.$refs.addPopup.closePopup();
                 }
                 else{
                     Toast.error(res.msg);
