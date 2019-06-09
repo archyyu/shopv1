@@ -237,6 +237,8 @@ Vue.component('waterbar', {
     },
     methods: {
 
+        open: function(){},
+
         queryShopList:function(){
             let params = { };
 
@@ -505,8 +507,6 @@ Vue.component('waterbar', {
         },
 
         createOrder:function(password = ''){
-            // 显示密码弹窗
-            // this.showPassword()
             if(this.cartlist.length <= 0){
                 Toast.error("购物车为空");
                 return;
@@ -571,7 +571,7 @@ Vue.component('waterbar', {
                 title: '请输入密码',
                 prompt: {
                     value: '',
-                    password:true,
+                    type: 'password',
                     placeholder: '请输入密码'
                 },
                 onConfirm: (e, value)=>{

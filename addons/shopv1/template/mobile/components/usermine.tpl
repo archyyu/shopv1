@@ -120,7 +120,8 @@ Vue.component('mine', {
                     modelKey:'password',
                     label:'余额支付密码',
                     prop:{
-                        placeholder:'请填写余额支付密码'
+                        placeholder:'请填写余额支付密码',
+                        type: 'password'
                     }
                 }
             ]
