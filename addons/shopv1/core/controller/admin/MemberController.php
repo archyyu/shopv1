@@ -201,6 +201,8 @@ class MemberController extends \controller\Controller{
         $nickname = $this->getParam("nickname");
         $moblie = $this->getParam("moblie");
         $groupid = $this->getParam("groupid");
+        $classid = $this->getParam("classid");
+        $liveness = $this->getParam("liveness");
 
         $where = array();
         $where['uniacid'] = $uniacid;
@@ -220,6 +222,15 @@ class MemberController extends \controller\Controller{
         if ($groupid) {
             $where['groupid'] = $groupid;
         }
+
+		if($classid != 0){
+			$where['classid'] = $classid;
+		}
+
+		if($liveness != -1){
+			$where['liveness'] = $liveness;
+		}
+
         // $where["shopid"] = $shopid;
         
         $list = $this->memberModel->page($offset, $limit, "*", $where, "createtime");

@@ -247,7 +247,7 @@ Vue.component('waterbar', {
 
                         let list = res.obj;
                         for(let shop of list){
-                            let item  = {};
+                            let item  = { };
                             item.value = shop.id;
                             item.text = shop.shopname;
 
@@ -272,7 +272,7 @@ Vue.component('waterbar', {
                         //this.cardList = res.obj;
 
                         for(let card of res.obj){
-                            //let item = {};
+                            //let item = { };
                             //item.value = card.id;
                             //item.text = card.cardname;
                             card.value = card.id;
@@ -299,7 +299,7 @@ Vue.component('waterbar', {
         },
         
         queryTypeList: function () {
-            let params = {};
+            let params = { };
             //params.shopid = typeid;
             axios.post(UrlHelper.createShortUrl('loadProductTypeList'), params)
                 .then((res) => {

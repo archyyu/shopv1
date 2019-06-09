@@ -41,7 +41,7 @@
         <div class="form-group form-group-sm">
           <label class="control-label">活跃度</label>
           <select id="liveness" class="form-control">
-            <option value='0'>未选择</option>
+            <option value='-1'>未选择</option>
               <option value='0'>新手</option>
             <option value='1'>忠实</option>
             <option value='2'>活跃</option>

@@ -111,6 +111,9 @@ var Member = {
         params.nickname = $("#nickname").val();
         params.moblie = $("#moblie").val();
         params.groupid = $("#groupid").val();
+        params.classid = $("#classid").val();
+        params.liveness = $("#liveness").val();
+
         //params.orderstate = $('input:radio[name="orderstate"]:checked').val();
         
         $.post(url, params, function(data){
@@ -187,6 +190,7 @@ var Member = {
         params.cardtypeid = $("#masscardid").val();
         params.num = $("#massnum").val();
         params.cardname = $("#masscardid option:selected").text();
+
         
         if (params.cardtypeid == 0) {
             Tips.failTips("请选择卡券");
