@@ -86,7 +86,8 @@
 </script>
 
 <script>
-const dateSegmentData = [{
+const dateSegmentData = [
+    {
         is: 'cube-date-picker',
         title: '开始时间',
         min: new Date(2010, 0, 1),

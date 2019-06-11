@@ -86,10 +86,12 @@
             <bottom-popup label="payMethod" title="支付选项" height="auto" cubeclass="pay-popup" ref="payPopup">
                 <template v-slot:content>
                     <cube-form :model="payModel">
-                    <cube-form-item :field="payFields[0]"></cube-form-item>
-                    <cube-form-item :field="payFields[1]"></cube-form-item>
-                    <cube-form-item :field="payFields[2]"></cube-form-item>
-                </cube-form>
+                        <cube-form-item :field="payFields[0]">
+                            <cube-input v-model="payModel.seat" @blur="resize"></cube-input>
+                        </cube-form-item>
+                        <cube-form-item :field="payFields[1]"></cube-form-item>
+                        <cube-form-item :field="payFields[2]"></cube-form-item>
+                    </cube-form>
                 </template>
                 <template v-slot:footer>
                     <cube-button :inline="true" @click="createOrderEx()">确认下单</cube-button>
@@ -237,7 +239,12 @@ Vue.component('waterbar', {
     },
     methods: {
 
-        open: function(){},
+        open: function(){
+        },
+
+        resize: function(){
+            this.$root.resizePage();
+        },
 
         queryShopList:function(){
             let params = { };

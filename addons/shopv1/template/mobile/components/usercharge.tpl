@@ -10,7 +10,9 @@
         <div class="container">
         <cube-form :model="model" class="cube-form_groups">
             <cube-form-group legend="充值">
-                <cube-form-item :field="fields[1]"></cube-form-item>
+                <cube-form-item :field="fields[1]">
+                    <cube-input v-model="model.chargefee" @blur="resize"></cube-input>
+                </cube-form-item>
                 <cube-form-item :field="fields[2]"></cube-form-item>
                 <cube-form-item :field="fields[3]">{{(this.model.chargefee*1 + this.model.awardfee*1)}}</cube-form-item>
             </cube-form-group>
@@ -152,6 +154,10 @@ Vue.component('charge', {
 
             this.model.chargefee = '';
             this.model.paytype = 2;
+        },
+
+        resize: function(){
+            this.$root.resizePage();
         },
 
         getAwardFee:function(){
