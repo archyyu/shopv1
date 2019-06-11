@@ -120,6 +120,7 @@
         </div>
         <span slot="footer" class="dialog-footer">
 
+            <el-button class="btn weipay" @click="showPassword"><span class="iconfont">&#xe66d;</span>余额支付</el-button>
             <el-button class="btn weipay" @click="createOrder(1)"><span class="iconfont">&#xe66d;</span>微信支付</el-button>
             <el-button class="btn alipay" @click="createOrder(2)"><span class="iconfont">&#xe938;</span>支付宝支付</el-button>
 
@@ -305,6 +306,16 @@ var app = new Vue({
                         });
             
         },
+
+        showPassword: function(){
+        this.$prompt('请输入密码', '确认密码', {
+        }).then(({ value }) => {
+        //   确认按钮代码
+        
+        }).catch(() => {
+                // 取消按钮代码
+        });
+      },
         
         queryProductList: function (type) {
             let params = ClientStore.createParams();
