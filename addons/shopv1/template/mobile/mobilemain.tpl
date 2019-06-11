@@ -33,8 +33,12 @@
     <div class="login-container" v-if="!isLogin">
         <cube-form :model="loginMsg">
             <cube-form-group>
-                <cube-form-item v-model="loginMsg.account" :field="fields[0]"></cube-form-item>
-                <cube-form-item v-model="loginMsg.password" :field="fields[1]"></cube-form-item>
+                <cube-form-item :field="fields[0]">
+                    <cube-input v-model="loginMsg.account" placeholder='请输入账号' @blur="resizePage"></cube-input>
+                </cube-form-item>
+                <cube-form-item :field="fields[1]">
+                    <cube-input v-model="loginMsg.password" placeholder='请输入密码' @blur="resizePage"></cube-input>
+                </cube-form-item>
             </cube-form-group>
             <cube-form-group>
                 <cube-button @click="login" type="submit">登 录</cube-button>

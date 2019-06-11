@@ -141,8 +141,14 @@ var app = new Vue({
         },
         tabsChange(newTab, oldTab){
             if(this.$refs[newTab]){
+                this.resizePage();
                 this.$refs[newTab].open();
             }
+        },
+        resizePage: function(){
+            setTimeout(() => {
+                window.scrollTo(0, 0);
+            }, 100);
         },
         info:function(){
             
