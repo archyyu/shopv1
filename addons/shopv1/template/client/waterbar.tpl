@@ -257,7 +257,7 @@ var app = new Vue({
                     }
                 });
         },
-        createOrder:function(paytype){
+        createOrder:function(paytype, password = ''){
             if(this.cartlist.length <= 0){
                 Toast.error("购物车为空");
                 return ;
@@ -274,6 +274,8 @@ var app = new Vue({
             params.remark = this.remark;
             params.productlist = JSON.stringify(this.cartlist);
             params.membercardid = this.cardId;
+
+            params.password = password;
             
             axios.post(url,params)
                     .then((res)=>{
@@ -284,36 +286,42 @@ var app = new Vue({
 
                             this.userMemberCard(this.cardId);
                             this.cardId = null;
+                            this.cartlist = [];
+                            this.confirmOrderShow = false;
 
                             this.$message.success("下单成功");
-                            this.orderId = res.obj.orderid;
-                            
+
+                            if (paytype == 5) {
+                                return ;
+                            };
+
                             this.orderState = 0;
+
+                            this.orderId = res.obj.orderid;
                             this.qrcodeurl = res.obj.payurl;
 
                             if(paytype == 2){
                                 this.title = "请使用支付宝扫码";
                             }
                             
-                            this.confirmOrderShow = false;
                             this.showQrcode = true;
-                            this.cartlist = [];
                             
                         }
                         else{
                             this.$message.error(res.msg);
                         }
-                        });
+                    });
             
         },
 
-        showPassword: function () {
-            this.$prompt('请输入密码', '确认密码', {})
-            .then(({ value }) => {
-                //   确认按钮代码
-
+        showPassword: function(){
+            this.$prompt('请输入密码', '确认密码', {
+            }).then(({ value }) => {
+                // 确认按钮代码
+                this.createOrder(5, value);
             }).catch(() => {
                 // 取消按钮代码
+                
             });
         },
         

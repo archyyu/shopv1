@@ -54,6 +54,26 @@ class OrderController extends \controller\Controller{
         $membercardid = $this->getParamDefault("membercardid",0);
         $uniacid = $this->getUniacid();
         $phone = $this->getParam("phone");
+
+        $password = $this->getParam("password");
+
+        $productlist = json_decode(html_entity_decode($this->getParam("productlist")),true);
+
+        if ($paytype == 5) {
+            //
+            $data = $this->orderService->payByAccount($memberid, $uniacid, $shopid, $address, 
+                $productlist, $ordersource, $remark, $membercardid, $password);
+
+            if ($data['result'] == false) {
+                $this->returnFail($data['info']);
+            }
+            else{
+                $this->returnSuccess();
+            }
+
+            return ;
+
+        }
         
         if(isset($phone)){
             //TODO
@@ -67,7 +87,7 @@ class OrderController extends \controller\Controller{
             $uniacid = $this->shopModel->findShopById($shopid)['uniacid'];
         }
         
-        $productlist = json_decode(html_entity_decode($this->getParam("productlist")),true);
+        // $productlist = json_decode(html_entity_decode($this->getParam("productlist")),true);
         $orderid = $this->orderService->generateProductOrder($uniacid,$memberid, $userid, $shopid, 
                 $address, $productlist, $ordersource, $remark,$paytype,$membercardid);
         

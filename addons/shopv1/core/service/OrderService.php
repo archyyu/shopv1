@@ -45,6 +45,8 @@ class OrderService extends Service{
     private $memberModel;
 
     private $chargeCompaignModel;
+
+    private $ShopOrder;
     
     
     public function __construct(){
@@ -60,6 +62,7 @@ class OrderService extends Service{
         $this->cardModel = new \model\ShopMemberCard();
         $this->memberModel = new ShopMember();
         $this->chargeCompaignModel = new ShopChargeCompaign();
+        $this->orderModel = new \model\ShopOrder();
     }
     
     //memberid => uid
@@ -333,7 +336,50 @@ class OrderService extends Service{
         return $duty;
     }
     
-    
+    public function payByAccount($memberid, $uniacid, $shopid, $address, $productlist, $ordersource, $remark, $membercardid, $password){
+        
+        $paytype = OrderType::AccountPay;
+        $data = array();
+        $data['result'] = false;
+        $data['info'] = "";
+
+        $member = $this->memberModel->queryMemberByUid($memberid);
+        if (empty($member)) {
+            $data['info'] = "会员不存在";
+            return $data;
+        }
+
+        if(md5($password) != $member['pay_password']){
+            logInfo("pass:$password  paypassword:".$member['pay_password']);
+            $data['info'] = "密码错误";
+            return $data;
+        }
+
+
+        $orderid = $this->generateProductOrder($uniacid,$memberid,0,$shopid,$address,$productlist,$ordersource,$remark,$paytype,$membercardid);
+
+        $order = $this->orderModel->findOrderById($orderid);
+
+        if($order['orderprice']/100 > $member['credit2']){
+            $data['info'] = "余额不足";
+            return $data;
+        }
+
+        $this->payOrder($shopid,$orderid);
+
+        $member['credit2'] = $member['credit2'] - $order['orderprice']/100;
+
+        $result = $this->memberModel->saveMember($member,$memberid);
+
+        if(!$result){
+            $data['info'] = "余额支付失败";
+            return $data;
+        }
+
+        $data['result'] = true;
+        $data['info'] = "支付成功";
+        return $data;
+    }
 	
     
 }

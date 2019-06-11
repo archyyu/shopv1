@@ -179,36 +179,46 @@ class MobileController extends \controller\Controller{
 
 		if($paytype == 5){
 
+            $data = $this->orderService->payByAccount($memberid, $uniacid, $shopid, $address, 
+                $productlist, $ordersource, $remark, $membercardid, $password);
 
-			$member = $this->shopMemberModel->queryMemberByUid($memberid);
+            if ($data['result'] == false) {
+                $this->returnFail($data['info']);
+            }
+            else{
+                $this->returnSuccess();
+            }
+            return ;
 
-			$orderid = $this->orderService->generateProductOrder($uniacid,$memberid,0,$shopid,$address,$productlist,$ordersource,$remark,$paytype,$membercardid);
+			// $member = $this->shopMemberModel->queryMemberByUid($memberid);
 
-			$order = $this->orderModel->findOrderById($orderid);
+			// $orderid = $this->orderService->generateProductOrder($uniacid,$memberid,0,$shopid,$address,$productlist,$ordersource,$remark,$paytype,$membercardid);
 
-			if(md5($password) != $member['pay_password']){
-				logInfo("pass:$password  paypassword:".$member['pay_password']);
-				$this->returnFail("密码错误");
-				return ;
-			}
+			// $order = $this->orderModel->findOrderById($orderid);
 
-			if($order['orderprice']/100 > $member['credit2']){
-				$this->returnFail("余额不足");
-				return;
-			}
+			// if(md5($password) != $member['pay_password']){
+			// 	logInfo("pass:$password  paypassword:".$member['pay_password']);
+			// 	$this->returnFail("密码错误");
+			// 	return ;
+			// }
 
-			$this->orderService->payOrder($shopid,$orderid);
+			// if($order['orderprice']/100 > $member['credit2']){
+			// 	$this->returnFail("余额不足");
+			// 	return;
+			// }
 
-			$member['credit2'] = $member['credit2'] - $order['orderprice']/100;
+			// $this->orderService->payOrder($shopid,$orderid);
 
-			$result = $this->shopMemberModel->saveMember($member,$memberid);
+			// $member['credit2'] = $member['credit2'] - $order['orderprice']/100;
 
-			if($result){
-				$this->returnSuccess();
-			}
-			else{
-				$this->returnFail("err");
-			}
+			// $result = $this->shopMemberModel->saveMember($member,$memberid);
+
+			// if($result){
+			// 	$this->returnSuccess();
+			// }
+			// else{
+			// 	$this->returnFail("err");
+			// }
 
 		}
 		else{
