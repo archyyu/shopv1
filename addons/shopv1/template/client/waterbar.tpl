@@ -307,15 +307,15 @@ var app = new Vue({
             
         },
 
-        showPassword: function(){
-        this.$prompt('请输入密码', '确认密码', {
-        }).then(({ value }) => {
-        //   确认按钮代码
-        
-        }).catch(() => {
+        showPassword: function () {
+            this.$prompt('请输入密码', '确认密码', {})
+            .then(({ value }) => {
+                //   确认按钮代码
+
+            }).catch(() => {
                 // 取消按钮代码
-        });
-      },
+            });
+        },
         
         queryProductList: function (type) {
             let params = ClientStore.createParams();
