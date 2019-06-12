@@ -146,8 +146,12 @@ var app = new Vue({
                     .then((res)=>{
                         res = res.data;
                         if(res.state == 0){
+                            let name = res.obj.realname;
+                            let phone = res.obj.phone;
                             this.$message.success("登录成功");
                             this.memberInfo = res.obj;
+                            this.memberInfo.realname = name.slice(0,1)+'*'+name.slice(-1);
+                            this.memberInfo.phone = phone.slice(0,3)+'*'+phone.slice(-3);
                             this.lock = false;
                         }
                     });
