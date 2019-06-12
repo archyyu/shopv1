@@ -31,9 +31,10 @@ body {
   * sidebar
   */
 .sidebar {
-  background-image: url("../../img/client/oldsidebar_bg.jpg");
-  background-repeat: no-repeat;
-  background-size: contain;
+  border: 3px solid #1672f5;
+  background-color: #13245c;
+  -webkit-box-shadow: inset 0 0 4px 2px rgba(0, 0, 0, 0.5);
+          box-shadow: inset 0 0 4px 2px rgba(0, 0, 0, 0.5);
   height: 754px;
   width: 345px;
   padding: 1px 24px;
@@ -52,7 +53,7 @@ body {
 }
 
 .sidebar .line1 .avatar img {
-  border: 3px solid rgba(133, 133, 133, 0.4);
+  border: 3px solid #1672f5;
   border-radius: 50%;
   width: 90px;
   height: 90px;
@@ -60,7 +61,7 @@ body {
 
 .sidebar .line1 .info {
   margin: 0 auto;
-  color: #c4ae7c;
+  color: #84aeee;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -92,7 +93,7 @@ body {
 }
 
 .sidebar .line2 {
-  margin-top: 20px;
+  margin-top: 28px;
 }
 
 .sidebar .line2 .onlineInfo {
@@ -107,23 +108,23 @@ body {
           justify-content: space-between;
 }
 
-.sidebar .line2 p,
-.sidebar .line2 div.balanceText {
-  background-color: #27221a;
+.sidebar .line2 p {
+  background-color: #1f2e65;
   border-radius: 6px;
-  color: #949494;
+  color: #979ab1;
   font-family: hybq, "Microsoft YaHei";
   font-weight: normal;
   text-align: center;
   text-shadow: 0px 3px 0px black;
   margin: inherit;
+  height: 48px;
   width: 86px;
   padding: 8px 0;
 }
 
 .sidebar .line2 p span,
 .sidebar .line2 div.used_money {
-  color: #c4ae7c;
+  color: #84aeee;
   display: block;
   font-size: 16px;
 }
@@ -216,28 +217,39 @@ body {
 }
 
 .sidebar .line3a > a {
-  background-color: #27221a;
+  background-color: #1f2e65;
   border-radius: 6px;
-  height: 130px;
-  width: 134px;
+  height: 80px;
+  width: 100%;
   text-decoration: none;
   cursor: pointer;
-  padding-top: 22px;
   position: relative;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  margin-top: 30px;
+  margin-bottom: 20px;
 }
 
 .sidebar .line3a > a > p {
   color: #fffde9;
   font-size: 20px;
   text-align: center;
+  margin: 0;
 }
 
 .sidebar .line3a .buy_btn > span.iconfont {
   color: #fbf078;
   display: block;
-  font-size: 50px;
+  font-size: 35px;
   text-align: center;
-  line-height: 40px;
+  margin-right: 10px;
 }
 
 .sidebar .lock2 {
@@ -264,18 +276,30 @@ body {
   -webkit-box-pack: justify;
       -ms-flex-pack: justify;
           justify-content: space-between;
+  background-color: #1f2e65;
 }
 
 .sidebar .line4 div > a {
-  background-color: #27221a;
-  border: 1px solid #1e1a13;
+  -webkit-box-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
   border-radius: 6px;
   color: #d4d5d7;
-  width: 80px;
   font-size: 12px;
   text-align: center;
   cursor: pointer;
-  padding: 10px;
+  padding: 20px 10px;
+  position: relative;
+}
+
+.sidebar .line4 div > a:not(:last-child):after {
+  content: '';
+  background-color: #12225c;
+  width: 1px;
+  height: calc(100% - 30px);
+  position: absolute;
+  right: 0;
+  top: 15px;
 }
 
 .sidebar .line4 div > a:hover {
@@ -286,6 +310,7 @@ body {
 .sidebar .line4 div > a > span.iconfont {
   display: block;
   font-size: 30px;
+  margin-bottom: 10px;
 }
 
 /*
