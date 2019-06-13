@@ -35,7 +35,7 @@ var app = new Vue({
                     
                     
                 } else{
-                    this.$message.error(data.des);
+                    this.$message.error(data.msg);
                 }
             })
             .catch(err => {

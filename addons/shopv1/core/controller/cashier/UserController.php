@@ -34,6 +34,7 @@ class UserController extends \controller\Controller{
             
             $result = array();
             $result['user'] = $user;
+            $result['shopid'] = $user['shopid'];
             $result['shop'] = $this->shopModel->findShopById($user['shopid']);
             
             $this->returnSuccess($result);
