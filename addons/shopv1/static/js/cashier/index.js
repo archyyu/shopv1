@@ -60,7 +60,7 @@ var app = new Vue({
                             }
 
                             if(res.obj.notify){
-                                cashier.play(res.obj.notify);
+                                cashier.player(res.obj.notify);
                             }
 
                         }

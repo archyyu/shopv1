@@ -141,7 +141,18 @@ class MemberController extends \controller\Controller{
         $this->redisService->pushNotify($shopid, $msg);
         
         $this->returnSuccess();
-        
+    }
+
+    public function machineOff(){
+
+        $shopid = $this->getParam("shopid");
+        $address = $this->getParam("address");
+
+        $msg = $address."号机下机，请注意清理";
+
+        $this->redisService->pushNotify($shopid,$msg);
+
+        $this->returnSuccess();
     }
     
     public function leaveMsg(){
