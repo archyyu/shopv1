@@ -39,7 +39,12 @@ class CardService extends Service{
         return $list;
         
     }
-    
+
+    public function getCardType($cardTypeId){
+    	return $this->cardTypeModel->getCard($cardTypeId);
+	}
+
+
     public function sendMemberCard($userid,$cardtypeid,$uid,$num = 1){
         
         $card = $this->cardTypeModel->getCard($cardtypeid);

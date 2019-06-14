@@ -44,6 +44,8 @@ class OrderService extends Service{
 
     private $memberModel;
 
+    private $cardService;
+
     private $chargeCompaignModel;
 
     private $ShopOrder;
@@ -59,6 +61,7 @@ class OrderService extends Service{
         $this->shopModel = new \model\Shop();
         $this->userModel = new \model\ShopUser();
         $this->redisService = new RedisService();
+        $this->cardService = new CardService();
         $this->cardModel = new \model\ShopMemberCard();
         $this->memberModel = new ShopMember();
         $this->chargeCompaignModel = new ShopChargeCompaign();
@@ -248,15 +251,36 @@ class OrderService extends Service{
 
 			$chargefee = $order['orderprice']/100;
 			$awardfee = 0;
+			$cardtypeid = 0;
+			$num = 0;
 			foreach($list as $key=>$value){
 
 				if($chargefee >= $value['chargefee']){
 					$awardfee = $value['awardfee'];
+					$cardtypeid = $value["cardid"];
+					$num = $value["cardnum"];
 					break;
 				}
 
 			}
+
+
 			$record['credit2'] += $awardfee;
+
+			$card = $this->cardService->getCardType($cardtypeid);
+			if(isset($card)){
+				$this->cardService->sendMemberCard(0,$cardtypeid,$member["uid"],$num);
+
+				$content = "您收到卡券【".$member['']."】 * " . $num . "张";
+
+				$wechat = $this->wechatAccount->findWechatAccountByUniacid($member["uniacid"]);
+
+				(new WechatService)->sendNotice($member['openid'], $content, $wechat["acid"]);
+
+			}
+
+
+
 
 		}
 		catch(\Exception $ex){
