@@ -271,7 +271,7 @@ class OrderService extends Service{
 			if(isset($card)){
 				$this->cardService->sendMemberCard(0,$cardtypeid,$member["uid"],$num);
 
-				$content = "您收到卡券【".$member['']."】 * " . $num . "张";
+				$content = "您收到卡券【".$card['cardname']."】 * " . $num . "张";
 
 				$wechat = $this->wechatAccount->findWechatAccountByUniacid($member["uniacid"]);
 
