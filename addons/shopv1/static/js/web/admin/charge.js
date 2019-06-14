@@ -21,6 +21,15 @@ var Charge={
                field:'awardfee',
                title:'赠送金额(元)'
            },{
+               field:'cardname',
+               title:'卡券'
+           },{
+               field:'cardnum',
+               title:'卡券数量'
+           },{
+               field:'credit1',
+               title:'积分'
+           },{
                field:'uniacid',
                title:'操作',
                events:{
@@ -59,11 +68,17 @@ var Charge={
             $("#chargeModal [name='chargeid']").val(0);
             $("#chargeModal [name='chargefee']").val('');
             $("#chargeModal [name='awardfee']").val('');
+            $("#chargeModal [name='cardid']").val('');
+            $("#chargeModal [name='cardnum']").val(0);
+            $("#chargeModal [name='credit1']").val(0);
         }
         else{
             $("#chargeModal [name='chargeid']").val(obj.id);
             $("#chargeModal [name='chargefee']").val(obj.chargefee);
             $("#chargeModal [name='awardfee']").val(obj.awardfee);
+            $("#chargeModal [name='cardid']").selectpicker('val',obj.cardid);
+            $("#chargeModal [name='cardnum']").val(obj.cardnum);
+            $("#chargeModal [name='credit1']").val(obj.credit1);
         }
 
         $("#chargeModal").modal("show");
@@ -82,6 +97,9 @@ var Charge={
 
         params.chargefee = $("#chargeModal [name='chargefee']").val();
         params.awardfee = $("#chargeModal [name='awardfee']").val();
+        params.cardid = $("#chargeModal [name='cardid']").val();
+        params.cardnum = $("#chargeModal [name='cardnum']").val();
+        params.credit1 = $("#chargeModal [name='credit1']").val();
 
         $.post(url,params,function(data){
             if(data.state == 0){
