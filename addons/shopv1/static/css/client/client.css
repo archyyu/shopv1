@@ -319,13 +319,12 @@ body {
 .water_content {
   width: 1064px;
   height: 680px;
-  padding: 20px;
   position: relative;
 }
 
 .water_content > div {
   float: left;
-  height: 640px;
+  height: 674px;
 }
 
 .water_content .closeWindow {
@@ -365,7 +364,7 @@ body {
 }
 
 .class {
-  width: 172px;
+  width: 207px;
 }
 
 .class .logo {
@@ -375,6 +374,16 @@ body {
   width: 100%;
   padding: 8px 8px 20px 8px;
   margin-bottom: 10px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  color: #ffffff;
 }
 
 .class .logo img {
@@ -403,8 +412,8 @@ body {
   height: 48px;
   line-height: 48px;
   padding: 0;
-  border-bottom: 1px solid #221A11;
-  color: #c26202;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.6);
+  color: #84aeee;
 }
 
 .class .nav > li.active,
@@ -416,7 +425,7 @@ body {
 }
 
 .content {
-  width: calc(100% - 395px);
+  width: calc(100% - 430px);
   padding: 0 15px;
 }
 
@@ -446,7 +455,7 @@ body {
 }
 
 .content .product {
-  height: calc(100% - 146px);
+  height: calc(100% - 130px);
   overflow-y: auto;
 }
 
@@ -565,15 +574,13 @@ body {
 }
 
 .checkout .checkout_content {
-  height: 436px;
-  margin-bottom: 26px;
+  height: 505px;
   margin-top: 6px;
   overflow-y: auto;
 }
 
 .checkout .checkout_content .cart-item {
   padding: 5px;
-  background-color: #4e4131;
   position: relative;
   margin-top: 4px;
 }
@@ -620,6 +627,11 @@ body {
   right: 0;
 }
 
+.checkout .checkout_content .delete_list button {
+  padding-left: 4px;
+  padding-right: 4px;
+}
+
 .checkout .meal_tips {
   height: 24px;
   width: 220px;
@@ -656,7 +668,6 @@ body {
   -webkit-box-align: end;
       -ms-flex-align: end;
           align-items: flex-end;
-  padding-top: 18px;
   height: 62px;
 }
 
@@ -716,27 +727,34 @@ body {
 }
 
 .water_content {
-  background-image: url("../../img/client/water_bg.png");
-  background-repeat: no-repeat;
-  background-size: contain;
+  border: 3px solid #1672f5;
+  background-color: #13245c;
+  -webkit-box-shadow: inset 0 0 4px 2px rgba(0, 0, 0, 0.5);
+          box-shadow: inset 0 0 4px 2px rgba(0, 0, 0, 0.5);
+}
+
+.class {
+  background-color: #1f2e65;
 }
 
 .content .banner {
-  background-color: #3B3125;
+  background-color: #1f2e65;
 }
 
 .content .banner .banner_text {
-  background-color: #221a11;
-  -webkit-box-shadow: 0 1px 8px #3a3227;
-          box-shadow: 0 1px 8px #3a3227;
+  background-color: #84aeee;
 }
 
 .content .product .product-item .pro_title {
-  background-color: #4e4131;
+  background-color: #1f2e65;
 }
 
 .content .product .pro_title p {
   color: white;
+}
+
+.content .product .pro_title p span {
+  color: #ef6e81;
 }
 
 .checkout .water_info {
@@ -744,7 +762,7 @@ body {
 }
 
 .checkout .checkout_content .cart-item {
-  background-color: #4e4131;
+  background-color: #2e4488;
 }
 
 .checkout .checkout_content .product_num {
@@ -875,7 +893,6 @@ body {
 
 .confirm-order .remark {
   height: 54px;
-  width: 490px;
   background-color: white;
   margin-bottom: 10px;
   padding: 0 15px;
@@ -898,7 +915,6 @@ body {
 
 .confirm-order .socer, .confirm-order .real_pay {
   height: 54px;
-  width: 490px;
   background-color: white;
   margin-bottom: 10px;
   padding: 0 15px;
