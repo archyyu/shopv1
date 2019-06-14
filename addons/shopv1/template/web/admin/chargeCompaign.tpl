@@ -41,6 +41,29 @@
                             <input class="form-control" name="awardfee">
                         </div>
                     </div>
+                    <div class="form-group form-group-sm">
+                        <label class="col-xs-3 control-label">卡券选择</label>
+                        <div class="col-xs-8">
+                            <select name="cardid" class="form-control">
+                                <option >空</option>
+                                {foreach $cardlist as $card}
+                                    <option value='{$card.id}'>{$card.cardname}</option>
+                                {/foreach}
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group form-group-sm">
+                        <label class="col-xs-3 control-label">卡券数量</label>
+                        <div class="col-xs-8">
+                            <input class="form-control" name="cardnum">
+                        </div>
+                    </div>
+                    <div class="form-group form-group-sm">
+                        <label class="col-xs-3 control-label">积分</label>
+                        <div class="col-xs-8">
+                            <input class="form-control" name="credit1">
+                        </div>
+                    </div>
                 </div>
             </div>
             <div class="modal-footer">
