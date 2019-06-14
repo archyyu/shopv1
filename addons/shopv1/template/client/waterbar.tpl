@@ -22,7 +22,7 @@
             <div class="product">
                 <el-scrollbar>
                     <div class="product-item" v-for="o in productlist">
-                        <div class="pro_img" @click="addCart(o)"> <img :src="getImgUrl(o)"> </div>
+                        <div class="pro_img" @click="addCart(o)"> <img v-lazy="getImgUrl(o)"> </div>
                         <div class="pro_title">
                             <p title="西瓜汁">{{o.productname}}<span><em> ￥{{o.memberprice/100}} </em></span></p>
                         </div>

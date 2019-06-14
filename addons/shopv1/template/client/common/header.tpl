@@ -16,6 +16,7 @@
   <script src="{$StaticRoot}/js/dist/axios/axios.min.js"></script>
   <script src="{$StaticRoot}/js/dist/axios/qs.js"></script>
   <script src="{$StaticRoot}/js/dist/axios/es6-promise.js"></script>
+  <script src="{$StaticRoot}/js/dist/vue-lazyload.js"></script>
   <script src="{$StaticRoot}/fonts/iconfont.js"></script>
   <script src="{$StaticRoot}/js/dist/moment.min.js"></script>
   <script src="{$StaticRoot}/js/dist/moment-zh-cn.js"></script>
@@ -24,7 +25,9 @@
   
 
   <script>
-     Vue.component(VueQrcode.name, VueQrcode);
+    Vue.component(VueQrcode.name, VueQrcode);
+    Vue.use(VueLazyload);
+
     // Global Loading setting
     var loading = null;
     function startLoading (){

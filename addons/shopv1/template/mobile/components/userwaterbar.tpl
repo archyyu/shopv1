@@ -28,7 +28,7 @@
                     @pulling-up="loadMore">
                     <ul class="foods-wrapper">
                         <li class="food-item" v-for="o in productlist">
-                            <div class="icon"><img :src="getImgUrl(o)">
+                            <div class="icon"><img v-lazy="getImgUrl(o)">
                             </div>
                             <div class="food-content" @click="productclick(o)">
                                 <h2 class="name">{{o.productname}}</h2>
