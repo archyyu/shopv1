@@ -103,6 +103,7 @@ var app = new Vue({
         lock: true,
         memberInfo:{},
         address:"",
+        host:"",
         tag:"",
         qrcodeurl:"",
         shopid:0,
@@ -118,6 +119,7 @@ var app = new Vue({
         
         this.address = UrlHelper.getQueryString("address");
         this.shopid = UrlHelper.getQueryString("shopid");
+        this.host = UrlHelper.getQueryString("host");
         this.tag = this.shopid + this.address;
         
         setInterval(()=>{
