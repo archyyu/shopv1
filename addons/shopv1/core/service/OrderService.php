@@ -219,6 +219,8 @@ class OrderService extends Service{
         
         $order = $this->shopOrder->findOrderById($orderid);
         $this->printOrder($order);
+
+        logInfo("print order:".$orderid);
         
     }
 
