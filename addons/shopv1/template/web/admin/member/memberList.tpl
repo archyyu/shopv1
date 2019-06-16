@@ -222,7 +222,7 @@
             </div>
             <div class="form-group form-group-sm">
               <label class="col-xs-4 control-label">标签</label>
-              <div class="col-xs-6"><input type="number" name="tags" class="form-control"></div>
+              <div class="col-xs-6"><input name="tags" class="form-control"></div>
             </div>
           </fieldset>
         </div>

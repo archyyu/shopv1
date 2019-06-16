@@ -28,7 +28,11 @@ class ShopMember extends Model{
     public function queryMemberByUid($uid){
         return $this->getOne("*", ['uid'=>$uid]);
     }
-    
+
+    public function queryMemberByIdcard($idcard){
+        return $this->getOne("*",["idcard"=>$idcard]);
+    }
+
     public function queryOneMember($where){
         return $this->getOne("*",$where);
     }

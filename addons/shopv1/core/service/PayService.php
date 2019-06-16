@@ -116,7 +116,9 @@ class PayService extends Service {
         $params["sign"] = $this->SignArray($params, $wechat['paykey']); //签名
         $paramsStr = $this->ToUrlParams($params);
         $rsp = $this->request($url, $paramsStr);
-        
+
+        logInfo("query state: $rsp");
+
         $rspArray = json_decode($rsp, true);
         if ($rspArray["retcode"] == "SUCCESS") {
 

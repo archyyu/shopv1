@@ -1,6 +1,6 @@
 {include file="./common/header.tpl"}
 {literal}
-<div id="app">
+<div id="app" oncontextmenu="self.event.returnValue=false">
     <div class="sidebar">
         <h4>{{address}}</h4>
         <div v-if="!lock">
@@ -103,6 +103,8 @@ var app = new Vue({
         lock: true,
         memberInfo:{},
         address:"",
+        host:"",
+        idcard:"",
         tag:"",
         qrcodeurl:"",
         shopid:0,
@@ -118,11 +120,15 @@ var app = new Vue({
         
         this.address = UrlHelper.getQueryString("address");
         this.shopid = UrlHelper.getQueryString("shopid");
+        this.host = UrlHelper.getQueryString("host");
+        this.idcard = UrlHelper.getQueryString("idcard");
         this.tag = this.shopid + this.address;
-        
+
+        //this.queryMemberInfoByLocal();
+
         setInterval(()=>{
             this.queryMemberInfo();
-        },5000);
+        },10000);
         
         this.qrcodeurl = "http://pinshangy.com/app/index.php?i=2&m=shopv1&do=mobile&f=tag&c=entry&tag=" + this.tag;
         
@@ -140,6 +146,7 @@ var app = new Vue({
             let params = {};
             params.shopid = this.shopid;
             params.address = this.address;
+            params.idcard = this.idcard;
             params.tag = this.tag;
             
             axios.post(url,params)
@@ -150,12 +157,46 @@ var app = new Vue({
                             let phone = res.obj.phone;
                             this.$message.success("登录成功");
                             this.memberInfo = res.obj;
-                            this.memberInfo.realname = name.slice(0,1)+'*'+name.slice(-1);
-                            this.memberInfo.phone = phone.slice(0,3)+'*'+phone.slice(-3);
+
+                            //this.memberInfo.realname = name.slice(0,1)+'*'+name.slice(-1);
+                            //this.memberInfo.phone = phone.slice(0,3)+'*'+phone.slice(-3);
+
                             this.lock = false;
                         }
                     });
             
+        },
+
+        queryMemberInfoByLocal:function(){
+
+            if(this.lock == false){
+                return false;
+            }
+
+            let url = "http://" + this.host + ":18000";
+
+            let params = {};
+            params.address = this.address;
+            params.shopid = this.shopid;
+
+
+            // $.get(url,params,function(data){
+            //     if(data.state == 0){
+            //         console.log(data);
+            //     }
+            // });
+
+            // axios.post(url,params)
+            //     .then((res)=>{
+            //         res = res.data;
+            //         console.log(res);
+            //         let obj = JSON.parse(res);
+            //
+            //         if(obj.state == 0) {
+            //             this.idcard = obj.data;
+            //         }
+            //     });
+
         },
         
         openWaterbar:function(){

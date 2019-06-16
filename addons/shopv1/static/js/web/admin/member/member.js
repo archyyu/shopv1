@@ -229,7 +229,7 @@ var Member = {
         $("#memberModal [name=idcard]").val(obj.idcard);
         $("#memberclassid").val(obj.classid);
         $("#membergroupid").val(obj.groupid);
-        $("#memberModal [name=tag]").val(obj.tags);
+        $("#memberModal [name=tags]").val(obj.tags);
 
 
     },

@@ -1,5 +1,5 @@
 {include file="./common/header.tpl"}
-<div id="app">
+<div id="app" oncontextmenu="self.event.returnValue=false">
     {literal}
     <div class="water_content">
         <div class="class">
@@ -283,7 +283,7 @@ var app = new Vue({
             params.remark = this.remark;
             params.productlist = JSON.stringify(this.cartlist);
             params.membercardid = this.cardId;
-
+            params.from = 1;
             params.password = password;
             
             axios.post(url,params)

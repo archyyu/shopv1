@@ -240,8 +240,11 @@ class MobileController extends \controller\Controller{
         $tag = $this->getParam("tag");
         
         $this->redisService->setMemberid($tag, $uid);
-        
-        exit("登陆成功 uid:$uid  openid:$openid tag:$tag");
+
+        $this->smarty->setTemplateDir(CASHROOT . 'template/mobile');
+        $this->smarty->display('usermain.tpl');
+
+        //exit("登陆成功 uid:$uid  openid:$openid tag:$tag");
     }
     
     public function getCardList(){
