@@ -1,5 +1,5 @@
 {include file="./common/header.tpl"}
-<div id="app">
+<div id="app" oncontextmenu="self.event.returnValue=false">
     {literal}
     <div class="water_content">
         <div class="class">

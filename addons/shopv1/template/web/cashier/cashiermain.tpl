@@ -1,7 +1,7 @@
 {include file="./common/header.tpl"}
 
 
-<div id="app">
+<div id="app" oncontextmenu="self.event.returnValue=false">
     <el-tabs value="waterbar" type="card" @tab-click="tab"  v-if="isLogin">
         <el-tab-pane name="waterbar" class="waterbar">
             <span slot="label"><iconfont iconclass="icon-wangdianguanli"></iconfont> 水吧</span>

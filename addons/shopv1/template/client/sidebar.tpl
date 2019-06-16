@@ -1,6 +1,6 @@
 {include file="./common/header.tpl"}
 {literal}
-<div id="app">
+<div id="app" oncontextmenu="self.event.returnValue=false">
     <div class="sidebar">
         <h4>{{address}}</h4>
         <div v-if="!lock">
