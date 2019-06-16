@@ -41,9 +41,9 @@ var app = new Vue({
     created() {
 
         try {
-            let tag = UrlUtil.getQueryString("");
+            let tag = UrlUtil.getQueryString("tag");
 
-            if(tag != ""){
+            if(tag != null && tag != ""){
                 this.toMine();
             }
 
