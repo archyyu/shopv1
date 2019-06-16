@@ -39,6 +39,18 @@ var app = new Vue({
         ]
     },
     created() {
+
+        try {
+            let tag = UrlUtil.getQueryString("");
+
+            if(tag != ""){
+                this.toMine();
+            }
+
+        }
+        catch (E){
+
+        }
     },
     mounted() {},
     methods: {

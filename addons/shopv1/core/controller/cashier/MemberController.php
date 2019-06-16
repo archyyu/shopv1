@@ -120,7 +120,7 @@ class MemberController extends \controller\Controller{
             logInfo(" queryMemberInfoBytag: $idcard");
             $member = $this->memberModel->queryMemberByIdcard($idcard);
             if(isset($member)){
-
+                $this->redisService->clearMemberTag($tag);
                 $this->returnSuccess($member);
             }
             else{
