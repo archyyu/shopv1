@@ -104,6 +104,7 @@ var app = new Vue({
         memberInfo:{},
         address:"",
         host:"",
+        idcard:"",
         tag:"",
         qrcodeurl:"",
         shopid:0,
@@ -121,7 +122,9 @@ var app = new Vue({
         this.shopid = UrlHelper.getQueryString("shopid");
         this.host = UrlHelper.getQueryString("host");
         this.tag = this.shopid + this.address;
-        
+
+        this.queryMemberInfoByLocal();
+
         setInterval(()=>{
             this.queryMemberInfo();
         },5000);
@@ -142,6 +145,7 @@ var app = new Vue({
             let params = {};
             params.shopid = this.shopid;
             params.address = this.address;
+            params.idcard = this.idcard;
             params.tag = this.tag;
             
             axios.post(url,params)
@@ -158,6 +162,32 @@ var app = new Vue({
                         }
                     });
             
+        },
+
+        queryMemberInfoByLocal:function(){
+
+            if(this.lock == false){
+                return false;
+            }
+
+            let url = "http://" + this.host + ":18000";
+
+            let params = {};
+            params.address = this.address;
+            params.shopid = this.shopid;
+
+            axios.post(url,params)
+                .then((res)=>{
+                    res = res.data;
+                    console.log(res);
+                    let obj = JSON.parse(res);
+
+                    if(obj.state == 0) {
+                        this.idcard = obj.data.sCardId;
+                    }
+
+                });
+
         },
         
         openWaterbar:function(){
