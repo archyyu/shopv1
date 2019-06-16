@@ -121,13 +121,14 @@ var app = new Vue({
         this.address = UrlHelper.getQueryString("address");
         this.shopid = UrlHelper.getQueryString("shopid");
         this.host = UrlHelper.getQueryString("host");
+        this.idcard = UrlHelper.getQueryString("idcard");
         this.tag = this.shopid + this.address;
 
-        this.queryMemberInfoByLocal();
+        //this.queryMemberInfoByLocal();
 
         setInterval(()=>{
             this.queryMemberInfo();
-        },5000);
+        },10000);
         
         this.qrcodeurl = "http://pinshangy.com/app/index.php?i=2&m=shopv1&do=mobile&f=tag&c=entry&tag=" + this.tag;
         
@@ -156,8 +157,10 @@ var app = new Vue({
                             let phone = res.obj.phone;
                             this.$message.success("登录成功");
                             this.memberInfo = res.obj;
-                            this.memberInfo.realname = name.slice(0,1)+'*'+name.slice(-1);
-                            this.memberInfo.phone = phone.slice(0,3)+'*'+phone.slice(-3);
+
+                            //this.memberInfo.realname = name.slice(0,1)+'*'+name.slice(-1);
+                            //this.memberInfo.phone = phone.slice(0,3)+'*'+phone.slice(-3);
+
                             this.lock = false;
                         }
                     });
@@ -176,17 +179,23 @@ var app = new Vue({
             params.address = this.address;
             params.shopid = this.shopid;
 
-            axios.post(url,params)
-                .then((res)=>{
-                    res = res.data;
-                    console.log(res);
-                    let obj = JSON.parse(res);
 
-                    if(obj.state == 0) {
-                        this.idcard = obj.data.sCardId;
-                    }
+            // $.get(url,params,function(data){
+            //     if(data.state == 0){
+            //         console.log(data);
+            //     }
+            // });
 
-                });
+            // axios.post(url,params)
+            //     .then((res)=>{
+            //         res = res.data;
+            //         console.log(res);
+            //         let obj = JSON.parse(res);
+            //
+            //         if(obj.state == 0) {
+            //             this.idcard = obj.data;
+            //         }
+            //     });
 
         },
         

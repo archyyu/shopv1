@@ -113,21 +113,39 @@ class MemberController extends \controller\Controller{
         
         $shopid = $this->getParam("shopid");
         $address = $this->getParam("address");
+        $idcard = $this->getParam("idcard");
         $tag = $this->getParam("tag");
-        
-        $memberid = $this->redisService->getMemberIdByTag($tag);
-        
-        if($memberid != ""){
-            
-            $this->redisService->clearMemberTag($tag);
-            $obj = $this->memberModel->queryMemberByUid($memberid);
-            
-            $this->returnSuccess($obj);
-            
+
+        if($idcard != ""){
+            logInfo(" queryMemberInfoBytag: $idcard");
+            $member = $this->memberModel->queryMemberByIdcard($idcard);
+            if(isset($member)){
+
+                $this->returnSuccess($member);
+            }
+            else{
+                $this->returnFail("no");
+            }
+
         }
         else{
-            $this->returnFail("no");
+
+            $memberid = $this->redisService->getMemberIdByTag($tag);
+
+            if($memberid != ""){
+
+                $this->redisService->clearMemberTag($tag);
+                $obj = $this->memberModel->queryMemberByUid($memberid);
+
+                $this->returnSuccess($obj);
+
+            }
+            else{
+                $this->returnFail("no");
+            }
+
         }
+
         
     }
     
