@@ -192,7 +192,7 @@ class OrderService extends Service{
     }
     
     public function generateOrderId(){
-       return date('Ymdhis').rand(10000, 99999);
+       return date('Ymdhis').substr(microtime(), 2, 6).rand(1000,9999);
     }
     
     public function payOrder($shopid,$orderid){
@@ -204,8 +204,6 @@ class OrderService extends Service{
         
         $this->shopOrder->saveOrder($orderData,$orderid);
 
-
-        
         $orderProductData = array(); 
         $orderProductData["orderstate"] = OrderType::Payed;
         

@@ -105,9 +105,6 @@
                                     <el-col @click.native="createOrder(2)" :span="6" class="alipay">
                                         <iconfont>&#xe666;</iconfont> 支付宝
                                     </el-col>
-                                    <el-col @click.native="waitScan()" :span="6" class="scanpay">
-                                        <iconfont>&#xe635;</iconfont> 扫码
-                                    </el-col>
                                 </el-row>
                             </div>
                         </div>
@@ -289,14 +286,15 @@ Vue.component('waterbar', {
                 .then((res)=>{
                     res = res.data;
                     console.log(res);
-                    if(res.obj >= 0){
-                         
-                        Store.hideQrcode();
-                        this.$message.success("订单已经支付");
-                        this.orderState = 1;
-                         
+                    if(res.state == 0) {
+                        if (res.obj >= 0) {
+
+                            Store.hideQrcode();
+                            this.$message.success("订单已经支付");
+                            this.orderState = 1;
+
+                        }
                     }
-                    
                 });
         },
         
