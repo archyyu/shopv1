@@ -220,7 +220,7 @@ var app = new Vue({
             params.shopid = this.shopid;
             params.address = this.address;
             params.content = this.msgText;
-            params.memberid = this.memberInfo.uid;
+            params.uid = this.memberInfo.uid;
             
             let url = UrlHelper.createUrl("member","leaveMsg");
             
