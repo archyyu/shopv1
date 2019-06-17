@@ -18,7 +18,7 @@
             <div class="line2">
                 <div class="onlineInfo">
                         <p><span>{{memberInfo.credit2}}</span>积分</p>
-                        <p><span>00:00</span>上机时间</p>
+                        <p><span>{{memberInfo.cardsize}}</span>卡券数量</p>
                         <p><span>{{memberInfo.credit1}} 元</span>钱包余额</p>
                 </div>
             </div>

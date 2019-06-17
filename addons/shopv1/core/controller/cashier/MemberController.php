@@ -24,6 +24,8 @@ class MemberController extends \controller\Controller{
     private $memberTagModel;
     
     private $memberMessage;
+
+    private $shopMemberCardModel;
     
     public function __construct() {
         parent::__construct();
@@ -32,6 +34,7 @@ class MemberController extends \controller\Controller{
         $this->redisService = new \service\RedisService();
         $this->memberTagModel = new \model\ShopMemberTag();
         $this->memberMessage = new \model\ShopMessage();
+        $this->shopMemberCardModel = new \model\ShopMemberCard();
     }
     
     public function queryMemberList(){
@@ -121,6 +124,8 @@ class MemberController extends \controller\Controller{
             $member = $this->memberModel->queryMemberByIdcard($idcard);
             if(isset($member)){
                 $this->redisService->clearMemberTag($tag);
+                $list = $this->shopMemberCardModel->getMemberList($member["uid"], 0);
+                $member["cardsize"] = count($list);
                 $this->returnSuccess($member);
             }
             else{
@@ -136,6 +141,9 @@ class MemberController extends \controller\Controller{
 
                 $this->redisService->clearMemberTag($tag);
                 $obj = $this->memberModel->queryMemberByUid($memberid);
+
+                $list = $this->shopMemberCardModel->getMemberList($memberid, 0);
+                $obj["cardsize"] = count($list);
 
                 $this->returnSuccess($obj);
 
