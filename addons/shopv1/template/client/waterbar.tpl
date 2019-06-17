@@ -32,30 +32,13 @@
         </div>
         <div class="checkout">
             <div class="water_info">
-                <div id="memberInfo" v-popover:popover1>
+                <div id="memberInfo">
                     <div class="water_avatar"><img id="headImgUrl" src="http://placehold.it/60x60"></div>
                     <div class="balance">
                         <p></p>
                     </div>
                 </div>
-                <el-popover
-                    ref="popover1"
-                    placement="left-start"
-                    :title="popoverTitle"
-                    width="200"
-                    trigger="hover">
-                    <div class="user_detail">
-                        <div class="user_class">
-                            <p></p>
-                            <p></p>
-                        </div>
-                        <p>积分：0</p>
-                        <div class="user_coupon">
-                            <p>兑换券：0张</p>
-                            <el-button type="info" size="mini" plain>查看兑换</el-button>
-                        </div>
-                    </div>
-              </el-popover>
+
             </div>
             <div class="checkout_content">
                 <el-scrollbar>
