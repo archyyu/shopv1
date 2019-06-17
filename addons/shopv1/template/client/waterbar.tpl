@@ -24,7 +24,9 @@
                     <div class="product-item" v-for="o in productlist">
                         <div class="pro_img" @click="addCart(o)"> <img :src="getImgUrl(o)"> </div>
                         <div class="pro_title">
-                            <p title="西瓜汁">{{o.productname}}<span><em> ￥{{o.memberprice/100}} </em></span></p>
+                            <p title="西瓜汁">{{o.productname}}
+                                <span><em> 正常价:￥{{o.normalprice/100}} </em></span>
+                            </p>
                         </div>
                     </div>
                 </el-scrollbar>
@@ -62,7 +64,7 @@
                 </el-scrollbar>
             </div>
             <div class="submit">
-                <p>总价：<span id="totalPrice">{{getCartPrice()}}</span>元</p>
+                <p>正常价：<span id="totalPrice">{{getCartPrice()}}</span>元</p>
                 <el-button type="warning" size="mini" round @click="confirmOrderShow = true">下一步</el-button>
             </div>
         </div>
