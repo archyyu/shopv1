@@ -9,8 +9,8 @@
                     <div class="avatar"><img :src="memberInfo.avatar"></div>
                     <div class="name">
                         <div>
-                            <p>姓名:{{memberInfo.realname}}</p>
-                            <p>手机号：{{memberInfo.mobile}}</p>
+                            <p>姓名:{{ memberInfo.realname }}</p>
+                            <p>手机号：{{ memberInfo.mobile }}</p>
                         </div>
                     </div>
                 </div>
