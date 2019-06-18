@@ -105,6 +105,9 @@
                                     <el-col @click.native="createOrder(2)" :span="6" class="alipay">
                                         <iconfont>&#xe666;</iconfont> 支付宝
                                     </el-col>
+                                    <el-col @click.native="waitScan()" :span="6" class="scanpay">
+                                        <iconfont>&#xe635;</iconfont> 扫码
+                                    </el-col>
                                 </el-row>
                             </div>
                         </div>
