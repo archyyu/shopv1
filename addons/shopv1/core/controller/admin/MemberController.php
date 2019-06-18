@@ -216,7 +216,7 @@ class MemberController extends \controller\Controller{
         }
 
         if ($moblie) {
-            $where['moblie'] = $moblie;
+            $where['mobile'] = $moblie;
         }
 
         if ($groupid) {

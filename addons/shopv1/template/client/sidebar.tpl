@@ -9,8 +9,8 @@
                     <div class="avatar"><img :src="memberInfo.avatar"></div>
                     <div class="name">
                         <div>
-                            <p>姓名:{{memberInfo.realname}}</p>
-                            <p>手机号：{{memberInfo.mobile}}</p>
+                            <p>姓名:{{ memberInfo.realname }}</p>
+                            <p>手机号：{{ memberInfo.mobile }}</p>
                         </div>
                     </div>
                 </div>
@@ -18,7 +18,7 @@
             <div class="line2">
                 <div class="onlineInfo">
                         <p><span>{{memberInfo.credit2}}</span>积分</p>
-                        <p><span>00:00</span>上机时间</p>
+                        <p><span>{{memberInfo.cardsize}}</span>卡券数量</p>
                         <p><span>{{memberInfo.credit1}} 元</span>钱包余额</p>
                 </div>
             </div>
@@ -220,7 +220,7 @@ var app = new Vue({
             params.shopid = this.shopid;
             params.address = this.address;
             params.content = this.msgText;
-            params.memberid = this.memberInfo.uid;
+            params.uid = this.memberInfo.uid;
             
             let url = UrlHelper.createUrl("member","leaveMsg");
             

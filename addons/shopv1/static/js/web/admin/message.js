@@ -55,7 +55,8 @@ var Message={
     queryMsgs:function(obj){
 
         let url = UrlHelper.createShortUrl("getData");
-        let params = {};
+        //let params = {};
+        var params = obj.data;
         params.shopid = $("#shopSelect").val();
 
         $.post(url,params,function(data){

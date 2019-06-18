@@ -8,6 +8,8 @@
 
 namespace controller\cashier;
 
+use model\ShopOnline;
+
 /**
  * Description of MemberController
  *
@@ -24,6 +26,10 @@ class MemberController extends \controller\Controller{
     private $memberTagModel;
     
     private $memberMessage;
+
+    private $shopMemberCardModel;
+
+    private $shopOnlineModel;
     
     public function __construct() {
         parent::__construct();
@@ -32,6 +38,8 @@ class MemberController extends \controller\Controller{
         $this->redisService = new \service\RedisService();
         $this->memberTagModel = new \model\ShopMemberTag();
         $this->memberMessage = new \model\ShopMessage();
+        $this->shopMemberCardModel = new \model\ShopMemberCard();
+        $this->shopOnlineModel = new ShopOnline();
     }
     
     public function queryMemberList(){
@@ -121,6 +129,11 @@ class MemberController extends \controller\Controller{
             $member = $this->memberModel->queryMemberByIdcard($idcard);
             if(isset($member)){
                 $this->redisService->clearMemberTag($tag);
+                $list = $this->shopMemberCardModel->getMemberList($member["uid"], 0);
+
+                $this->shopOnlineModel->addOnlineByMember($member,$shopid);
+
+                $member["cardsize"] = count($list);
                 $this->returnSuccess($member);
             }
             else{
@@ -136,6 +149,11 @@ class MemberController extends \controller\Controller{
 
                 $this->redisService->clearMemberTag($tag);
                 $obj = $this->memberModel->queryMemberByUid($memberid);
+
+                $this->shopOnlineModel->addOnlineByMember($obj,$shopid);
+
+                $list = $this->shopMemberCardModel->getMemberList($memberid, 0);
+                $obj["cardsize"] = count($list);
 
                 $this->returnSuccess($obj);
 
