@@ -9,8 +9,15 @@
                     <div class="avatar"><img :src="memberInfo.avatar"></div>
                     <div class="name">
                         <div>
-                            <p>姓名:{{ memberInfo.realname }}</p>
-                            <p>手机号：{{ memberInfo.mobile }}</p>
+                            <el-tooltip :disabled="!Boolean(memberInfo.realname)" :content="memberInfo.realname">
+                                <p>姓名:{{ hideName(memberInfo.realname) }}</p>
+                            </el-tooltip>
+                            <el-tooltip :disabled="!Boolean(memberInfo.mobile)" :content="memberInfo.mobile">
+                                <p>手机号：{{ hideNum(memberInfo.mobile) }}</p>
+                            </el-tooltip>
+                            <el-tooltip :disabled="!Boolean(memberInfo.idcard)" :content="memberInfo.idcard">
+                                <p>身份证号：{{ hideNum(memberInfo.idcard) }}</p>
+                            </el-tooltip>
                         </div>
                     </div>
                 </div>
@@ -18,9 +25,18 @@
             <div class="line2">
                 <div class="onlineInfo">
                         <p><span>{{memberInfo.credit2}}</span>积分</p>
-                        <p><span>{{memberInfo.cardsize}}</span>卡券数量</p>
+                        <p v-popover:cardpopover><span>{{memberInfo.cardsize}}</span>卡券数量</p>
                         <p><span>{{memberInfo.credit1}} 元</span>钱包余额</p>
                 </div>
+                <el-popover
+                ref="cardpopover"
+                width="300"
+                trigger="hover">
+                    <el-table :data="cardList" size="mini" height="260px">
+                        <el-table-column property="date" label="卡券名称"></el-table-column>
+                        <el-table-column property="name" label="数量"></el-table-column>
+                    </el-table>
+                </el-popover>
             </div>
         </div>
         <div v-if="lock">
@@ -41,7 +57,7 @@
         <div v-if="!lock">
             <div class="line3">
                 <div class="scancode">
-                <qrcode :value="qrcodeurl" :options="{ width: 100 }"></qrcode>
+                <qrcode :value="qrcodeurl" :options="{ width: 92 }"></qrcode>
                 </div>
             </div>
         </div>
@@ -62,8 +78,7 @@
         <el-dialog
             title="留言"
             :visible.sync="msgDialog"
-            width="280px"
-            :before-close="handleClose">
+            width="280px">
             <div class="msg-content">
                 <el-input type="textarea" :rows="3" v-model="msgText"></el-input>
             </div>
@@ -76,10 +91,9 @@
         <el-dialog
             title="锁屏"
             :visible.sync="lockDialog"
-            width="280px"
-            :before-close="handleClose">
+            width="280px">
             <div class="lock-content">
-                <el-form ref="form" :model="form" label-width="80px">
+                <el-form ref="form" :model="lockinfo" label-width="80px">
                     <el-form-item label="锁屏密码">
                       <el-input v-model="lockinfo.password"></el-input>
                     </el-form-item>
@@ -108,6 +122,12 @@ var app = new Vue({
         tag:"",
         qrcodeurl:"",
         shopid:0,
+        cardList:[
+            {
+                date: 11,
+                name: 22
+            }
+        ],
         msgDialog: false,
         lockDialog: false,
         msgText: '',
@@ -165,6 +185,14 @@ var app = new Vue({
                         }
                     });
             
+        },
+
+        hideName: function(name){
+            return name?name.slice(0,1)+'*'+name.slice(-1):'';
+        },
+
+        hideNum: function(num){
+            return num?num.slice(0,3)+'*'+num.slice(-3):'';
         },
 
         queryMemberInfoByLocal:function(){
