@@ -3,7 +3,7 @@
     {literal}
     <div class="water_content">
         <div class="class">
-            <div class="logo"></div>
+            <div class="logo">LOGO</div>
             <div class="class_nav">
                 <el-scrollbar>
                     <ul class="nav">
@@ -22,7 +22,7 @@
             <div class="product">
                 <el-scrollbar>
                     <div class="product-item" v-for="o in productlist">
-                        <div class="pro_img" @click="addCart(o)"> <img :src="getImgUrl(o)"> </div>
+                        <div class="pro_img" @click="addCart(o)"> <img v-lazy="getImgUrl(o)"> </div>
                         <div class="pro_title">
                             <p title="西瓜汁">{{o.productname}}
                                 <span><em> 售价:￥{{o.normalprice/100}} </em></span>
@@ -81,6 +81,23 @@
             <div class="order_number">
                 <p>应支付：￥{{getCartPrice()}}</p>
             </div>
+            <div class="order_list">
+                <el-scrollbar>
+                    <div class="order_item" v-for="item in 20">
+                        <img src="http://placehold.it/80x80">
+                        <p>￥8</p>
+                        <div class="pro_number cartNum">1</div>
+                    </div>
+                </el-scrollbar>
+            </div>
+        </div>
+        <div class="remark">
+            <span>选择卡券：</span>
+            <el-select v-model="cardId" placeholder="">
+              <el-option v-for="item in cardlist"
+                :label="item.cardname"
+                :value="item.id"></el-option>
+            </el-select>
         </div>
         <div class="remark">
             <span>填写备注：</span>
@@ -92,14 +109,6 @@
                 <el-checkbox v-model="useSocer">￥0.00</el-checkbox>
             </div>
         </div> -->
-        <div class="remark">
-            <span>选择卡券：</span>
-            <el-select v-model="cardId" placeholder="">
-              <el-option v-for="item in cardlist"
-                :label="item.cardname"
-                :value="item.id"></el-option>
-            </el-select>
-        </div>
         <div class="real_pay">
             <p>扫码支付</p>
             <p class="real_money">￥{{getCartPrice()}}</p>
@@ -113,6 +122,9 @@
             <el-button class="btn weipay" @click="showPassword"><span class="iconfont">&#xe66d;</span>会员支付</el-button>
             <el-button class="btn weipay" @click="createOrder(1)"><span class="iconfont">&#xe66d;</span>微信支付</el-button>
             <el-button class="btn alipay" @click="createOrder(2)"><span class="iconfont">&#xe938;</span>支付宝支付</el-button>
+            <el-button class="btn weipay" @click="showPassword"><span class="iconfont">&#xe648;</span>余额支付</el-button>
+            <el-button class="btn weipay" @click="createOrder(1)"><span class="iconfont">&#xe669;</span>微信支付</el-button>
+            <el-button class="btn alipay" @click="createOrder(2)"><span class="iconfont">&#xe666;</span>支付宝支付</el-button>
 
         </span>
          <el-dialog
@@ -315,6 +327,7 @@ var app = new Vue({
 
         showPassword: function(){
             this.$prompt('请输入密码', '确认密码', {
+                inputType: 'password'
             }).then(({ value }) => {
                 // 确认按钮代码
                 this.createOrder(5, value);
@@ -376,7 +389,7 @@ var app = new Vue({
             }
 
         },
-        
+
         addCart: function (p) {
 
             if(this.orderState != -1){
@@ -482,7 +495,7 @@ var app = new Vue({
             }
             return sum.toFixed(2);
         },
-        
+
         info:function(){
             
         }
