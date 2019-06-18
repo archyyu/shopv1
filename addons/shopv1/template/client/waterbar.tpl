@@ -58,7 +58,7 @@
                             </div>
                         </div>
                         <div class="delete_list">
-                            <el-button type="text"><span class="el-icon-close"></span></el-button>
+                            <el-button type="text" @click="cartClear(item.productid)"><span class="el-icon-close"></span></el-button>
                         </div>
                     </div>
                 </el-scrollbar>
@@ -345,11 +345,22 @@ var app = new Vue({
                     this.cartlist[i].num -= 1;
                     
                     if(this.cartlist[i].num == 0){
-                        this.cartlist.splice(i);
+                        this.cartlist.splice(i,1);
                     }
                     return;
                 }
             }
+        },
+
+        cartClear:function(productid){
+
+            for (var i = 0; i < this.cartlist.length; i++) {
+                if (this.cartlist[i].productid == productid) {
+                    this.cartlist.splice(i,1);
+                    break;
+                }
+            }
+
         },
         
         addCart: function (p) {
