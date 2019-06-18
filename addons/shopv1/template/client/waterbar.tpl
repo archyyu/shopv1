@@ -22,7 +22,8 @@
                         <div class="pro_img" @click="addCart(o)"> <img v-lazy="getImgUrl(o)"> </div>
                         <div class="pro_title">
                             <p title="西瓜汁">{{o.productname}}
-                                <span><em> 正常价:￥{{o.normalprice/100}} </em></span>
+                                <span><em> 售价:￥{{o.normalprice/100}} </em></span>
+                                <span><em> 会员价:￥{{o.memberprice/100}} </em></span>
                             </p>
                         </div>
                     </div>
@@ -55,7 +56,7 @@
                             </div>
                         </div>
                         <div class="delete_list">
-                            <el-button type="text"><span class="el-icon-close"></span></el-button>
+                            <el-button type="text" @click="cartClear(item.productid)"><span class="el-icon-close"></span></el-button>
                         </div>
                     </div>
                 </el-scrollbar>
@@ -106,14 +107,18 @@
             </div>
         </div> -->
         <div class="real_pay">
-            <p>实际支付</p>
+            <p>扫码支付</p>
             <p class="real_money">￥{{getCartPrice()}}</p>
+        </div>
+        <div class="real_pay">
+            <p>会员支付</p>
+            <p class="real_money">￥{{getCartMemberPrice()}}</p>
         </div>
         <span slot="footer" class="dialog-footer">
 
-            <el-button class="btn weipay" @click="showPassword"><span class="iconfont">&#xe648;</span>余额支付</el-button>
-            <el-button class="btn weipay" @click="createOrder(1)"><span class="iconfont">&#xe669;</span>微信支付</el-button>
-            <el-button class="btn alipay" @click="createOrder(2)"><span class="iconfont">&#xe666;</span>支付宝支付</el-button>
+            <el-button class="btn weipay" @click="showPassword"><span class="iconfont">&#xe66d;</span>会员支付</el-button>
+            <el-button class="btn weipay" @click="createOrder(1)"><span class="iconfont">&#xe66d;</span>微信支付</el-button>
+            <el-button class="btn alipay" @click="createOrder(2)"><span class="iconfont">&#xe938;</span>支付宝支付</el-button>
 
         </span>
          <el-dialog
@@ -263,6 +268,15 @@ var app = new Vue({
             params.memberid = this.memberid;
             params.address = this.address;
             params.remark = this.remark;
+
+            if(paytype == 5){
+
+                for (var i = 0; i < this.cartlist.length; i++) {
+                     this.cartlist[i].price = this.cardlist[i].memberprice;
+                }
+
+            }
+
             params.productlist = JSON.stringify(this.cartlist);
             params.membercardid = this.cardId;
             params.from = 1;
@@ -352,13 +366,24 @@ var app = new Vue({
                     this.cartlist[i].num -= 1;
                     
                     if(this.cartlist[i].num == 0){
-                        this.cartlist.splice(i);
+                        this.cartlist.splice(i,1);
                     }
                     return;
                 }
             }
         },
-        
+
+        cartClear:function(productid){
+
+            for (var i = 0; i < this.cartlist.length; i++) {
+                if (this.cartlist[i].productid == productid) {
+                    this.cartlist.splice(i,1);
+                    break;
+                }
+            }
+
+        },
+
         addCart: function (p) {
 
             if(this.orderState != -1){
@@ -439,7 +464,32 @@ var app = new Vue({
             }
             return sum.toFixed(2);
         },
-        
+
+        getCartMemberPrice:function(){
+            let sum = 0;
+            let card = this.findMemberCard(this.cardId);
+
+            for(let cart of this.cartlist){
+
+                let discount = 100;
+                if(card){
+                    //discount = card.discount;
+                    if(card.typeid && card.typeid == cart.typeid){
+                        discount = card.discount;
+                    }
+                    if(card.productid && card.productid == cart.productid){
+                        discount = card.discount;
+                    }
+                }
+
+                sum += cart.memberprice*cart.num*(discount/100);
+            }
+            if(card){
+                sum -= card.exchange/100;
+            }
+            return sum.toFixed(2);
+        },
+
         info:function(){
             
         }
