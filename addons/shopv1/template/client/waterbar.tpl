@@ -15,9 +15,6 @@
         </div>
         <div class="content">
             <div class="banner">
-                {/literal}
-                <img src="{$StaticRoot}/img/client/water_banner.png">
-                {literal}
             </div>
             <div class="product">
                 <el-scrollbar>

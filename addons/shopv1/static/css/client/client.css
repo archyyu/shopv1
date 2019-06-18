@@ -430,7 +430,8 @@ body {
 }
 
 .content .banner {
-  height: 100px;
+  display: none;
+  height: 40px;
   width: 100%;
   border-radius: 0 0 10px 10px;
   /*opacity: .1;
@@ -443,20 +444,10 @@ body {
           box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.4);
 }
 
-.content .banner .banner_text {
-  border-radius: 0 0 10px 10px;
-  -webkit-box-shadow: 0 1px 8px #3a3227;
-          box-shadow: 0 1px 8px #3a3227;
-  position: absolute;
-  width: 597px;
-  height: 100px;
-  top: -8px;
-  left: -15px;
-}
-
 .content .product {
-  height: calc(100% - 130px);
+  height: calc(100% - 20px);
   overflow-y: auto;
+  margin-top: 15px;
 }
 
 .content .product .product-item {
@@ -528,6 +519,8 @@ body {
   width: 223px;
   padding: 10px;
   position: relative;
+  -webkit-box-shadow: -1px 0px 5px rgba(0, 0, 0, 0.4);
+          box-shadow: -1px 0px 5px rgba(0, 0, 0, 0.4);
 }
 
 .checkout .water_info {
@@ -729,8 +722,8 @@ body {
 .water_content {
   border: 3px solid #1672f5;
   background-color: #13245c;
-  -webkit-box-shadow: inset 0 0 4px 2px rgba(0, 0, 0, 0.51);
-          box-shadow: inset 0 0 4px 2px rgba(0, 0, 0, 0.51);
+  -webkit-box-shadow: inset 0 0 4px 2px rgba(0, 0, 0, 0.5);
+          box-shadow: inset 0 0 4px 2px rgba(0, 0, 0, 0.5);
 }
 
 .class {
