@@ -729,8 +729,8 @@ body {
 .water_content {
   border: 3px solid #1672f5;
   background-color: #13245c;
-  -webkit-box-shadow: inset 0 0 4px 2px rgba(0, 0, 0, 0.5);
-          box-shadow: inset 0 0 4px 2px rgba(0, 0, 0, 0.5);
+  -webkit-box-shadow: inset 0 0 4px 2px rgba(0, 0, 0, 0.51);
+          box-shadow: inset 0 0 4px 2px rgba(0, 0, 0, 0.51);
 }
 
 .class {
