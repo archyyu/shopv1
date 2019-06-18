@@ -33,7 +33,7 @@
                 width="300"
                 trigger="hover">
                     <el-table :data="cardList" size="mini" height="260px">
-                        <el-table-column property="date" label="卡券名称"></el-table-column>
+                        <el-table-column property="cardname" label="卡券名称"></el-table-column>
                         <el-table-column property="name" label="数量"></el-table-column>
                     </el-table>
                 </el-popover>
@@ -182,6 +182,7 @@ var app = new Vue({
                             //this.memberInfo.phone = phone.slice(0,3)+'*'+phone.slice(-3);
 
                             this.lock = false;
+                            this.queryMemberCardList();
                         }
                     });
             
@@ -232,11 +233,14 @@ var app = new Vue({
             let params = {};
             params.memberid = this.memberInfo.uid;
 
-            let url = UrlHelper.createUrl("member","");
+            let url = UrlHelper.createUrl("member","getMemberCardList");
 
             axios.post(url,params)
                 .then((res)=>{
                     res = res.data;
+                    if(res.state == 0){
+                        this.cardList = res.obj;
+                    }
 
 
 
