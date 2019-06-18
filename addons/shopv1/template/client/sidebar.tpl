@@ -178,27 +178,8 @@ var app = new Vue({
             let params = {};
             params.address = this.address;
             params.shopid = this.shopid;
-
-
-            // $.get(url,params,function(data){
-            //     if(data.state == 0){
-            //         console.log(data);
-            //     }
-            // });
-
-            // axios.post(url,params)
-            //     .then((res)=>{
-            //         res = res.data;
-            //         console.log(res);
-            //         let obj = JSON.parse(res);
-            //
-            //         if(obj.state == 0) {
-            //             this.idcard = obj.data;
-            //         }
-            //     });
-
         },
-        
+
         openWaterbar:function(){
             let url = UrlHelper.createShortUrl("clientwaterbar");
             
@@ -213,7 +194,28 @@ var app = new Vue({
         showMsg: function(){
             this.msgDialog = true;
         },
-        
+
+        queryMemberCardList:function(){
+
+            if(this.memberInfo.uid == undefined){
+                return ;
+            }
+
+            let params = {};
+            params.memberid = this.memberInfo.uid;
+
+            let url = UrlHelper.createUrl("member","");
+
+            axios.post(url,params)
+                .then((res)=>{
+                    res = res.data;
+
+
+
+                });
+
+        },
+
         leaveMsg:function(){
             
             let params = {};

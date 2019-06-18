@@ -406,6 +406,7 @@ Vue.component('waterbar', {
         scanCode:function(code){
             
             if(this.orderState == 5){
+                console.log(code);
                 this.scanPay(code);
             }
             else{

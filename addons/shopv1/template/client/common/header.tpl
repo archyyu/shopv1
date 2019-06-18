@@ -12,7 +12,6 @@
   <link rel="stylesheet" href="{$StaticRoot}/css/client/client.css">
 
   <script src="{$StaticRoot}/js/dist/vue.js"></script>
-  <script src="{$StaticRoot}/js/dist/jquery/jquery-1.11.1.min.js"></script>
   <script src="{$StaticRoot}/plugins/elementui/element-ui.js"></script>
   <script src="{$StaticRoot}/js/dist/axios/axios.min.js"></script>
   <script src="{$StaticRoot}/js/dist/axios/qs.js"></script>
