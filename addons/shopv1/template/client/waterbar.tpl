@@ -74,20 +74,6 @@
         custom-class="confirm-order"
         :close-on-click-modal="false"
         center>
-        <div class="pro_list">
-            <div class="order_number">
-                <p>应支付：￥{{getCartPrice()}}</p>
-            </div>
-            <div class="order_list">
-                <el-scrollbar>
-                    <div class="order_item" v-for="item in 20">
-                        <img src="http://placehold.it/80x80">
-                        <p>￥8</p>
-                        <div class="pro_number cartNum">1</div>
-                    </div>
-                </el-scrollbar>
-            </div>
-        </div>
         <div class="remark">
             <span>选择卡券：</span>
             <el-select v-model="cardId" placeholder="">
