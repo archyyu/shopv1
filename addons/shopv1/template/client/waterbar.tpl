@@ -122,9 +122,6 @@
             <el-button class="btn weipay" @click="showPassword"><span class="iconfont">&#xe66d;</span>会员支付</el-button>
             <el-button class="btn weipay" @click="createOrder(1)"><span class="iconfont">&#xe66d;</span>微信支付</el-button>
             <el-button class="btn alipay" @click="createOrder(2)"><span class="iconfont">&#xe938;</span>支付宝支付</el-button>
-            <el-button class="btn weipay" @click="showPassword"><span class="iconfont">&#xe648;</span>余额支付</el-button>
-            <el-button class="btn weipay" @click="createOrder(1)"><span class="iconfont">&#xe669;</span>微信支付</el-button>
-            <el-button class="btn alipay" @click="createOrder(2)"><span class="iconfont">&#xe666;</span>支付宝支付</el-button>
 
         </span>
          <el-dialog
