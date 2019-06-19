@@ -20,8 +20,8 @@
                 <table class="table">
                     <thead>
                         <tr>
-                            <th>充值金额</th>
-                            <th>赠送金额</th>
+                            <th>充值</th>
+                            <th>赠送</th>
                             <th>卡券</th>
                             <th>积分</th>
                         </tr>
@@ -29,6 +29,8 @@
                     <tbody>
                         <tr v-for="item of chargeCompaignList">
                             <td>{{item.chargefee}}</td>
+                            <td>{{item.awardfee}}</td>
+                            <td>{{item.awardfee}}</td>
                             <td>{{item.awardfee}}</td>
                         </tr>
                     </tbody>
