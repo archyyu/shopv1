@@ -60,6 +60,10 @@ var Member = {
                     }
                 },
                 {
+                    field:'realname',
+                    title:'姓名'
+                },
+                {
                     field: 'mobile',
                     title: '手机'
                 },
@@ -74,6 +78,30 @@ var Member = {
                 {
                     field: 'credit1',
                     title: '积分'
+                },
+                {
+                    field:'liveness',
+                    title:'活跃度',
+                    formatter:function(value,row){
+                        if(value == 0){
+                            return "新增";
+                        }
+                        else if(value == 1){
+                            return "僵尸";
+                        }
+                        else if(value == 2){
+                            return "非活跃";
+                        }
+                        else if(value == 3){
+                            return "活跃";
+                        }
+                        else if(value == 4){
+                            return "忠实";
+                        }
+                    }
+                },{
+                    field:'tags',
+                    title:'标签'
                 },
                 {
                     field: 'credit3',
