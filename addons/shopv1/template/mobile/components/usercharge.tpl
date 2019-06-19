@@ -22,6 +22,8 @@
                         <tr>
                             <th>充值金额</th>
                             <th>赠送金额</th>
+                            <th>卡券</th>
+                            <th>积分</th>
                         </tr>
                     </thead>
                     <tbody>
