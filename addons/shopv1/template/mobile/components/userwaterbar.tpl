@@ -179,7 +179,7 @@ Vue.component('waterbar', {
                     modelKey: 'card',
                     label: '卡券',
                     props: {
-                        options: this.cardList,
+                        options: tellCardList(),
                         title: '请选择卡券'
                     }
                 },
@@ -396,7 +396,6 @@ Vue.component('waterbar', {
                 }
 
                 sum += cart.price*cart.num*(discount/100);
-
             }
 
             if(card){
@@ -415,6 +414,45 @@ Vue.component('waterbar', {
                 }
             }
             
+        },
+
+        tellCardList:function(){
+
+            let list = [];
+
+            for(let card of this.cardlist){
+                for(this.isCardUse(card) == false){
+                    list.push(card);
+                }
+            }
+
+            return list;
+
+        },
+
+
+        isCardUse:function(card){
+
+            if(card.typeid || card.productid) {
+
+                for (let cart of this.cartlist) {
+
+                    if(card.typeid && cart.typeid == card.typeid){
+                        return false;
+                    }
+
+                    if(card.productid && cart.productid == card.productid){
+                        return false;
+                    }
+                }
+
+            }
+            else{
+                return false;
+            }
+
+            return true;
+
         },
         
         cartDeduct:function(productid){
