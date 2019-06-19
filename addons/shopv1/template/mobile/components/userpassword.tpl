@@ -4,50 +4,34 @@
         <header class="header">
             <span class="cubeic-back" @click="back"></span>
             <div class="title">
-                <span>余额充值</span>
+                <span>重置密码</span>
             </div>
         </header>
         <div class="container">
-            <div class="confirm-phone" v-if="firstStep">
-                <cube-form :model="phoneModel">
-                    <cube-form-item :field="phonefields[0]">
-                        <cube-input
-                            v-model="phoneModel.phone"
-                            placeholder="请输入手机号码"
-                            @blur="resize"></cube-input>
-                    </cube-form-item>
-                    <cube-form-item :field="phonefields[1]" class="verify-item">
-                        <cube-input
-                            v-model="phoneModel.verification"
-                            placeholder="请输入验证码"
-                            @blur="resize"></cube-input>
-                            <cube-button
-                                :disabled="waiting"
-                                :inline="true"
-                                @click="countdown">
-                                <span v-if="!waiting">{{ verificationStr }}</span>
-                                <span v-else>{{ totalTime }}s</span>
-                            </cube-button>
-                    </cube-form-item>
-                </cube-form>
-                <cube-button class="bottom-btn" @click="firstStep = false">下一步</cube-button>
-            </div>
-            <div class="reset-pw" v-else>
+            <div class="confirm-phone">
                 <cube-form :model="passwordModel">
                     <cube-form-item :field="passwordFields[0]">
-                        <cube-input
-                            v-model="phoneModel.password"
-                            placeholder="请输入密码"
+                        <cube-input v-model="passwordModel.phone" placeholder="请输入手机号码" :clearable="true"
                             @blur="resize"></cube-input>
                     </cube-form-item>
-                    <cube-form-item :field="passwordFields[1]">
-                        <cube-input
-                            v-model="phoneModel.confirmPw"
-                            placeholder="请确认密码"
+                    <cube-form-item :field="passwordFields[1]" class="verify-item">
+                        <cube-input v-model="passwordModel.verification" placeholder="请输入验证码" :clearable="true"
                             @blur="resize"></cube-input>
+                        <cube-button :disabled="waiting" :inline="true" @click="countdown">
+                            <span v-if="!waiting">{{ verificationStr }}</span>
+                            <span v-else>{{ totalTime }}s</span>
+                        </cube-button>
+                    </cube-form-item>
+                    <cube-form-item :field="passwordFields[2]">
+                        <cube-input v-model="passwordModel.password" placeholder="请输入密码" type="password"
+                            :clearable="true" :eye="{open:true,reverse:true}" @blur="resize"></cube-input>
+                    </cube-form-item>
+                    <cube-form-item :field="passwordFields[3]">
+                        <cube-input v-model="passwordModel.confirmPw" placeholder="请确认密码" type="password"
+                            :clearable="true" :eye="{open:true,reverse:true}" @blur="resize"></cube-input>
                     </cube-form-item>
                 </cube-form>
-                <cube-button class="bottom-btn">确定</cube-button>
+                <cube-button class="bottom-btn" @click="">确 &nbsp;&nbsp; 认</cube-button>
             </div>
         </div>
     </div>
@@ -60,15 +44,16 @@ Vue.component('password', {
     template: '#password',
     data(){
         return {
-            firstStep: true,
             waiting: false,
             totalTime: 60,
             verificationStr: '发送验证码',
-            phoneModel: {
+            passwordModel: {
+                password: '',
+                confirmPw: '',
                 phone: '',
                 verification: ''
             },
-            phonefields: [
+            passwordFields: [
                 {
                     type: 'input',
                     modelKey: 'phone',
@@ -78,13 +63,7 @@ Vue.component('password', {
                     type: 'input',
                     modelKey: 'verification',
                     label: '短信验证'
-                }
-            ],
-            passwordModel: {
-                password: '',
-                confirmPw: ''
-            },
-            passwordFields: [
+                },
                 {
                     type: 'input',
                     modelKey: 'password',

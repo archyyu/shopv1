@@ -34,10 +34,19 @@
         <cube-form :model="loginMsg">
             <cube-form-group>
                 <cube-form-item :field="fields[0]">
-                    <cube-input v-model="loginMsg.account" placeholder='请输入账号' @blur="resizePage"></cube-input>
+                    <cube-input
+                        v-model="loginMsg.account"
+                        placeholder='请输入账号'
+                        :clearable="true"></cube-input>
                 </cube-form-item>
                 <cube-form-item :field="fields[1]">
-                    <cube-input v-model="loginMsg.password" placeholder='请输入密码' @blur="resizePage"></cube-input>
+                    <cube-input
+                        v-model="loginMsg.password"
+                        type="password"
+                        placeholder='请输入密码'
+                        :clearable="true"
+                        :eye="{open:true,reverse:true}"
+                        @blur="resizePage"></cube-input>
                 </cube-form-item>
             </cube-form-group>
             <cube-form-group>
