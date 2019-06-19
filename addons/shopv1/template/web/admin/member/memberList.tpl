@@ -43,10 +43,10 @@
           <select id="liveness" class="form-control">
             <option value='-1'>未选择</option>
               <option value='0'>新手</option>
-            <option value='1'>忠实</option>
-            <option value='2'>活跃</option>
-            <option value='3'>非活跃</option>
-            <option value='4'>僵尸</option>
+            <option value='4'>忠实</option>
+            <option value='3'>活跃</option>
+            <option value='2'>非活跃</option>
+            <option value='1'>僵尸</option>
           </select>
         </div>
 
