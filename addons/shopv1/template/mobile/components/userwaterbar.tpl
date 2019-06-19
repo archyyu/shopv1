@@ -421,7 +421,7 @@ Vue.component('waterbar', {
             let list = [];
 
             for(let card of this.cardlist){
-                for(this.isCardUse(card) == false){
+                if(this.isCardUse(card) == false){
                     list.push(card);
                 }
             }
