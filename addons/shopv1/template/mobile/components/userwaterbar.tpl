@@ -179,7 +179,7 @@ Vue.component('waterbar', {
                     modelKey: 'card',
                     label: '卡券',
                     props: {
-                        options: tellCardList(),
+                        options: cardList,
                         title: '请选择卡券'
                     }
                 },
