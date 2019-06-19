@@ -79,7 +79,8 @@
             <el-select v-model="cardId" placeholder="">
               <el-option v-for="item in cardlist"
                 :label="item.cardname"
-                :value="item.id"></el-option>
+                :value="item.id"
+                :diabled="isCardUse(item)"></el-option>
             </el-select>
         </div>
         <div class="remark">
@@ -425,6 +426,12 @@ var app = new Vue({
             }
 
         },
+
+        tellCardList:function(){
+
+
+
+        },
         
         getCartPrice:function(){
             let sum = 0;
@@ -449,6 +456,31 @@ var app = new Vue({
                 sum -= card.exchange/100;
             }
             return sum.toFixed(2);
+        },
+
+
+        isCardUse:function(card){
+
+            if(card.typeid || card.productid) {
+
+                for (let cart of this.cartlist) {
+
+                    if(card.typeid && cart.typeid == card.typeid){
+                        return false;
+                    }
+
+                    if(card.productid && cart.productid == card.productid){
+                        return false;
+                    }
+                }
+
+            }
+            else{
+                return false;
+            }
+
+            return true;
+
         },
 
         getCartMemberPrice:function(){
