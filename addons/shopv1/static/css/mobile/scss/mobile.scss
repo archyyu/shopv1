@@ -721,3 +721,23 @@ html {
     }
   }
 }
+
+
+// user change password
+.user-password{
+  height: 100%;
+  .container{
+    background-color: #f0f0f0;
+    padding: 0;
+    .verify-item{
+      .cube-form-field{
+        display: flex;
+        align-items: center;
+      }
+    }
+    .bottom-btn{
+      position: absolute;
+      bottom: 0;
+    }
+  }
+}

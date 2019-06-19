@@ -22,6 +22,9 @@
             <cube-tab-panel label="cardList"> 
                 <card-list ref="cardList"></card-list>
             </cube-tab-panel>
+            <cube-tab-panel label="password"> 
+                <password ref="password"></password>
+            </cube-tab-panel>
         </cube-tab-panels>
         <cube-tab-bar
             v-model="selectedLabel"
@@ -41,6 +44,7 @@
 {include file="./components/usermine.tpl"}
 {include file="./components/usercharge.tpl"}
 {include file="./components/usercardlist.tpl"}
+{include file="./components/userpassword.tpl"}
 
 
 <script src="{$StaticRoot}/js/cashier/dateUtil.js"></script>

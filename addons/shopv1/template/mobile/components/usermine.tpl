@@ -42,6 +42,12 @@
                             </div>
                             <div class="weui-cell__ft">{{memberInfo.cardsize}}张</div>
                         </div>
+                        <div class="weui-cell weui-cell_access" @click="toPassword">
+                            <div class="weui-cell__bd">
+                                <p>重置密码</p>
+                            </div>
+                            <div class="weui-cell__ft">{{memberInfo.cardsize}}张</div>
+                        </div>
                     </div>
                 </div>
             </cube-scroll>
@@ -162,6 +168,9 @@ Vue.component('mine', {
         },
         toCard:function(){
             this.$root.selectedLabel = 'cardList';
+        },
+        toPassword:function(){
+            this.$root.selectedLabel = 'password';
         },
         queryMemberInfo:function(){
             let params = {};

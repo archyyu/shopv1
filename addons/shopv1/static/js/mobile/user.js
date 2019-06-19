@@ -63,6 +63,9 @@ var app = new Vue({
         toMine: function () {
             this.selectedLabel = 'mine';
         },
+        toPassword: function () {
+            this.selectedLabel = 'password';
+        },
         tabsChange(newTab, oldTab){
             if(this.$refs[newTab]){
                 this.resizePage();
