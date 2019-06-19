@@ -77,7 +77,7 @@
         <div class="remark">
             <span>选择卡券：</span>
             <el-select v-model="cardId" placeholder="">
-              <el-option v-for="item in cardlist"
+              <el-option v-for="item in tellCardList()"
                 :label="item.cardname"
                 :value="item.id"
                 :diabled="isCardUse(item)"></el-option>
@@ -426,12 +426,6 @@ var app = new Vue({
             }
 
         },
-
-        tellCardList:function(){
-
-
-
-        },
         
         getCartPrice:function(){
             let sum = 0;
@@ -458,6 +452,20 @@ var app = new Vue({
             return sum.toFixed(2);
         },
 
+
+        tellCardList:function(){
+
+            let list = [];
+
+            for(let card of this.cardlist){
+                if(this.isCardUse(card) == false){
+                    list.push(card);
+                }
+            }
+
+            return list;
+
+        },
 
         isCardUse:function(card){
 
