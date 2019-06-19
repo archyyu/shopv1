@@ -259,7 +259,7 @@ var app = new Vue({
             if(paytype == 5){
 
                 for (var i = 0; i < this.cartlist.length; i++) {
-                     this.cartlist[i].price = this.cardlist[i].memberprice;
+                     this.cartlist[i].price = this.cartlist[i].memberprice;
                 }
 
             }
