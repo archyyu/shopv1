@@ -326,8 +326,35 @@ class MobileController extends \controller\Controller{
         $code = rand(1000, 9999);
         
         $content = "短信验证码: $code";
+        logInfo($content);
         $this->smsService->sendContent($phone, $content);
         $this->redisService->setPhoneVerifyCode($phone, $code);
+        $this->returnSuccess();
+    }
+
+    public function resetPayPwd(){
+
+        $phone = $this->getParam("phone");
+        $code = $this->getParam("code");
+        $pay_password = $this->getParam("pay_password");
+
+        $memberid = $this->getUid();
+        if($code != $this->redisService->getPhoneCode($phone)){
+            $this->returnFail("验证码错误");
+        }
+
+        global $_W;
+        $mobile = $_W["member"]["mobile"];
+
+        if($mobile != $phone){
+            $this->returnFail("手机号错误");
+        }
+
+        $data["mobile"] = $phone;
+        $data['pay_password'] = md5($pay_password);
+
+        $this->shopMemberModel->saveMember($data, $memberid);
+
         $this->returnSuccess();
     }
 
