@@ -31,7 +31,7 @@
                             :clearable="true" :eye="{open:true,reverse:true}" @blur="resize"></cube-input>
                     </cube-form-item>
                 </cube-form>
-                <cube-button class="bottom-btn" @click="">确 &nbsp;&nbsp; 认</cube-button>
+                <cube-button class="bottom-btn" @click="resetPwd">确 &nbsp;&nbsp; 认</cube-button>
             </div>
         </div>
     </div>
@@ -80,6 +80,7 @@ Vue.component('password', {
     methods:{
         open:function(){
             this.firstStep = true;
+            //this.passwordModel.phone = this.$refs.mine.memberInfo.phone;
         },
 
         resize: function(){
@@ -97,6 +98,14 @@ Vue.component('password', {
         },
         
         countdown(){
+
+            if(this.passwordModel.phone == ""){
+
+                Toast.error("手机号不能是空");
+                return ;
+            }
+
+            this.getCode();
             this.waiting = true;
             let time = setInterval(()=>{
                 if(this.totalTime>1){
@@ -108,6 +117,54 @@ Vue.component('password', {
                     this.waiting = false;
                 }
             }, 1000)
+        },
+
+        getCode:function(){
+
+            let url = UrlUtil.createShortUrl("getCode");
+
+            let params = {};
+            params.phone = this.passwordModel.phone;
+
+            axios.post(url,params)
+                .then((res)=>{
+                    res = res.data;
+                    if(res.state == 0){
+
+                    }
+                    else{
+
+                    }
+                });
+
+        },
+
+        resetPwd:function(){
+
+
+            if(this.passwordModel.password != this.passwordModel.confirmPw){
+                Toast.error("密码不一致");
+                return;
+            }
+
+            let url = UrlUtil.createShortUrl("resetPayPwd");
+
+            let params = {};
+            params.phone = this.passwordModel.phone;
+            params.code = this.passwordModel.verification;
+            params.pay_password = this.passwordModel.password;
+
+            axios.post(url,params)
+                .then((res)=>{
+                    res = res.data;
+                    if(res.state == 0){
+                        Toast.success("修改成功");
+                    }
+                    else {
+                        Toast.error("失败");
+                    }
+                });
+
         },
 
         info: function(){
