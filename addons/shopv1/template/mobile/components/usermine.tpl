@@ -46,7 +46,7 @@
                             <div class="weui-cell__bd">
                                 <p>重置密码</p>
                             </div>
-                            <div class="weui-cell__ft">{{memberInfo.cardsize}}张</div>
+                            <div class="weui-cell__ft"></div>
                         </div>
                     </div>
                 </div>
