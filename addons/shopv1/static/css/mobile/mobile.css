@@ -111,6 +111,16 @@ html {
   border: 1px solid #ddd;
 }
 
+.table-fixed {
+  table-layout: fixed;
+}
+
+.table-fixed th, .table-fixed td {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
 .my-popup-wrap {
   background-color: #fff;
 }
@@ -804,8 +814,30 @@ html {
   text-align: right;
 }
 
+.user-charge .container .table-wrap {
+  position: relative;
+}
+
 .user-charge .container .table {
   text-align: center;
+}
+
+.user-charge .container .table .card-td {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  position: relative;
+}
+
+.user-charge .container .table .card-td > span {
+  -webkit-text-decoration: underline dotted;
+          text-decoration: underline dotted;
 }
 
 .user-charge .container .cube-radio-wrap {

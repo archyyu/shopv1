@@ -114,6 +114,16 @@ html {
   }
 }
 
+.table-fixed {
+  table-layout: fixed;
+  th, td {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+}
+
+
 // popup
 .my-popup-wrap{
   background-color: #fff;
@@ -674,8 +684,20 @@ html {
       text-align: right;
     }
 
+    .table-wrap{
+      position: relative;
+    }
     .table{
       text-align: center;
+      .card-td{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: relative;
+        >span{
+          text-decoration: underline dotted;
+        }
+      }
     }
 
     .cube-radio-wrap {
