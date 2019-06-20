@@ -25,9 +25,9 @@
       </div>
       <div class="form-group form-group-sm">
         <label class="control-label">查询商品</label>
-        <input type="text" class="form-control" placeholder="请输入商品名称或关键字">
+        <input type="text" class="form-control" placeholder="请输入商品名称或关键字" id="productName">
       </div>
-      <button class="btn btn-sm btn-primary">搜索</button>
+      <button class="btn btn-sm btn-primary" onclick="Inventory.goodsTableReload();">搜索</button>
     </div>
   </div>
   <div class="water-btn-group clearfix">

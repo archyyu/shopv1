@@ -167,6 +167,7 @@ class ProductController extends Controller{
         $storeid = $this->getParam("storeid");
         
         $typeid = $this->getParam('typeid');
+        $productname = $this->getParam('productname');
         
         $typelist = $this->productTypeModel->getProductTypeList($uniacid);
         
@@ -181,6 +182,10 @@ class ProductController extends Controller{
         
         if(isset($typeid) && $typeid != ''){
             $where['typeid'] = $typeid;
+        }
+
+        if(isset($productname) && $productname != ''){
+            $where['productname'] = $productname;
         }
         
         $productData = $this->productModel->page($offset, $limit, '*', $where, 'id');

@@ -38,6 +38,12 @@ $(function () {
         Inventory.goodsTableReload();
         
     });
+
+    $("#productName").change(function(){
+        
+        Inventory.goodsTableReload();
+        
+    });
     
     $('#typeSelectQuery').change(function(){
        Inventory.goodsTableReload(); 
@@ -524,6 +530,7 @@ var Inventory = {
     
     params.storeid = $("#storeSelect").val();
     params.typeid = $("#typeSelectQuery").val();
+    params.productname = $("#productName").val();
     
     $.post(url, params, function (data) {
       if (data.state == 0) {
