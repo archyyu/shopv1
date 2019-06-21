@@ -151,7 +151,7 @@ class ShopController extends Controller{
             $where['uniacid'] = $uniacid;
             
             $data = $this->shopModel->page($offset,$limit,'*',$where,'id');
-            
+
             $this->returnSuccess($data);
         }
         catch (Exception $ex){

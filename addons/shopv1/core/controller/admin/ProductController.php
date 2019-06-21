@@ -81,6 +81,18 @@ class ProductController extends Controller{
         
         foreach($list as $key=>$value){    
             $list[$key]['shopname'] = $shopMap[$value['shopid']]['shopname'];
+
+            if($list[$key]["id"] == $shopMap[$value["shopid"]]["defaultstoreid"]){
+
+                $list[$key]["default"] = 1;
+
+            }
+            else{
+
+                $list[$key]["default"] = 0;
+
+            }
+
         }
         
         $this->returnSuccess($list);
@@ -91,13 +103,21 @@ class ProductController extends Controller{
         $storename = $this->getParam('storename');
         $storeid = $this->getParam('storeid');
         $shopid = $this->getParam("shopid");
-        
+        $default = $this->getParam("default");
+
+
         $data = array();
         $data['uniacid'] = $uniacid;
         $data['storename'] = $storename;
         
         if(isset($shopid)){
             $data['shopid'] = $shopid;
+        }
+
+        if($default == 1){
+
+
+
         }
         
         $data['deleteflag'] = 0;
@@ -110,6 +130,21 @@ class ProductController extends Controller{
         }
         
         if($this->storeModel->saveStore($data)){
+
+            if(isset($storeid)==false) {
+                $storeid = $this->storeModel->getLastInsertId();
+            }
+
+            if($default == 1 && isset($shopid)){
+
+                $shop = array();
+                $shop["defaultstoreid"] = $storeid;
+                $shop["id"] = $shopid;
+                $this->shopModel->saveShop($shop);
+
+            }
+
+
             $this->returnSuccess();
         }
         else{

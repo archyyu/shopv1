@@ -11,6 +11,10 @@ var Warehouse = {
     $("#warehouseList").bootstrapTable({
       data: [],
       columns: [
+          {
+              field: 'id',
+              title: '库房id'
+          },
         {
           field: 'storename',
           title: '库房名称'
@@ -24,7 +28,20 @@ var Warehouse = {
           title:'所属门店'
         },
         {
-          field: 'id',
+            field:'default',
+            title:'是否门店默认库房',
+            formatter:function(value,row,index){
+                if(value == 0){
+                    return "否";
+                }
+                else{
+                    return "是";
+                }
+
+            }
+        },
+        {
+          field: 'uniacid',
           title: '操作',
           events:{
               'click .edit-event':function(e,value,row,index){
@@ -62,6 +79,9 @@ var Warehouse = {
       if(type == 0){
           $("#storeid").val(0);
           $("#storename").val('');
+
+          $("#default").attr("checked",false);
+
           $("#addWarehouseModal").modal("show");
       }
       else{
@@ -69,6 +89,8 @@ var Warehouse = {
           if(obj.shopid != undefined){
               $("#shopid").selectpicker('val',obj.shopid);
           }
+
+          $("#default").prop("checked",obj.default == 1);
           
           $("#storeid").val(obj.id);
           $("#storename").val(obj.storename);
@@ -88,6 +110,14 @@ var Warehouse = {
       if($("#shopid").val() != ''){
           params.shopid = $("#shopid").val();
       }
+
+      if($("#default").prop("checked")){
+          params.default = 1;
+      }
+      else{
+          params.default = 0;
+      }
+
       
       $.post(url,params,function(data){
           if(data.state == 0){

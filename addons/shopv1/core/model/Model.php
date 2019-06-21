@@ -76,10 +76,10 @@ class Model{
         if ($pdoStateResult == false) {
             return false;
         }
-        if ($pdoStateResult->rowCount() > 0) {
+        if ($pdoStateResult->rowCount() >= 0) {
             return true;
         } else {
-            //logInfoWithArr("save error", $pdoStateResult->errorInfo());
+            logInfoWithArr("save error", $pdoStateResult->errorInfo());
             return false;
         }
     }

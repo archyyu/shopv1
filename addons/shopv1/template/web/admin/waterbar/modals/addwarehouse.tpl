@@ -13,21 +13,26 @@
           </div>*}
             <input type="hidden" id="storeid" value="0" />
           <div class="form-group form-group-sm">
-            <label for="" class="col-xs-3 col-xs-offset-1 control-label">库房名称：</label>
-            <div class="col-xs-7"><input type="text" id="storename" class="form-control" placeholder="请输入库房名称">
+            <label for="" class="col-xs-5 col-xs-offset-1 control-label">库房名称：</label>
+            <div class="col-xs-5"><input type="text" id="storename" class="form-control" placeholder="请输入库房名称">
             </div>
           </div>
           <div class="form-group form-group-sm">
-            <label class="col-sm-3 control-label">
+            <label class="col-sm-5 control-label">
               <span style="color: red;"> * </span>所属门店：
             </label>
-            <div class="col-sm-8">
+            <div class="col-sm-5">
               <select class="form-control selectpicker" name="shopid" id="shopid">
                 <option value="">请选择</option>
                 {foreach $shopList as $store}
                     <option value='{$store.id}' >{$store.shopname}</option>
                 {/foreach}
               </select>
+            </div>
+          </div>
+          <div class="form-group form-group-sm">
+            <label for="" class="col-xs-5 col-xs-offset-1 control-label">是否是门店默认库房：</label>
+            <div class="col-xs-5"><input type="checkbox" id="default" class="form-control">
             </div>
           </div>
         </div>

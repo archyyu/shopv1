@@ -374,7 +374,7 @@ class MobileController extends \controller\Controller{
         
         $data = array();
         $data["mobile"] = $phone;
-        $data["idcard"] = $idcard;
+        $data["idcard"] = strtoupper($idcard);
         $data['pay_password'] = md5($pay_password);
         
         $this->shopMemberModel->saveMember($data, $memberid);
