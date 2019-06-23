@@ -139,6 +139,9 @@ var app = new Vue({
         toWaterbar:function(){
             this.selectedLabel = "waterbar";
         },
+        toStock:function(){
+            this.selectedLabel = "stock";
+        },
         tabsChange(newTab, oldTab){
             if(this.$refs[newTab]){
                 this.resizePage();

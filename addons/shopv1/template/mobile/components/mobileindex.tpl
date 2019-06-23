@@ -31,6 +31,9 @@
                    <div class="func-btn-item">
                         <div class="func-btn-inner" @click="toMember()">会员</div>
                     </div>
+                   <div class="func-btn-item">
+                        <div class="func-btn-inner" @click="toStock()">进货</div>
+                    </div>
                 </div>
             </cube-scroll>
             
@@ -72,6 +75,9 @@ Vue.component('index', {
         },
         toMember:function(){
             this.$root.toMember();
+        },
+        toStock:function(){
+            this.$root.toStock();
         },
         logout: function() {
             this.$createDialog({
