@@ -17,24 +17,32 @@
                 <cube-form-item :field="fields[3]">{{(this.model.chargefee*1 + this.model.awardfee*1)}}</cube-form-item>
             </cube-form-group>
             <cube-form-group legend="充赠">
-                <table class="table">
+                <div class="table-wrap">
+                <table class="table table-fixed">
                     <thead>
                         <tr>
-                            <th>充值</th>
-                            <th>赠送</th>
-                            <th>卡券</th>
-                            <th>积分</th>
+                            <th style="width:20%">充值</th>
+                            <th style="width:20%">赠送</th>
+                            <th style="width:40%">卡券</th>
+                            <th style="width:20%">积分</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr v-for="item of chargeCompaignList">
+                        <tr v-for="(item,i) of 2">
                             <td>{{item.chargefee}}</td>
                             <td>{{item.awardfee}}</td>
-                            <td>{{item.awardfee}}</td>
+                            <td>
+                                <div class="card-td">
+                                    <span @click="onCardClick(i,item)">1111{{i}}</span>
+                                    
+                                </div>
+                            </td>
                             <td>{{item.awardfee}}</td>
                         </tr>
                     </tbody>
                 </table>
+                <cube-tip ref="cardTip" direction="bottom" :style="tipStyle">{{tipStr}}</cube-tip>
+            </div>
             </cube-form-group>
             <cube-form-group legend="支付方式">
                 <cube-form-item>
@@ -70,6 +78,9 @@ Vue.component('charge', {
     data(){
         return {
             memberInfo: {},
+            tipStr: '',
+            timeout: '',
+            tipStyle: '',
             model: {
                 chargefee: '',
                 awardfee:0,
@@ -162,6 +173,24 @@ Vue.component('charge', {
 
         resize: function(){
             this.$root.resizePage();
+        },
+
+        onCardClick: function(i,text){
+            let tip = 'tip'+i;
+            let ref = this.$refs.cardTip;
+            this.tipStr = text;
+            let tdwidth = document.body.offsetWidth*0.4;
+            console.log(ref);
+            ref.show();
+            // let left = 'calc('+(tdwidth-ref.$el.offsetWidth)/2 +'px + 40%)';
+            let left = '48%';
+            let top = 'calc((32.8px*'+(i+1)+') - 38px)'
+            console.log(tdwidth,ref.$el.offsetWidth,left,top)
+            this.tipStyle = 'left: '+left+'; top:'+top;
+            clearTimeout(this.timeout)
+            this.timeout = setTimeout(() => {
+                ref.hide();
+            }, 2*1000);
         },
 
         getAwardFee:function(){

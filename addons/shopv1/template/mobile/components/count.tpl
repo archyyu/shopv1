@@ -9,11 +9,20 @@
         </header>
         <div class="container">
             <cube-scroll>
-                <span>仓库：</span>
-                <cube-select
-                    v-model="selectWarehouse" @change="warehousechange"
-                    :options="warehouseList">
-                </cube-select>
+                <div>
+                    <span>仓库：</span>
+                    <cube-select
+                        v-model="selectWarehouse" @change="warehousechange"
+                        :options="warehouseList">
+                    </cube-select>
+                </div>
+                <div>
+                    <span>分类：</span>
+                    <cube-select
+                        v-model="selectClass" @change="classchange"
+                        :options="classList">
+                    </cube-select>
+                </div>
                 <div class="count-table">
                     <table class="table">
                         <thead>
@@ -55,6 +64,8 @@ Vue.component('count', {
             productInventory: [],
             warehouseList: [],
             selectWarehouse: 0,
+            classList: [],
+            selectClass: 0,
         };
     },
     created() {
@@ -101,6 +112,11 @@ Vue.component('count', {
         
         warehousechange:function(value, index, text){
             this.selectWarehouse = value;
+            this.queryProductInventory();
+        },
+        
+        classchange:function(value, index, text){
+            this.selectClass = value;
             this.queryProductInventory();
         },
         

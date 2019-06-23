@@ -13,6 +13,9 @@
             <cube-tab-panel label="count">
                 <count ref="count"></count>
             </cube-tab-panel>
+            <cube-tab-panel label="stock">
+                <stock ref="stock"></stock>
+            </cube-tab-panel>
             <cube-tab-panel label="order">
                 <order ref="order"></order>
             </cube-tab-panel>
@@ -68,6 +71,7 @@
 {include file="./components/member.tpl"}
 {include file="./components/memberdetail.tpl"}
 {include file="./components/order.tpl"}
+{include file="./components/stock.tpl"}
 
 
 <script src="{$StaticRoot}/js/cashier/dateUtil.js"></script>

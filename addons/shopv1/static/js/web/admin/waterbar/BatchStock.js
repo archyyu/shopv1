@@ -4,6 +4,10 @@ $(function(){
 	$("#selectProductList").niceScroll();
 	BatchStock.initTable();
 	BatchStock.refreshTable();
+	$('#addStockMaterial').on('shown.bs.modal', function (e) {
+		$("#selectProductList").niceScroll().resize();
+		$("#selectProductList").niceScroll().scrollTop(0);
+	})
  
 });
 

@@ -1,6 +1,10 @@
 $(function(){
 
 	$("#selectProductList").niceScroll();
+	$('#addStockMaterial').on('shown.bs.modal', function (e) {
+		$("#selectProductList").niceScroll().resize();
+		$("#selectProductList").niceScroll().scrollTop(0);
+	})
 	BatchShipment.initTable();
 	BatchShipment.refreshTable();
  
