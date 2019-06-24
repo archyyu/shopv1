@@ -15,6 +15,10 @@ $(function(){
         CardType.initCurrent(this.value);
         CardType.flushSelect(0);
     });
+
+    $('#cardSelect').change(function(v,a,b){
+        console.log(v,a,b)
+    });
     
     
 });
@@ -184,6 +188,10 @@ var CardType = {
         }
         $("#addCardModal").modal("show");
         
+    },
+
+    openNetfeeCardModal: function(){
+        $("#addNetfeeCardModal").modal("show");
     },
     
     saveCard:function(){
