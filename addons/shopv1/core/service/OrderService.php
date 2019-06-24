@@ -403,5 +403,53 @@ class OrderService extends Service{
         return $data;
     }
 	
-    
+    public function useNetCard($membercardid, $shopid, $uniacid, $userid, $memberid, $source, $address)
+    {
+        //获取网费兑换券
+        $membercard = $this->cardModel->getMemberCard($membercardid);
+
+        if(!$membercard || $membercard['ctype'] != 2 || $membercard['expiretime'] < time() || $membercard['exchange'] <= 0){
+            logInfo("网费兑换券兑换失败，membercardid=" . $membercardid);
+            return false;
+        }
+
+        //开启事务
+        $this->cardModel->beginTransaction();
+
+        try {
+
+            $this->cardModel->useMemberCard($membercardid);
+
+            $order = array();
+            $order['id'] = $this->generateOrderId();
+            $order['shopid'] = $shopid;
+            $order['uniacid'] = $uniacid;
+            $order['createtime'] = time();
+            $order['paytime'] = time();
+            $order['ordersource'] = $source;
+            $order['ordertype'] = OrderType::ChargeOrder;
+            $order['orderstate'] = OrderType::Payed;
+            $order['memberid'] = $memberid;
+            $order['paytype'] = OrderType::CardPay;
+            $order['orderprice'] = $membercard['exchange'];
+            $order['membercardid'] = $membercardid;
+            $order['userid'] = $userid;
+            $order['userget'] = 0;
+            $order['address'] = $address;
+
+            $result = $this->shopOrder->addOrder($order);
+
+            if($result == false){
+                $this->cardModel->rollback();
+                return false;
+            }
+            $this->cardModel->commit();
+            return $order['id'];
+
+        } catch (Exception $e) {
+            logError("网费兑换券兑换失败，membercardid=" . $membercardid, $e);
+            $this->cardModel->rollback();
+            return false;
+        }
+    }
 }

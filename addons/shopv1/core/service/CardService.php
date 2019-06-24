@@ -65,6 +65,7 @@ class CardService extends Service{
             $membercard['discount'] = $card["discount"];
             $membercard['typeid'] = $card['typeid'];
             $membercard['productid'] = $card['productid'];
+            $membercard['ctype'] = $card['cardtype'];
             
             $this->memberCardModel->addMemberCard($membercard);
             
