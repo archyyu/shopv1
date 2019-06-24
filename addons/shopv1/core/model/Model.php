@@ -120,6 +120,10 @@ class Model{
     public function countNum($column, $where) {
         return Model::$medoo->count($this->table, $column, $where);
     }
+
+    public function sumByColumn($column, $where) {
+        return Model::$medoo->sum($this->table, null, $column, $where);
+    }
     
     public function page($offset,$limit, $field, $where, $order = '', $join = '') {
         

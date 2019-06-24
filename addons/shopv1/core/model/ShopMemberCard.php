@@ -54,4 +54,10 @@ class ShopMemberCard extends Model{
     public function removeMemberCard($id){
         return $this->remove(['id'=>$id]);
     }
+
+    public function SumNetCardByDuty($shopid, $starttime, $endtime){
+
+        $where = ['shopid'=>$shopid,'ctype'=>2,'useflag'=>1,'usetime[>=]'=>$starttime,'usetime[<=]'=>$endtime,'deleteflag'=>0];
+        return $this->sumByColumn("exchange", $where);
+    }
 }

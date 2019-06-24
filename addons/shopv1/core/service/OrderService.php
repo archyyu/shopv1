@@ -346,6 +346,9 @@ class OrderService extends Service{
                 $productalipay += $value['orderprice'];
             }
         }
+
+        //网费兑换券
+        $netcardsum = $this->cardModel->SumNetCardByDuty($shopid, $starttime, $endtime);
         
         $duty['starttime'] = $starttime;
         $duty['endtime'] = time();
@@ -354,6 +357,7 @@ class OrderService extends Service{
         $duty['productalipay'] = $productalipay/100;
         $duty['ordersize'] = count($orderList);
         $duty['productsum'] = ($productcash + $productwechat + $productalipay)/100;
+        $duty['netcardsum'] = $netcardsum;
         
         return $duty;
     }
