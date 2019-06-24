@@ -114,6 +114,9 @@ var CardType = {
                 field: 'effectiveday',
                 title: '卡券有效期',
                 formatter:function(value,row,index){
+                    if (row.cardtype == 2) {
+                        return new Date(parseInt(row.starttime) * 1000).toLocaleString().replace(/:\d{1,2}$/,' ') + " | " + new Date(parseInt(row.endtime) * 1000).toLocaleString().replace(/:\d{1,2}$/,' ');
+                    };
                     return value + "天";
                 }
               },
@@ -122,6 +125,10 @@ var CardType = {
                 title: '操作',
                 events:{
                     'click .edit-event':function(e,value,row,index){
+                        if (row.cardtype == 2) {
+                            CardType.openNetfeeCardModal(1,row);
+                            return ;
+                        };
                         CardType.openCardModal(1,row);
                     },
                     'click .remove-event':function(e,value,row,index){
@@ -190,7 +197,21 @@ var CardType = {
         
     },
 
-    openNetfeeCardModal: function(){
+    openNetfeeCardModal: function(addOrUpdate, obj){
+        if(addOrUpdate == 0){
+            //新增
+            $("#addNetfeeCardModal [name=netcardid]").val(0);
+            $("#addNetfeeCardModal [name=netcardname]").val("");
+            $("#addNetfeeCardModal [name=netexchange]").val('');
+        
+        }
+        else{
+            $("#addNetfeeCardModal [name=netcardid]").val(obj.id);
+            $("#addNetfeeCardModal [name=netcardname]").val(obj.cardname);
+            $("#addNetfeeCardModal [name=netexchange]").val(obj.exchange/100);
+            $("#addNetfeeCardModal [name=nettimearea]").val(obj.starttime);
+        }
+
         $("#addNetfeeCardModal").modal("show");
     },
     
@@ -207,6 +228,7 @@ var CardType = {
         params.effectiveday = $("#addCardModal [name=effectiveday]").val();
         params.typeid = $("#producttype").val();
         params.productid = $("#product").val();
+        params.cardtype = 0;
         
         $.post(url,params,function(data){
            if(data.state == 0){
@@ -219,6 +241,28 @@ var CardType = {
            }
         });
         
+    },
+
+    saveNetCard : function(){
+        var url = UrlUtil.createWebUrl("card","saveNetCardType");  
+        var params = {};
+        
+        params.cardid = $("#addNetfeeCardModal [name=netcardid]").val();
+        params.cardname = $("#addNetfeeCardModal [name=netcardname]").val();
+        params.exchange = $("#addNetfeeCardModal [name=netexchange]").val();
+        params.timearea = $("#addNetfeeCardModal [name=nettimearea]").val();
+        params.cardtype = 2;
+        
+        $.post(url,params,function(data){
+           if(data.state == 0){
+               Tips.successTips("保存成功");
+               $("#addNetfeeCardModal").modal("hide");
+               CardType.reloadTable();
+           } 
+           else{
+               Tips.failTips(data.msg);
+           }
+        });
     },
     
     deleteCard:function(id){

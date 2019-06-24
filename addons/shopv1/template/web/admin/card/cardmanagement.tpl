@@ -14,7 +14,7 @@
                 <li onclick="CardType.openCardModal(0,null);">
                     <a>添加抵现券</a>
                 </li>
-                <li onclick="CardType.openNetfeeCardModal();">
+                <li onclick="CardType.openNetfeeCardModal(0,null);">
                     <a>添加兑换券</a>
                 </li>
             </ul>

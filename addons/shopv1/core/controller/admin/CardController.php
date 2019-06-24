@@ -89,6 +89,7 @@ class CardController extends \controller\Controller{
         $effectiveday = $this->getParam('effectiveday');
         $typeid = $this->getParam('typeid');
         $productid = $this->getParam('productid');
+        $cardtype = $this->getParam('cardtype');
         
         $data = array();
         
@@ -99,13 +100,55 @@ class CardController extends \controller\Controller{
             $data['id'] = $cardid;
         }
         
+        $data['cardtype'] = $cardtype;
         $data["cardname"] = $cardname;
-        $data["exchange"] = $exchange/100;
+        $data["exchange"] = $exchange * 100;
         $data["discount"] = $discount;
-        $data['effectiveprice'] = $effectiveprice/100;
+        $data['effectiveprice'] = $effectiveprice * 100;
         $data['effectiveday'] = $effectiveday;
         $data['typeid'] = $typeid;
         $data['productid'] = $productid;
+        
+        $result = $this->cardTypeModel->saveCardType($data);
+        if($result){
+            $this->returnSuccess();
+        }
+        else{
+            $this->returnFail("数据库错误");
+        }
+        
+    }
+
+    public function saveNetCardType(){
+        
+        $uniacid = $this->getUniacid();
+        $cardid = $this->getParam("cardid");
+        $cardname = $this->getParam('cardname');
+        $exchange = $this->getParam('exchange');
+        $timearea = $this->getParam('timearea');
+        $cardtype = $this->getParam('cardtype');
+        
+        $data = array();
+        
+        if($cardid == 0){
+            $data['uniacid'] = $uniacid;
+        }
+        else{
+            $data['id'] = $cardid;
+        }
+
+        $timeArr = explode("-", $timearea);
+        if (count($timeArr) == 2) {
+            $data['starttime'] = strtotime(trim($timeArr[0]). ":00");
+            $data['endtime'] = strtotime(trim($timeArr[1]). ":00");
+        }
+
+        logInfo($timearea);
+        
+        $data['cardtype'] = $cardtype;
+        $data["cardname"] = $cardname;
+        $data["exchange"] = $exchange * 100;
+        $data['effectiveprice'] = 0;
         
         $result = $this->cardTypeModel->saveCardType($data);
         if($result){

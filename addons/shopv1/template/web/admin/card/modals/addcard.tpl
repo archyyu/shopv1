@@ -9,7 +9,6 @@
                     <div class="form-group">
                         <label class="control-label col-xs-3">卡券ID：</label>
                         <p class="form-control-static col-xs-8">默认</p>
-                        <input type="hidden" name="cardid" value="0" />
                     </div>
                     <div class="form-group">
                         <label class="control-label col-xs-3">卡券类型：</label>
