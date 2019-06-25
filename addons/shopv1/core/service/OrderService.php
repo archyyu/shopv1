@@ -448,7 +448,7 @@ class OrderService extends Service{
                 return false;
             }
             $this->cardModel->commit();
-            return $order['id'];
+            return true;
 
         } catch (Exception $e) {
             logError("网费兑换券兑换失败，membercardid=" . $membercardid, $e);

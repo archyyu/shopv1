@@ -345,5 +345,26 @@ class OrderController extends \controller\Controller{
         $this->returnSuccess($result);
 
     }
+
+
+    public function createNetCardOrder(){
+        
+        $shopid = $this->getParam("shopid");
+        $membercardid = $this->getParam("membercardid");
+        $memberid = $this->getParam("memberid");
+        $source = $this->getParam("source");
+        $address = $this->getParam("address");
+        $uniacid = $this->getUniacid();
+        $userid = $this->getParamDefault("userid", 0);
+        
+        $result = $this->orderService->useNetCard($membercardid, $shopid, $uniacid, $userid, $memberid, $source, $address)
+        
+        if ($result == true) {
+            $this->returnSuccess($result);
+        }
+        else{
+            $this->returnFail("网费兑换失败,请重新兑换或找工作人员");
+        }
+    }
     
 }

@@ -139,16 +139,15 @@ class CardController extends \controller\Controller{
 
         $timeArr = explode("-", $timearea);
         if (count($timeArr) == 2) {
-            $data['starttime'] = strtotime(trim($timeArr[0]). ":00");
-            $data['endtime'] = strtotime(trim($timeArr[1]). ":00");
+            $data['starttime'] = strtotime(trim($timeArr[0]). " 00:00:00");
+            $data['endtime'] = strtotime(trim($timeArr[1]). " 00:00:00");
         }
-
-        logInfo($timearea);
         
         $data['cardtype'] = $cardtype;
         $data["cardname"] = $cardname;
         $data["exchange"] = $exchange * 100;
         $data['effectiveprice'] = 0;
+        $data['effectiveday'] = 3;
         
         $result = $this->cardTypeModel->saveCardType($data);
         if($result){

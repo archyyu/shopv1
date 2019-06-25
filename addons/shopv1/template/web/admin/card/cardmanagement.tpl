@@ -38,5 +38,6 @@
 {include file="./modals/selectmember.tpl"}
 {include file="./modals/addnetfeecard.tpl"}
 
+<script src="{$StaticRoot}/js/common/dateUtil.js"></script>
 <script src="{$StaticRoot}/js/web/admin/cardtype.js"></script>
 {include file="../../common/footer.tpl"}
