@@ -671,6 +671,40 @@ html {
   overflow-y: auto;
 }
 
+.stock {
+  height: 100%;
+}
+
+.stock .container .cube-product-list .cube-popup-content {
+  height: 80%;
+  width: 80%;
+  background-color: #fff;
+}
+
+.stock .container .choose-search {
+  height: 50px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  padding: 5px 15px;
+}
+
+.stock .container .choose-search > .cube-select {
+  -webkit-box-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
+}
+
+.stock .container .product-wrap {
+  height: calc(100% - 50px);
+}
+
 .user-mine {
   height: 100%;
 }

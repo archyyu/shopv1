@@ -579,6 +579,35 @@ html {
 }
 
 
+// stock
+.stock{
+  height: 100%;
+  .container{
+    .cube-product-list{
+      .cube-popup-content{
+        height: 80%;
+        width: 80%;
+        background-color: #fff;
+        
+      }
+    }
+    .choose-search{
+      height: 50px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 5px 15px;
+      >.cube-select{
+        flex: 1
+      }
+    }
+    .product-wrap{
+      height: calc(100% - 50px);
+    }
+  }
+}
+
+
 // user mine
 .user-mine{
   height: 100%;
