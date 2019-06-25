@@ -15,9 +15,7 @@ $(function(){
         CardType.initCurrent(this.value);
         CardType.flushSelect(0);
     });
-console.log(1)
     $("#netfeeDate").daterangepicker({
-        timePicker: true,
         autoUpdateInput: false,
         startDate: moment(),
         locale: {
@@ -33,8 +31,6 @@ console.log(1)
     $('#netfeeDate').on('cancel.daterangepicker', function (ev, picker) {
         $(this).val('');
     });
-    
-console.log(2)
 });
 
 
