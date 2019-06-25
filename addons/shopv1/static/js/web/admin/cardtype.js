@@ -15,12 +15,26 @@ $(function(){
         CardType.initCurrent(this.value);
         CardType.flushSelect(0);
     });
-
-    $('#cardSelect').change(function(v,a,b){
-        console.log(v,a,b)
+console.log(1)
+    $("#netfeeDate").daterangepicker({
+        timePicker: true,
+        autoUpdateInput: false,
+        startDate: moment(),
+        locale: {
+            applyLabel: '确定',
+            cancelLabel: '取消',
+            format: 'YYYY/MM/DD'
+        }
+    });
+    $('#netfeeDate').on('apply.daterangepicker', function (ev, picker) {
+        $(this).val(picker.startDate.format('YYYY/MM/DD') + ' - ' + picker.endDate.format(
+            'YYYY/MM/DD'));
+    });
+    $('#netfeeDate').on('cancel.daterangepicker', function (ev, picker) {
+        $(this).val('');
     });
     
-    
+console.log(2)
 });
 
 

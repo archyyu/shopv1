@@ -24,11 +24,7 @@
                     <div class="form-group">
                         <label class="control-label col-xs-3">卡券有效期：</label>
                         <div class="col-xs-8">
-                            <!-- <div class="input-group col-xs-8">
-                                <input type="text" class="form-control">
-                                <span class="input-group-addon">天</span>
-                            </div> -->
-                            <input type="text" name="nettimearea" class="form-control range-picker-js">
+                            <input id="netfeeDate" type="text" name="nettimearea" class="form-control">
                         </div>
                     </div>
                     <div class="form-group">

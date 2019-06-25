@@ -76,7 +76,7 @@
           }
         })
         $('.range-picker-js').on('apply.daterangepicker', function (ev, picker) {
-          $(this).val(picker.startDate.format('YYYY/MM/DD') + ' - ' + picker.endDate.format(
+          $(this).val(picker.startDate.format('YYYY/MM/DD HH:mm') + ' - ' + picker.endDate.format(
             'YYYY/MM/DD HH:mm'));
         });
         $('.range-picker-js').on('cancel.daterangepicker', function (ev, picker) {
