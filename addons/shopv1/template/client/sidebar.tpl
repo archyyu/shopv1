@@ -34,7 +34,11 @@
                 trigger="hover">
                     <el-table :data="cardList" size="mini" height="260px">
                         <el-table-column property="cardname" label="卡券名称"></el-table-column>
-                        <el-table-column property="name" label="数量"></el-table-column>
+                        <el-table-column label="操作">
+                            <template slot-scope="scope">
+                                <a @click="useNetCard(scope.row)">使用</a>
+                            </template>
+                        </el-table-column>
                     </el-table>
                 </el-popover>
             </div>
@@ -156,7 +160,7 @@ var app = new Vue({
     methods: {
         
         queryMemberInfo:function(){
-            
+
             if(this.lock == false){
                 return false;
             }
@@ -242,10 +246,38 @@ var app = new Vue({
                         this.cardList = res.obj;
                     }
 
-
+                    console.log(this.cardList);
 
                 });
 
+        },
+
+        useNetCard:function(obj){
+
+            if (obj.ctype != 5) {
+                return false;
+            };
+
+            let params = {};
+            params.membercardid = obj.id;
+            params.memberid = obj.memberid;
+            params.source = 2;
+            params.shopid = this.shopid;
+            params.address = this.address;
+
+            
+            let url = UrlHelper.createUrl("order","createNetCardOrder");
+            
+            axios.post(url,params)
+            .then((res)=>{
+                res = res.data;
+                if(res.state == 0){
+                    this.$message.success("网费兑换申请成功");
+                }
+                else{
+                    this.$message.error(res.msg);
+                }
+            });
         },
 
         leaveMsg:function(){

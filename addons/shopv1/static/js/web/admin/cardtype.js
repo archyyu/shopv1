@@ -129,7 +129,8 @@ var CardType = {
                 title: '卡券有效期',
                 formatter:function(value,row,index){
                     if (row.cardtype == 2) {
-                        return new Date(parseInt(row.starttime) * 1000).toLocaleString().replace(/:\d{1,2}$/,' ') + " | " + new Date(parseInt(row.endtime) * 1000).toLocaleString().replace(/:\d{1,2}$/,' ');
+                        return DateUtil.toDate('Y-m-d', row.starttime) + " | " + DateUtil.toDate('Y-m-d', row.endtime);
+                        //return new Date(parseInt(row.starttime) * 1000).toLocaleString().replace(/:\d{1,2}$/,' ') + " | " + new Date(parseInt(row.endtime) * 1000).toLocaleString().replace(/:\d{1,2}$/,' ');
                     };
                     return value + "天";
                 }
@@ -223,7 +224,7 @@ var CardType = {
             $("#addNetfeeCardModal [name=netcardid]").val(obj.id);
             $("#addNetfeeCardModal [name=netcardname]").val(obj.cardname);
             $("#addNetfeeCardModal [name=netexchange]").val(obj.exchange/100);
-            $("#addNetfeeCardModal [name=nettimearea]").val(obj.starttime);
+            $("#addNetfeeCardModal [name=nettimearea]").val(DateUtil.toDate('Y/m/d', obj.starttime) + " - " + DateUtil.toDate('Y/m/d', obj.endtime));
         }
 
         $("#addNetfeeCardModal").modal("show");
