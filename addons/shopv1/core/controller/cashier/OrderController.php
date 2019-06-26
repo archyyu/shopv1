@@ -357,7 +357,7 @@ class OrderController extends \controller\Controller{
         $uniacid = $this->getUniacid();
         $userid = $this->getParamDefault("userid", 0);
         
-        $result = $this->orderService->useNetCard($membercardid, $shopid, $uniacid, $userid, $memberid, $source, $address)
+        $result = $this->orderService->useNetCard($membercardid, $shopid, $uniacid, $userid, $memberid, $source, $address);
         
         if ($result == true) {
             $this->returnSuccess($result);
