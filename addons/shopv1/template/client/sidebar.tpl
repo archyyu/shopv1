@@ -32,14 +32,31 @@
                 ref="cardpopover"
                 width="300"
                 trigger="hover">
-                    <el-table :data="cardList" size="mini" height="260px">
+                    <!-- <el-table :data="cardList" size="mini" height="260px">
                         <el-table-column property="cardname" label="卡券名称"></el-table-column>
                         <el-table-column label="操作">
                             <template slot-scope="scope">
                                 <a @click="useNetCard(scope.row)">使用</a>
                             </template>
                         </el-table-column>
-                    </el-table>
+                    </el-table> -->
+                    <div class="card-list-wrap">
+                        <el-scrollbar>
+                            <div class="card-list-item" v-for="card in cardList">
+                                <div class="card-list-content">
+                                    <div class="card-name">{{ card.cardname }}</div>
+                                    <div class="card-discount">
+                                        <span v-if="card.cardtype==2">{{ card.discount/10 }} 折</span>
+                                        <span v-else>{{ card.exchange/100 }} 元</span>
+                                    </div>
+                                </div>
+                                <div class="card-list-footer">
+                                    <div class="validity">有效时间：</div>
+                                    <div class="use"><span>使用</span></div>
+                                </div>
+                            </div>
+                        </el-scrollbar>
+                    </div>
                 </el-popover>
             </div>
         </div>
@@ -166,7 +183,6 @@ var app = new Vue({
             }
             
             let url = UrlHelper.createUrl("member","queryMemberInfoBytag");
-            
             let params = {};
             params.shopid = this.shopid;
             params.address = this.address;
