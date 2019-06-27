@@ -57,7 +57,7 @@ class ShopMemberCard extends Model{
 
     public function SumNetCardByDuty($shopid, $starttime, $endtime){
 
-        $where = ['shopid'=>$shopid,'ctype'=>2,'useflag'=>1,'usetime[>=]'=>$starttime,'usetime[<=]'=>$endtime,'deleteflag'=>0];
-        return $this->sumByColumn("exchange", $where);
+        $where = ['usedshopid'=>$shopid,'ctype'=>2,'useflag'=>1,'usetime[>=]'=>$starttime,'usetime[<=]'=>$endtime,'deleteflag'=>0];
+		return $this->sumByColumn("exchange", $where);
     }
 }

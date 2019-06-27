@@ -48,6 +48,8 @@ class DutyController extends \controller\Controller{
         $duty['shopid'] = $shopid;
         $duty['uniacid'] = $uniacid;
         
+		$duty['netcardsum'] = $duty['netcardsum'] * 100;
+		
         unset($duty['productsum']);
         unset($duty["ordersize"]);
         
