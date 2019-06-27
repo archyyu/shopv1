@@ -39,7 +39,7 @@
                                             </span>
                                              <!--span class="origin">￥{{product.normalprice/100}}</--span>
                                             <br-->
-                                            ￥{{product.memberprice/100}}
+                                            ￥{{product.normalprice/100}}
                                         </p>
                                     </div>
                                 </el-col>
