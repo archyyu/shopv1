@@ -30,6 +30,72 @@ body {
 /*
   * sidebar
   */
+.card-popover .card-list-wrap {
+  height: 200px;
+}
+
+.card-popover .card-list-wrap .card-list-item .card-list-content {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.card-popover .card-list-wrap .card-list-item .card-list-content .card-name {
+  -webkit-box-flex: 0;
+      -ms-flex: none;
+          flex: none;
+  width: calc(100% - 85px);
+}
+
+.card-popover .card-list-wrap .card-list-item .card-list-content .card-discount {
+  -webkit-box-flex: 0;
+      -ms-flex: none;
+          flex: none;
+  width: 85px;
+  text-align: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.card-popover .card-list-wrap .card-list-item .card-list-content .card-discount .coupon-unit {
+  font-size: 14px;
+}
+
+.card-popover .card-list-wrap .card-list-item .card-list-footer {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.card-popover .card-list-wrap .card-list-item .card-list-footer .validity {
+  -webkit-box-flex: 0;
+      -ms-flex: none;
+          flex: none;
+  width: calc(100% - 55px);
+}
+
+.card-popover .card-list-wrap .card-list-item .card-list-footer .use {
+  -webkit-box-flex: 0;
+      -ms-flex: none;
+          flex: none;
+  width: 55px;
+  border-radius: 30px;
+  text-align: center;
+  border: 1px solid #fff;
+}
+
 .sidebar {
   border: 3px solid #1672f5;
   background-color: #13245c;
