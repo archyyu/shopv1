@@ -15,7 +15,7 @@
         </span>
         <el-dropdown-menu slot="dropdown">
             <el-dropdown-item v-for="msg in notifyList">{{ msg }}</el-dropdown-item>
-            <el-dropdown-item divided @click="clearNotifyList">清除</el-dropdown-item>
+            <el-dropdown-item divided @click.native="clearNotifyList">清除</el-dropdown-item>
         </el-dropdown-menu>
     </el-dropdown>
     <el-tabs value="waterbar" type="card" @tab-click="tab"  v-if="isLogin">
