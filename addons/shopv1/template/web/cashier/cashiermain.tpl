@@ -2,6 +2,22 @@
 
 
 <div id="app" oncontextmenu="self.event.returnValue=false">
+    <el-dropdown class="message-list" v-if="isLogin">
+        <span>
+            消息列表
+            <el-badge
+                class="message-badge"
+                type="danger"
+                :value="notifyList.length"
+                :max="10"
+                v-if="notifyList.length>0"></el-badge>
+            <i class="el-icon-arrow-down el-icon--right"></i>
+        </span>
+        <el-dropdown-menu slot="dropdown">
+            <el-dropdown-item v-for="msg in notifyList"></el-dropdown-item>
+            <el-dropdown-item divided>清除消息</el-dropdown-item>
+        </el-dropdown-menu>
+    </el-dropdown>
     <el-tabs value="waterbar" type="card" @tab-click="tab"  v-if="isLogin">
         <el-tab-pane name="waterbar" class="waterbar">
             <span slot="label"><iconfont iconclass="icon-wangdianguanli"></iconfont> 水吧</span>
