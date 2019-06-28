@@ -9,7 +9,7 @@ class ClientStore{
     
     static createParams(){
         let params = {};
-        params.shopid = 1;
+        params.shopid = UrlUtil.getQueryString("shopid");
         params.source = 2;
         return params;
     }
