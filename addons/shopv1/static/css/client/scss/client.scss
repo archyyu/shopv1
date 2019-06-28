@@ -38,10 +38,18 @@ body {
   */
 .card-popover{
   .card-list-wrap{
-    height: 200px;
+    height: 260px;
     .card-list-item{
-      background-image: linear-gradient(45deg, #000000 0%,#ffffff 100%);
+      border-radius: 5px;
+      color: #ffffff;
+      &.netfee{
+        background-image: linear-gradient(45deg, #6dd3fc,#74a9fd);
+      }
+      &.waterbar{
+        background-image: linear-gradient(45deg, #fe8b57,#ff6b62);
+      }
       .card-list-content{
+        padding: 10px;
         display: flex;
         justify-content: space-between;
         align-items: center;
@@ -64,6 +72,8 @@ body {
         display: flex;
         justify-content: space-between;
         align-items: center;
+        padding: 10px;
+        border-top: 1px dashed #fff;
         .validity{
           flex: none;
           width: calc(100% - 55px);

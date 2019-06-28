@@ -42,7 +42,7 @@
                     </el-table> -->
                     <div class="card-list-wrap">
                         <el-scrollbar>
-                            <div class="card-list-item" v-for="card in cardList">
+                            <div class="card-list-item netfee" v-for="card in cardList">
                                 <div class="card-list-content">
                                     <div class="card-name">card.cardname</div>
                                     <div class="card-discount">
@@ -52,7 +52,7 @@
                                 </div>
                                 <div class="card-list-footer">
                                     <div class="validity">有效时间：2018</div>
-                                    <div class="use"><span>使用</span></div>
+                                    <div class="use" @click="useNetCard(card)"><span>使用</span></div>
                                 </div>
                             </div>
                         </el-scrollbar>
