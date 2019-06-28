@@ -28,6 +28,7 @@
                         <el-table-column prop="productwechat" label="微信收入"></el-table-column>
                         <el-table-column prop="productalipay" label="支付宝收入"></el-table-column>
                         <el-table-column prop="productsum" label="总收入"></el-table-column>
+						<el-table-column prop="netcardsum" label="网费兑换总计"></el-table-column>
                     </el-table>
                 </el-col>
                 <!-- <el-col :span="12">
@@ -80,13 +81,15 @@ Vue.component('shift', {
                 endtime:0,
                 productcash:0,
                 productwechat:0,
-                productalipay:0
+                productalipay:0,
+				netcardsum:0
             },
             dutyData:[{
                     productcash:0,
                     productwechat:0,
                     productalipay:0,
-                    productsum:0
+                    productsum:0,
+					netcardsum:0
                 }],
             productData:[]
         };

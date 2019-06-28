@@ -122,7 +122,7 @@ class Model{
     }
 
     public function sumByColumn($column, $where) {
-        return Model::$medoo->sum($this->table, null, $column, $where);
+        return Model::$medoo->sum($this->table, $column, $where);
     }
     
     public function page($offset,$limit, $field, $where, $order = '', $join = '') {

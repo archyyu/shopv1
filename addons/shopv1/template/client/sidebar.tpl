@@ -31,7 +31,7 @@
                 <el-popover
                 ref="cardpopover"
                 width="300"
-                trigger="hover">
+                popper-class="card-popover">
                     <!-- <el-table :data="cardList" size="mini" height="260px">
                         <el-table-column property="cardname" label="卡券名称"></el-table-column>
                         <el-table-column label="操作">
@@ -44,14 +44,14 @@
                         <el-scrollbar>
                             <div class="card-list-item" v-for="card in cardList">
                                 <div class="card-list-content">
-                                    <div class="card-name">{{ card.cardname }}</div>
+                                    <div class="card-name">card.cardname</div>
                                     <div class="card-discount">
-                                        <span v-if="card.cardtype==2">{{ card.discount/10 }} 折</span>
-                                        <span v-else>{{ card.exchange/100 }} 元</span>
+                                        <span v-if="card.cardtype==2">8 <i class="coupon-unit">折</i></span>
+                                        <span v-else>5000<i class="coupon-unit">元</i></span>
                                     </div>
                                 </div>
                                 <div class="card-list-footer">
-                                    <div class="validity">有效时间：</div>
+                                    <div class="validity">有效时间：2018</div>
                                     <div class="use"><span>使用</span></div>
                                 </div>
                             </div>
