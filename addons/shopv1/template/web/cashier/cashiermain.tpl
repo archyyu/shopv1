@@ -1,6 +1,6 @@
 {include file="./common/header.tpl"}
 
-
+{literal}
 <div id="app" oncontextmenu="self.event.returnValue=false">
     <el-dropdown class="message-list" v-if="isLogin">
         <span>
@@ -65,7 +65,7 @@
     </div>
 
 </div>
-
+{/literal}
 <script src="{$StaticRoot}/js/cashier/store.js"></script>
 <script src="{$StaticRoot}/js/common/urlUtil.js"></script>
 <script src="{$StaticRoot}/js/cashier/dateUtil.js"></script>
