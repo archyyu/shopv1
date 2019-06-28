@@ -23,10 +23,10 @@
             <span slot="label"><iconfont iconclass="icon-wangdianguanli"></iconfont> 水吧</span>
             <waterbar ref="waterbar"></waterbar>
         </el-tab-pane>
-        {*<el-tab-pane name="broadcast">
+        <!-- <el-tab-pane name="broadcast">
             <span slot="label"><iconfont iconclass="icon-xingxiaoxiaoguo"></iconfont> 语音播报</span>
             <broadcast></broadcast>
-        </el-tab-pane>*}
+        </el-tab-pane> -->
         <el-tab-pane name="shift">
             <span slot="label"><iconfont iconclass="icon-shouzhiliushuizhang"></iconfont> 交班</span>
             <shift ref="shift"></shift>
