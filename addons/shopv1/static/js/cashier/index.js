@@ -8,6 +8,7 @@ var app = new Vue({
             account: '',
             password: ''
         },
+        notifyList:[],
         showPw: false,
         loading: false,
         isLogin: false,
@@ -60,12 +61,19 @@ var app = new Vue({
                             }
 
                             if(res.obj.notify){
+                                this.notifyList.push(res.obj.notify);
                                 cashier.player(res.obj.notify);
                             }
 
                         }
                     });
-            
+        },
+
+        clearNotifyList:function(){
+
+            this.notifyList = [];
+            this.$message.success("提醒已经清除");
+
         },
         
         tab(tab){

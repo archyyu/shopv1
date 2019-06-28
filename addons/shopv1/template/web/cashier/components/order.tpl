@@ -43,6 +43,8 @@
                         </el-col>
                         <el-col :span="6">
                             <p>订单来源：<el-tag size="small">{{Store.sourceToStr(order.ordersource)}}</el-tag></p>
+                            <p>订单类型: {{ Store.orderTypeToStr(order.ordertype) }}</p>
+                            <p>身份证号: {{ order.idcard }}</p>
                         </el-col>
                         <el-col :span="6">
                             <el-button type="primary" v-if="order.orderstate == 0" class="print-btn" @click="completeOrder()">确认订单</el-button>
@@ -63,7 +65,7 @@ Vue.component('order', {
             DateUtil:DateUtil,
             Store:Store,
             orderlist:[],
-            order:{},
+            order:{ },
             productlist:[],
             activeLi: 0
         };

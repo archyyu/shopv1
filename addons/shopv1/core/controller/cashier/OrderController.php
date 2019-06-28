@@ -358,6 +358,8 @@ class OrderController extends \controller\Controller{
         $userid = $this->getParamDefault("userid", 0);
         
         $result = $this->orderService->useNetCard($membercardid, $shopid, $uniacid, $userid, $memberid, $source, $address);
+
+        $this->redisService->pushNotify($shopid, "有新的网费兑换券，请查看订单");
         
         if ($result == true) {
             $this->returnSuccess($result);

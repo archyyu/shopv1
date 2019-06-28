@@ -417,6 +417,8 @@ class OrderService extends Service{
             return false;
         }
 
+        $member = $this->memberModel->queryMemberByUid($memberid);
+
         //开启事务
         $this->cardModel->beginTransaction();
 
@@ -440,6 +442,7 @@ class OrderService extends Service{
             $order['userid'] = $userid;
             $order['userget'] = 0;
             $order['address'] = $address;
+            $order["idcard"] = $member["idcard"];
 
             $result = $this->shopOrder->addOrder($order);
 
@@ -448,6 +451,11 @@ class OrderService extends Service{
                 return false;
             }
             $this->cardModel->commit();
+
+            $this->printOrder($order);
+
+            //TODO
+
             return true;
 
         } catch (Exception $e) {

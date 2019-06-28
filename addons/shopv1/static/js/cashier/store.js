@@ -54,6 +54,21 @@ var Store = {
             
         }
     },
+
+    orderTypeToStr:function(type){
+
+        if(type == 1){
+            return "商品订单";
+        }
+        else if(type == 2){
+            return "充值订单";
+        }
+        else if(type == 3){
+            return "网费订单";
+        }
+
+
+    },
     
     sourceToStr:function(source){
         if(source == 0){
