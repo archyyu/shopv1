@@ -14,7 +14,7 @@
             <i class="el-icon-arrow-down el-icon--right"></i>
         </span>
         <el-dropdown-menu slot="dropdown">
-            <el-dropdown-item v-for="msg in notifyList">{{msg}}</el-dropdown-item>
+            <el-dropdown-item v-for="msg in notifyList">{{ msg }}</el-dropdown-item>
             <el-dropdown-item divided @click="clearNotifyList">清除</el-dropdown-item>
         </el-dropdown-menu>
     </el-dropdown>
