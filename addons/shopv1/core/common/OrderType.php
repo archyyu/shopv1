@@ -18,6 +18,7 @@ class OrderType {
 
     const ProductOrder = 1;
     const ChargeOrder = 2;
+    const NetfeeOrder = 3;
     
     const CashPay = 0;
     const WechatPay = 1;

@@ -431,7 +431,7 @@ class OrderService extends Service{
             $order['createtime'] = time();
             $order['paytime'] = time();
             $order['ordersource'] = $source;
-            $order['ordertype'] = OrderType::ChargeOrder;
+            $order['ordertype'] = OrderType::NetfeeOrder;
             $order['orderstate'] = OrderType::Payed;
             $order['memberid'] = $memberid;
             $order['paytype'] = OrderType::CardPay;

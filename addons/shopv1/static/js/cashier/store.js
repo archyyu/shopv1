@@ -91,6 +91,9 @@ var Store = {
         else if(paytype == 2){
             return "支付宝支付";
         }
+        else if(paytype = 3){
+            return "卡券兑换";
+        }
         else if(paytype == 5){
             return  "余额支付";
         }

@@ -24,9 +24,9 @@
             </div>
             <div class="line2">
                 <div class="onlineInfo">
-                        <p><span>{{memberInfo.credit2}}</span>积分</p>
+                        <p><span>{{memberInfo.credit1}}</span>积分</p>
                         <p v-popover:cardpopover><span>{{memberInfo.cardsize}}</span>卡券数量</p>
-                        <p><span>{{memberInfo.credit1}} 元</span>钱包余额</p>
+                        <p><span>{{memberInfo.credit2}} 元</span>钱包余额</p>
                 </div>
                 <el-popover
                 ref="cardpopover"
