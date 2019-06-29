@@ -8,6 +8,7 @@
 
 namespace controller\cashier;
 
+use model\ShopBroadCast;
 use service\ProductService;
 use model\ShopProductType;
 use model\ShopProduct;
@@ -40,6 +41,8 @@ class ProductController extends \controller\Controller{
     private $cardService;
     
     private $cardModel;
+
+    private $shopBroadCastModel;
     
     public function __construct() {
         parent::__construct();
@@ -54,6 +57,7 @@ class ProductController extends \controller\Controller{
         $this->memberModel = new \model\ShopMember();
         $this->cardService = new \service\CardService();
         $this->cardModel = new \model\ShopMemberCard();
+        $this->shopBroadCastModel = new ShopBroadCast();
     }
     
     public function index(){
@@ -207,15 +211,7 @@ class ProductController extends \controller\Controller{
         
         global $_W;
         $config = $_W['config']['setting']['redis'];
-        
-        // echo $config['server'];
-		// echo $config['port'];
-        
-//      $redis = new \Redis();
-//		$redis->connect($config['server'], $config['port']);
-//      $redis->set("foo", "bar");
-        
-        
+
         $this->smarty->setTemplateDir(CASHROOT . 'template/client');
         $this->smarty->display('waterbar.tpl');
     }
@@ -231,6 +227,30 @@ class ProductController extends \controller\Controller{
         $list = $this->bannerModel->getBannerList($shopid);
         $this->returnSuccess($list);
         
+    }
+
+    public function loadBroadCastList(){
+
+        $shopid = $this->getParam("shopid");
+        $list = $this->shopBroadCastModel->getBroadCastList($shopid);
+        $this->returnSuccess($list);
+
+    }
+
+    public function addBroadCast(){
+
+        $shopid = $this->getParam("shopid");
+        $content = $this->getParam("content");
+
+
+    }
+
+    public function removeBroadCast(){
+
+        $id = $this->getParam("id");
+        $this->shopBroadCastModel->removeBroadCast($id);
+        $this->returnSuccess();
+
     }
     
     

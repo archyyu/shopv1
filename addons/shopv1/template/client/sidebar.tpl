@@ -46,12 +46,12 @@
                                 <div class="card-list-content">
                                     <div class="card-name">card.cardname</div>
                                     <div class="card-discount">
-                                        <span v-if="card.cardtype==2">8 <i class="coupon-unit">折</i></span>
-                                        <span v-else>5000<i class="coupon-unit">元</i></span>
+                                        <span v-if="card.cardtype==2">{{card.discount}} <i class="coupon-unit">折</i></span>
+                                        <span v-else>{{card.exchange/100}}<i class="coupon-unit">元</i></span>
                                     </div>
                                 </div>
                                 <div class="card-list-footer">
-                                    <div class="validity">有效时间：2018</div>
+                                    <div class="validity">有效时间：{{DateUtil.parseTimeInYmdHms(card.expiretime)}}</div>
                                     <div class="use" @click="useNetCard(card)"><span>使用</span></div>
                                 </div>
                             </div>
@@ -270,7 +270,8 @@ var app = new Vue({
 
         useNetCard:function(obj){
 
-            if (obj.ctype != 5) {
+            if (obj.ctype != 2) {
+                this.$message.error("非兑换卷不能使用");
                 return false;
             };
 
