@@ -590,7 +590,7 @@ body,
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  margin-bottom: 10px;
+  margin-bottom: 15px;
 }
 
 .shift .sub-pane {
