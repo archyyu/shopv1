@@ -574,6 +574,19 @@ body,
 
 
 // broadcast
+.el-popper{
+  .el-scrollbar {
+    .el-scrollbar__wrap {
+      overflow-x: scroll;
+    }
+  }
+}
+.el-time-panel,
+.el-time-spinner__wrapper{
+  *{
+    box-sizing: content-box;
+  }
+}
 .broadcast{
   .search-wrap{
     display: flex;

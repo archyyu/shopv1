@@ -580,6 +580,16 @@ body,
   padding-bottom: 20px;
 }
 
+.el-popper .el-scrollbar .el-scrollbar__wrap {
+  overflow-x: scroll;
+}
+
+.el-time-panel *,
+.el-time-spinner__wrapper * {
+  -webkit-box-sizing: content-box;
+          box-sizing: content-box;
+}
+
 .broadcast .search-wrap {
   display: -webkit-box;
   display: -ms-flexbox;
