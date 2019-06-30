@@ -18,7 +18,7 @@ body,
   color: #ffffff;
   height: 50px;
   line-height: 50px;
-  padding: 0 10px;
+  margin: 0 10px;
   z-index: 100;
 }
 
@@ -578,6 +578,19 @@ body,
 .waterbar .material .material-table {
   height: calc(100% - 30px);
   padding-bottom: 20px;
+}
+
+.broadcast .search-wrap {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  margin-bottom: 10px;
 }
 
 .shift .sub-pane {
