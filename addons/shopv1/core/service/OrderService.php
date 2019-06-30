@@ -49,7 +49,7 @@ class OrderService extends Service{
     private $chargeCompaignModel;
 
     private $ShopOrder;
-    
+
     
     public function __construct(){
         parent::__construct();
@@ -331,6 +331,7 @@ class OrderService extends Service{
         $productcash = 0;
         $productwechat = 0;
         $productalipay = 0;
+        $netcardsum = 0;
         
         foreach($orderList as $key=>$value){
             if($value['paytype'] == 0){
@@ -345,10 +346,15 @@ class OrderService extends Service{
                 //ali
                 $productalipay += $value['orderprice'];
             }
+
+            if($value["ordertype"] == OrderType::NetfeeOrder){
+                $netcardsum += $value["orderprice"];
+            }
+
         }
 
         //网费兑换券
-        $netcardsum = $this->cardModel->SumNetCardByDuty($shopid, $starttime, $endtime);
+        //$netcardsum = $this->cardModel->SumNetCardByDuty($shopid, $starttime, $endtime);
         
         $duty['starttime'] = $starttime;
         $duty['endtime'] = time();
@@ -453,9 +459,7 @@ class OrderService extends Service{
             $this->cardModel->commit();
 
             $this->printOrder($order);
-
-            //TODO
-
+            $this->redisService->pushNotify($shopid, "有新的网费兑换订单");
             return true;
 
         } catch (Exception $e) {
