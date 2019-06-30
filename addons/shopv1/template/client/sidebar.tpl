@@ -272,7 +272,7 @@ var app = new Vue({
 
         useNetCard:function(obj){
 
-            if (obj.ctype != 2) {
+            if (obj.ctype == 0) {
                 this.$message.error("非兑换卷不能使用");
                 return false;
             };
@@ -292,7 +292,7 @@ var app = new Vue({
                 res = res.data;
                 if(res.state == 0){
                     this.queryMemberCardList();
-                    this.$message.success("网费兑换申请成功");
+                    this.$message.success("卡券兑换申请成功");
                 }
                 else{
                     this.$message.error(res.msg);

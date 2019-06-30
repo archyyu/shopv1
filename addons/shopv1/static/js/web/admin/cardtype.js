@@ -176,9 +176,47 @@ var CardType = {
         });
         
     },
+
+    openProductCardModal:function(addOrUpdate,obj){
+
+        $("#addCardModal [name=cardtypename]").html("商品兑换券");
+        $("#addCardModal [name=cardtype]").val(3);
+
+
+        if(addOrUpdate == 0){
+            //新增
+            $("#addCardModal [name=cardid]").val(0);
+            $("#addCardModal [name=cardname]").val("");
+            $("#addCardModal [name=exchange]").val('');
+            $("#addCardModal [name=discount]").val('');
+            $("#addCardModal [name=effectiveprice]").val('');
+            $("#addCardModal [name=effectiveday]").val('');
+
+            $("#producttype").val(0);
+
+            this.initCurrent(0);
+            this.flushSelect(0);
+        }
+        else{
+            $("#addCardModal [name=cardid]").val(obj.id);
+            $("#addCardModal [name=cardname]").val(obj.cardname);
+            $("#addCardModal [name=exchange]").val(obj.exchange/100);
+            $("#addCardModal [name=discount]").val(obj.discount);
+            $("#addCardModal [name=effectiveprice]").val(obj.effectiveprice/100);
+            $("#addCardModal [name=effectiveday]").val(obj.effectiveday);
+
+            this.initCurrent(obj.typeid);
+            this.flushSelect(obj.productid);
+        }
+        $("#addCardModal").modal("show");
+
+    },
     
     openCardModal:function(addOrUpdate,obj){
-        
+
+        $("#addCardModal [name=cardtypename]").html("商品折扣券");
+        $("#addCardModal [name=cardtype]").val(0);
+
         if(addOrUpdate == 0){
             //新增
             $("#addCardModal [name=cardid]").val(0);
@@ -239,7 +277,7 @@ var CardType = {
         params.effectiveday = $("#addCardModal [name=effectiveday]").val();
         params.typeid = $("#producttype").val();
         params.productid = $("#product").val();
-        params.cardtype = 0;
+        params.cardtype = $("#addCardModal [name=cardtype]").val();
         
         $.post(url,params,function(data){
            if(data.state == 0){
