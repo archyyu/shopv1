@@ -135,7 +135,7 @@ Vue.component('order', {
                         this.order.orderstate = 1;
 
                         for(let item of this.orderlist){
-                            if(item.id == orderid){
+                            if(item.id == this.order.id){
                                 item.orderstate = 1;
                                 break;
                             }

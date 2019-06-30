@@ -9,6 +9,7 @@
 namespace controller\cashier;
 
 use common\OrderType;
+use service\WechatService;
 
 /**
  * Description of OrderController
@@ -165,6 +166,12 @@ class OrderController extends \controller\Controller{
             $data["orderstate"] = 1;
 
             $this->orderModel->saveOrder($data,$orderid);
+
+            if(isset($order["memberid"])){
+                (new WechatService)->sendNoticeByUid($order["memberid"], "您的订单号为$orderid 的订单已经确认", $order["uniacid"]);
+            }
+
+
             $this->returnSuccess();
 
         }
