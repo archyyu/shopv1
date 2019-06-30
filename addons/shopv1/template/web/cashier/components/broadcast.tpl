@@ -22,12 +22,28 @@
             <el-table-column label="语音内容"></el-table-column>
             <el-table-column label="播放时间"></el-table-column>
             <el-table-column label="生效时间"></el-table-column>
-            <el-table-column label="是否启用"></el-table-column>
-            <el-table-column label="播报"></el-table-column>
-            <el-table-column label="编辑"></el-table-column>
-            <el-table-column label="删除"></el-table-column>
+            <el-table-column label="是否启用">
+                <template slot-scope="scope">
+                    <el-tag size="small"></el-tag>
+                </template>
+            </el-table-column>
+            <el-table-column label="播报">
+                <template slot-scope="scope">
+                    <el-button type="primary">播报</el-button>
+                </template>
+            </el-table-column>
+            <el-table-column label="编辑">
+                <template slot-scope="scope">
+                    <el-button type="primary">编辑</el-button>
+                </template>
+            </el-table-column>
+            <el-table-column label="删除">
+                <template slot-scope="scope">
+                    <el-button type="primary">删除</el-button>
+                </template>
+            </el-table-column>
         </el-table>
-        <el-dialog title="提示" :visible.sync="broadcastVisible" width="400px" :before-close="handleClose">
+        <el-dialog title="提示" :visible.sync="broadcastVisible" width="500px" :before-close="handleClose">
             <el-form :model="broadcastForm" label-width="80px">
                 <el-form-item label="播报类型">
                     <el-select v-model="typeSelect" placeholder="请选择" size="small">
@@ -48,6 +64,7 @@
                         }"
                         value-format="HH:mm"
                         placeholder="任意时间点"
+                        size="small"
                         v-if="typeSelect == 1">
                     </el-time-picker>
                     <el-time-picker
@@ -62,6 +79,7 @@
                             format: 'HH:mm'
                         }"
                         value-format="HH:mm"
+                        size="small"
                         v-if="typeSelect == 2">
                     </el-time-picker>
                 </el-form-item>
