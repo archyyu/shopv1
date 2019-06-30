@@ -359,7 +359,8 @@ class OrderController extends \controller\Controller{
         
         $result = $this->orderService->useNetCard($membercardid, $shopid, $uniacid, $userid, $memberid, $source, $address);
 
-        $this->redisService->pushNotify($shopid, "有新的网费兑换券，请查看订单");
+        logInfo("notofy:$shopid:有新的网费兑换券");
+        $this->redisService->pushNotify($shopid, "有新的网费兑换订单");
         
         if ($result == true) {
             $this->returnSuccess($result);

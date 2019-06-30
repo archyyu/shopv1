@@ -49,7 +49,7 @@ class OrderService extends Service{
     private $chargeCompaignModel;
 
     private $ShopOrder;
-    
+
     
     public function __construct(){
         parent::__construct();
@@ -459,9 +459,7 @@ class OrderService extends Service{
             $this->cardModel->commit();
 
             $this->printOrder($order);
-
-            //TODO
-
+            $this->redisService->pushNotify($shopid, "有新的网费兑换订单");
             return true;
 
         } catch (Exception $e) {

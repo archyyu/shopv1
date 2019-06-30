@@ -89,7 +89,7 @@ Vue.component('order', {
                     .then((res)=>{
                         var res = res.data;
                         if(res.state == 0){
-                            this.orderlist = res.obj;
+                            this.orderlist =  res.obj.reverse();
                             
                             if(this.orderlist.length <= 0){
                                 return ;
