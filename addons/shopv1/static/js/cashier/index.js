@@ -61,7 +61,7 @@ var app = new Vue({
                             }
 
                             if(res.obj.notify){
-                                this.notifyList.unshift()(res.obj.notify);
+                                this.notifyList.unshift(res.obj.notify);
 
                                 if(this.notifyList.length > 10){
                                     this.notifyList.pop();

@@ -25,7 +25,7 @@
             <div class="line2">
                 <div class="onlineInfo">
                         <p><span>{{memberInfo.credit1}}</span>积分</p>
-                        <p v-popover:cardpopover><span>{{memberInfo.cardsize}}</span>卡券数量</p>
+                        <p v-popover:cardpopover @click="queryMemberCardList"><span>{{memberInfo.cardsize}}</span>卡券数量</p>
                         <p><span>{{memberInfo.credit2}} 元</span>钱包余额</p>
                 </div>
                 <el-popover
@@ -44,9 +44,9 @@
                         <el-scrollbar>
                             <div class="card-list-item netfee" v-for="card in cardList">
                                 <div class="card-list-content">
-                                    <div class="card-name">card.cardname</div>
+                                    <div class="card-name">{{card.cardname}}</div>
                                     <div class="card-discount">
-                                        <span v-if="card.cardtype==2">{{card.discount}} <i class="coupon-unit">折</i></span>
+                                        <span v-if="card.ctype!=2">{{card.discount}} <i class="coupon-unit">折</i></span>
                                         <span v-else>{{card.exchange/100}}<i class="coupon-unit">元</i></span>
                                     </div>
                                 </div>
@@ -152,6 +152,7 @@ var app = new Vue({
         msgDialog: false,
         lockDialog: false,
         msgText: '',
+        DateUtil:DateUtil,
         lockinfo: {
             password: '',
             confirmPassword: ''
@@ -260,6 +261,7 @@ var app = new Vue({
                     res = res.data;
                     if(res.state == 0){
                         this.cardList = res.obj;
+                        this.memberInfo.cardsize = this.cardList.length;
                     }
 
                     console.log(this.cardList);
@@ -289,6 +291,7 @@ var app = new Vue({
             .then((res)=>{
                 res = res.data;
                 if(res.state == 0){
+                    this.queryMemberCardList();
                     this.$message.success("网费兑换申请成功");
                 }
                 else{

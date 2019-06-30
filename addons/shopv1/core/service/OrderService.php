@@ -331,6 +331,7 @@ class OrderService extends Service{
         $productcash = 0;
         $productwechat = 0;
         $productalipay = 0;
+        $netcardsum = 0;
         
         foreach($orderList as $key=>$value){
             if($value['paytype'] == 0){
@@ -345,10 +346,15 @@ class OrderService extends Service{
                 //ali
                 $productalipay += $value['orderprice'];
             }
+
+            if($value["ordertype"] == OrderType::NetfeeOrder){
+                $netcardsum += $value["orderprice"];
+            }
+
         }
 
         //网费兑换券
-        $netcardsum = $this->cardModel->SumNetCardByDuty($shopid, $starttime, $endtime);
+        //$netcardsum = $this->cardModel->SumNetCardByDuty($shopid, $starttime, $endtime);
         
         $duty['starttime'] = $starttime;
         $duty['endtime'] = time();

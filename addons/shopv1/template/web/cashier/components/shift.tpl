@@ -105,15 +105,15 @@ Vue.component('shift', {
             
             axios.post(url,params)
                     .then((res)=>{
-                res = res.data;
-                if(res.state == 0){
-                    this.duty = res.obj;
-                    this.dutyData[0] = this.duty;
-                }
-                else{
-                    this.$message.success(res.msg);
-                }
-                        });
+                    res = res.data;
+                    if(res.state == 0){
+                        this.duty = res.obj;
+                        this.dutyData[0] = this.duty;
+                    }
+                    else{
+                        this.$message.success(res.msg);
+                    }
+                });
         },
         
         submitDuty:function(){

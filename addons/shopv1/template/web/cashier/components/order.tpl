@@ -98,7 +98,15 @@ Vue.component('order', {
                             this.activeLi = res.obj.length?res.obj[0].id:0;
                             console.log(res.obj);
                             this.order = this.orderlist[0];
-                            this.productlist = JSON.parse(this.order.orderdetail);
+                            this.productlist = [];
+                            try {
+                                if(this.order.orderdetail != null) {
+                                    this.productlist = JSON.parse(this.order.orderdetail);
+                                }
+                            }
+                            catch (Ex){
+
+                            }
                         }
                         else{
                             //this.$message.error(res.msg);
@@ -148,7 +156,16 @@ Vue.component('order', {
                 if(item.id == id){
                     this.order = item;
                     this.activeLi = id;
-                    this.productlist = JSON.parse(this.order.orderdetail);
+                    this.productlist = [];
+                    try {
+                        if(this.order.orderdetail != null) {
+                            this.productlist = JSON.parse(this.order.orderdetail);
+                        }
+                    }
+                    catch (ex){
+
+                    }
+
                     break;
                 }
             }
