@@ -16,6 +16,14 @@ var DateUtil = {
         }
         return moment(time * 1000).format("YYYY-MM-DD HH:mm:ss");
     },
+
+    getHHMM(){
+        return (new Date()).getHours() + ":" + (new Date()).getMinutes();
+    },
+
+    getMM(){
+        return (new Date()).getMinutes();
+    },
     
     timeSpanFrom(time) {
         

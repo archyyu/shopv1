@@ -241,8 +241,18 @@ class ProductController extends \controller\Controller{
 
         $shopid = $this->getParam("shopid");
         $content = $this->getParam("content");
+        $broadcasttype = $this->getParam("broadcasttype");
+        $time = $this->getParam("time");
 
+        $data = array();
+        $data["shopid"] = $shopid;
+        $data["content"] = $content;
+        $data["time"] = $time;
+        $data['broadcasttype'] = $broadcasttype;
 
+        $this->shopBroadCastModel->addBroadCast($data);
+
+        $this->returnSuccess();
     }
 
     public function removeBroadCast(){

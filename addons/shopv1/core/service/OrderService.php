@@ -507,7 +507,8 @@ class OrderService extends Service{
             }
             $this->cardModel->commit();
 
-            $this->printOrder($order);
+            $this->printOrder($this->orderModel->findOrderById($order['id']));
+            //$this->printOrder($order);
             $this->redisService->pushNotify($shopid, "有新的网费兑换订单");
             return true;
 
