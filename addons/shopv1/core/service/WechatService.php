@@ -4,10 +4,21 @@
 namespace service;
 
 
+use model\ShopFans;
+
 class WechatService extends Service{
+
+    private $shopFans;
 
     public function __construct(){
         parent::__construct();
+        $this->shopFans = new ShopFans();
+    }
+
+    public function sendNoticeByUid($uid,$content,$acid){
+
+        $member = $this->shopFans->findFanByUid($uid, $acid);
+        $this->sendNotice($member["openid"],$content,$acid);
     }
 
     public function sendNotice($openid, $content, $acid){

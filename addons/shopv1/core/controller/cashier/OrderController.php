@@ -9,6 +9,8 @@
 namespace controller\cashier;
 
 use common\OrderType;
+use model\ShopMemberCard;
+use service\WechatService;
 
 /**
  * Description of OrderController
@@ -30,6 +32,8 @@ class OrderController extends \controller\Controller{
     private $redisService;
     
     private $memberModel;
+
+    private $cardModel;
     
     public function __construct() {
         parent::__construct();
@@ -40,6 +44,7 @@ class OrderController extends \controller\Controller{
         $this->wechatModel = new \model\WechatAccount();
         $this->redisService = new \service\RedisService();
         $this->memberModel = new \model\ShopMember();
+        $this->cardModel = new ShopMemberCard();
     }
     
     public function createOrder(){
@@ -114,7 +119,11 @@ class OrderController extends \controller\Controller{
         
         //扫码枪
         if($paytype == 3){
-            
+
+            $data = array();
+            $data["paytype"] = OrderType::AliPay;
+            $this->orderModel->saveOrder($data, $orderid);
+
         }
         
         $result = array();
@@ -138,11 +147,12 @@ class OrderController extends \controller\Controller{
         $data = array();
         $data["authcode"] = $code;
         if($result == 0){
-            $data["orderstate"] = 1;
-            $data["orderpay"] = 1;
-            $data["ordertime"] = time();
+
+
+            $this->orderService->payOrder($order["shopid"],$orderid);
+
         }
-        $this->orderModel->saveOrder($data, $orderid);
+        //
         
         $this->returnSuccess($result);
         
@@ -165,6 +175,12 @@ class OrderController extends \controller\Controller{
             $data["orderstate"] = 1;
 
             $this->orderModel->saveOrder($data,$orderid);
+
+            if(isset($order["memberid"])){
+                (new WechatService)->sendNoticeByUid($order["memberid"], "您的订单号为$orderid 的订单已经确认", $order["uniacid"]);
+            }
+
+
             $this->returnSuccess();
 
         }
@@ -267,7 +283,19 @@ class OrderController extends \controller\Controller{
         
         foreach($orderList as $key=>$value){
             
-            $productinfo = json_decode($value['orderdetail']);
+            $productinfo = [];
+
+            try{
+
+                if(isset($value["orderdetail"])) {
+                    $productinfo = json_decode($value['orderdetail']);
+                }
+
+            }
+            catch (\Exception $ex){
+
+            }
+
             
             foreach($productinfo as $key=>$productinfovalue)
             {
@@ -356,11 +384,17 @@ class OrderController extends \controller\Controller{
         $address = $this->getParam("address");
         $uniacid = $this->getUniacid();
         $userid = $this->getParamDefault("userid", 0);
-        
-        $result = $this->orderService->useNetCard($membercardid, $shopid, $uniacid, $userid, $memberid, $source, $address);
 
-        logInfo("notofy:$shopid:有新的网费兑换券");
-        $this->redisService->pushNotify($shopid, "有新的网费兑换订单");
+        $membercard = $this->cardModel->getMemberCard($membercardid);
+
+        if($membercard["ctype"] == 2){
+            $result = $this->orderService->useNetCard($membercardid, $shopid, $uniacid, $userid, $memberid, $source, $address);
+        }
+        else if($membercard['ctype'] == 3){
+            $result = $this->orderService->useProductCard($membercardid, $shopid, $uniacid,$memberid, $source, $address);
+        }
+
+        $this->redisService->pushNotify($shopid, "有新的兑换订单,请查看订单");
         
         if ($result == true) {
             $this->returnSuccess($result);

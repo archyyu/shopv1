@@ -54,6 +54,11 @@ class ProductService extends Service{
         $list = $this->productTypeModel->getProductTypeList($unacid);
         return $list;
     }
+
+    public function getProductById($productId){
+        $product = $this->productModel->findProdudctById($productId);
+        return $product;
+    }
     
     public function getProduct($shopid,$barcode){
         $shop = $this->shopModel->findShopById($shopid);

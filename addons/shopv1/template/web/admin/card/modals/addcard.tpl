@@ -12,7 +12,8 @@
                     </div>
                     <div class="form-group">
                         <label class="control-label col-xs-3">卡券类型：</label>
-                        <p class="form-control-static col-xs-8">商品抵现券</p>
+                        <p name="cardtypename" class="form-control-static col-xs-8">商品抵现券</p>
+                        <input name="cardtype" type="hidden" value="0"/>
                         <input type="hidden" name="cardid" value="0" />
                     </div>
                     <div class="form-group">

@@ -412,6 +412,55 @@ class OrderService extends Service{
         $data['info'] = "支付成功";
         return $data;
     }
+
+    public function useProductCard($membercardid,$shopid,$uniacid,$memberid,$source,$address){
+
+        $membercard = $this->cardModel->getMemberCard($membercardid);
+
+        if(!$membercard || $membercard['ctype'] != 3){
+
+            return false;
+        }
+
+        $member = $this->memberModel->queryMemberByUid($memberid);
+
+        $this->cardModel->beginTransaction();
+        try{
+
+            $this->cardModel->useMemberCard($membercardid);
+
+            $product = $this->productService->getProductById($membercard["productid"]);
+
+            $productcart = array();
+
+            $productcart["productid"] = $product["id"];
+            $productcart["num"] = 1;
+            $productcart["price"] = $product["normalprice"]/100;
+            $productcart["memberprice"] = $product["memberprice"]/100;
+            $productcart["normalprice"] = $product["normalprice"]/100;
+            //$productcart[""];
+            $productcart["productname"] = $product["productname"];
+            $productcart["make"] = $product["make"];
+            $productcart["typeid"] = $product["typeid"];
+
+            $productlist[] = $productcart;
+
+            $orderid = $this->generateProductOrder($uniacid,$memberid,0,$shopid,$address,$productlist,2,"",OrderType::CardPay);
+
+            logInfo("exchange orderid:$orderid");
+
+            $this->payOrder($shopid,$orderid);
+            $this->redisService->pushNotify($shopid, "有新的商品兑换订单");
+            $this->cardModel->commit();
+
+            return true;
+        }
+        catch (\Exception $ex){
+            $this->cardModel->rollback();
+            return false;
+        }
+
+    }
 	
     public function useNetCard($membercardid, $shopid, $uniacid, $userid, $memberid, $source, $address)
     {
@@ -458,7 +507,8 @@ class OrderService extends Service{
             }
             $this->cardModel->commit();
 
-            $this->printOrder($order);
+            $this->printOrder($this->orderModel->findOrderById($order['id']));
+            //$this->printOrder($order);
             $this->redisService->pushNotify($shopid, "有新的网费兑换订单");
             return true;
 

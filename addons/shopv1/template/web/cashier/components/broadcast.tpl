@@ -2,29 +2,28 @@
 <template id="broadcast">
     <div class="broadcast">
         <div class="search-wrap">
-            <div class="call-select">
-                请
-                <el-select v-model="roleVal" placeholder="请选择" size="small">
-                    <el-option v-for="(item,idx) in roleList" :key="item.value" :label="item.label" :value="item.value">
-                    </el-option>
-                </el-select>
-                到
-                <el-autocomplete v-model="placeVal" :fetch-suggestions="getPlaceList" placeholder="请输入内容" size="small">
-                </el-autocomplete>
-                号机器
-                <el-button type="primary" size="small">播 报</el-button>
-            </div>
             <div class="add-broadcast">
                 <el-button type="primary" size="small" @click="showBroadcastDialog()">添加语音</el-button>
             </div>
         </div>
         <el-table :data="broadcastList" size="small" height="calc(100% - 68px)" border>
             <el-table-column label="语音内容" prop="content"></el-table-column>
-            <el-table-column label="播放时间"></el-table-column>
-            <el-table-column label="生效时间"></el-table-column>
+            <el-table-column label="播放时间">
+                <template slot-scope="scope">
+                    <span v-if="scope.row.broadcasttype==2">整点</span>
+                    <span v-else>{{ scope.row.time }}</span>
+                </template>
+            </el-table-column>
+            <el-table-column label="生效时间">
+                <template slot-scope="scope">
+                    <span v-if="scope.row.broadcasttype==2">{{ scope.row.time }}</span>
+                    <span v-else>全天</span>
+                </template>
+            </el-table-column>
             <el-table-column label="是否启用"></el-table-column>
                 <template slot-scope="scope">
-                    <el-tag size="small"></el-tag>
+                    <el-tag type="success" size="small" v-if="scope.row.enable==0">启用</el-tag>
+                    <el-tag type="danger" size="small" v-else>未启用</el-tag>
                 </template>
             </el-table-column>
             <el-table-column label="操作">
@@ -173,7 +172,7 @@ Vue.component('broadcast', {
 
             } else {
                 this.broadcastForm = {
-                    type: '',
+                    broadcasttype: '',
                     time: '',
                     content: ''
                 }
@@ -184,7 +183,9 @@ Vue.component('broadcast', {
         addBroadcast() {
             let url = UrlHelper.createUrl('product', 'addBroadCast');
             let params = Store.createParams();
+            params.broadcasttype = this.broadcastForm.broadcasttype;
             params.content = this.broadcastForm.content;
+            params.time = this.broadcastForm.time;
 
             axios.post(url, params)
             .then(res=>{
