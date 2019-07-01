@@ -25,7 +25,7 @@
         </el-tab-pane>
         <el-tab-pane name="broadcast">
             <span slot="label"><iconfont iconclass="icon-xingxiaoxiaoguo"></iconfont> 语音播报</span>
-            <broadcast></broadcast>
+            <broadcast :list="broadcastList"></broadcast>
         </el-tab-pane>
         <el-tab-pane name="shift">
             <span slot="label"><iconfont iconclass="icon-shouzhiliushuizhang"></iconfont> 交班</span>

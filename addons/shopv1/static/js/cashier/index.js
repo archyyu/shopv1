@@ -53,7 +53,7 @@ var app = new Vue({
 
         queryBroadCastList:function(){
 
-            let url = UrlHelper.createUrl("product","getBroadcastList");
+            let url = UrlHelper.createUrl('product', 'loadBroadCastList');
             let params = Store.createParams();
 
             axios.post(url,params)
