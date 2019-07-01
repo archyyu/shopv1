@@ -119,7 +119,11 @@ class OrderController extends \controller\Controller{
         
         //扫码枪
         if($paytype == 3){
-            
+
+            $data = array();
+            $data["paytype"] = OrderType::AliPay;
+            $this->orderModel->saveOrder($data, $orderid);
+
         }
         
         $result = array();
@@ -143,11 +147,12 @@ class OrderController extends \controller\Controller{
         $data = array();
         $data["authcode"] = $code;
         if($result == 0){
-            $data["orderstate"] = 1;
-            $data["orderpay"] = 1;
-            $data["ordertime"] = time();
+
+
+            $this->orderService->payOrder($order["shopid"],$orderid);
+
         }
-        $this->orderModel->saveOrder($data, $orderid);
+        //
         
         $this->returnSuccess($result);
         
