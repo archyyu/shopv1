@@ -1,12 +1,19 @@
 <script type="text/x-template" id="waterbar">
 {literal}
     <div class="waterbar-content">
-        <el-button-group class="btn-nav-group">
+        <div class="btn-nav-group">
             <el-radio-group v-model="firstPaneShow" size="small">
                 <el-radio-button label="sale">商品销售</el-radio-button>
                 <el-radio-button label="material">原料管理</el-radio-button>
             </el-radio-group>
-        </el-button-group>
+            <div class="search" v-if="searchShow">
+                <el-input
+                    v-model="ProSearch" 
+                    placeholder="查询商品" 
+                    size="mini"
+                    prefix-icon="el-icon-search"></el-input>
+            </div>
+        </div>
         <div class="sub-pane sale" v-if="firstPaneShow == 'sale'">
             <el-row :gutter="15">
                 <el-col :span="4" class="sale-list">
@@ -169,6 +176,8 @@ Vue.component('waterbar', {
     template: '#waterbar',
     data() {
         return {
+            ProSearch: '',
+            searchShow: true,
             firstPaneShow: 'sale',
             editBtnShow: true,
             orderState : -1,
@@ -186,6 +195,15 @@ Vue.component('waterbar', {
             cartMain: true,
             queryname:"",
         };
+    },
+    watch: {
+        firstPaneShow: function(val){
+            if(val == 'sale'){
+                this.searchShow = true;
+            }else{
+                this.searchShow = false;
+            }
+        }
     },
     created: function () {
         this.queryTypeList();

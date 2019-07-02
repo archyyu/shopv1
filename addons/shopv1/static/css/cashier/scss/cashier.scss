@@ -94,9 +94,17 @@ body,
       .btn-nav-group {
         display: flex;
         justify-content: center;
+        position: relative;
+        margin-bottom: 10px;
 
         +.sub-pane {
-          height: calc(100% - 32px);
+          height: calc(100% - 42px);
+        }
+
+        .search{
+          position: absolute;
+          right: 0;
+          top: 0;
         }
       }
 

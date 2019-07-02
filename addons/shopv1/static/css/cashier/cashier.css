@@ -91,10 +91,18 @@ body,
   -webkit-box-pack: center;
       -ms-flex-pack: center;
           justify-content: center;
+  position: relative;
+  margin-bottom: 10px;
 }
 
 .el-tabs__content .el-tab-pane > div .btn-nav-group + .sub-pane {
-  height: calc(100% - 32px);
+  height: calc(100% - 42px);
+}
+
+.el-tabs__content .el-tab-pane > div .btn-nav-group .search {
+  position: absolute;
+  right: 0;
+  top: 0;
 }
 
 .el-scrollbar {
