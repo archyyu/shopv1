@@ -460,8 +460,8 @@ Vue.component('waterbar', {
                         console.log(res);
                         if(res.state == 0){
                             let product = res.obj;
-                            this.addCart(product.id,product.productname,product.memberprice,product.inventory,product.make,product.typeid);
-                            
+                            this.addCart(product);
+
                         }
                         else{
                             this.$message.error("商品不存在");
