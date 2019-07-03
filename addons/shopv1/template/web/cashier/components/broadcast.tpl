@@ -105,7 +105,7 @@ Vue.component('broadcast', {
             broadcastForm: {
                 broadcasttype: '',
                 time: '',
-                content: ''
+                content: '',
             },
             broadcastVisible: false,
             typeSelect: '0',

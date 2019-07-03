@@ -295,7 +295,14 @@ class OrderService extends Service{
     public function printOrder($order){
         
         $order["shopname"] = $this->shopModel->findShopById($order['shopid'])["shopname"];
-        $order["username"] = $this->userModel->getShopUserById($order['userid'])['username'];
+
+        try{
+            $order["username"] = $this->userModel->getShopUserById($order['userid'])['username'];
+        }
+        catch(\Exception $ex){
+
+        }
+
         
         
         $this->redisService->pushPrintMsg($order);
@@ -484,7 +491,7 @@ class OrderService extends Service{
             $order = array();
             $order['id'] = $this->generateOrderId();
             $order['shopid'] = $shopid;
-            $order['uniacid'] = $uniacid;
+            $order['uniacid'] = $member["uniacid"];
             $order['createtime'] = time();
             $order['paytime'] = time();
             $order['ordersource'] = $source;

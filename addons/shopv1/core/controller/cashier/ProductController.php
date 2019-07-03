@@ -243,16 +243,12 @@ class ProductController extends \controller\Controller{
         $content = $this->getParam("content");
         $broadcasttype = $this->getParam("broadcasttype");
         $time = $this->getParam("time");
-        $timestart = $this->getParam("timestart");
-        $timeend = $this->getParam("timeend");
 
         $data = array();
         $data["shopid"] = $shopid;
         $data["content"] = $content;
         $data["time"] = $time;
         $data['broadcasttype'] = $broadcasttype;
-        $data["timestart"] = $timestart;
-        $data["timeend"] = $timeend;
 
         $this->shopBroadCastModel->addBroadCast($data);
 

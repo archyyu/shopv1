@@ -52,6 +52,7 @@
             </el-row>
             <div class="shift-data-footer">
                 <el-button type="primary" @click="submitDuty()" size="small">交班</el-button>
+                <el-button type="primary" @click="printDuty()" size="small">打印</el-button>
             </div>
         </div>
         <div class="sub-pane shift-product"  v-else>
@@ -77,6 +78,10 @@ Vue.component('shift', {
             Store:Store,
             DateUtil:DateUtil,
             duty:{
+                shopname:"",
+                username:"",
+                startdate:"",
+                enddate:"",
                 starttime:0,
                 endtime:0,
                 productcash:0,
@@ -114,6 +119,18 @@ Vue.component('shift', {
                         this.$message.success(res.msg);
                     }
                 });
+        },
+
+        printDuty:function(){
+
+            this.duty.startdate = DateUtil.parseTimeInYmdHms(this.duty.starttime);
+            this.duty.enddate = DateUtil.parseTimeInYmdHms(this.duty.endtime);
+            this.duty.shopname = Store.shopInfo.shopname;
+            this.duty.username = Store.userInfo.account;
+
+
+            cashier.printDuty(JSON.stringify(this.duty));
+
         },
         
         submitDuty:function(){

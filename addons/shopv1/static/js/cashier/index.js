@@ -81,7 +81,7 @@ var app = new Vue({
                 else if(item.broadcasttype == 2){
                     //整点
                     let now = DateUtil.getHHMM();
-                    if(DateUtil.getMM() == 0 && now >= item.timestart && now <= item.timeend){
+                    if(DateUtil.getMM() == 0 && now >= item.time.split("-")[0] && now <= item.time.split("-")[1]){
                         cashier.player(item.content);
                     }
                 }
