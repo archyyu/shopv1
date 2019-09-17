@@ -3,11 +3,11 @@ defined('IN_IA') or exit('Access Denied');
 
 $config = array();
 
-$config['db']['master']['host'] = 'rm-m5e586b789meia208ho.mysql.rds.aliyuncs.com';
-$config['db']['master']['username'] = 'shopv1';
-$config['db']['master']['password'] = 'Pinshang123456';
-$config['db']['master']['port'] = '3306';
-$config['db']['master']['database'] = 'shopv1';
+$config['db']['master']['host'] = 'rm-m5e586b789eia208ho.mysql.rds.aliyuncs.com';
+$config['db']['master']['username'] = 'shop1';
+$config['db']['master']['password'] = 'Pinhang123456';
+$config['db']['master']['port'] = '336';
+$config['db']['master']['database'] = 'shov1';
 $config['db']['master']['charset'] = 'utf8';
 $config['db']['master']['pconnect'] = 0;
 $config['db']['master']['tablepre'] = 'ims_';
