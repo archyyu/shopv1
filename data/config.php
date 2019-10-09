@@ -3,7 +3,7 @@ defined('IN_IA') or exit('Access Denied');
 
 $config = array();
 
-$config['db']['master']['host'] = 'rm-m5e586b789eia208ho.mysql.rds.aliyuncs.com';
+$config['db']['master']['host'] = '127.0.0.1';
 $config['db']['master']['username'] = 'shop1';
 $config['db']['master']['password'] = 'Pinhang123456';
 $config['db']['master']['port'] = '336';
